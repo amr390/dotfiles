@@ -1,0 +1,58 @@
+(function(){
+    "use strict";
+
+    angular.module("vatbook.directives").directive("vbContributorSummary", function(){
+        return {
+            replace : true,
+            transclude : false,
+            scope : {
+                contributor: '=',
+            },
+            templateUrl:"/static/vatbook/views/summary/contributorSummary.html",
+        	link : function(scope, element, attr){
+                console.log("inside of link function");
+                        }
+        };
+    });
+
+}());
+
+
+  //var mockIncSummary = {
+            //invoiceId:"",
+            //conceptName:"",
+            //vatType:"",
+            //vatCost:"",
+            //totalCost:""
+        //},
+        //mockTaxSummary = {
+            //invoiceId:"",
+            //conceptName:"",
+            //vatType:"",
+            //percVat:"",
+            //effectiveCost:"",
+            //totalCost:""
+        //},
+        //mockYear = {
+            //t1:{
+                //incomes:[mockIncSummary],
+                //taxes:[mockTaxSummary],
+            //},
+            //t2:{
+                //incomes:[mockIncSummary],
+                //taxes:[mockTaxSummary],
+            //},
+            //t3:{
+                //incomes:[mockIncSummary],
+                //taxes:[mockTaxSummary],
+            //},
+            //t4:{
+                //incomes:[mockIncSummary],
+                //taxes:[mockTaxSummary],
+            //},
+        //},
+        //mockCont = [
+            //mockYear //, mockyear2, mockyear3
+        //],
+        //mockContList = [mockCont];
+

@@ -1,0 +1,66 @@
+package be.cipal.styx.address.domain.api;
+
+import java.util.Set;
+
+import be.cipal.common.persistence.IdentifiableEntity;
+
+/**
+ * @author amr
+ *
+ */
+public interface AreaType extends IdentifiableEntity {
+
+	/**
+	 *
+	 * @return The area type code
+	 */
+	public String getCode();
+
+	/**
+	 *
+	 * Sets the area type code
+	 *
+	 * @param name
+	 */
+	public void setCode(String code);
+
+	/**
+	 * Gets area type name in all languages
+	 * @return
+	 */
+	public MultilanguageProvider getNameProvider();
+
+    /**
+	 * Sets area type name in all languages
+	 * @param provider
+	 */
+	public void getNameProvider(MultilanguageProvider provider);
+
+	/**
+	 * Gets area type description in all languages
+	 * @return
+	 */
+	public MultilanguageProvider getDescriptionProvider();
+
+    /**
+	 * Sets area type description in all languages
+	 * @param provider
+	 */
+	public void getDescriptionProvider(MultilanguageProvider provider);
+
+
+    /**
+	 * Adds an area type to the list of area types in a container
+	 */
+	public void addAreaTypeToContainer(AreaType areaType);
+
+
+	/**
+	 * Gets a list of area types belonging to a container.
+	 *
+	 * @param areaTye
+	 *            Area we want to get from container
+	 */
+	public Set<? extends AreaType> getAreaTypeWithinContainer();
+
+}

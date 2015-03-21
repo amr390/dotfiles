@@ -1,0 +1,88 @@
+(function(){
+    /*jshint unused: vars */
+    'use strict';
+
+    angular.module('vatbook.services', []);
+    angular.module('vatbook.controllers', ['vatbook.services']);
+
+    var httpHeaders,
+    message,
+    vatbook = angular.module('vatbook.app', ['vatbook.controllers' , 'vatbook.services', /*angJSDeps*/ //'ngCookies', //'ngResource', //'ngSanitize',
+                         'ngRoute', 'ngCookies' ]);
+
+    var requireAnyRole = function (roles) {
+        return ['$q', 'authentication', '$rootScope', '$location', '$route',
+            function ($q, authentication, $rootScope, $location, $route) {
+
+                return $q.when(authentication).then(function (auth) {
+                    if (auth.hasAnyRole(roles)) {
+                        return roles;
+                    }
+
+                    if (auth.isAuthenticated()) {
+                        // already authenticated, insufficient privileges
+                        $rootScope.$broadcast('event:insufficient-privileges', {
+                            requiredRoles: roles
+                        });
+                    } else {
+                        // not authenticated, redirect to login
+                        $rootScope.$broadcast('event:authentication-required');
+                        $rootScope.$rejectedRoute_url = $location.url();
+                        $location.path('/login');
+                    }
+
+                    return $q.reject(roles);
+                });
+            }]
+    };
+
+    var httpErrorInterceptor = ['$rootScope', '$q', function ($rootScope, $q) {
+        function success(response) {
+            return response;
+        }
+
+        function error(response) {
+            if (!response.config.ignoreHttpError) {
+                $rootScope.$broadcast('event:http-error', response);
+            }
+
+            return $q.reject(response);
+        }
+
+        return function (promise) {
+            return promise.then(success, error);
+        }
+
+    }];
+
+    vatbook.value('$strapConfig', {
+        datepicker: {
+            language: 'en',
+            format: 'yyyy-mm-dd',
+            todayHighlight: true
+        }
+    });
+
+
+    vatbook.config( function ($routeProvider, $httpProvider, $interpolateProvider) {
+                $routeProvider
+                .when("/register", {
+                    controller: 'RegisterController',
+                    controllerAs: 'vm',
+                    templateUrl: '/static/templates/authentication/register.html'
+                })
+                .when("/oky", {
+                    controller: "AppController",
+                    templateUrl: "views/Main.html"
+                });
+                .otherwise( {
+                    redirectTo: "/"
+                });
+
+                $httpProvider.interceptors.push(httpErrorInterceptor);
+                $interpolateProvider.startSymbol('[[');
+                $interpolateProvider.endSymbol(']]');
+            }
+    );
+
+}());

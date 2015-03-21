@@ -1,0 +1,25 @@
+//@Grab(group='org.codehaus.groovy.modules', module='groovyws', version='0.5.2')
+//import groovyx.net.ws.WSClient
+//
+//proxy = new WSClient("http://crab.agiv.be/wscrab/WsCrab.svc?wsdl", this.class.classLoader)
+//proxy.initialize()
+
+//result = proxy.listGemeentenByGewestId(1, new Integer(1))
+//println "You are probably freezing at ${result} degrees Farhenheit"
+
+@Grab(group='com.github.groovy-wslite', module='groovy-wslite', version='0.8.0')
+import wslite.soap.*
+
+def client = new SOAPClient('http://crab.agiv.be/wscrab/WsCrab.svc')
+def response = client.send(SOAPAction: 'http://ws.agiv.be/crabws/ListGemeentenByGewestId'){
+    body{
+        ListGemeentenByGewestId('xmlns': 'http://ws.agiv.be/crabws'){
+            GewestId(1)
+            SorteerVeld(new Integer(1))
+        }
+    }
+}
+
+def rsize = response.ListGemeentenByGewestIdResponse.ListGemeentenByGewestIdResult.GemeenteItem
+
+println "response size ${rsize}"

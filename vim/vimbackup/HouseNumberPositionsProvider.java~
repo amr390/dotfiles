@@ -1,0 +1,18 @@
+package be.cipal.styx.entrypoint.ws.impl;
+
+import javax.jws.WebParam;
+import javax.jws.WebService;
+
+import be.cipal.styx.entrypoint.ws.api.model.housenumberpositions.request.HouseNumberPositionsRequestWS;
+import be.cipal.styx.entrypoint.ws.api.model.housenumberpositions.response.HouseNumberPositionsResponseWS;
+
+@WebService(name = "HouseNumberPositionsProvider", targetNamespace = "http://impl.ws.entrypoint.styx.cipal.be/")
+public interface HouseNumberPositionsProvider {
+
+	/* (non-Javadoc)
+	 * @see be.cipal.styx.entrypoint.ws.api.HouseNumberPositionProvider#listHouseNumberPositions(be.cipal.styx.entrypoint.ws.api.model.housenumberpositions.request.HouseNumberPositionsRequestWS)
+	 */
+	public HouseNumberPositionsResponseWS listHouseNumberPositions(
+			@WebParam(name = "arg0") HouseNumberPositionsRequestWS request);
+
+}

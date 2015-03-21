@@ -1,0 +1,48 @@
+(function(){
+    'use strict';
+
+    angular.module('vatbook.services')
+    .factory('IncomeInvoiceApi', ['$resource', function($resource){
+        var Endpoint = $resource('/vatbook/invoice/income/:id', {id: '@_id'},{
+            update:{
+                method: 'PUT'
+            }
+        }),
+        repository = {};
+
+        repository.list = function(){
+            return Endpoint.query().$promise;
+        };
+
+        repository.save = function(data){
+            var item = new Endpoint(data);
+            return item.$save();
+        };
+
+        repository.update = function(data){
+            var item = Endpoint.get({id:data.id});
+            item.invoice_number = data.invoice_number;
+            item.concept = data.concept;
+            item.contributor = data.contributor;
+            item.date_issue = data.date_issue;
+            item.date_listing = data.date_listing;
+            item.base_cost = data.base_cost;
+            item.vat_cost = data.vat_cost;
+            item.tax_cost = data.tax_cost;
+            item.total_cost = data.total_cost;
+
+            // TODO: add jquery extends instead of manual
+            return item.$update({id:data.id});
+        };
+
+        repository.get = function(id){
+            return Endpoint.get({id:id}).$promise;
+        };
+
+        repository.remove = function(id){
+            return Endpoint.delete({id:id}).$promise;
+        };
+
+        return repository;
+    }]);
+}());

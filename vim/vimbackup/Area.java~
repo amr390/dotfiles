@@ -1,0 +1,73 @@
+package be.cipal.styx.address.domain.api;
+
+import java.util.Date;
+import java.util.Set;
+
+import be.cipal.common.persistence.IdentifiableEntity;
+
+/**
+ * <b>Class: Area </b>
+ * <p>
+ * Description: Defines de interface for the Area entity
+ * </p>
+ *
+ * @author amr
+ *
+ */
+public interface Area extends IdentifiableEntity {
+
+	/**
+	 *
+	 * @return The area type matching this area entity
+	 */
+	public AreaType getAreaType();
+
+	/**
+	 *
+	 * Sets the area type matching this area entity
+	 *
+	 * @param areaType
+	 */
+	public void setAreaType(AreaType areaType);
+
+    /**
+     * Gets the multilanguage name rovider
+     * @return
+     */
+    public void setNameProvider(MultilanguageProvider provider);
+
+     /**
+     * Sets the multilanguage name rovider
+     * @param provider
+     */
+    public void setNameProvider(MultilanguageProvider provider);
+
+	/**
+	 *
+	 * @return The creation date for Styx area.
+	 */
+	public Date getStartDate();
+
+	/**
+	 *
+	 * Sets the creation date for the area entity into Styx.
+	 *
+	 * @param startDate
+	 */
+	public void setStartDate(Date startDate);
+
+	/**
+	 *
+	 * @return ¿¿¿???The date when area entity was removed from Styx
+	 */
+	// TODO: Ask for the endDate real meaing.
+	public Date getEndDate();
+
+	/**
+	 * Sets the date when area entity was removed from Styx
+	 *
+	 * @param endDate
+	 */
+	public void setEndDate(Date endDate);
+
+}

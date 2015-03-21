@@ -1,0 +1,1089 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<project xmlns="http://maven.apache.org/POM/4.0.0" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:schemaLocation="http://maven.apache.org/POM/4.0.0 http://maven.apache.org/xsd/maven-4.0.0.xsd">
+    <modelVersion>4.0.0</modelVersion>
+    <parent>
+        <artifactId>styx-parent-osgi</artifactId>
+        <groupId>be.cipal</groupId>
+        <version>1.13.0.02</version>
+    </parent>
+    <!-- groupId en version should remain here because pax plugin otherwise executes on wrong pom level -->
+    <artifactId>styx-runner</artifactId>
+    <packaging>pom</packaging>
+    <modules>
+        <module>provision</module>
+        <module>exploded-application-bundles</module>
+        <!-- keep the distribution module as last one, so that it will be ran last by maven in order to
+            have the pax-runner ran first before the bundles can get assembled -->
+        <module>distribution</module>
+    </modules>
+    <properties>
+        <deployment.environment>TEST</deployment.environment>
+        <http.port>8888</http.port>
+<!--        <http.proxy>styx.deploy.test</http.proxy> -->
+        <session.timeout>30</session.timeout>
+        <context.path>/ini</context.path>
+        <suite.url>suite</suite.url>
+        <workflow.url>workflow</workflow.url>
+        <log.level>INFO</log.level>
+        <styx.log.level>INFO</styx.log.level>
+        <atomikos.log.level>WARN</atomikos.log.level>
+        <communication.log.level>DEBUG</communication.log.level>
+        <jersey.log.level>WARN</jersey.log.level>
+        <springintegration.log.level>INFO</springintegration.log.level>
+        <activemq.log.level>WARN</activemq.log.level>
+        <jaxrs.root.path>rest</jaxrs.root.path>
+        <jaxws.root.path>services</jaxws.root.path>
+
+		<tx.checkpoint.interval>100</tx.checkpoint.interval>
+        <felix.cache.dir>felix-cache</felix.cache.dir>
+		<security.idp>CIPAL</security.idp>
+		<security.cipaladmin.hashedpassword>d033e22ae348aeb5660fc2140aec35850c4da997</security.cipaladmin.hashedpassword>
+		<security.porta.menu>http://distr-java-01.int.cipal.be/porta/menu/</security.porta.menu>
+		<security.porta.endpointAuthentication>http://distr-java-01.int.cipal.be:8000/porta/services/authentication</security.porta.endpointAuthentication>
+		<security.porta.endpointPorta>http://distr-java-01.int.cipal.be:8000/porta/services/portaService</security.porta.endpointPorta>
+		<security.porta.operationAuthenticate>bestuurAuthenticate</security.porta.operationAuthenticate>
+		<security.porta.operationGetUsersFromApplication>getUsersFromApplication</security.porta.operationGetUsersFromApplication>
+		<security.porta.codeBestuur>DISTR</security.porta.codeBestuur>
+        <security.federation.audienceitem>https://app2.fbdev.fb.vlaanderen.be/</security.federation.audienceitem>
+        <security.federation.keystorelocation>D:/temp/truststore.jks</security.federation.keystorelocation>
+        <security.federation.keystorepassword>testtest</security.federation.keystorepassword>
+        <security.federation.keystoretype>JKS</security.federation.keystoretype>
+        <security.federation.protocolissuer>https://adfs-portal.fbdev.fb.vlaanderen.be/adfs/ls/</security.federation.protocolissuer>
+        <security.federation.protocolrealm>https://app2.fbdev.fb.vlaanderen.be/vfp-menu</security.federation.protocolrealm>
+        <security.federation.idp.logout.url>https://adfs-portal.fbdev.fb.vlaanderen.be/adfs/ls/?wa%3dwsignout1.0</security.federation.idp.logout.url>
+
+        <security.federation.ldap.contextsource.providerurl>ldap\://localhost\:10389/dc\=FBDEV,dc\=fb,dc\=vlaanderen,dc\=be</security.federation.ldap.contextsource.providerurl>
+        <security.federation.ldap.contextsource.userdn>uid\=admin,ou\=system</security.federation.ldap.contextsource.userdn>
+        <security.federation.ldap.contextsource.password>secret</security.federation.ldap.contextsource.password>
+        <security.federation.ldap.usersearch.searchbase>ou\=Users,ou\=win7</security.federation.ldap.usersearch.searchbase>
+		<security.federation.ldap.usersearch.searchfilter>uid\={0}</security.federation.ldap.usersearch.searchfilter>
+		<security.federation.ldap.groupsearch.searchbase>ou\=Groepen,ou\=Portaal Ambtenaar,ou\=Application Groups,ou\=Groups</security.federation.ldap.groupsearch.searchbase>
+		<security.federation.ldap.groupsearch.searchfilter>member\={0}</security.federation.ldap.groupsearch.searchfilter>
+		<security.federation.ldap.groupsearch.roleattribute>cn</security.federation.ldap.groupsearch.roleattribute>
+		<security.federation.ldap.groupsearch.searchsubtree>true</security.federation.ldap.groupsearch.searchsubtree>
+
+
+		<!-- Set params for config files -->
+
+        <!-- crab config -->
+        <crab.service.pid>crab</crab.service.pid>
+        <crab.url>http://crab.agiv.be/wscrab/WsCrab.svc</crab.url>
+        <crab.connecttimeout.milliseconds>50000</crab.connecttimeout.milliseconds>
+        <crab.receivetimeout.milliseconds>50000</crab.receivetimeout.milliseconds>
+
+		<!-- batch config -->
+        <directory.bailiff.diam>/diam</directory.bailiff.diam>
+        <batch.service.pid>batch</batch.service.pid>
+        <batch.slave.default.transaction-timeout>${batch.fallback.slave.transaction-timeout}</batch.slave.default.transaction-timeout>
+		<batch.slave.fin-import-coda-job.transaction-timeout>86000</batch.slave.fin-import-coda-job.transaction-timeout>
+		<batch.slave.fin-report-holdfile-job.transaction-timeout>3600</batch.slave.fin-report-holdfile-job.transaction-timeout>
+		<batch.slave.link-taxedelement-register-job.transaction-timeout>1200</batch.slave.link-taxedelement-register-job.transaction-timeout>
+		<batch.slave.import-vatdata-job.transaction-timeout>1200</batch.slave.import-vatdata-job.transaction-timeout>
+		<batch.master.poolSize>${batch.fallback.master.poolSize}</batch.master.poolSize>
+        <batch.slave.concurrentConsumers>${batch.fallback.slave.concurrentConsumers}</batch.slave.concurrentConsumers>
+
+        <importvlabel.service.pid>import-vlabel</importvlabel.service.pid>
+        <importvlabel.isAuto>false</importvlabel.isAuto>
+
+        <!-- bdb config -->
+		<bdb.service.pid>bdb</bdb.service.pid>
+		<bdb.themis.soap.url>http://themisserver.domain.com/orws/services/OrWS</bdb.themis.soap.url>
+		<bdb.themis.user>UNKNOWN</bdb.themis.user>
+		<bdb.themis.password>UNKNOWN</bdb.themis.password>
+		<bdb.themis.session.timeout>86400</bdb.themis.session.timeout>
+		<bdb.themis.session.idleTimeout>3600</bdb.themis.session.idleTimeout>
+		<bdb.themis.logon.retries>4</bdb.themis.logon.retries>
+		<bdb.themis.logon.retryTimeout>4000</bdb.themis.logon.retryTimeout>
+		<bdb.themis.cache.expiration>43200</bdb.themis.cache.expiration>
+		<bdb.ftp.host>localhost</bdb.ftp.host>
+		<bdb.ftp.port>21</bdb.ftp.port>
+		<bdb.ftp.username>csf</bdb.ftp.username>
+		<bdb.ftp.password />
+		<bdb.ftp.pathtofilethemis />
+		<bdb.ftp.pathtofilecsf>/partybulk/</bdb.ftp.pathtofilecsf>
+
+		<!-- cmis config -->
+		<cmis.service.pid>cmis</cmis.service.pid>
+		<cmis2.service.pid>cmis2</cmis2.service.pid>
+		<cmis3.service.pid>cmis3</cmis3.service.pid>
+		<cmis4.service.pid>cmis4</cmis4.service.pid>
+		<cmis5.service.pid>cmis5</cmis5.service.pid>
+
+		<!-- utility config -->
+		<utility.service.pid>utility</utility.service.pid>
+
+		<!-- cocon config -->
+		<cocon.service.pid>cocon</cocon.service.pid>
+		<cocon2.service.pid>cocon2</cocon2.service.pid>
+		<cocon3.service.pid>cocon3</cocon3.service.pid>
+		<cocon4.service.pid>cocon4</cocon4.service.pid>
+		<cocon5.service.pid>cocon5</cocon5.service.pid>
+		<cocon6.service.pid>cocon6</cocon6.service.pid>
+		<cocon7.service.pid>cocon7</cocon7.service.pid>
+		<cocon8.service.pid>cocon8</cocon8.service.pid>
+		<cocon9.service.pid>cocon9</cocon9.service.pid>
+
+		<!-- com.eclipsesource.jaxrs.connector config -->
+		<com.eclipsesource.jaxrs.connector.service.pid>com.eclipsesource.jaxrs.connector</com.eclipsesource.jaxrs.connector.service.pid>
+		<com.eclipsesource.jaxrs.connector.root>/${jaxrs.root.path}</com.eclipsesource.jaxrs.connector.root>
+
+		<!-- csf-application config -->
+		<csf-application.service.pid>csf-application</csf-application.service.pid>
+		<csf-application.application.theme>vlaams</csf-application.application.theme>
+
+		<!-- datasource config -->
+        <datasource.service.pid>datasource</datasource.service.pid>
+
+		<!-- drools config -->
+		<drools.service.pid>drools</drools.service.pid>
+		<drools.rules.path>../rules</drools.rules.path>
+
+		<!-- jaxws config -->
+		<jaxws.service.pid>jaxws</jaxws.service.pid>
+
+		<!-- jms config -->
+        <jms.service.pid>jms</jms.service.pid>
+
+        <!-- common.communication config -->
+        <common.communication.service.pid>csf-common-communication</common.communication.service.pid>
+
+		<!-- jms-refdb config -->
+		<jms-refdb.service.pid>jms-refdb</jms-refdb.service.pid>
+
+		<!-- jta config -->
+		<jta.service.pid>jta</jta.service.pid>
+		<jta.com.atomikos.icatch.service>com.atomikos.icatch.standalone.UserTransactionServiceFactory</jta.com.atomikos.icatch.service>
+		<jta.com.atomikos.icatch.max_actives>-1</jta.com.atomikos.icatch.max_actives>
+		<jta.com.atomikos.icatch.max_timeout>86400000</jta.com.atomikos.icatch.max_timeout>
+
+		<!-- mail config -->
+		<mail.service.pid>mail</mail.service.pid>
+		<mail.hostname>smarthost.mx.cipal.be</mail.hostname>
+		<mail.from.personal>CSF Mail system</mail.from.personal>
+		<mail.from>no_reply</mail.from>
+		<mail.to>csf@cipal.be</mail.to>
+		<mail.port>25</mail.port>
+		<mail.charset>UTF-8</mail.charset>
+		<mail.connectiontimeout>30000</mail.connectiontimeout>
+
+		<!-- migration config -->
+		<migration.service.pid>migration</migration.service.pid>
+
+        <!-- org.ops4j.pax.logging -->
+		<org.ops4j.pax.logging.log4j.appender.styxFile>org.apache.log4j.DailyRollingFileAppender</org.ops4j.pax.logging.log4j.appender.styxFile>
+		<org.ops4j.pax.logging.log4j.appender.styxFile.DatePattern>'.'yyyy-MM-dd'.log'</org.ops4j.pax.logging.log4j.appender.styxFile.DatePattern>
+		<org.ops4j.pax.logging.log4j.appender.styxFile.layout>org.apache.log4j.PatternLayout</org.ops4j.pax.logging.log4j.appender.styxFile.layout>
+		<org.ops4j.pax.logging.log4j.appender.styxFile.layout.ConversionPattern>%d{yyyy-MM-dd\ HH:mm:ss,SSS}\ -\ [STYX]\ %-5p\ -\ %m%n</org.ops4j.pax.logging.log4j.appender.styxFile.layout.ConversionPattern>
+		<org.ops4j.pax.logging.log4j.appender.styxFile.File>logs/styx.log</org.ops4j.pax.logging.log4j.appender.styxFile.File>
+		<org.ops4j.pax.logging.log4j.appender.styxFile.append>true</org.ops4j.pax.logging.log4j.appender.styxFile.append>
+        <org.ops4j.pax.logging.log4j.logger.be.cipal.styx>${styx.log.level},styxFile</org.ops4j.pax.logging.log4j.logger.be.cipal.styx>
+        <org.ops4j.pax.logging.log4j.additivity.be.cipal.styx>false</org.ops4j.pax.logging.log4j.additivity.be.cipal.styx>
+        <org.ops4j.pax.logging.log4j.logger.org.hibernate>${log.level},stdout</org.ops4j.pax.logging.log4j.logger.org.hibernate>
+
+
+		<org.ops4j.pax.logging.service.pid>org.ops4j.pax.logging</org.ops4j.pax.logging.service.pid>
+		<org.ops4j.pax.logging.log4j.rootLogger>${log.level},stdout</org.ops4j.pax.logging.log4j.rootLogger>
+		<org.ops4j.pax.logging.log4j.appender.stdout>org.apache.log4j.ConsoleAppender</org.ops4j.pax.logging.log4j.appender.stdout>
+		<org.ops4j.pax.logging.log4j.appender.stdout.layout>org.apache.log4j.PatternLayout</org.ops4j.pax.logging.log4j.appender.stdout.layout>
+		<org.ops4j.pax.logging.log4j.appender.stdout.layout.ConversionPattern>%d{yyyy-MM-dd\ HH:mm:ss,SSS}\ -\ [CSF]\ %-5p\ -\ %m%n</org.ops4j.pax.logging.log4j.appender.stdout.layout.ConversionPattern>
+		<org.ops4j.pax.logging.log4j.logger.org.eclipse.persistence>${log.level},eclipselink</org.ops4j.pax.logging.log4j.logger.org.eclipse.persistence>
+		<org.ops4j.pax.logging.log4j.additivity.org.eclipse.persistence>false</org.ops4j.pax.logging.log4j.additivity.org.eclipse.persistence>
+		<org.ops4j.pax.logging.log4j.appender.eclipselink>org.apache.log4j.ConsoleAppender</org.ops4j.pax.logging.log4j.appender.eclipselink>
+		<org.ops4j.pax.logging.log4j.appender.eclipselink.layout>org.apache.log4j.PatternLayout</org.ops4j.pax.logging.log4j.appender.eclipselink.layout>
+		<org.ops4j.pax.logging.log4j.appender.eclipselink.layout.ConversionPattern>%d{yyyy-MM-dd\ HH:mm:ss,SSS}\ -\ [EL]\ %-5p\ -\ %m%n</org.ops4j.pax.logging.log4j.appender.eclipselink.layout.ConversionPattern>
+		<org.ops4j.pax.logging.log4j.logger.com.atomikos>${atomikos.log.level}, stdout</org.ops4j.pax.logging.log4j.logger.com.atomikos>
+		<org.ops4j.pax.logging.log4j.additivity.com.atomikos>false</org.ops4j.pax.logging.log4j.additivity.com.atomikos>
+		<org.ops4j.pax.logging.log4j.logger.be.cipal.csf.objection.migration.impl.process.bulk.job>INFO,migrationFile</org.ops4j.pax.logging.log4j.logger.be.cipal.csf.objection.migration.impl.process.bulk.job>
+		<org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.objection.migration.impl.process.bulk.job>false</org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.objection.migration.impl.process.bulk.job>
+		<org.ops4j.pax.logging.log4j.appender.migrationFile>org.apache.log4j.RollingFileAppender</org.ops4j.pax.logging.log4j.appender.migrationFile>
+		<org.ops4j.pax.logging.log4j.appender.migrationFile.File>logs/migration.log</org.ops4j.pax.logging.log4j.appender.migrationFile.File>
+		<org.ops4j.pax.logging.log4j.appender.migrationFile.MaxFileSize>10MB</org.ops4j.pax.logging.log4j.appender.migrationFile.MaxFileSize>
+		<org.ops4j.pax.logging.log4j.appender.migrationFile.MaxBackupIndex>10</org.ops4j.pax.logging.log4j.appender.migrationFile.MaxBackupIndex>
+		<org.ops4j.pax.logging.log4j.appender.migrationFile.layout>org.apache.log4j.PatternLayout</org.ops4j.pax.logging.log4j.appender.migrationFile.layout>
+		<org.ops4j.pax.logging.log4j.appender.migrationFile.layout.ConversionPattern>%d{yyyy-MM-dd\ HH:mm:ss,SSS}\ %-5p\ -\ %m%n</org.ops4j.pax.logging.log4j.appender.migrationFile.layout.ConversionPattern>
+		<org.ops4j.pax.logging.log4j.logger.be.cipal.csf.themis>${log.level},bdb,bdbFile</org.ops4j.pax.logging.log4j.logger.be.cipal.csf.themis>
+		<org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.themis>false</org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.themis>
+		<org.ops4j.pax.logging.log4j.logger.be.cipal.csf.party.domain.impl.PartySynchronizerImpl>${log.level},bdb,bdbFile</org.ops4j.pax.logging.log4j.logger.be.cipal.csf.party.domain.impl.PartySynchronizerImpl>
+		<org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.party.domain.impl.PartySynchronizerImpl>false</org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.party.domain.impl.PartySynchronizerImpl>
+		<org.ops4j.pax.logging.log4j.logger.be.cipal.csf.party.domain.impl.PartyFacadeImpl.bdbMethods>${log.level},bdb,bdbFile</org.ops4j.pax.logging.log4j.logger.be.cipal.csf.party.domain.impl.PartyFacadeImpl.bdbMethods>
+		<org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.party.domain.impl.PartyFacadeImpl.bdbMethods>false</org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.party.domain.impl.PartyFacadeImpl.bdbMethods>
+		<org.ops4j.pax.logging.log4j.appender.bdb>org.apache.log4j.ConsoleAppender</org.ops4j.pax.logging.log4j.appender.bdb>
+		<org.ops4j.pax.logging.log4j.appender.bdb.layout>org.apache.log4j.PatternLayout</org.ops4j.pax.logging.log4j.appender.bdb.layout>
+		<org.ops4j.pax.logging.log4j.appender.bdb.layout.ConversionPattern>%d{yyyy-MM-dd\ HH:mm:ss,SSS}\ -\ [BDB]\ %-5p\ -\ %m%n</org.ops4j.pax.logging.log4j.appender.bdb.layout.ConversionPattern>
+		<org.ops4j.pax.logging.log4j.appender.bdbFile>org.apache.log4j.DailyRollingFileAppender</org.ops4j.pax.logging.log4j.appender.bdbFile>
+		<org.ops4j.pax.logging.log4j.appender.bdbFile.DatePattern>'.'yyyy-MM-dd'.log'</org.ops4j.pax.logging.log4j.appender.bdbFile.DatePattern>
+		<org.ops4j.pax.logging.log4j.appender.bdbFile.layout>org.apache.log4j.PatternLayout</org.ops4j.pax.logging.log4j.appender.bdbFile.layout>
+		<org.ops4j.pax.logging.log4j.appender.bdbFile.layout.ConversionPattern>%d{yyyy-MM-dd\ HH:mm:ss,SSS}\ -\ [BDB]\ %-5p\ -\ %m%n</org.ops4j.pax.logging.log4j.appender.bdbFile.layout.ConversionPattern>
+		<org.ops4j.pax.logging.log4j.appender.bdbFile.File>logs/bdb.log</org.ops4j.pax.logging.log4j.appender.bdbFile.File>
+		<org.ops4j.pax.logging.log4j.appender.bdbFile.append>true</org.ops4j.pax.logging.log4j.appender.bdbFile.append>
+
+		<org.ops4j.pax.logging.log4j.logger.be.cipal.common.osgi.testframework.api>INFO,testResult,testResultFile</org.ops4j.pax.logging.log4j.logger.be.cipal.common.osgi.testframework.api>
+		<org.ops4j.pax.logging.log4j.additivity.be.cipal.common.osgi.testframework.api>false</org.ops4j.pax.logging.log4j.additivity.be.cipal.common.osgi.testframework.api>
+		<org.ops4j.pax.logging.log4j.logger.be.cipal.common.osgi.testframework.delay.impl>INFO,testResult,testResultFile</org.ops4j.pax.logging.log4j.logger.be.cipal.common.osgi.testframework.delay.impl>
+		<org.ops4j.pax.logging.log4j.additivity.be.cipal.common.osgi.testframework.delay.impl>false</org.ops4j.pax.logging.log4j.additivity.be.cipal.common.osgi.testframework.delay.impl>
+		<org.ops4j.pax.logging.log4j.logger.be.cipal.common.osgi.testframework.nodelay.impl>INFO,testResult,testResultFile</org.ops4j.pax.logging.log4j.logger.be.cipal.common.osgi.testframework.nodelay.impl>
+		<org.ops4j.pax.logging.log4j.additivity.be.cipal.common.osgi.testframework.nodelay.impl>false</org.ops4j.pax.logging.log4j.additivity.be.cipal.common.osgi.testframework.nodelay.impl>
+		<org.ops4j.pax.logging.log4j.logger.be.cipal.common.osgi.testframework.noexec.impl>INFO,testResult,testResultFile</org.ops4j.pax.logging.log4j.logger.be.cipal.common.osgi.testframework.noexec.impl>
+		<org.ops4j.pax.logging.log4j.additivity.be.cipal.common.osgi.testframework.noexec.impl>false</org.ops4j.pax.logging.log4j.additivity.be.cipal.common.osgi.testframework.noexec.impl>
+		<org.ops4j.pax.logging.log4j.appender.testResult>org.apache.log4j.ConsoleAppender</org.ops4j.pax.logging.log4j.appender.testResult>
+		<org.ops4j.pax.logging.log4j.appender.testResult.layout>org.apache.log4j.PatternLayout</org.ops4j.pax.logging.log4j.appender.testResult.layout>
+		<org.ops4j.pax.logging.log4j.appender.testResult.layout.conversionPattern>%d{yyyy-MM-dd\ HH:mm:ss,SSS}\ -\ [IC Integration Test]\ %-5p\ -\ %m%n</org.ops4j.pax.logging.log4j.appender.testResult.layout.conversionPattern>
+		<org.ops4j.pax.logging.log4j.appender.testResultFile>org.apache.log4j.DailyRollingFileAppender</org.ops4j.pax.logging.log4j.appender.testResultFile>
+		<org.ops4j.pax.logging.log4j.appender.testResultFile.DatePattern>'.'yyyy-MM-dd'.log'</org.ops4j.pax.logging.log4j.appender.testResultFile.DatePattern>
+		<org.ops4j.pax.logging.log4j.appender.testResultFile.layout>org.apache.log4j.PatternLayout</org.ops4j.pax.logging.log4j.appender.testResultFile.layout>
+		<org.ops4j.pax.logging.log4j.appender.testResultFile.layout.conversionPattern>%d{yyyy-MM-dd\ HH:mm:ss,SSS}\ -\ [IC Integration Test]\ %-5p\ -\ %m%n</org.ops4j.pax.logging.log4j.appender.testResultFile.layout.conversionPattern>
+		<org.ops4j.pax.logging.log4j.appender.testResultFile.File>logs/osgi-testframework.log</org.ops4j.pax.logging.log4j.appender.testResultFile.File>
+		<org.ops4j.pax.logging.log4j.appender.testResultFile.append>true</org.ops4j.pax.logging.log4j.appender.testResultFile.append>
+
+        <!-- Communication config -->
+        <org.ops4j.pax.logging.log4j.logger.be.cipal.csf.common.communication>${communication.log.level},stdout</org.ops4j.pax.logging.log4j.logger.be.cipal.csf.common.communication>
+        <org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.common.communication>false</org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.common.communication>
+
+		<!-- security config -->
+		<security.service.pid>security</security.service.pid>
+
+		<!-- session config -->
+        <session.service.pid>session</session.service.pid>
+
+		<!-- vaadin.application.suite config -->
+        <com.vaadin.application.suite.service.pid>com.vaadin.Application.suite</com.vaadin.application.suite.service.pid>
+        <com.vaadin.application.suite.heartbeatInterval>300</com.vaadin.application.suite.heartbeatInterval>
+        <com.vaadin.application.suite.closeIdleSessions>true</com.vaadin.application.suite.closeIdleSessions>
+
+        <!-- view config -->
+        <view.service.pid>view</view.service.pid>
+        <max.searchresults.sortable>1000</max.searchresults.sortable>
+
+        <!-- workflow config -->
+        <workflow.service.pid>workflow</workflow.service.pid>
+        <com.vaadin.application.workflow.service.pid>com.vaadin.Application.workflow</com.vaadin.application.workflow.service.pid>
+        <com.vaadin.application.workflow.heartbeatInterval>300</com.vaadin.application.workflow.heartbeatInterval>
+        <com.vaadin.application.workflow.closeIdleSessions>true</com.vaadin.application.workflow.closeIdleSessions>
+
+        <!-- bk1 webservices config -->
+        <bk1.service.pid>bk1</bk1.service.pid>
+        <bk1.url>http://10.130.201.175:35935/vfp-webservices/</bk1.url>
+        <bk1.connecttimeout.milliseconds>5000</bk1.connecttimeout.milliseconds>
+        <bk1.receivetimeout.milliseconds>5000</bk1.receivetimeout.milliseconds>
+        <bk1.getclaims.connecttimeout.milliseconds>500000</bk1.getclaims.connecttimeout.milliseconds>
+        <bk1.getclaims.receivetimeout.milliseconds>500000</bk1.getclaims.receivetimeout.milliseconds>
+        <bk1.getcalculatedtaxableelements.connecttimeout.milliseconds>50000</bk1.getcalculatedtaxableelements.connecttimeout.milliseconds>
+        <bk1.getcalculatedtaxableelements.receivetimeout.milliseconds>50000</bk1.getcalculatedtaxableelements.receivetimeout.milliseconds>
+        <bk1.fundmovement.connecttimeout.milliseconds>20000</bk1.fundmovement.connecttimeout.milliseconds>
+        <bk1.fundmovement.receivetimeout.milliseconds>20000</bk1.fundmovement.receivetimeout.milliseconds>
+        <bk1.settaxableelementsposted.connecttimeout.milliseconds>500000</bk1.settaxableelementsposted.connecttimeout.milliseconds>
+        <bk1.settaxableelementsposted.receivetimeout.milliseconds>500000</bk1.settaxableelementsposted.receivetimeout.milliseconds>
+        <bk1.authentication>999999999999999991</bk1.authentication>
+        <bk1.clientModule>vfp-ini</bk1.clientModule>
+        <bk1.fundmovement.url>http://10.50.0.223:4321/services/fundMovement</bk1.fundmovement.url>
+        <bk1posted.service.pid>bk1posted</bk1posted.service.pid>
+
+        <jacoco.skip>true</jacoco.skip>
+        <sonar.binaries></sonar.binaries>
+    </properties>
+    <dependencies>
+        <!-- first set of dependencies are general osgi bundles
+             and specific bundles for this runner project -->
+        <dependency>
+            <!-- needed by pax-url-assembly and other compendium extentions -->
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.compendium</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <!-- core spec -->
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.core</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <groupId>org.osgi</groupId>
+            <artifactId>org.osgi.enterprise</artifactId>
+            <version>4.2.0</version>
+        </dependency>
+        <dependency>
+            <!-- needed to support exploded assembly: provisioning urls -->
+            <groupId>org.ops4j.pax.url</groupId>
+            <artifactId>pax-url-assembly</artifactId>
+            <version>1.5.0</version>
+        </dependency>
+        <!--  JTA implementation -->
+        <dependency>
+            <groupId>org.springframework</groupId>
+            <artifactId>spring-tx</artifactId>
+            <version>${org.springframework.version}</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.activation</groupId>
+            <artifactId>com.springsource.javax.activation</artifactId>
+            <version>1.1.1</version>
+        </dependency>
+        <dependency>
+            <groupId>javax.annotation</groupId>
+            <artifactId>com.springsource.javax.annotation</artifactId>
+            <version>1.0.0</version>
+        </dependency>
+
+		<!-- For IC test reasons -->
+        <dependency>
+			<groupId>org.springframework</groupId>
+			<artifactId>spring-test</artifactId>
+			<version>${org.springframework.version}</version>
+		</dependency>
+
+    </dependencies>
+    <build>
+        <resources>
+            <resource>
+                <directory>${basedir}/config</directory>
+                <includes>
+                    <include>**/*.config</include>
+                    <include>**/*.properties</include>
+                </includes>
+                <filtering>true</filtering>
+                <targetPath>${basedir}/runner/config</targetPath>
+            </resource>
+            <resource>
+                <directory>${basedir}/config</directory>
+                <excludes>
+                    <exclude>**/*.config</exclude>
+                    <exclude>**/*.properties</exclude>
+                </excludes>
+                <filtering>false</filtering>
+                <targetPath>${basedir}/runner/config</targetPath>
+            </resource>
+        </resources>
+        <plugins>
+            <plugin>
+                <groupId>org.apache.maven.plugins</groupId>
+                <artifactId>maven-resources-plugin</artifactId>
+                <version>2.5</version>
+                <configuration>
+                    <encoding>UTF-8</encoding>
+                </configuration>
+                <executions>
+                    <execution>
+                        <id />
+                        <phase>install</phase>
+                        <goals><goal>resources</goal></goals>
+                        <inherited>false</inherited>
+                        <configuration>
+                            <encoding>UTF-8</encoding>
+                        </configuration>
+                    </execution>
+                </executions>
+            </plugin>
+            <plugin>
+                <!-- Will provision all development projects as exploded bundles on which
+                    on the fly changes are possible. Will also deploy all dependencies of those
+                    development projects. Will deploy all dependencies listed in this pom.xml
+                    which should be the service implementations of third parties not project
+                    specific -->
+                <groupId>org.ops4j</groupId>
+                <artifactId>maven-pax-plugin</artifactId>
+                <version>1.5</version>
+                <configuration>
+                    <deploy>true</deploy>
+                    <runner>1.8.3</runner>
+                    <provision>
+                        <!-- runtime pax options -->
+                        <!-- De felix runtime environment is default -->
+                        <param>--platform=felix</param>
+                        <!-- loglevel for felix-pax  -->
+                        <param>--log=info</param>
+                        <!-- keepOriginalUrls makes sure that for assemblies nothing is cached and that direct update is possible
+                        enables to change a java source file, save it so that eclipse compiles it into classes dir and then
+                        just do an update in the felix console with the bundle id of the bundle changed to reflect the change -->
+                        <param>--keepOriginalUrls</param>
+                        <!-- Sets the start level for those bundles that have not set a specific start level value. -->
+                        <param>--bundleStartLevel=4</param>
+                        <param>--startLevel=6</param>
+                        <!-- define no execution environment and define the system packages ourselves -->
+                        <param>--systemPackages=javax.management.remote.rmi,javax.security.cert,com.sun.corba.se.impl.javax.rmi,com.sun.security.auth.login, sun.io,sun.security.action, sun.util.calendar,javax.xml.rpc.handler.soap,javax.mail,javax.mail.internet,javax.swing,javax.swing.border,javax.swing.event,javax.swing.plaf.basic,javax.swing.table,javax.swing.text,javax.xml.rpc,javax.xml.rpc.encoding,javax.xml.rpc.handler,javax.xml.rpc.handler.soap,javax.xml.rpc.holders,javax.xml.rpc.server,javax.xml.rpc.soap,javax.xml.soap,org.omg.CORBA,org.omg.CosNaming,org.w3c.dom,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers,javax.rmi,javax.naming.ldap,com.sun.jndi.ldap,javax.crypto,javax.crypto.spec,javax.imageio,javax.imageio.spi,javax.imageio.stream,javax.imageio.metadata,javax.management,javax.management.openmbean,javax.management.modelmbean,javax.management.remote,javax.naming,javax.naming.directory,javax.naming.spi,javax.net,javax.net.ssl,javax.security.auth,javax.security.auth.callback,javax.security.auth.login,javax.security.auth.spi,javax.security.auth.x500,javax.security.sasl,javax.sql,javax.sql.rowset,javax.swing,javax.swing.plaf,javax.xml.datatype,javax.xml.namespace,javax.xml.parsers,javax.xml.transform,javax.xml.transform.dom,javax.xml.transform.sax,javax.xml.transform.stream,javax.xml.validation,org.ietf.jgss,org.w3c.dom.bootstrap,org.w3c.dom.events,org.w3c.dom.html,org.w3c.dom,org.w3c.dom.ls,org.w3c.dom.ranges,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers,sun.reflect,javax.naming.event,org.w3c.dom.traversal,javax.swing.border,javax.swing.tree,javax.swing.table,javax.tools,javax.xml.transform.stax,javax.script,javax.xml.xpath,javax.swing.border,javax.swing.event,com.sun.xml.internal.ws.api.message,com.sun.xml.internal.ws.developer</param>
+                        <param>--ee=NONE</param>
+                        <!-- add debug possibility -->
+                        <vmOptions>--vmOptions=-Dfelix.cm.loglevel=4 -Dfelix.cm.dir=${basedir}/runner/config -Dorg.osgi.framework.storage=${felix.cache.dir} -Dliquibase.should.run=${liquibase.should.run} -Ddeployment.environment=${deployment.environment} -agentlib:jdwp=transport=dt_socket,server=y,suspend=n,address=5005 -XX:MaxPermSize=4096m</vmOptions>
+                <!-- Test CSF upgrade -->
+                                <provision>mvn:be.cipal/csf-bailiff-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-claim-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-blockade-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-cocon-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-cocon-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-communication-ftp-observer/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-correspondence-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-communication-bpost/${be.cipal.csf.version}@6</provision>
+                                <!-- end of CSF upgrade -->
+
+                                <provision>mvn:be.cipal/csf-claim-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-claim-domain-vlabel/${be.cipal.csf.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/csf-common-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-batch-impl/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-batch-i18n-static/${be.cipal.csf.version}@6@nostart</provision>
+
+                                <!-- CSF / CPC dependencies -->
+                                <provision>mvn:be.cipal/csf-application-config/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-ui-vaadin-static/${be.cipal.csf.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/csf-common-communication/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-persistence/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-communication-logging-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-ws/${be.cipal.csf.version}@5</provision>
+                                <provision>mvn:be.cipal/ccs-security-domain/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-security-domain-impl/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-security-i18n-static/${be.cipal.common.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/ccs-security-ui/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-user-domain-impl/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-suite-security-federation-config/${be.cipal.common.version}@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-environment/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-ui-vaadin-static/${be.cipal.common.version}@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-ui-views-i18n-static/${be.cipal.common.version}@nostart</provision>
+                                <!--<provision>mvn:be.cipal/ccs-jobman-rest/${be.cipal.csf.version}@4</provision>-->
+                                <provision>mvn:be.cipal/ccs-jobman-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-jobman-i18n-static/${be.cipal.csf.version}@nostart</provision>
+                                <provision>mvn:be.cipal/ccs-jobman-ui/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-ui/${be.cipal.csf.version}@5</provision>
+                                <provision>mvn:be.cipal/csf-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-batch-i18n-static/${be.cipal.csf.version}@6@nostart</provision>
+                                <!-- unfortunate dependencies from batch/jobman on csf domain bundles : TODO in CSF-->
+                                <provision>mvn:be.cipal/csf-finance-domain-impl/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-navigation-service/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-ui-presenters/${be.cipal.common.version}@6</provision>
+                                <!-- added memo ui to have a t least one NavigationService -->
+                                <provision>mvn:be.cipal/csf-memo-ui/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-memo-domain/${be.cipal.csf.version}@6</provision>
+
+                                <!-- Integration Test Framework -->
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-ui/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-i18n-static/${be.cipal.common.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-delay/${be.cipal.common.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-nodelay/${be.cipal.common.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-noexec/${be.cipal.common.version}@6</provision>
+
+                                <provision>mvn:be.cipal.org.jibx/jibx-run/${be.cipal.jibx.version}@4</provision>
+
+                               <!-- Styx bundles -->
+                               <!-- <provision>mvn:be.cipal/styx-database/${project.version}@5</provision> -->
+                                <provision>mvn:be.cipal/styx-address-service/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-address-service-impl/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-address-domain/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-address-domain-impl/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-crab-ws/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-xml/${project.version}@6</provision>
+                                <provision>mvn:be.cipal/styx-feed/${project.version}@6</provision>
+                                <provision>mvn:be.cipal/styx-sei-ws/${project.version}@6</provision>
+
+                                <provision>mvn:be.cipal/styx-batch-feed/${project.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/styx-batch-feed/${project.version}//master@7</provision>
+                                <provision>mvn:be.cipal/styx-batch-feed/${project.version}//slave@7</provision>
+
+                                <!-- Integration Test Bundles -->
+                                <!--<provision>mvn:be.cipal/styx-address-domain-test-exposed/${project.version}@5</provision>-->
+                                <!--<provision>mvn:be.cipal/styx-address-domain-test/${project.version}@5</provision>-->
+
+                                <!-- 3rd Party libraries -->
+                                <!-- Fragment bundles : do not attempt to start -->
+                                <provision>mvn:org.apache.xerces/com.springsource.org.apache.xerces/2.9.1@nostart</provision>
+                                <provision>mvn:com.sun.xml/com.springsource.com.sun.xml.bind.jaxb1/2.1.7@nostart</provision>
+
+                                <provision>mvn:org.springframework/spring-tx/3.1.4.RELEASE@4</provision>
+                                <provision>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.stax-api-1.0/2.2.0@4</provision>
+                                <provision>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.cglib/3.0_1@4</provision>
+                                <provision>mvn:commons-pool/commons-pool/1.5.4@4</provision>
+                                <provision>mvn:com.eclipsesource/osgi-jaxrs-connector/${osgi.jaxrsconnector.version}@2</provision>
+                                <provision>mvn:com.sun.jersey/jersey-servlet/1.17@2</provision>
+                                <provision>mvn:com.sun.jersey/jersey-server/1.17@2</provision>
+                                <provision>mvn:com.sun.jersey/jersey-core/1.17@2</provision>
+                                <provision>mvn:org.apache.felix/org.apache.felix.http.jetty/2.2.2@2</provision>
+                                <provision>mvn:org.apache.felix/org.apache.felix.configadmin/1.8.0@1</provision>
+                                <provision>mvn:org.ops4j.pax.logging/pax-logging-api/${org.ops4j.pax.logging.version}@2</provision>
+                                <provision>mvn:org.ops4j.pax.logging/pax-logging-service/${org.ops4j.pax.logging.version}@2</provision>
+                    </provision>
+                </configuration>
+            </plugin>
+        </plugins>
+    </build>
+
+    <profiles>
+        <profile>
+            <id>csf</id>
+            <properties>
+ 				<!-- <db.username>csf_tst</db.username> -->
+ 				<!-- <db.password>csf_tst</db.password> -->
+                <!-- <db.url>jdbc:oracle:thin:@GETSTcsf-db.vm.cipal.net:1521/ACC31.cipal.be</db.url> -->
+		        <org.ops4j.pax.logging.log4j.logger.org.eclipse.persistence>FINEST.eclipselink</org.ops4j.pax.logging.log4j.logger.org.eclipse.persistence>
+                <log.level>WARN</log.level>
+                <atomikos.log.level>WARN</atomikos.log.level>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>csf_tst</id>
+            <properties>
+                <db.username>csf_tst</db.username>
+                <db.password>csf_tst</db.password>
+            </properties>
+        </profile>
+
+	    <profile>
+            <id>csf_vlabel_tst</id>
+            <properties>
+                <db.username>csf_vlabel_tst</db.username>
+                <db.password>csf_vlabel_tst</db.password>
+            </properties>
+	    </profile>
+
+        <profile>
+            <id>csf_pvh</id>
+            <properties>
+                <log.level>WARN</log.level>
+                <atomikos.log.level>WARN</atomikos.log.level>
+            </properties>
+        </profile>
+
+        <profile>
+            <id>distr</id>
+            <properties>
+            	<search.wildcard />
+            	<search.cocon.wildcard />
+                <felix.cm.loglevel>2</felix.cm.loglevel>
+                <felix.cm.dir>[PATH_TO_PROPERTIES]</felix.cm.dir>
+                <log.level>INFO</log.level>
+
+                <!-- Empty all config data -->
+
+                <deployment.environment />
+                <http.port />
+                <context.path />
+		        <session.timeout />
+		        <suite.url />
+		        <workflow.url />
+		        <log.level />
+		        <atomikos.log.level />
+		        <jersey.log.level />
+		        <springintegration.log.level />
+		        <activemq.log.level />
+		        <jaxrs.root.path />
+		        <jaxws.root.path />
+
+				<tx.checkpoint.interval />
+		        <felix.cache.dir>-cache</felix.cache.dir>
+				<security.idp />
+				<security.cipaladmin.hashedpassword />
+				<security.porta.menu />
+				<security.porta.endpointAuthentication />
+				<security.porta.endpointPorta />
+				<security.porta.operationAuthenticate />
+				<security.porta.operationGetUsersFromApplication />
+				<security.porta.codeBestuur />
+                <security.federation.audienceitem />
+                <security.federation.keystorelocation />
+                <security.federation.keystorepassword />
+                <security.federation.keystoretype />
+                <security.federation.protocolissuer />
+                <security.federation.protocolrealm />
+                <security.federation.idp.logout.url />
+                <security.federation.ldap.contextsource.providerurl />
+        		<security.federation.ldap.contextsource.userdn />
+        		<security.federation.ldap.contextsource.password />
+        		<security.federation.ldap.usersearch.searchbase />
+				<security.federation.ldap.usersearch.searchfilter />
+				<security.federation.ldap.groupsearch.searchbase />
+				<security.federation.ldap.groupsearch.searchfilter />
+				<security.federation.ldap.groupsearch.roleattribute />
+				<security.federation.ldap.groupsearch.searchsubtree />
+
+                <crab.service.pid />
+                <crab.url />
+                <crab.connecttimeout.milliseconds />
+                <crab.receivetimeout.milliseconds />
+
+				<!-- batch config -->
+                <directory.bailiff.diam />
+		        <batch.slave.default.transaction-timeout />
+				<batch.slave.fin-import-coda-job.transaction-timeout />
+				<batch.slave.fin-report-holdfile-job.transaction-timeout />
+				<batch.slave.link-taxedelement-register-job.transaction-timeout />
+				<batch.slave.import-vatdata-job.transaction-timeout />
+				<batch.master.poolSize />
+		        <batch.slave.concurrentConsumers />
+
+		        <!-- bdb config -->
+				<bdb.themis.soap.url />
+				<bdb.themis.user />
+				<bdb.themis.password />
+				<bdb.themis.session.timeout />
+				<bdb.themis.session.idleTimeout />
+				<bdb.themis.logon.retries />
+				<bdb.themis.logon.retryTimeout />
+				<bdb.themis.cache.expiration />
+				<bdb.ftp.host />
+				<bdb.ftp.port />
+				<bdb.ftp.username />
+				<bdb.ftp.password />
+				<bdb.ftp.pathtofilethemis />
+				<bdb.ftp.pathtofilecsf />
+
+				<!-- cmis config -->
+				<cmis.url />
+				<cmis.user />
+				<cmis.password />
+				<cmis.repository.id />
+				<cmis.dir.bezwaardossiers />
+				<cmis.dir.onlinevorderingdocumenten />
+				<cmis.dir.deurwaarderbijlages />
+				<scriptura.url />
+				<cocon.scriptura.url />
+				<cocon.de2.scriptura.url />
+				<cmis.macro.working.directory />
+				<cmis.macro.file />
+				<cmis.macro.path />
+				<cmis.versioning />
+
+				<!-- cocon config -->
+				<cocon.dir.input />
+				<cocon.dir.output />
+                                <speos.dir>./SPEOS</speos.dir>  <!-- terug leegmaken vanzodra Tom V. installatie-script heeft aangepast-->
+				<dgrs.dir />
+
+				<!-- com.eclipsesource.jaxrs.connector config -->
+				<com.eclipsesource.jaxrs.connector.root />
+
+				<!-- csf-application config -->
+				<csf-application.application.theme />
+
+				<!-- datasource config -->
+				<db.driver />
+				<db.url />
+				<db.username />
+				<db.password />
+				<db.validationQuery />
+				<db.connection.pool.size />
+				<liquibase.contexts />
+
+				<!-- drools config -->
+				<drools.rules.path />
+
+				<!-- jaxws config -->
+
+				<!-- jms config -->
+				<jms.brokerURL />
+
+				<!-- jms-refdb config -->
+		        <jms.refdb.db.url />
+		        <jms.refdb.db.username />
+		        <jms.refdb.db.password />
+		        <jms.refdb.db.connection.pool.size />
+                <jms.refdb.queue.notifyPartyChanged.pollFrequency />
+		        <jms.refdb.queue.notifyPartyChanged />
+                <jms.refdb.queue.feedbackErrorMessagesToVlabel />
+
+
+				<!-- jta config -->
+				<jta.com.atomikos.icatch.service />
+				<jta.com.atomikos.icatch.max_actives />
+				<jta.com.atomikos.icatch.max_timeout />
+				<felix.cache.dir />
+
+				<!-- mail config -->
+				<mail.hostname />
+				<mail.from.personal />
+				<mail.from />
+				<mail.to />
+				<mail.port />
+				<mail.charset />
+				<mail.connectiontimeout />
+
+				<!-- migration config -->
+				<migration.objection.input.basedir />
+				<migration.objection.documents.basedir />
+
+				<!-- org.ops4j.pax.logging -->
+                <org.ops4j.pax.logging.log4j.appender.styxFile />
+                <org.ops4j.pax.logging.log4j.appender.styxFile.DatePattern />
+                <org.ops4j.pax.logging.log4j.appender.styxFile.layout />
+                <org.ops4j.pax.logging.log4j.appender.styxFile.layout.ConversionPattern />
+                <org.ops4j.pax.logging.log4j.appender.styxFile.File />
+                <org.ops4j.pax.logging.log4j.appender.styxFile.append />
+                <org.ops4j.pax.logging.log4j.logger.be.cipal.styx />
+                <org.ops4j.pax.logging.log4j.additivity.be.cipal.styx />
+
+
+				<org.ops4j.pax.logging.log4j.rootLogger />
+				<org.ops4j.pax.logging.log4j.appender.stdout />
+				<org.ops4j.pax.logging.log4j.appender.stdout.layout />
+				<org.ops4j.pax.logging.log4j.appender.stdout.layout.ConversionPattern />
+				<org.ops4j.pax.logging.log4j.logger.org.eclipse.persistence />
+				<org.ops4j.pax.logging.log4j.additivity.org.eclipse.persistence />
+				<org.ops4j.pax.logging.log4j.appender.eclipselink />
+				<org.ops4j.pax.logging.log4j.appender.eclipselink.layout />
+				<org.ops4j.pax.logging.log4j.appender.eclipselink.layout.ConversionPattern />
+				<org.ops4j.pax.logging.log4j.logger.com.atomikos />
+				<org.ops4j.pax.logging.log4j.additivity.com.atomikos />
+				<org.ops4j.pax.logging.log4j.logger.be.cipal.csf.objection.migration.impl.process.bulk.job />
+				<org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.objection.migration.impl.process.bulk.job />
+				<org.ops4j.pax.logging.log4j.appender.migrationFile />
+				<org.ops4j.pax.logging.log4j.appender.migrationFile.File />
+				<org.ops4j.pax.logging.log4j.appender.migrationFile.MaxFileSize />
+				<org.ops4j.pax.logging.log4j.appender.migrationFile.MaxBackupIndex />
+				<org.ops4j.pax.logging.log4j.appender.migrationFile.layout />
+				<org.ops4j.pax.logging.log4j.appender.migrationFile.layout.ConversionPattern />
+				<org.ops4j.pax.logging.log4j.logger.be.cipal.csf.themis />
+				<org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.themis />
+				<org.ops4j.pax.logging.log4j.logger.be.cipal.csf.party.domain.impl.PartySynchronizerImpl />
+				<org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.party.domain.impl.PartySynchronizerImpl />
+				<org.ops4j.pax.logging.log4j.logger.be.cipal.csf.party.domain.impl.PartyFacadeImpl.bdbMethods />
+				<org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.party.domain.impl.PartyFacadeImpl.bdbMethods />
+				<org.ops4j.pax.logging.log4j.appender.bdb />
+				<org.ops4j.pax.logging.log4j.appender.bdb.layout />
+				<org.ops4j.pax.logging.log4j.appender.bdb.layout.ConversionPattern />
+				<org.ops4j.pax.logging.log4j.appender.bdbFile />
+				<org.ops4j.pax.logging.log4j.appender.bdbFile.DatePattern />
+				<org.ops4j.pax.logging.log4j.appender.bdbFile.layout />
+				<org.ops4j.pax.logging.log4j.appender.bdbFile.layout.ConversionPattern />
+				<org.ops4j.pax.logging.log4j.appender.bdbFile.File />
+				<org.ops4j.pax.logging.log4j.appender.bdbFile.append />
+
+				<org.ops4j.pax.logging.log4j.logger.be.cipal.common.osgi.testframework.api />
+				<org.ops4j.pax.logging.log4j.additivity.be.cipal.common.osgi.testframework.api />
+				<org.ops4j.pax.logging.log4j.logger.be.cipal.common.osgi.testframework.delay.impl />
+				<org.ops4j.pax.logging.log4j.additivity.be.cipal.common.osgi.testframework.delay.impl />
+				<org.ops4j.pax.logging.log4j.logger.be.cipal.common.osgi.testframework.nodelay.impl />
+				<org.ops4j.pax.logging.log4j.additivity.be.cipal.common.osgi.testframework.nodelay.impl />
+				<org.ops4j.pax.logging.log4j.logger.be.cipal.common.osgi.testframework.noexec.impl />
+				<org.ops4j.pax.logging.log4j.additivity.be.cipal.common.osgi.testframework.noexec.impl />
+				<org.ops4j.pax.logging.log4j.appender.testResult />
+				<org.ops4j.pax.logging.log4j.appender.testResult.layout />
+				<org.ops4j.pax.logging.log4j.appender.testResult.layout.conversionPattern />
+				<org.ops4j.pax.logging.log4j.appender.testResultFile />
+				<org.ops4j.pax.logging.log4j.appender.testResultFile.DatePattern />
+				<org.ops4j.pax.logging.log4j.appender.testResultFile.layout />
+				<org.ops4j.pax.logging.log4j.appender.testResultFile.layout.conversionPattern />
+				<org.ops4j.pax.logging.log4j.appender.testResultFile.File />
+				<org.ops4j.pax.logging.log4j.appender.testResultFile.append />
+
+                <!-- Communication config -->
+                <org.ops4j.pax.logging.log4j.logger.be.cipal.csf.common.communication />
+                <org.ops4j.pax.logging.log4j.additivity.be.cipal.csf.common.communication />
+
+				<!-- security config -->
+
+				<!-- session config -->
+
+				<!-- vaadin.application.suite config -->
+		        <com.vaadin.application.suite.heartbeatInterval />
+		        <com.vaadin.application.suite.closeIdleSessions />
+
+		        <!-- view config -->
+		        <max.searchresults.sortable />
+
+		        <!-- workflow config -->
+                <com.vaadin.application.workflow.service.pid />
+                <com.vaadin.application.workflow.heartbeatInterval />
+                <com.vaadin.application.workflow.closeIdleSessions />
+
+                <!-- bk1 webservice config -->
+                <bk1.url />
+                <bk1.connecttimeout.milliseconds />
+                <bk1.receivetimeout.milliseconds />
+                <bk1.getclaims.connecttimeout.milliseconds />
+                <bk1.getclaims.receivetimeout.milliseconds />
+                <bk1.getcalculatedtaxableelements.connecttimeout.milliseconds />
+                <bk1.getcalculatedtaxableelements.receivetimeout.milliseconds />
+                <bk1.fundmovement.connecttimeout.milliseconds />
+                <bk1.fundmovement.receivetimeout.milliseconds />
+                <bk1.authentication />
+                <bk1.clientModule />
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <groupId>org.ops4j</groupId>
+                        <artifactId>maven-pax-plugin</artifactId>
+                        <version>1.5</version>
+                        <configuration>
+                            <deploy>true</deploy>
+                            <runner>1.8.3</runner>
+                            <provision>
+                                <!-- runtime pax options -->
+                                <!-- De felix runtime environment is default -->
+                                <param>--platform=felix</param>
+                                <param>--executor=noop</param>
+                                <param>--workingDirectory=${basedir}/runner</param>
+                                <!-- loglevel for felix-pax  -->
+                                <param>--log=debug</param>
+                                <!-- Sets the start level for those bundles that have not set a specific start level value. -->
+                                <param>--bundleStartLevel=4</param>
+                                <param>--startLevel=8</param>
+
+                                <!-- define no execution environment and define the system packages ourselves -->
+                                <param>--systemPackages=javax.management.remote.rmi,javax.security.cert,com.sun.corba.se.impl.javax.rmi,com.sun.security.auth.login, sun.io,sun.security.action, sun.util.calendar,javax.xml.rpc.handler.soap,javax.mail,javax.mail.internet,javax.swing,javax.swing.border,javax.swing.event,javax.swing.plaf.basic,javax.swing.table,javax.swing.text,javax.xml.rpc,javax.xml.rpc.encoding,javax.xml.rpc.handler,javax.xml.rpc.handler.soap,javax.xml.rpc.holders,javax.xml.rpc.server,javax.xml.rpc.soap,javax.xml.soap,org.omg.CORBA,org.omg.CosNaming,org.w3c.dom,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers,javax.rmi,javax.naming.ldap,com.sun.jndi.ldap,javax.crypto,javax.crypto.spec,javax.imageio,javax.imageio.spi,javax.imageio.stream,javax.imageio.metadata,javax.management,javax.management.openmbean,javax.management.modelmbean,javax.management.remote,javax.naming,javax.naming.directory,javax.naming.spi,javax.net,javax.net.ssl,javax.security.auth,javax.security.auth.callback,javax.security.auth.login,javax.security.auth.spi,javax.security.auth.x500,javax.security.sasl,javax.sql,javax.sql.rowset,javax.swing,javax.swing.plaf,javax.xml.datatype,javax.xml.namespace,javax.xml.parsers,javax.xml.transform,javax.xml.transform.dom,javax.xml.transform.sax,javax.xml.transform.stream,javax.xml.validation,org.ietf.jgss,org.w3c.dom.bootstrap,org.w3c.dom.events,org.w3c.dom.html,org.w3c.dom,org.w3c.dom.ls,org.w3c.dom.ranges,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers,sun.reflect,javax.naming.event,org.w3c.dom.traversal,javax.swing.border,javax.swing.tree,javax.swing.table,javax.tools,javax.xml.transform.stax,javax.script,javax.xml.xpath,javax.swing.border,javax.swing.event,com.sun.xml.internal.ws.api.message,com.sun.xml.internal.ws.developer</param>
+                                <param>--ee=NONE</param>
+
+                                <vmOptions>--vmOptions=-Dorg.osgi.framework.storage=${felix.cache.dir} -Ddeployment.environment=${deployment.environment}</vmOptions>
+
+								<!-- Test CSF upgrade -->
+                                <provision>mvn:be.cipal/csf-bailiff-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-claim-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-blockade-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-cocon-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-cocon-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-communication-ftp-observer/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-correspondence-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-communication-bpost/${be.cipal.csf.version}@6</provision>
+                                <!-- end of CSF upgrade -->
+
+                                <provision>mvn:be.cipal/csf-claim-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-claim-domain-vlabel/${be.cipal.csf.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/csf-common-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-batch-impl/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-batch-i18n-static/${be.cipal.csf.version}@6@nostart</provision>
+
+                                <!-- CSF / CPC dependencies -->
+                                <provision>mvn:be.cipal/csf-application-config/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-ui-vaadin-static/${be.cipal.csf.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/csf-common-communication/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-persistence/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-communication-logging-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-ws/${be.cipal.csf.version}@5</provision>
+                                <provision>mvn:be.cipal/ccs-security-domain/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-security-domain-impl/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-security-i18n-static/${be.cipal.common.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/ccs-security-ui/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-user-domain-impl/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-suite-security-federation-config/${be.cipal.common.version}@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-environment/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-ui-vaadin-static/${be.cipal.common.version}@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-ui-views-i18n-static/${be.cipal.common.version}@nostart</provision>
+                                <!--<provision>mvn:be.cipal/ccs-jobman-rest/${be.cipal.csf.version}@4</provision>-->
+                                <provision>mvn:be.cipal/ccs-jobman-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-jobman-i18n-static/${be.cipal.csf.version}@nostart</provision>
+                                <provision>mvn:be.cipal/ccs-jobman-ui/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-ui/${be.cipal.csf.version}@5</provision>
+                                <provision>mvn:be.cipal/csf-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-batch-i18n-static/${be.cipal.csf.version}@6@nostart</provision>
+                                <!-- unfortunate dependencies from batch/jobman on csf domain bundles : TODO in CSF-->
+                                <provision>mvn:be.cipal/csf-finance-domain-impl/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-navigation-service/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-ui-presenters/${be.cipal.common.version}@6</provision>
+                                <!-- added memo ui to have a t least one NavigationService -->
+                                <provision>mvn:be.cipal/csf-memo-ui/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-memo-domain/${be.cipal.csf.version}@6</provision>
+
+                                <!-- Integration Test Framework -->
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-ui/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-i18n-static/${be.cipal.common.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-delay/${be.cipal.common.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-nodelay/${be.cipal.common.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-noexec/${be.cipal.common.version}@6</provision>
+
+                                <provision>mvn:be.cipal.org.jibx/jibx-run/${be.cipal.jibx.version}@4</provision>
+
+                               <!-- Styx bundles -->
+                               <!-- <provision>mvn:be.cipal/styx-database/${project.version}@5</provision> -->
+                                <provision>mvn:be.cipal/styx-address-service/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-address-service-impl/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-address-domain/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-address-domain-impl/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-crab-ws/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-xml/${project.version}@6</provision>
+                                <provision>mvn:be.cipal/styx-feed/${project.version}@6</provision>
+                                <provision>mvn:be.cipal/styx-sei-ws/${project.version}@6</provision>
+
+                                <provision>mvn:be.cipal/styx-batch-feed/${project.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/styx-batch-feed/${project.version}//master@7</provision>
+                                <provision>mvn:be.cipal/styx-batch-feed/${project.version}//slave@7</provision>
+
+                                <!-- Integration Test Bundles -->
+                                <!--<provision>mvn:be.cipal/styx-address-domain-test-exposed/${project.version}@5</provision>-->
+                                <!--<provision>mvn:be.cipal/styx-address-domain-test/${project.version}@5</provision>-->
+
+                                <!-- 3rd Party libraries -->
+                                <!-- Fragment bundles : do not attempt to start -->
+                                <provision>mvn:org.apache.xerces/com.springsource.org.apache.xerces/2.9.1@nostart</provision>
+                                <provision>mvn:com.sun.xml/com.springsource.com.sun.xml.bind.jaxb1/2.1.7@nostart</provision>
+
+                                <provision>mvn:org.springframework/spring-tx/3.1.4.RELEASE@4</provision>
+                                <provision>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.stax-api-1.0/2.2.0@4</provision>
+                                <provision>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.cglib/3.0_1@4</provision>
+                                <provision>mvn:commons-pool/commons-pool/1.5.4@4</provision>
+                                <provision>mvn:com.eclipsesource/osgi-jaxrs-connector/${osgi.jaxrsconnector.version}@2</provision>
+                                <provision>mvn:com.sun.jersey/jersey-servlet/1.17@2</provision>
+                                <provision>mvn:com.sun.jersey/jersey-server/1.17@2</provision>
+                                <provision>mvn:com.sun.jersey/jersey-core/1.17@2</provision>
+                                <provision>mvn:org.apache.felix/org.apache.felix.http.jetty/2.2.2@2</provision>
+                                <provision>mvn:org.apache.felix/org.apache.felix.configadmin/1.8.0@1</provision>
+                                <provision>mvn:org.ops4j.pax.logging/pax-logging-api/${org.ops4j.pax.logging.version}@2</provision>
+                                <provision>mvn:org.ops4j.pax.logging/pax-logging-service/${org.ops4j.pax.logging.version}@2</provision>
+                            </provision>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>provision-before-packaging</id>
+                                <phase>prepare-package</phase>
+                                <goals><goal>provision</goal></goals>
+                                <inherited>false</inherited>
+                            </execution>
+                        </executions>
+                    </plugin>
+                </plugins>
+            </build>
+        </profile>
+
+        <profile>
+            <id>standalone</id>
+            <properties>
+                <drools.rules.path>rules</drools.rules.path>
+            </properties>
+            <build>
+                <plugins>
+                    <plugin>
+                        <artifactId>maven-clean-plugin</artifactId>
+                        <version>2.5</version>
+                        <configuration>
+                            <filesets>
+                                <fileset>
+                                    <directory>runner</directory>
+                                </fileset>
+                            </filesets>
+                        </configuration>
+                    </plugin>
+                    <plugin>
+                        <groupId>org.ops4j</groupId>
+                        <artifactId>maven-pax-plugin</artifactId>
+                        <version>1.5</version>
+                        <configuration>
+                            <deploy>true</deploy>
+                            <runner>1.8.3</runner>
+                            <provision>
+                                <!-- runtime pax options -->
+                                <!-- De felix runtime environment is default -->
+                                <param>--platform=felix</param>
+                                <param>--executor=noop</param>
+                                <param>--workingDirectory=${basedir}/runner</param>
+                                <!-- loglevel for felix-pax  -->
+                                <param>--log=debug</param>
+                                <!-- Sets the start level for those bundles that have not set a specific start level value. -->
+                                <param>--bundleStartLevel=4</param>
+                                <param>--startLevel=8</param>
+
+                                <!-- define no execution environment and define the system packages ourselves -->
+                                <param>--systemPackages=javax.management.remote.rmi,javax.security.cert,com.sun.corba.se.impl.javax.rmi,com.sun.security.auth.login, sun.io,sun.security.action, sun.util.calendar,javax.xml.rpc.handler.soap,javax.mail,javax.mail.internet,javax.swing,javax.swing.border,javax.swing.event,javax.swing.plaf.basic,javax.swing.table,javax.swing.text,javax.xml.rpc,javax.xml.rpc.encoding,javax.xml.rpc.handler,javax.xml.rpc.handler.soap,javax.xml.rpc.holders,javax.xml.rpc.server,javax.xml.rpc.soap,javax.xml.soap,org.omg.CORBA,org.omg.CosNaming,org.w3c.dom,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers,javax.rmi,javax.naming.ldap,com.sun.jndi.ldap,javax.crypto,javax.crypto.spec,javax.imageio,javax.imageio.spi,javax.imageio.stream,javax.imageio.metadata,javax.management,javax.management.openmbean,javax.management.modelmbean,javax.management.remote,javax.naming,javax.naming.directory,javax.naming.spi,javax.net,javax.net.ssl,javax.security.auth,javax.security.auth.callback,javax.security.auth.login,javax.security.auth.spi,javax.security.auth.x500,javax.security.sasl,javax.sql,javax.sql.rowset,javax.swing,javax.swing.plaf,javax.xml.datatype,javax.xml.namespace,javax.xml.parsers,javax.xml.transform,javax.xml.transform.dom,javax.xml.transform.sax,javax.xml.transform.stream,javax.xml.validation,org.ietf.jgss,org.w3c.dom.bootstrap,org.w3c.dom.events,org.w3c.dom.html,org.w3c.dom,org.w3c.dom.ls,org.w3c.dom.ranges,org.xml.sax,org.xml.sax.ext,org.xml.sax.helpers,sun.reflect,javax.naming.event,org.w3c.dom.traversal,javax.swing.border,javax.swing.tree,javax.swing.table,javax.tools,javax.xml.transform.stax,javax.script,javax.xml.xpath,javax.swing.border,javax.swing.event,com.sun.xml.internal.ws.api.message,com.sun.xml.internal.ws.developer</param>
+                                <param>--ee=NONE</param>
+
+                                <!-- vmoptions are not used in standalone -->
+                                <vmOptions>--vmOptions=-Dorg.osgi.framework.storage=${felix.cache.dir} -Ddeployment.environment=${deployment.environment}</vmOptions>
+
+                                <!-- Test CSF upgrade -->
+                                <provision>mvn:be.cipal/csf-bailiff-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-claim-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-blockade-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-cocon-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-cocon-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-communication-ftp-observer/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-correspondence-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-communication-bpost/${be.cipal.csf.version}@6</provision>
+                                <!-- end of CSF upgrade -->
+
+                                <provision>mvn:be.cipal/csf-claim-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-claim-domain-vlabel/${be.cipal.csf.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/csf-common-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-batch-impl/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-batch-i18n-static/${be.cipal.csf.version}@6@nostart</provision>
+
+                                <!-- CSF / CPC dependencies -->
+                                <provision>mvn:be.cipal/csf-application-config/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-ui-vaadin-static/${be.cipal.csf.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/csf-common-communication/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-persistence/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-communication-logging-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-ws/${be.cipal.csf.version}@5</provision>
+                                <provision>mvn:be.cipal/ccs-security-domain/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-security-domain-impl/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-security-i18n-static/${be.cipal.common.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/ccs-security-ui/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-user-domain-impl/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-suite-security-federation-config/${be.cipal.common.version}@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-environment/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-ui-vaadin-static/${be.cipal.common.version}@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-ui-views-i18n-static/${be.cipal.common.version}@nostart</provision>
+                                <!--<provision>mvn:be.cipal/ccs-jobman-rest/${be.cipal.csf.version}@4</provision>-->
+                                <provision>mvn:be.cipal/ccs-jobman-domain/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/ccs-jobman-i18n-static/${be.cipal.csf.version}@nostart</provision>
+                                <provision>mvn:be.cipal/ccs-jobman-ui/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-ui/${be.cipal.csf.version}@5</provision>
+                                <provision>mvn:be.cipal/csf-common-batch/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-common-batch-i18n-static/${be.cipal.csf.version}@6@nostart</provision>
+                                <!-- unfortunate dependencies from batch/jobman on csf domain bundles : TODO in CSF-->
+                                <provision>mvn:be.cipal/csf-finance-domain-impl/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-navigation-service/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-ui-presenters/${be.cipal.common.version}@6</provision>
+                                <!-- added memo ui to have a t least one NavigationService -->
+                                <provision>mvn:be.cipal/csf-memo-ui/${be.cipal.csf.version}@6</provision>
+                                <provision>mvn:be.cipal/csf-memo-domain/${be.cipal.csf.version}@6</provision>
+
+                                <!-- Integration Test Framework -->
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-ui/${be.cipal.common.version}@6</provision>
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-i18n-static/${be.cipal.common.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-delay/${be.cipal.common.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-nodelay/${be.cipal.common.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/cipal-common-osgi-testframework-noexec/${be.cipal.common.version}@6</provision>
+
+                                <provision>mvn:be.cipal.org.jibx/jibx-run/${be.cipal.jibx.version}@4</provision>
+
+                               <!-- Styx bundles -->
+                               <!-- <provision>mvn:be.cipal/styx-database/${project.version}@5</provision> -->
+                                <provision>mvn:be.cipal/styx-address-service/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-address-service-impl/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-address-domain/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-address-domain-impl/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-crab-ws/${project.version}@5</provision>
+                                <provision>mvn:be.cipal/styx-xml/${project.version}@6</provision>
+                                <provision>mvn:be.cipal/styx-feed/${project.version}@6</provision>
+                                <provision>mvn:be.cipal/styx-sei-ws/${project.version}@6</provision>
+
+                                <provision>mvn:be.cipal/styx-batch-feed/${project.version}@6@nostart</provision>
+                                <provision>mvn:be.cipal/styx-batch-feed/${project.version}//master@7</provision>
+                                <provision>mvn:be.cipal/styx-batch-feed/${project.version}//slave@7</provision>
+
+                                <!-- Integration Test Bundles -->
+                                <!--<provision>mvn:be.cipal/styx-address-domain-test-exposed/${project.version}@5</provision>-->
+                                <!--<provision>mvn:be.cipal/styx-address-domain-test/${project.version}@5</provision>-->
+
+                                <!-- 3rd Party libraries -->
+                                <!-- Fragment bundles : do not attempt to start -->
+                                <provision>mvn:org.apache.xerces/com.springsource.org.apache.xerces/2.9.1@nostart</provision>
+                                <provision>mvn:com.sun.xml/com.springsource.com.sun.xml.bind.jaxb1/2.1.7@nostart</provision>
+
+                                <provision>mvn:org.springframework/spring-tx/3.1.4.RELEASE@4</provision>
+                                <provision>mvn:org.apache.servicemix.specs/org.apache.servicemix.specs.stax-api-1.0/2.2.0@4</provision>
+                                <provision>mvn:org.apache.servicemix.bundles/org.apache.servicemix.bundles.cglib/3.0_1@4</provision>
+                                <provision>mvn:commons-pool/commons-pool/1.5.4@4</provision>
+                                <provision>mvn:com.eclipsesource/osgi-jaxrs-connector/${osgi.jaxrsconnector.version}@2</provision>
+                                <provision>mvn:com.sun.jersey/jersey-servlet/1.17@2</provision>
+                                <provision>mvn:com.sun.jersey/jersey-server/1.17@2</provision>
+                                <provision>mvn:com.sun.jersey/jersey-core/1.17@2</provision>
+                                <provision>mvn:org.apache.felix/org.apache.felix.http.jetty/2.2.2@2</provision>
+                                <provision>mvn:org.apache.felix/org.apache.felix.configadmin/1.8.0@1</provision>
+                                <provision>mvn:org.ops4j.pax.logging/pax-logging-api/${org.ops4j.pax.logging.version}@2</provision>
+                                <provision>mvn:org.ops4j.pax.logging/pax-logging-service/${org.ops4j.pax.logging.version}@2</provision>
+
+                            </provision>
+                        </configuration>
+                        <executions>
+                            <execution>
+                                <id>provision-before-packaging</id>
+                                <phase>prepare-package</phase>
+                                <goals><goal>provision</goal></goals>
+                                <inherited>false</inherited>
+                            </execution>
+                        </executions>
+                    </plugin>
+
+                </plugins>
+            </build>
+        </profile>
+
+    </profiles>
+</project>

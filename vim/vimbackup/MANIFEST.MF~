@@ -1,0 +1,57 @@
+Manifest-Version: 1.0
+Export-Package: com.mchange;version="0.9.1.2",com.mchange.lang;version
+ ="0.9.1.2",com.mchange.util;version="0.9.1.2",com.mchange.v1;version=
+ "0.9.1.2",com.mchange.v1.db;version="0.9.1.2",com.mchange.v1.db.sql;v
+ ersion="0.9.1.2",com.mchange.v1.identicator;version="0.9.1.2",com.mch
+ ange.v1.io;version="0.9.1.2",com.mchange.v1.lang;version="0.9.1.2",co
+ m.mchange.v1.util;version="0.9.1.2",com.mchange.v1.xml;version="0.9.1
+ .2";uses:="org.w3c.dom",com.mchange.v2;version="0.9.1.2",com.mchange.
+ v2.async;version="0.9.1.2";uses:="com.mchange.v2.log",com.mchange.v2.
+ beans;version="0.9.1.2";uses:="com.mchange.v2.log",com.mchange.v2.c3p
+ 0;version="0.9.1.2";uses:="com.mchange.v2.c3p0.impl,javax.naming,java
+ x.sql",com.mchange.v2.c3p0.cfg;version="0.9.1.2";uses:="org.w3c.dom",
+ com.mchange.v2.c3p0.filter;version="0.9.1.2";uses:="javax.sql",com.mc
+ hange.v2.c3p0.impl;version="0.9.1.2";uses:="com.mchange.v2.async,com.
+ mchange.v2.c3p0,com.mchange.v2.c3p0.stmt,com.mchange.v2.resourcepool,
+ javax.naming,javax.sql",com.mchange.v2.c3p0.jboss;version="0.9.1.2";u
+ ses:="javax.naming",com.mchange.v2.c3p0.management;version="0.9.1.2";
+ uses:="com.mchange.v2.c3p0,javax.management",com.mchange.v2.c3p0.mbea
+ n;version="0.9.1.2";uses:="javax.naming",com.mchange.v2.c3p0.stmt;ver
+ sion="0.9.1.2";uses:="com.mchange.v2.async,com.mchange.v2.log,com.mch
+ ange.v2.util,javax.sql",com.mchange.v2.c3p0.subst;version="0.9.1.2",c
+ om.mchange.v2.c3p0.util;version="0.9.1.2";uses:="com.mchange.v2.c3p0,
+ javax.sql",com.mchange.v2.cfg;version="0.9.1.2";uses:="com.mchange.v2
+ .log",com.mchange.v2.cfg.junit;version="0.9.1.2",com.mchange.v2.coale
+ sce;version="0.9.1.2",com.mchange.v2.codegen;version="0.9.1.2",com.mc
+ hange.v2.codegen.bean;version="0.9.1.2";uses:="com.mchange.v2.codegen
+ ,com.mchange.v2.ser,org.w3c.dom",com.mchange.v2.codegen.intfc;version
+ ="0.9.1.2";uses:="com.mchange.v2.codegen",com.mchange.v2.debug;versio
+ n="0.9.1.2",com.mchange.v2.encounter;version="0.9.1.2",com.mchange.v2
+ .holders;version="0.9.1.2",com.mchange.v2.io;version="0.9.1.2",com.mc
+ hange.v2.lang;version="0.9.1.2",com.mchange.v2.log;version="0.9.1.2",
+ com.mchange.v2.log.jdk14logging;version="0.9.1.2";uses:="com.mchange.
+ v2.log",com.mchange.v2.log.log4j;version="0.9.1.2";uses:="com.mchange
+ .v2.log,org.apache.log4j",com.mchange.v2.management;version="0.9.1.2"
+ ,com.mchange.v2.naming;version="0.9.1.2";uses:="com.mchange.v2.ser,ja
+ vax.naming",com.mchange.v2.resourcepool;version="0.9.1.2";uses:="com.
+ mchange.v2.async,com.mchange.v2.log",com.mchange.v2.ser;version="0.9.
+ 1.2",com.mchange.v2.sql;version="0.9.1.2",com.mchange.v2.sql.filter;v
+ ersion="0.9.1.2",com.mchange.v2.util;version="0.9.1.2"
+Bundle-Classpath: .
+Implementation-Version: 0.9.1.2
+Specification-Vendor: Machinery For Change, Inc.
+Bundle-Name: c3p0 Connection Pool
+Created-By: 1.5.0_07-87 ("Apple Computer, Inc.")
+Bundle-Vendor: SpringSource
+Implementation-Vendor: Machinery For Change, Inc.
+Ant-Version: Apache Ant 1.7.0
+Implementation-Vendor-Id: com.mchange
+Bundle-Version: 0.9.1.2
+Bundle-ManifestVersion: 2
+Bundle-SymbolicName: com.springsource.com.mchange.v2.c3p0
+Specification-Version: 1.0
+Import-Package: javax.management;resolution:=optional,javax.naming,jav
+ ax.naming.spi,javax.sql,javax.xml.parsers,org.apache.log4j;version="[
+ 1.2.15, 1.3.0)";resolution:=optional,org.w3c.dom
+Extension-Name: com.mchange.v2.c3p0
+

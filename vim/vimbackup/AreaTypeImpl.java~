@@ -1,0 +1,132 @@
+package be.cipal.styx.address.domain.impl;
+
+import java.util.HashSet;
+import java.util.Set;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.JoinTable;
+import javax.persistence.ManyToMany;
+import javax.persistence.OneToMany;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+
+import be.cipal.common.persistence.AbstractEntity;
+import be.cipal.styx.address.domain.api.AreaType;
+import be.cipal.styx.address.domain.api.Description;
+import be.cipal.styx.address.domain.api.Language;
+
+@Entity
+@Table(name = "AREA_TYPE")
+public class AreaTypeImpl extends AbstractEntity implements AreaType {
+
+	// TODO: generate sequence for id creation.
+	private static final String SEQUENCE_STYX_AREA_TYPE_GENERATOR = "sequenceareatype";
+
+	@Id
+	@SequenceGenerator(name = SEQUENCE_STYX_AREA_TYPE_GENERATOR, sequenceName = "SEQ_AREA_TYPE", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_STYX_AREA_TYPE_GENERATOR)
+	private Long id;
+
+	@Column(name = "CODE", nullable = false, unique=true)
+	private String code;
+
+	
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="Description")
+	private Set<DescriptionImpl> names = new HashSet<>();
+
+	@OneToMany(cascade=CascadeType.ALL, fetch = FetchType.LAZY, mappedBy="Description")
+	private Set<DescriptionImpl> descriptions= new HashSet<>();
+
+	@ManyToMany(fetch = FetchType.LAZY)
+	@JoinTable(name="AREA_TYPE_LINK",
+		joinColumns = @JoinColumn(name="HOLDER_ID"),
+		inverseJoinColumns = @JoinColumn(name="INCLUDED_ID")
+	)
+	private Set<AreaTypeImpl> containedAreaTypes = new HashSet<>();
+	
+	@Override
+	public String getCode() {
+		return code;
+	}
+
+	@Override
+	public void setCode(String code) {
+		this.code = code;
+	}
+
+	@Override
+	public Set<? extends Description> getAllAreaTypeNames(){
+		return this.names;
+	}
+
+	@Override
+	public Description getAreaTypeNameByLanguage(Language language){
+		Description name = null;
+		for (Description d : this.names){
+			if (d.getLanguage().equals(language)){
+				name = d;
+				break;
+			}
+		}
+		return name;
+	}
+	
+	@Override
+	public void addAreaTypeName(Description name) throws IllegalArgumentException {
+		if (null != this.getAreaTypeNameByLanguage(name.getLanguage())){
+			throw new IllegalArgumentException("The Area Type has already a name in that language");
+		}
+	}
+	
+	@Override
+	public Set<? extends Description> getAllDescriptions() {
+		return descriptions;
+	}
+
+	@Override
+	public Description getDescriptionsByLanguage(Language language) {
+		Description description = null;
+		for (Description d : this.descriptions){
+			if (d.getLanguage().equals(language)){
+				description = d;
+				break;
+			}
+		}
+		return description;	
+	}
+
+	@Override
+	public void addDescription(Description description) throws IllegalArgumentException{
+		if (null != this.getDescriptionsByLanguage(description.getLanguage())){
+			throw new IllegalArgumentException("The Area Type has already a description in that language");
+		}
+		
+		this.descriptions.add((DescriptionImpl) description);
+	}
+	
+
+	@Override
+	public void addAreaTypeToContainer(AreaType areaType) {
+		this.containedAreaTypes.add((AreaTypeImpl) areaType);
+
+	}
+
+	@Override
+	public Set<? extends AreaType> getAreaTypeWithinContainer() {
+		return this.containedAreaTypes;
+	}
+
+
+	@Override
+	public Long getObjectId() {
+		return this.id;
+	}
+	
+}

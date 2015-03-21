@@ -1,0 +1,62 @@
+package be.cipal.styx.address.domain.api;
+
+import java.util.Date;
+
+import be.cipal.common.persistence.IdentifiableEntity;
+
+public interface Multilanguage extends IdentifiableEntity {
+
+	/**
+	 *
+	 * @return the description label
+	 */
+	public String getLabel();
+
+	/**
+	 * Sets the description label
+	 *
+	 * @param label
+	 */
+	public void setLabel(String label);
+
+	/**
+	 *
+	 * @return the language in which the description is.
+	 */
+	public Language getLanguage();
+
+	/**
+	 *
+	 * Sets the language in which the description is.
+	 *
+	 * @param language
+	 */
+	public void setLanguage(Language language);
+
+	/**
+	 * Gets the date when the Description for the area type was included
+	 * @return
+	 */
+	public Date getStartDate();
+
+	/**
+	 * Sets the date when the Description for the area type was included
+	 *
+	 * @param date
+	 */
+	public void setStartDate(Date date);
+
+	/**
+	 * Gets the date when the Description for the area type was removed
+	 *
+	 * @return
+	 */
+	public Date getEndDate();
+
+	/**
+	 * Sets the date when the Description for the area type was removed
+	 * @param date
+	 */
+	public void setEndDate(Date date);
+
+}

@@ -1,0 +1,27 @@
+<!-- CONCEPT FIELDS -->
+<div id="container-concept-edit">
+  <h2>Concepto</h2>
+  <form role="form">
+    <div class="form-group">
+      <label for="concept_name">Nombre:</label>
+      <input type="text" ng-model="concept.name" class="form-control" id="concept_name" placeholder="Enter Name">
+    </div>
+    <div class="form-group">
+      <label for="concept_description">Descripción:</label>
+      <input type="text" ng-model="concept.description" class="form-control" id="concept_description" placeholder="Enter Description">
+    </div>
+    <div class="form-group">
+      <label for="concept_vat_type">Coste IVA :</label>
+      <input ng-model="concept.vat_type" type="text" class="form-control" id="concept_vat_type" placeholder="Enter VAT type">
+    </div>
+    <div class="form-group">
+        <label for="concept_tax_type">Coste IRPF:</label>
+        <input ng-model="concept.tax_type" type="text" class="form-control" id="concept_tax_type" placeholder="Enter TAX type">
+    </div>
+
+    <div class="btn-group pull-right">
+            <a class="btn btn-danger" href="#/concept/list">cancelar</a> 
+            <a class="btn btn-success" ng-click="save">Salvar</a>
+    </div>
+  </form>
+</div>

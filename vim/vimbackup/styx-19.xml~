@@ -1,0 +1,27 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="styx-19-schema-changes" author="dmo">
+        <sqlFile relativeToChangelogFile="true" path="schema-changes.sql" />
+    </changeSet>
+
+    <changeSet id="styx-19-insert-belgium" author="dmo">
+        <sqlFile relativeToChangelogFile="true" path="styx-19-insert-belgium.sql" endDelimiter="\nGO"/>
+    </changeSet>
+
+    <changeSet id="styx-19-insert-area-types" author="dmo">
+        <sqlFile relativeToChangelogFile="true" path="styx-19-insert-area-types.sql" endDelimiter="\nGO"/>
+    </changeSet>
+
+    <changeSet id="styx-19-insert-attribute-types" author="dmo">
+        <sqlFile relativeToChangelogFile="true" path="styx-19-insert-attribute-types.sql" endDelimiter="\nGO" />
+    </changeSet>
+
+</databaseChangeLog>
+
+

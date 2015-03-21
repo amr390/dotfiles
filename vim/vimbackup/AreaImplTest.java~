@@ -1,0 +1,68 @@
+package be.cipal.styx.address.domain.impl;
+
+import static org.junit.Assert.assertEquals;
+import static org.junit.Assert.assertNotNull;
+import static org.junit.Assert.assertNull;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.runner.RunWith;
+import org.mockito.Mock;
+import org.mockito.runners.MockitoJUnitRunner;
+
+/**
+ * Test class for AreaImpl entity.
+ *
+ * @author amr
+ *
+ */
+@RunWith(MockitoJUnitRunner.class)
+public class AreaImplTest {
+
+    private AreaImpl objectToTest;
+    private Date now = new Date();
+
+    // @Mock
+    // private AssignedCreditImpl mockedAssignedCredit;
+
+    @Mock
+    private AreaTypeImpl mockedAreaType;
+
+    @Mock
+    private MultilanguageProviderImpl mockedNameProvider;
+
+    @Before
+    public void setUp() {
+        objectToTest = new AreaImpl();
+
+        objectToTest.setAreaType(mockedAreaType);
+        objectToTest.setStartDate(now);
+        objectToTest.setNameProvider(mockedNameProvider);
+    }
+
+    /**
+     * Test getters and setters
+     */
+    @Test
+    public void testCreateArea() {
+        SimpleDateFormat sdf = new SimpleDateFormat("mm/dd/yyyy");
+        String startDate = sdf.format(now);
+
+        assertNotNull(objectToTest);
+        assertNull(objectToTest.getObjectId());
+
+        assertEquals(startDate, sdf.format(objectToTest.getStartDate()));
+        assertNotNull(objectToTest.getAreaType());
+        assertNotNull(objectToTest.getNameProvider());
+        assertNull(objectToTest.getEndDate());
+    }
+
+    @Test
+    public void testAreaHasNameInSeveralLanguages() {
+
+    }
+
+}

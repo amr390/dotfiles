@@ -1,0 +1,30 @@
+{% load staticfiles %}
+<div id="product-carousel" class="carousel slide">
+    <div class="carousel-inner">
+        {% for product  in carousel_products %}
+
+        {% if forloop.counter == 1  %}
+        <div class="item active">
+        {% else %}
+        <div class="item">
+        {% endif %}
+
+            <div class="container-fluid">
+                <div class="carousel-caption">
+                    <h1 id="title1">{{ product.name }}</h1>
+                    <p class="lead">
+                    {% for image in product.images.all %}
+                    <img src="{% static image.image.url %}" class="img-polaroid pull-left" >
+                    {% endfor %}
+                    {{ product.short  }}
+                    </p>
+                    <a class="btn btn-large btn-primary show_details" id="{{  product.id }}" href="#" data-toggle="modal"> Show Product </a>
+                </div>
+            </div>
+        </div> <!-- end item -->
+        {% endfor %}
+    </div><!-- /.carousel-inner -->
+    <a class="left carousel-control" href="http://twinner.store.com#product-carousel" data-slide="prev">‹</a>
+    <a class="right carousel-control" href="http://twinner.store.com#product-carousel" data-slide="next">›</a>
+</div><!-- /.product-carousel-->
+

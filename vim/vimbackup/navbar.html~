@@ -1,0 +1,52 @@
+{% verbatim %}
+<div class="navbar navbar-inverse navbar-fixed-top">
+    <div class="container">
+        <div class="navbar-header">
+            <button type="button" class="navbar-toggle collapsed" data-toggle="collapse" data-target="#navbar" aria-expanded="false" aria-controls="navbar">
+                <span class="sr-only" >Toggle navigation</span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+                <span class="icon-bar"></span>
+            </button>
+            <a class="navbar-brand" href="#">VATBOOK</a>
+        </div><!-- /.container-->
+        <div id="navbar" class="collapse navbar-collapse">
+            <ul class="nav navbar-nav">
+                <li><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Invoices <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#income/invoice/list">Listar facturas cobradas</a></li>
+                        <li><a href="#tax/invoice/list">Listar facturas pagadas</a></li>
+                    </ul>
+                </li>
+                <li><a href="#vatbook">VAT Book</a></li>
+                <li><a class="dropdown-toggle" data-toggle="dropdown" role="button" aria-expanded="false">Admin <span class="caret"></span></a>
+                    <ul class="dropdown-menu" role="menu">
+                        <li><a href="#contributor/list">Contribuyentes</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#concept/list">Conceptos</a></li>
+                        <li class="divider"></li>
+                        <li><a href="#client/list">Clientes</a></li>
+                    </ul>
+
+                </li>
+            </ul>
+            <p class="navbar-text pull-right" ng-show="user">
+            <strong>{{ user }}</strong> <a href="#" class="navbar-link"> --logout-- </a>
+            </p>
+
+            <form class="navbar-form navbar-right" ng-hide="user">
+                <div class="form-group">
+                    <input type="text" placeholder="Username" class="form-control">
+                </div>
+                <div class="form-group">
+                    <input type="password" placeholder="Password" class="form-control">
+                </div>
+                <button type="submit" class="btn btn-success">login</button>
+            </form>
+        </div>
+
+    </div><!-- /.navbar-header-->
+</div><!-- ./.navbar -->
+{% endverbatim %}

@@ -1,0 +1,11 @@
+{% extends "common/base.html" %}
+
+{% block left_menu_block %}
+{% include "store/products_left_menu.html" %}
+{% include "common/fb_comment.html" %}
+{% endblock left_menu_block %}
+
+{% block content_block %}
+    <div ng-view="test.html"></div
+{% endblock content_block %}
+</html>

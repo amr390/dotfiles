@@ -1,0 +1,308 @@
+/*
+ * Created on 20/11/2014
+ *
+ */
+package be.cipal.styx.address.service.impl.postalcode;
+
+import java.util.Date;
+import java.util.HashSet;
+import java.util.Set;
+
+import org.exparity.hamcrest.date.DateMatchers;
+import org.junit.Before;
+import org.junit.Test;
+import org.mockito.Mockito;
+
+import be.cipal.styx.address.domain.api.AuditInfo;
+import be.cipal.styx.address.domain.api.HouseNumber;
+import be.cipal.styx.address.domain.api.PartOfPostalCode;
+import be.cipal.styx.address.domain.api.PostalCode;
+import be.cipal.styx.address.domain.api.PostalCodeFacade;
+import be.cipal.styx.address.domain.api.Source;
+import be.cipal.styx.address.service.api.exception.ServiceException;
+import be.cipal.styx.address.service.api.validation.ValidationService;
+
+/**
+ * Test class for {@link PostalCodeServiceImpl}.
+ * styx-address-service-impl
+ *
+ * @author dmo
+ * @version 20/11/2014
+ */
+public class PostalCodeServiceImplTest {
+    
+    private static final String POSTAL_CODE = "1234";
+    private static final Date START_DATE = new Date();
+    private static final String FUNCTIONAL_ID = "POSTALCODE_CRAB_29837";
+    PostalCodeServiceImpl sut;
+    private PostalCodeFacade mockPostalCodeFacade;
+    private ValidationService mockValidationService;
+    private PostalCode validPostalCode;
+    private PostalCode invalidPostalCode;
+    private HouseNumber originatingHouseNumber;
+    private PostalCode persistedPostalCode;
+    private PartOfPostalCode samePartOfPostalCode;
+    private AuditInfo mockAuditInfo;
+    private Source mockSource;
+
+    /**
+     * @throws java.lang.Exception
+     */
+    @Before
+    public void setUp() throws Exception {
+        mockValidationService = Mockito.mock(ValidationService.class);
+        mockPostalCodeFacade = Mockito.mock(PostalCodeFacade.class);
+        validPostalCode = Mockito.mock(PostalCode.class);
+        invalidPostalCode = Mockito.mock(PostalCode.class);
+        persistedPostalCode = Mockito.mock(PostalCode.class);
+        originatingHouseNumber = Mockito.mock(HouseNumber.class);
+        samePartOfPostalCode = Mockito.mock(PartOfPostalCode.class);
+        mockAuditInfo = Mockito.mock(AuditInfo.class);
+        mockSource = Mockito.mock(Source.class);
+        
+        Mockito.when(mockValidationService.isValid(validPostalCode)).thenReturn(true);
+        Mockito.when(mockValidationService.isValid(invalidPostalCode)).thenThrow(new ServiceException());
+        Mockito.when(samePartOfPostalCode.getHouseNumber()).thenReturn(originatingHouseNumber);
+        Mockito.when(samePartOfPostalCode.getPostalCode()).thenReturn(validPostalCode);
+        Mockito.when(samePartOfPostalCode.getStartDate()).thenReturn(START_DATE);
+        Mockito.when(validPostalCode.getAuditInfo()).thenReturn(mockAuditInfo);
+        Mockito.when(validPostalCode.getPostalCode()).thenReturn(POSTAL_CODE);
+        Mockito.when(validPostalCode.getSource()).thenReturn(mockSource);
+        Mockito.when(validPostalCode.getStartDate()).thenReturn(START_DATE);
+        Mockito.when(validPostalCode.getFunctionalId()).thenReturn(FUNCTIONAL_ID);
+        Mockito.when(persistedPostalCode.getFunctionalId()).thenReturn(FUNCTIONAL_ID);
+        
+        sut = new PostalCodeServiceImpl(mockValidationService, mockPostalCodeFacade);
+    }
+
+    /**
+     * Test method for {@link be.cipal.styx.address.service.impl.postalcode.PostalCodeServiceImpl#createOrUpdate(be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.HouseNumber)}.
+     * It tests that the create method is called if the received postal code
+     * does not exist.
+     * @throws ServiceException 
+     */
+    @Test
+    public void testCreateOrUpdateNonexistentPostalCode_shouldCallCreateMethod() throws ServiceException {
+        /* Local fixture set up */
+        PostalCodeServiceImpl localSut = Mockito.spy(new PostalCodeServiceImpl(mockValidationService, mockPostalCodeFacade));
+        Mockito.doReturn(null).when(localSut).createPostalCode(Mockito.any(PostalCode.class));
+        PostalCode nonexistentPostalCode = Mockito.mock(PostalCode.class);
+        String nonExistentFunctionalId = FUNCTIONAL_ID + "1";
+        Mockito.when(nonexistentPostalCode.getFunctionalId()).thenReturn(nonExistentFunctionalId);
+        
+        /* SUT invocation */
+        localSut.createOrUpdate(nonexistentPostalCode, originatingHouseNumber);
+        
+        /* Verifications */
+        Mockito.verify(mockPostalCodeFacade).findPostalCodeByFunctionalId(nonExistentFunctionalId);
+        Mockito.verify(localSut).createPostalCode(nonexistentPostalCode);
+        Mockito.verify(localSut, Mockito.never()).updatePostalCode(persistedPostalCode, persistedPostalCode, originatingHouseNumber);
+    }
+
+    /**
+     * Test method for {@link be.cipal.styx.address.service.impl.postalcode.PostalCodeServiceImpl#createOrUpdate(be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.HouseNumber)}.
+     * It tests that the create method is called if the received postal code
+     * does not exist.
+     * @throws ServiceException 
+     */
+    @Test
+    public void testCreateOrUpdateExistingPostalCode_shouldCallUpdateMethod() throws ServiceException {
+        /* Local fixture set up */
+        PostalCodeServiceImpl localSut = Mockito.spy(new PostalCodeServiceImpl(mockValidationService, mockPostalCodeFacade));
+        Mockito.doReturn(null).when(localSut).updatePostalCode(Mockito.any(PostalCode.class), Mockito.any(PostalCode.class), Mockito.any(HouseNumber.class));
+        PostalCode existingPostalCode = Mockito.mock(PostalCode.class);
+        Mockito.when(existingPostalCode.getFunctionalId()).thenReturn(FUNCTIONAL_ID);
+        Mockito.when(mockPostalCodeFacade.findPostalCodeByFunctionalId(FUNCTIONAL_ID)).thenReturn(existingPostalCode);
+        
+        /* SUT invocation */
+        localSut.createOrUpdate(existingPostalCode, originatingHouseNumber);
+        
+        /* Verifications */
+        Mockito.verify(mockPostalCodeFacade).findPostalCodeByFunctionalId(FUNCTIONAL_ID);
+        Mockito.verify(localSut).updatePostalCode(existingPostalCode, existingPostalCode, originatingHouseNumber);
+        Mockito.verify(localSut, Mockito.never()).createPostalCode(persistedPostalCode);
+    }
+
+    /**
+     * Test method for {@link be.cipal.styx.address.service.impl.postalcode.PostalCodeServiceImpl#updatePostalCode(be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.HouseNumber)}.
+     * It test that the appropriate façade methods are called if a valid postal
+     * code is provided.
+     */
+    @Test
+    public void testUpdatePostalCodeValidPostalCode_shouldCallAppropriateFacadeMethods() throws ServiceException {
+        /* Local fixture set up */
+        Set<PartOfPostalCode> houseNumberPostalCodes = new HashSet<PartOfPostalCode>();
+        houseNumberPostalCodes.add(samePartOfPostalCode);
+        Mockito.doReturn(houseNumberPostalCodes).when(validPostalCode).getHouseNumbers();
+
+        /* SUT invocation */
+        sut.updatePostalCode(persistedPostalCode, validPostalCode, originatingHouseNumber);
+        
+        /* Verifications */
+        Mockito.verify(mockValidationService).isValid(validPostalCode);
+        Mockito.verify(mockPostalCodeFacade).savePostalCode(persistedPostalCode);
+    }
+
+    /**
+     * Test method for {@link be.cipal.styx.address.service.impl.postalcode.PostalCodeServiceImpl#updatePostalCode(be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.HouseNumber)}.
+     * It test that the existing postal code properties are updated if a valid 
+     * postal code is provided.
+     */
+    @Test
+    public void testUpdatePostalCodeValidPostalCode_shouldUpdateExistingPostalCode() throws ServiceException {
+        /* Local fixture set up */
+        Set<PartOfPostalCode> houseNumberPostalCodes = new HashSet<PartOfPostalCode>();
+        houseNumberPostalCodes.add(samePartOfPostalCode);
+        Mockito.doReturn(houseNumberPostalCodes).when(validPostalCode).getHouseNumbers();
+
+        /* SUT invocation */
+        sut.updatePostalCode(persistedPostalCode, validPostalCode, originatingHouseNumber);
+        
+        /* Verifications */
+        Mockito.verify(persistedPostalCode).setPostalCode(POSTAL_CODE);
+        Mockito.verify(persistedPostalCode).setSource(mockSource);
+        Mockito.verify(persistedPostalCode).setStartDate(START_DATE);
+        Mockito.verify(persistedPostalCode).setAuditInfo(mockAuditInfo);
+    }
+
+    /**
+     * Test method for {@link be.cipal.styx.address.service.impl.postalcode.PostalCodeServiceImpl#updatePostalCode(be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.HouseNumber)}.
+     * It test that the no part-of-postalcode links are created or updated if 
+     * the house number was already linked to the current postal code.
+     */
+    @Test
+    public void testUpdatePostalCodeHouseNumberAlreadyLinked_shouldNotUpdateLink() throws ServiceException {
+        /* Local fixture set up */
+        Set<PartOfPostalCode> houseNumberPostalCodes = new HashSet<PartOfPostalCode>();
+        houseNumberPostalCodes.add(samePartOfPostalCode);
+        Mockito.doReturn(houseNumberPostalCodes).when(validPostalCode).getHouseNumbers();
+        Mockito.when(originatingHouseNumber.getCurrentPostalCode()).thenReturn(samePartOfPostalCode);
+
+        /* SUT invocation */
+        sut.updatePostalCode(persistedPostalCode, validPostalCode, originatingHouseNumber);
+        
+        /* Verifications */
+        Mockito.verify(mockPostalCodeFacade, Mockito.never()).newHouseNumberLink(Mockito.any(PostalCode.class), Mockito.any(HouseNumber.class), Mockito.any(Date.class));
+    }
+
+    /**
+     * Test method for {@link be.cipal.styx.address.service.impl.postalcode.PostalCodeServiceImpl#updatePostalCode(be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.HouseNumber)}.
+     * It test that a new part-of-postalcode link is created if 
+     * the house number was no linked to any postal code.
+     */
+    @Test
+    public void testUpdatePostalCodeHouseNumberNotLinked_shouldCreateLink() throws ServiceException {
+        /* Local fixture set up */
+        Set<PartOfPostalCode> houseNumberPostalCodes = new HashSet<PartOfPostalCode>();
+        houseNumberPostalCodes.add(samePartOfPostalCode);
+        Mockito.doReturn(houseNumberPostalCodes).when(validPostalCode).getHouseNumbers();
+        Mockito.when(originatingHouseNumber.getCurrentPostalCode()).thenReturn(null);
+
+        /* SUT invocation */
+        sut.updatePostalCode(persistedPostalCode, validPostalCode, originatingHouseNumber);
+        
+        /* Verifications */
+        Mockito.verify(mockPostalCodeFacade, Mockito.times(1))
+                .newHouseNumberLink(Mockito.eq(persistedPostalCode)
+                        , Mockito.eq(originatingHouseNumber)
+                        , Mockito.argThat(DateMatchers.sameMinute(START_DATE)));
+    }
+
+    /**
+     * Test method for {@link be.cipal.styx.address.service.impl.postalcode.PostalCodeServiceImpl#updatePostalCode(be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.HouseNumber)}.
+     * It test that a new part-of-postalcode link is created if 
+     * the house number was linked to a different postal code.
+     */
+    @Test
+    public void testUpdatePostalCodeHouseNumberLinkedToAnotherPostalCode_shouldCreateLink() throws ServiceException {
+        createPartOfPostalCodeLinkedToDifferentPostalCode();
+
+        /* SUT invocation */
+        sut.updatePostalCode(persistedPostalCode, validPostalCode, originatingHouseNumber);
+        
+        /* Verifications */
+        Mockito.verify(mockPostalCodeFacade, Mockito.times(1))
+                .newHouseNumberLink(Mockito.eq(persistedPostalCode)
+                        , Mockito.eq(originatingHouseNumber)
+                        , Mockito.argThat(DateMatchers.sameMinute(START_DATE)));
+    }
+
+    /**
+     * Test method for {@link be.cipal.styx.address.service.impl.postalcode.PostalCodeServiceImpl#updatePostalCode(be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.PostalCode, be.cipal.styx.address.domain.api.HouseNumber)}.
+     * It test that the previous current part-of-postalcode link marked with an 
+     * end date if the house number was linked to a different postal code.
+     */
+    @Test
+    public void testUpdatePostalCodeHouseNumberLinkedToAnotherPostalCode_shouldEndPreviousLink() throws ServiceException {
+        /* Local fixture set up */
+        PartOfPostalCode differentPartOfPostalCode = createPartOfPostalCodeLinkedToDifferentPostalCode();
+
+        /* SUT invocation */
+        sut.updatePostalCode(persistedPostalCode, validPostalCode, originatingHouseNumber);
+        
+        /* Verifications */
+        Mockito.verify(differentPartOfPostalCode, Mockito.times(1))
+                .setEndDate(Mockito.argThat(DateMatchers.sameMinute(new Date())));
+    }
+
+    /**
+     * Test method for {@link be.cipal.styx.address.service.impl.postalcode.PostalCodeServiceImpl#createPostalCode(be.cipal.styx.address.domain.api.PostalCode)}.
+     * It test that an invalid postal code make the service throw an exception.
+     * @throws ServiceException 
+     */
+    @Test(expected = ServiceException.class)
+    public void testUpdatePostalCodeInvalidPostalCode_shouldFailValidation() throws ServiceException {
+        /* SUT invocation */
+        sut.updatePostalCode(persistedPostalCode, invalidPostalCode, originatingHouseNumber);
+    }
+
+    /**
+     * Test method for {@link be.cipal.styx.address.service.impl.postalcode.PostalCodeServiceImpl#createPostalCode(be.cipal.styx.address.domain.api.PostalCode)}.
+     * It tests that the appropriate façade methods are called if a valid
+     * postal code is provided.
+     * @throws ServiceException 
+     */
+    @Test
+    public void testCreatePostalCodeValidPostalCode_shouldCallAppropriateFacadeMethods() throws ServiceException {
+        /* SUT invocation */
+        sut.createPostalCode(validPostalCode);
+        
+        /* Verification */
+        Mockito.verify(mockValidationService).isValid(validPostalCode);
+        Mockito.verify(mockPostalCodeFacade).savePostalCode(validPostalCode);
+    }
+
+    /**
+     * Test method for {@link be.cipal.styx.address.service.impl.postalcode.PostalCodeServiceImpl#createPostalCode(be.cipal.styx.address.domain.api.PostalCode)}.
+     * It test that an invalid postal code make the service throw an exception.
+     * @throws ServiceException 
+     */
+    @Test(expected = ServiceException.class)
+    public void testCreatePostalCodeInvalidPostalCode_shouldFailValidation() throws ServiceException {
+        /* SUT invocation */
+        sut.createPostalCode(invalidPostalCode);
+        
+        Mockito.verify(mockValidationService).isValid(invalidPostalCode);
+    }
+
+    /**
+     * Creates a {@link PartOfPostalCode} that links the originating house
+     * number with a different postal code and returns it.
+     * 
+     * @return  a {@link PartOfPostalCode} that links the originating house
+     *          number with a different postal code
+     */
+    private PartOfPostalCode createPartOfPostalCodeLinkedToDifferentPostalCode() {
+        Set<PartOfPostalCode> houseNumberPostalCodes = new HashSet<PartOfPostalCode>();
+        PartOfPostalCode differentPartOfPostalCode = Mockito.mock(PartOfPostalCode.class);
+        final Date previousDate = new Date(System.currentTimeMillis() - 24 * 60 * 60 * 1000);
+        PostalCode differentPostalCode = Mockito.mock(PostalCode.class);
+        Mockito.when(differentPostalCode .getFunctionalId()).thenReturn(FUNCTIONAL_ID + "123");
+        Mockito.when(differentPartOfPostalCode.getStartDate()).thenReturn(previousDate);
+        Mockito.when(differentPartOfPostalCode.getPostalCode()).thenReturn(differentPostalCode);
+        houseNumberPostalCodes.add(differentPartOfPostalCode);
+        Mockito.doReturn(houseNumberPostalCodes).when(validPostalCode).getHouseNumbers();
+        Mockito.when(originatingHouseNumber.getCurrentPostalCode()).thenReturn(differentPartOfPostalCode);
+        return differentPartOfPostalCode;
+    }
+}

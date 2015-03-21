@@ -1,0 +1,11 @@
+package be.cipal.styx.sei.ws.poc.impl;
+
+import be.cipal.styx.sei.ws.poc.api.StyxPocService;
+
+public class StyxPocServiceImpl implements StyxPocService{
+
+    @Override
+    public String sayHi(){
+        return "Hi guys";
+    }
+}

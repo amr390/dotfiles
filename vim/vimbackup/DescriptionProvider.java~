@@ -1,0 +1,7 @@
+package be.cipal.styx.address.domain.api;
+
+import be.cipal.common.persistence.IdentifiableEntity;
+
+public interface DescriptionProvider extends IdentifiableEntity {
+
+}

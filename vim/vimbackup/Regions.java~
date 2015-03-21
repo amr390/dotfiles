@@ -1,0 +1,71 @@
+import java.util.List;
+import java.util.ArrayList;
+import javax.xml.bind.*;
+import javax.xml.bind.annotation.XmlAccessType;
+import javax.xml.bind.annotation.XmlAccessorType;
+import javax.xml.bind.annotation.XmlElement;
+import javax.xml.bind.annotation.XmlRootElement;
+import javax.xml.namespace.QName;
+import javax.xml.transform.stream.StreamSource;
+
+@XmlRootElement(name = "region")
+@XmlAccessorType(XmlAccessType.FIELD)
+class Region {
+    Long id;
+    ArrayList<Long> cityId;
+
+    public Long getId(){
+        return id;
+    }
+    public void setId(Long id){
+        this.id = id;
+    }
+
+    public ArrayList<Long> getCityId(){
+        return cityId;
+    }
+}
+
+
+@XmlRootElement(name = "regions")
+@XmlAccessorType(XmlAccessType.FIELD)
+class Regions{
+
+    @XmlElement(name = "region")
+    ArrayList<Region> regions = new ArrayList<>();
+
+    public void setRegion(ArrayList<Region> regions){
+        this.regions = regions;
+    }
+    public ArrayList<Region> getRegions(){
+        return this.regions;
+    }
+}
+
+public class RegionHandler{
+
+
+    public static void main (String[] args){
+
+        try{
+            StreamSource xml = new StreamSource("regions.xml");
+            JAXBElement<Regions> je1 =(JAXBElement<Region>) readFromXml(xml, Regions.class);
+            Regions regions = (Regions)je1.getValue();
+            for (Region r : regions.getRegions()){
+                System.out.println( String.format("Region id: %s, citis %s", r.getId(), r.getCityId()));
+            }
+        }catch(JAXBException e){
+            e.printStackTrace();
+        }
+    }
+
+    private static JAXBElement<?> readFromXml(StreamSource xml, Class<?> t)throws JAXBException{
+        JAXBElement<?> je1 = null;
+        JAXBContext jc = JAXBContext.newInstance(t);
+        Unmarshaller unmarshaller = jc.createUnmarshaller();
+        je1 = unmarshaller.unmarshal(xml, t);
+
+        return je1;
+
+    }
+}

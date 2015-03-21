@@ -1,0 +1,61 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans xmlns="http://www.springframework.org/schema/beans" xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+       xmlns:jpa="http://www.springframework.org/schema/data/jpa"
+       xmlns:repository="http://www.springframework.org/schema/data/repository"
+       xmlns:tx="http://www.springframework.org/schema/tx"
+       xmlns:aop="http://www.springframework.org/schema/aop"
+       xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd
+						http://www.springframework.org/schema/data/jpa http://www.springframework.org/schema/data/jpa/spring-jpa-1.3.xsd
+						http://www.springframework.org/schema/data/repository http://www.springframework.org/schema/data/repository/spring-repository.xsd
+						http://www.springframework.org/schema/tx http://www.springframework.org/schema/tx/spring-tx-2.0.xsd
+					    http://www.springframework.org/schema/aop http://www.springframework.org/schema/aop/spring-aop-3.0.xsd ">
+
+     <bean id="entityManagerFactory" class="org.springframework.orm.jpa.LocalContainerEntityManagerFactoryBean">
+          <property name="dataSource" ref="dataSource" />
+          <property name="jpaVendorAdapter">
+               <bean class="org.springframework.orm.jpa.vendor.EclipseLinkJpaVendorAdapter" />
+          </property>
+          <property name="jpaProperties">
+            <props>
+                <prop key="eclipselink.session.customizer">
+                    be.cipal.common.persistence.helper.MultiTenantTransactionSessionCustomizer
+                </prop>
+           </props>
+          </property>
+     </bean>
+     
+
+     <jpa:repositories base-package="be.cipal.styx.address.domain.dao" transaction-manager-ref="jtaTransactionManager"
+                       factory-class="be.cipal.common.persistence.repository.DefaultRepositoryFactoryBean">
+          <repository:include-filter type="regex" expression=".*Dao" />
+     </jpa:repositories>
+
+	<bean id="areaFacade" class="be.cipal.styx.address.domain.impl.AreaFacadeImpl">
+		<property name="areaDao" ref="areaDao" />
+	</bean>
+
+	<bean id="areaTypeFacade" class="be.cipal.styx.address.domain.impl.AreaTypeFacadeImpl">
+		<property name="areaTypeDao" ref="areaTypeDao" />
+	</bean>
+
+	<bean id="cityFacade" class="be.cipal.styx.address.domain.impl.CityFacadeImpl">
+		<property name="cityDao" ref="cityDao" />
+	</bean>
+
+	<bean id="multilanguageProviderFacade" class="be.cipal.styx.address.domain.impl.MultilanguageProviderFacadeImpl">
+		<property name="multilanguageProviderDao" ref="multilanguageProviderDao" />
+		<property name="multilanguageDao" ref="multilanguageDao" />
+		<property name="languageDao" ref="languageDao" />
+	</bean>
+	<bean id="languageFacade" class="be.cipal.styx.address.domain.impl.LanguageFacadeImpl">
+		<property name="languageDao" ref="languageDao" />
+	</bean>
+
+    <tx:annotation-driven transaction-manager="transactionManager" />
+<!--     <tx:annotation-driven transaction-manager="jtaTransactionManager" /> -->
+ 
+<!--     <aop:aspectj-autoproxy /> -->
+ 
+    <bean id="facadeExceptionAspect" class="be.cipal.styx.address.domain.impl.aop.FacadeExceptionAdvice" />
+ 
+</beans>

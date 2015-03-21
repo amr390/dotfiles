@@ -1,0 +1,1 @@
+/home/amr/..vimamr/.vim

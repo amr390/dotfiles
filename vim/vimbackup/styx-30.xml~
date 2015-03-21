@@ -1,0 +1,26 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet id="styx-30-create-table-street" author="amr">
+        <sqlFile relativeToChangelogFile="true" path="styx-30-create-table-street.sql"/>
+    </changeSet>
+    <changeSet id="styx-30-create-table-city-street-link" author="amr">
+        <sqlFile relativeToChangelogFile="true" path="styx-30-create-table-city-street-link.sql"/>
+    </changeSet>
+    <changeSet id="styx-30-create-status" author="amr">
+        <sqlFile relativeToChangelogFile="true" path="styx-30-create-status-and-source.sql"/>
+    </changeSet>
+    <changeSet id="styx-30-alter-table-area" author="amr">
+        <sqlFile relativeToChangelogFile="true" path="styx-30-alter-table-area.sql"/>
+    </changeSet>
+    <changeSet id="styx-30-insert-status-types" author="amr" context="styxData" >
+        <sqlFile relativeToChangelogFile="true" path="styx-30-insert-status-types.sql" endDelimiter="\nGO"/>
+    </changeSet>
+    <changeSet id="styx-30-insert-status-codes" author="amr" context="styxData" >
+        <sqlFile relativeToChangelogFile="true" path="styx-30-insert-status-codes.sql" endDelimiter="\nGO"/>
+    </changeSet>
+    <changeSet id="styx-30-insert-source" author="amr" context="styxData" >
+        <sqlFile relativeToChangelogFile="true" path="styx-30-insert-source.sql" />
+    </changeSet>
+</databaseChangeLog>

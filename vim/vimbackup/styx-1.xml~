@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="styx-1-create-multilanguage-provider" author="amr">
+        <sqlFile relativeToChangelogFile="true" path="styx-1-create-multilanguage-provider.sql"/>
+    </changeSet>
+
+    <changeSet id="styx-1-create-language" author="amr">
+        <sqlFile relativeToChangelogFile="true" path="styx-1-create-language.sql"/>
+    </changeSet>
+
+    <changeSet id="styx-1-create-multilanguage" author="amr">
+        <sqlFile relativeToChangelogFile="true" path="styx-1-create-multilanguage.sql"/>
+    </changeSet>
+
+    <changeSet id="styx-1-create-area-type" author="amr">
+        <sqlFile relativeToChangelogFile="true" path="styx-1-create-area-type.sql"/>
+    </changeSet>
+
+    <changeSet id="styx-1-create-area" author="amr">
+        <sqlFile relativeToChangelogFile="true" path="styx-1-create-area.sql"/>
+    </changeSet>
+
+    <changeSet id="styx-1-create-area-type-link" author="amr">
+        <sqlFile relativeToChangelogFile="true" path="styx-1-create-area-type-link.sql"/>
+    </changeSet>
+
+    <changeSet id="styx-1-create-city" author="amr">
+        <sqlFile relativeToChangelogFile="true" path="styx-1-create-city.sql"/>
+    </changeSet>
+
+    <changeSet id="styx-1-insert-basic-languages" author="amr" context="styxBootData">
+        <sqlFile relativeToChangelogFile="true" path="styx-1-insert-basic-language.sql"/>
+    </changeSet>
+
+</databaseChangeLog>

@@ -1,0 +1,36 @@
+'use strict';
+
+angular.module('vatbook.controllers')
+.controller('AppController', function ($scope, WithholdingTaxService) {
+    $scope.user = {
+        firstName: "test",
+        lastName: "test"
+    };
+
+    $scope.withholdings= [];
+    $scope.data = []
+    $scope.filter = "";
+
+    $scope.getWithholdings = function(){
+        var promise = WithholdingTaxService.getAllWithholdingTaxes();
+        promise.then(function(response){
+            $scope.data = response.data;
+            $scope.withholdings = response.data;
+            console.log("finish", $scope.withholdings);
+        });
+
+        console.log("this may not be the last message");
+    };
+
+    $scope.$watch("filter", function(newVal){
+        if(newVal){
+            $scope.withholdings = $scope.data.filter(function(item){
+                return item.dni.lastIndexOf($scope.filter) === 0;
+            });
+        }else {
+            $scope.withholdings = $scope.data;
+        }
+    });
+
+    $scope.getWithholdings();
+});

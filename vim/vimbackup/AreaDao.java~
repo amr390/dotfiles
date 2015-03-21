@@ -1,0 +1,32 @@
+/**
+ * 
+ */
+package be.cipal.styx.address.domain.dao;
+
+import java.util.Date;
+import java.util.List;
+
+import javax.persistence.QueryHint;
+
+import org.eclipse.persistence.config.HintValues;
+import org.springframework.data.jpa.repository.JpaSpecificationExecutor;
+import org.springframework.data.jpa.repository.Query;
+import org.springframework.data.jpa.repository.QueryHints;
+
+import be.cipal.common.persistence.repository.JpaHintRepository;
+import be.cipal.styx.address.domain.api.Area;
+
+/**
+ * @author amr
+ *
+ */
+public interface AreaDao extends JpaHintRepository<Area, Long>, JpaSpecificationExecutor<Area> {
+	
+	@Query("Select a from AreaImpl a where a.areaType.id = ?1")
+	@QueryHints({@QueryHint(name=org.eclipse.persistence.config.QueryHints.BIND_PARAMETERS, value=HintValues.TRUE) })
+	public List<Area> findAllByAreaTypeId(Long areaTypeId);
+	
+	@Query("update a from AreaImpl a set endDate = ?2 where a.id = ?1")
+	public void delete(Long id, Date endDate);
+	
+}

@@ -1,0 +1,43 @@
+(function(){
+    'use strict';
+
+    angular.module('vatbook.services')
+    .factory('ContributorApi', ['$resource', function($resource){
+        var Endpoint = $resource('/vatbook/admin/contributor/:id', {id: '@_id'},{
+            update: {
+                method: 'PUT'
+            }
+        }),
+        repository = {};
+
+        repository.list = function(){
+            return Endpoint.query();
+        };
+
+        repository.save = function(data){
+            var item = new Endpoint(data);
+            return item.$save();
+        };
+
+        repository.update = function(data){
+            var item = Endpoint.get({id:data.id});
+            item.first_name = data.first_name;
+            item.last_name = data.last_name;
+            item.email = data.email;
+            item.identifier = data.identifier;
+            // TODO: add jquery extends instead of manual
+            return item.$update({id:data.id});
+        };
+
+
+        repository.get = function(id){
+            return Endpoint.get({id:id});
+        };
+
+        repository.remove = function(id){
+            return Endpoint.delete({id:id});
+        };
+
+        return repository;
+    }]);
+}());

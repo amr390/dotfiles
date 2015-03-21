@@ -1,0 +1,37 @@
+
+description = 'styx-crab-ws'
+configurations{
+    generateJavaFromWsdl
+}
+
+
+dependencies {
+    classpath('commons-io:commons-io:2.4')
+    compile group: 'be.cipal', name: 'csf-common-ws', version:'203.01.0.02'
+    compile project(':styx-address-domain')
+    compile project(':styx-feed')
+    testCompile project(':styx-address-domain-impl')
+    generateJavaFromWsdl('org.apache.cxf:cxf-tools-wsdlto-core:2.7.0')
+    generateJavaFromWsdl('org.apache.cxf:cxf-tools-wsdlto-frontend-jaxws:2.7.0')
+    generateJavaFromWsdl('org.apache.cxf:cxf-tools-wsdlto-databinding-jaxb:2.7.0')
+}
+
+task generateJavaFromWsdl(type: JavaExec) {
+    classpath configurations.generateJavaFromWsdlDeps
+        main "org.apache.cxf.tools.wsdlto.WSDLToJava"
+////        args "your", "args", "here"
+
+        compileJava.dependsOn += name
+
+        def branch = new org.apache.commons.io.output.ByteArrayOutputStream()
+        errorOutput = new org.apache.commons.io.output.TeeOutputStream(System.err, branch)
+        doLast {
+            def str = branch.toString()
+            if (str.contains('Usage : wsdl2java') || str.contains('WSDLToJava Error')) {
+                throw new TaskExecutionException(
+                        tasks[name],
+                        new IOException("WSDLToJava has failed, please see output")
+                        )
+            }
+        }
+}

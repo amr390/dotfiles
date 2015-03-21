@@ -1,0 +1,25 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<beans
+    xsi:schemaLocation="http://www.springframework.org/schema/beans http://www.springframework.org/schema/beans/spring-beans.xsd"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xmlns="http://www.springframework.org/schema/beans">
+
+    <bean id="AreaFacade" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="be.cipal.styx.address.domain.api.AreaFacade" />
+    </bean>
+
+    <bean id="AreaTypeFacade" class="org.mockito.Mockito" factory-method="mock">
+        <constructor-arg value="be.cipal.styx.address.domain.api.AreaTypeFacade" />
+    </bean>
+
+    <!--<bean id="blokkeringFacade" class="org.mockito.Mockito" factory-method="mock">-->
+        <!--<constructor-arg value="be.cipal.styx.address.domain.api.AddressFacade" />-->
+    <!--</bean>-->
+
+    <!--<bean id="deurwaarderFacade" class="org.mockito.Mockito" factory-method="mock">-->
+        <!--<constructor-arg value="be.cipal.styx.address.domain.api.AddressFacade" />-->
+    <!--</bean>-->
+
+    <!--<bean id="repaymentEventHandlerList" class="java.util.ArrayList"/>-->
+
+</beans>

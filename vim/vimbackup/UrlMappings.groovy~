@@ -1,0 +1,20 @@
+class UrlMappings {
+
+    static mappings = {
+        "/$controller/$action?/$id?(.${format})?"{
+            constraints {
+                // apply constraints here
+            }
+        }
+
+    "/"(view:"/index")
+    group "/report", {
+        "/invoice/members"(controller:"reporter", action:"memberInvoices")
+        "/invoice/product"(controller:"reporter", action:"productInvoices")
+        "/withholdingtax"(controller:"reporter", action:"withholdingTax")
+    }
+    group "/taxes", {
+    }
+    "500"(view:'/error')
+    }
+}

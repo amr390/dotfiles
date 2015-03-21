@@ -1,0 +1,7 @@
+package com.cucharitas.sat.auth
+
+class AuthenticationToken {
+
+    static constraints = {
+    }
+}

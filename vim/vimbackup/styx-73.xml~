@@ -1,0 +1,10 @@
+<databaseChangeLog xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+    xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+    xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+    <changeSet id="styx-73-alter_status_type_add_source" author="amr">
+        <sqlFile relativeToChangelogFile="true" path="styx-73-alter-status-type-add-source.sql" />
+    </changeSet>
+    <changeSet id="styx-73-update-status_type" author="amr" context="styxData" endDelimiter="\nGO">
+        <sqlFile relativeToChangelogFile="true" path="styx-73-update-status-type.sql" />
+    </changeSet>
+</databaseChangeLog>

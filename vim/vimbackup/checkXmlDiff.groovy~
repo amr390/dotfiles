@@ -1,0 +1,120 @@
+def src = new File("src.xml")
+def dst = new File("dst.xml")
+def output = new File("output.log")
+def nl = System.getProperty('line.separator')
+
+
+XmlParser parser = new XmlParser()
+def srcFile = parser.parse(src)
+def dstFile = parser.parse(dst)
+
+def srcResult = srcFile.result
+def dstResult = dstFile.children()[0].children()[0].response.result
+
+output.write("") // cleans up the file
+checkCountry = { srcCo, dstCo ->
+    if (srcCo.styxId.text() != dstCo.styxId.text()){
+        output.append("[src | dst] country styxId: [${srcCo.styxId.text()} | ${dstCo.styxId.text()}] ${nl}")
+    }
+    if (srcCo.label.text() != dstCo.label.text()){
+        output.append("[src | dst] country label: [${srcCo.label.text()} | ${dstCo.label.text()}] ${nl}")
+    }
+}
+checkCity = {srcCi, dstCi ->
+    if (srcCi.styxId.text() != dstCi.styxId.text()){
+        output.append("[src | dst] city styxId: [${srcCi.styxId.text()} | ${dstCi.styxId.text()}] ${nl}")
+    }
+    if (srcCi.crabId.text() != dstCi.crabId.text()){
+        output.append("[src | dst] city crabId: [${srcCi.crabId.text()} | ${dstCi.crabId.text()}] ${nl}")
+    }
+    if (srcCi.label.text() != dstCi.label.text()){
+        output.append("[src | dst] city label: [${srcCi.label.text()} | ${dstCi.label.text()}] ${nl}")
+    }
+}
+checkStreet = {srcSt, dstSt ->
+    if (srcSt.styxId.text() != dstSt.styxId.text()){
+        output.append("[src | dst] street styxId: [${srcSt.styxId.text()} | ${dstSt.styxId.text()}] ${nl}")
+    }
+    if (srcSt.crabId.text() != dstSt.crabId.text()){
+        output.append("[src | dst] street crabId: [${srcSt.crabId.text()} | ${dstSt.crabId.text()}] ${nl}")
+    }
+    if (srcSt.label.text() != dstSt.label.text()){
+        output.append("[src | dst] street label: [${srcSt.label.text()} | ${dstSt.label.text()}] ${nl}")
+    }
+    if (srcSt.status.text() != dstSt.status.text()){
+        output.append("[src | dst] street status: [${srcSt.status.text()} | ${dstSt.status.text()}] ${nl}")
+    }
+}
+checkHouseNumber = {srcHn, dstHn ->
+    if (srcHn.styxId.text() != dstHn.styxId.text()){
+        output.append("[src | dst] housenr styxId: [${srcHn.styxId.text()} | ${dstHn.styxId.text()}] ${nl}")
+    }
+    if (srcHn.crabId.text() != dstHn.crabId.text()){
+        output.append("[src | dst] housenr crabId: [${srcHn.crabId.text()} | ${dstHn.crabId.text()}] ${nl}")
+    }
+    if (srcHn.housenumber.text() != dstHn.housenumber.text()){
+        output.append("[src | dst] housenr housenumber: [${srcHn.houseNumber.text()} | ${dstHn.houseNumber.text()}] ${nl}")
+    }
+    if (srcHn.status.text() != dstHn.status.text()){
+        output.append("[src | dst] housenr status: [${srcHn.status.text()} | ${dstHn.status.text()}] ${nl}")
+    }
+}
+checkPostalCode = {srcPc, dstPc ->
+    if (srcPc.styxId.text() != dstPc.styxId.text()){
+        output.append("[src | dst] postalcode styxId: [${srcPc.styxId.text()} | ${dstPc.styxId.text()}] ${nl}")
+    }
+    if (srcPc.crabId.text() != dstPc.crabId.text()){
+        output.append("[src | dst] postalcode crabId: [${srcPc.crabId.text()} | ${dstPc.crabId.text()}] ${nl}")
+    }
+    if (srcPc.postalCode.text() != dstPc.postalCode.text()){
+        output.append("[src | dst] postalcode postalcode: [${srcPc.postalCode.text()} | ${dstPc.postalCode.text()}] ${nl}")
+    }
+}
+checkPosition = {srcPos, dstPos ->
+    if (srcPos.coordinateSystem.text() != dstPos.coordinateSystem.text()){
+        output.append("[src | dst] position styxId: [${srcPos.coordinateSystem.text()} | ${dstPos.coordinateSystem.text()}] ${nl}")
+    }
+    if (srcPos.origin.text() != dstPos.origin.text()){
+        output.append("[src | dst] position origin: [${srcPos.origin.text()} | ${dstPos.origin.text()}] ${nl}")
+    }
+    if (srcPos.wkt.text() != dstPos.wkt.text()){
+        output.append("[src | dst] position wkt: [${srcPos.wkt.text()} | ${dstPos.wkt.text()}] ${nl}")
+    }
+}
+
+checkCountry(srcResult.country, dstResult.country)
+checkCity(srcResult.country.city, dstResult.country.city)
+
+srcResult.country.city.streets.street.each{srcStreet ->
+    output.append("Street ${srcStreet.styxId.text()} diffs: ${nl}")
+    def dstStreet = dstResult.country.city.streets.street.find({st ->
+        st.styxId.text() == srcStreet.styxId.text()
+    })
+    if (dstStreet){
+        checkStreet(srcStreet, dstStreet)
+        srcStreet.housenumbers.housenumber.each{srcHousenr ->
+            output.append("\t Housenr ${srcStreet.styxId.text()} diffs: ${nl}")
+            def dstHousenr = dstStreet.housenumbers.housenumber.find({hn ->
+                hn.styxId.text() == srcHousenr.styxId.text()
+            })
+            if (dstHousenr){
+                checkHouseNumber(srcHousenr, dstHousenr)
+                checkPostalCode(srcHousenr.postalCode, dstHousenr.postalCode)
+                srcHousenr.positions.position.each{srcPosition ->
+                    def dstPosition = dstHousenr.positions.position.find({pos ->
+                        pos.wkt.text() == srcPosition.wkt.text()
+                    })
+                    if (dstPosition){
+                        checkPosition(srcPosition, srcPosition)
+                    }else{
+                        output.append("Couldn't find maching ${srcPosition.wkt.text()} position ${nl}")
+                    }
+                }
+            }else{
+                output.append("Couldn't find maching ${srcHousenr.styxId.text()} HouseNumber ${nl}")
+            }
+        }
+    }else{
+        output.append("Couldn't find maching ${srcStreet.styxId.text()} street {nl}")
+    }
+}

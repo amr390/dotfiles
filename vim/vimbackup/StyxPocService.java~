@@ -1,0 +1,11 @@
+package be.cipal.styx.sei.ws.poc;
+
+import java.util.List;
+import javax.jws.WebService;
+
+
+
+@WebService
+public interface StyxPocService{
+    String sayHi();
+}

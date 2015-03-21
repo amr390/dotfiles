@@ -1,0 +1,19 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<databaseChangeLog
+        xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+        xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+        xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog
+                        http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-2.0.xsd">
+
+    <changeSet id="styx-65-alter-table-position" author="dmo" context="styxData" >
+        <sqlFile relativeToChangelogFile="true" path="styx-65-alter-table-position.sql" />
+    </changeSet>
+
+    <changeSet id="styx-65-alter-position-precision" author="dmo" context="styxData" >
+        <sqlFile relativeToChangelogFile="true" path="styx-65-alter-position-precisions.sql" />
+    </changeSet>
+
+</databaseChangeLog>
+
+
