@@ -1,4 +1,0 @@
-service.pid="${common.communication.service.pid}"
-internal.jms.brokerURL="${jms.brokerURL}"
-internal.jms.maxPoolSize="50"
-communication.dir="/home/amr/tmp/"

@@ -1,7 +1,0 @@
-package test
-
-class Page {
-
-    static constraints = {
-    }
-}

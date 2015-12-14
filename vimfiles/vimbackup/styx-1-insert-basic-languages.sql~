@@ -1,6 +1,0 @@
-INSERT INTO LANGUAGE(ID, ISO_639_1_CODE, ISO_639_2_CODE, VERSION, USER_ADD, DT_ADD, USER_UPDATE, DT_UPDATE) VALUES(SEQ_LANGUAGE.NEXTVAL, 'NL', 'NLD', 1, 'insert', to_date('2014/09/20', 'yyyy/mm/dd'), 'update', to_date('2014/09/20', 'yyyy/mm/dd'));
-INSERT INTO LANGUAGE(ID, ISO_639_1_CODE, ISO_639_2_CODE, VERSION, USER_ADD, DT_ADD, USER_UPDATE, DT_UPDATE) VALUES(SEQ_LANGUAGE.NEXTVAL, 'FR', 'FRA', 1, 'insert', to_date('2014/09/20', 'yyyy/mm/dd'), 'update', to_date('2014/09/20', 'yyyy/mm/dd'));
-INSERT INTO LANGUAGE(ID, ISO_639_1_CODE, ISO_639_2_CODE, VERSION, USER_ADD, DT_ADD, USER_UPDATE, DT_UPDATE) VALUES(SEQ_LANGUAGE.NEXTVAL, 'DE', 'DEU', 1, 'insert', to_date('2014/09/20', 'yyyy/mm/dd'), 'update', to_date('2014/09/20', 'yyyy/mm/dd'));
-INSERT INTO LANGUAGE(ID, ISO_639_1_CODE, ISO_639_2_CODE, VERSION, USER_ADD, DT_ADD, USER_UPDATE, DT_UPDATE) VALUES(SEQ_LANGUAGE.NEXTVAL, 'EN', 'ENG', 1, 'insert', to_date('2014/09/20', 'yyyy/mm/dd'), 'update', to_date('2014/09/20', 'yyyy/mm/dd'));
-
-COMMIT;

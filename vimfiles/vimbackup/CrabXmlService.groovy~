@@ -1,6 +1,0 @@
-import be.agiv.ws.crabws.IWsCrab
-
-
-IWsCrab crabService = new IWsCrab();
-
-crabService.listGemeentenByGewestId(1, new Integer(1))

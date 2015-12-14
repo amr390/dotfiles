@@ -1,9 +1,0 @@
-#!/bin/bash
-
-cd csf/trunk && svn up
-
-if [ $? == 0 ] ; then
-    cd csf-parent-osgi && mvn clean install -Dmaven.test.skip=true
-fi
-
-exit 0 

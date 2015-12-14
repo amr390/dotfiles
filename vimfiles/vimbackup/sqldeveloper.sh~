@@ -1,2 +1,0 @@
-#!/bin/bash
-cd /home/amr/Apps/sqldeveloper/bin && bash sqldeveloper $*

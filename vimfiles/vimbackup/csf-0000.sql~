@@ -1,5 +1,0 @@
--- Set this useless date format as default session format,
--- to force the correct usage of to_date(dateValue, dateMask)
--- Any incorrect usage will result in format axception.
-
-ALTER SESSION SET NLS_DATE_FORMAT='DD';

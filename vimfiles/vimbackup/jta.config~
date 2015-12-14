@@ -1,6 +1,0 @@
-service.pid="jta"
-com.atomikos.icatch.service=com.atomikos.icatch.standalone.UserTransactionServiceFactory
-com.atomikos.icatch.max_actives=-1
-com.atomikos.icatch.max_timeout=86400000
-com.atomikos.icatch.checkpoint_interval=100
-com.atomikos.icatch.log_base_dir=felix-cache

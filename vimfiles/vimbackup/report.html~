@@ -1,4 +1,0 @@
-<div>
-    <h1> Report page ok mandril</h1>
-    <p>{{ test }}</p>
-</div>

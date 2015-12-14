@@ -1,8 +1,0 @@
-service.pid="osgi-testframework"
-runIntegrationTest.mailAddresses="tom.van.den.eynde@cipal.be"
-runIntegrationTest.nodelay.sendMail="true"
-runIntegrationTest.delay.sendMail="true"
-runIntegrationTest.delay.mailDelayInSeconds="300"
-runIntegrationTest.nodelay.mailDelayInSeconds="300"
-runIntegrationTest.nodelay.mailAlreadySent="false"
-runIntegrationTest.delay.mailAlreadySent="false"

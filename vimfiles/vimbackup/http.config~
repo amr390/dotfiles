@@ -1,5 +1,0 @@
-service.pid="org.apache.felix.http"
-org.osgi.service.http.port="${http.port}"
-org.apache.felix.http.context_path="${context.path}"
-org.apache.felix.http.timeout="${session.timeout}"
-org.apache.felix.http.session.timeout="${session.timeout}"
