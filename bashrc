@@ -96,14 +96,14 @@ if [ "$PS1" ]; then
 		if [ -e /etc/sysconfig/bash-prompt-xterm ]; then
 			PROMPT_COMMAND=/etc/sysconfig/bash-prompt-xterm
 		else
-	    	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007"'
+	    	PROMPT_COMMAND='echo -ne "\033]0;${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\007 "'
 		fi
 		;;
 	screen)
 		if [ -e /etc/sysconfig/bash-prompt-screen ]; then
 			PROMPT_COMMAND=/etc/sysconfig/bash-prompt-screen
 		else
-		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\033\\"'
+		PROMPT_COMMAND='echo -ne "\033_${USER}@${HOSTNAME%%.*}:${PWD/#$HOME/~}\033\\ "'
 		fi
 		;;
 	*)
@@ -164,39 +164,10 @@ shopt -s histappend
 # See:  http://www.ukuug.org/events/linux2003/papers/bash_tips/
 PS1="\[\033[0;34m\][\u@\h:\w]$\[\033[0m\]"
 
-## -----------------------
-## -- 2) Set up aliases --
-## -----------------------
-
-# 2.1) Safety
-alias rm="rm -i"
-alias mv="mv -i"
-alias cp="cp -i"
-set -o noclobber
-
-# 2.2) Listing, directories, and motion
-alias ll="ls -alrtF --color"
-alias la="ls -A"
-alias l="ls -CF"
-alias dir='ls --color=auto --format=vertical'
-alias vdir='ls --color=auto --format=long'
-alias m='less'
-alias ..='cd ..'
-alias ...='cd ..;cd ..'
-alias md='mkdir'
-alias cl='clear'
-alias du='du -ch --max-depth=1'
-alias treeacl='tree -A -C -L 2'
-
-# 2.3) Text and editor commands
-alias em='emacs -nw'     # No X11 windows
-alias eqq='emacs -nw -Q' # No config and no X11
-export EDITOR='emacs -nw'
-export VISUAL='emacs -nw' 
 
 # 2.4) grep options
-export GREP_OPTIONS='--color=auto'
-export GREP_COLOR='1;31' # green for matches
+#export GREP_OPTIONS='--color=auto'
+#export GREP_COLOR='1;31' # green for matches
 
 # 2.5) sort options
 # Ensures cross-platform sorting behavior of GNU sort.
@@ -217,6 +188,17 @@ if [ -s ~/.nvm/nvm.sh ]; then
     NVM_DIR=~/.nvm
     source ~/.nvm/nvm.sh
     nvm use v0.10.12 &> /dev/null # silence nvm use; needed for rsync
+fi
+
+# enable programmable completion features (you don't need to enable
+# this, if it's already enabled in /etc/bash.bashrc and /etc/profile
+# sources /etc/bash.bashrc).
+if ! shopt -oq posix; then
+  if [ -f /usr/share/bash-completion/bash_completion ]; then
+    . /usr/share/bash-completion/bash_completion
+  elif [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+  fi
 fi
 
 ## ------------------------------

@@ -1,3 +1,5 @@
+
+
 # .bash_profile file
 # By Balaji S. Srinivasan (balajis@stanford.edu)
 #
@@ -63,3 +65,15 @@ export PATH=/usr/bin:$PATH
 export PATH=/usr/local/bin:$PATH
 export PATH=/usr/local/sbin:$PATH
 export PATH=/usr/local/heroku/bin:$PATH # Heroku: https://toolbelt.heroku.com/standalone
+export PATH=$PATH:$HOME/.local/bin:$HOME/Apps/bin:$GRAILS_HOME/bin:$JAVA_HOME/bin:$GROOVY_HOME/bin:$GRADLE_HOME/bin:$MAVEN_HOME/bin
+
+export NVM_DIR="/home/amr/.nvm"
+[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+
+# User specific environment and startup programs
+# User specific aliases and functions
+export WORKON_HOME=/home/amr/.virtualenvs
+export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
+
+export JAVA_HOME=/opt/jdk
+export JAVA_ARGS="-XX:-UseLoopPredicate"
