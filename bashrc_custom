@@ -12,16 +12,12 @@ export SDKMAN_DIR="/home/amr/.sdkman"
 # Aliases
 [[ -s "/home/amr/.bash_aliases" ]] && source "/home/amr/.bash_aliases"
 
+# !!! This is suposed to be done the other way around, but then bash_profile
+# config won't be launch in the gnome command shell
 # Override prompt with custom config 
-#if [ -f ~/.bash_prompt ]; then
-    #. ~/.bash_prompt
-#fi
-
-# Override prompt with 
-if [ -f ~/.bash_git ]; then
-    . ~/.bash_git
+if [ -f ~/.bash_profile ]; then
+    . ~/.bash_profile
 fi
-
 
 #source /usr/bin/virtualenvwrapper.sh
 source /etc/bash_completion.d/virtualenvwrapper
