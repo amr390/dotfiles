@@ -1,0 +1,22 @@
+{
+  "name": "vatbook",
+  "version": "0.0.1",
+  "homepage": "google.com",
+  "authors": [
+    "amr <dquijote22@gmail.com>"
+  ],
+  "description": "Application that helps keep record of taxes",
+  "private": true,
+  "dependencies": {
+    "angular": "1.3.0",
+    "angular-resource": "1.3.0",
+    "angular-route": "1.3.0",
+    "autofill-event": "1.0.0",
+    "jquery": "2.0.1",
+    "underscore": "1.6.0",
+    "bootstrap": "3.0.0"
+  },
+  "resolutions": {
+    "jquery": "2.0.1"
+  }
+}

@@ -1,0 +1,68 @@
+/**
+ *
+ */
+package be.cipal.styx.address.domain.impl;
+
+import be.cipal.styx.address.domain.api.PartOfCity;
+import be.cipal.styx.address.domain.api.Street;
+import be.cipal.styx.address.domain.api.StreetFacade;
+import be.cipal.styx.address.domain.api.Attribute;
+import be.cipal.styx.address.domain.dao.AttributeDao;
+import be.cipal.styx.address.domain.dao.StreetDao;
+
+/**
+ * @author amr
+ *
+ */
+public class StreetFacadeImpl implements StreetFacade {
+
+	StreetDao streetDao;
+	AttributeDao attributeDao;
+
+	/* (non-Javadoc)
+	 * @see be.cipal.styx.address.domain.api.StreetFacade#newStreet()
+	 */
+	@Override
+	public Street newStreet() {
+		return new StreetImpl();
+	}
+
+	/* (non-Javadoc)
+	 * @see be.cipal.styx.address.domain.api.StreetFacade#findStreetById(java.lang.Long)
+	 */
+	@Override
+	public Street findStreetById(Long id) {
+		return this.streetDao.findOne(id);
+	}
+
+	/* (non-Javadoc)
+	 * @see be.cipal.styx.address.domain.api.StreetFacade#findStreetByCrabId(be.cipal.styx.address.domain.api.Attribute)
+	 */
+	@Override
+	public Street findStreetByCrabId(Street street, Long crabId) {
+		Attribute attr = attributeDao.findByTypeAndValue("CRABID", street.getAreaType().getObjectId(), String.valueOf(crabId));
+
+
+		// TODO create a helper Facade or use the AttributeDao.
+		return null;
+	}
+
+	/* (non-Javadoc)
+	 * @see be.cipal.styx.address.domain.api.StreetFacade#newPartOfCity()
+	 */
+	@Override
+	public PartOfCity newPartOfCity() {
+
+		// TODO Auto-generated method stub
+		return null;
+	}
+
+	public void setStreetDao(StreetDao streetDao){
+		this.streetDao = streetDao;
+	}
+
+	public void setAttributeDao(AttributeDao attributeDao){
+		this.attributeDao = attributeDao;
+	}
+
+}

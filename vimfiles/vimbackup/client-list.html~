@@ -1,0 +1,24 @@
+<div id="container-client-list">
+<!-- CLIENT FIELDS -->
+    <h2>Clientes</h2>
+    <table class="table table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>DNI/CIF</th>
+                <th>Nombre Completo</th>
+           </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="client in clients">
+                <td>{{ client.id }}</td>
+                <td>{{ client.identifier }}</td>
+                <td>{{ client.full_name }}</td>
+                <td><a ng-click="remove(client.id)"><span class="glyphicon glyphicon-remove" ></span> </a><td>
+                <td><a ng-click="edit(client.id)"><span class="glyphicon glyphicon-pencil" ></span> </a><td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="#/client/new" class="btn btn-success pull-right">Nuevo</a>
+</div>
+<!-- CLIENTES FIELDS -->

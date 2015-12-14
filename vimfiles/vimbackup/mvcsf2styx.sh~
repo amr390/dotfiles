@@ -1,0 +1,44 @@
+#!/usr/bin/env sh
+
+CIPAL_PATH="/home/amr/Documents/dev/cipal"
+STYX_PATH="$CIPAL_PATH/styx/trunk/styx-parent-osgi"
+CSF_PATH="$CIPAL_PATH/csf/csf-parent-osgi"
+
+SRC="src/main/java/be/cipal/styx/address/domain"
+
+
+F_CITY="styx-address-domain/$SRC/api/City.java"
+F_PARTOFCITY="styx-address-domain/$SRC/api/PartOfCity.java"
+F_STREET="styx-address-domain/$SRC/api/Street.java"
+F_STREET_FACADE="styx-address-domain/$SRC/api/StreetFacade.java"
+
+F_CITY_IMPL="styx-address-domain-impl/$SRC/impl/CityImpl.java"
+F_PARTOFCITY_IMPL="styx-address-domain-impl/$SRC/impl/PartOfCityImpl.java"
+F_STREET_IMPL="styx-address-domain-impl/$SRC/impl/StreetImpl.java"
+F_STREET_FACADE_IMPL="styx-address-domain-impl/$SRC/impl/StreetFacadeImpl.java"
+F_PERSISTENCE="styx-address-domain-impl/src/main/resources/META-INF/persistence.xml"
+
+F_STREET_DAO="styx-address-domain-impl/$SRC/dao/StreetDao.java"
+F_PARTOFCITY_DAO="styx-address-domain-impl/$SRC/dao/PartOfCityDao.java"
+
+D_DB="styx-database/src/main/resources/be/cipal/database"
+
+cp $CSF_PATH/$F_CITY $STYX_PATH/$F_CITY
+cp $CSF_PATH/$F_PARTOFCITY $STYX_PATH/$F_PARTOFCITY
+cp $CSF_PATH/$F_STREET $STYX_PATH/$F_STREET
+cp $CSF_PATH/$F_STREET_FACADE $STYX_PATH/F_STREET_FACADE
+
+cp $CSF_PATH/$F_CITY_IMPL $STYX_PATH/$F_CITY_IMPL
+cp $CSF_PATH/$F_PARTOFCITY_IMPL $STYX_PATH/$F_PARTOFCITY_IMPL
+cp $CSF_PATH/$F_STREET_IMPL $STYX_PATH/$F_STREET_IMPL
+cp $CSF_PATH/$F_STREET_FACADE_IMPL $STYX_PATH/$F_STREET_FACADE_IMPL
+
+cp $CSF_PATH/$F_STREET_DAO $STYX_PATH/$F_STREET_DAO
+CP $CSF_PATH/$F_PARTOFCITY_DAO $STYX_PATH/$F_PARTOFCITY_DAO
+
+cp $CSF_PATH/$F_PERSISTENCE $STYX_PATH/$F_PERSISTENCE
+
+cp -rf $D_DB/203.01.0.02B $STYX_PATH/$D_DB
+cp $D_DB/db.changelog-master.xml $STYX_PATH/$D_DB
+
+exit 0

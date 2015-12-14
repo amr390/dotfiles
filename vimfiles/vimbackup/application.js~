@@ -1,0 +1,10 @@
+//= require jquery/dist/jquery
+//= require jquery-ui.min
+//= require angular/angular
+//= require angular-route/angular-route
+//= require angular-cookies/angular-cookies
+//= require_tree .
+//= require_tree ../views
+//= require_self
+
+console.log("sat manifest load complete.");

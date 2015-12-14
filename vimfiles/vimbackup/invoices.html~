@@ -1,0 +1,78 @@
+<div class="container payable" ng-show="isPayable">
+<p>{{ isPayable }} </p>
+  <h2>Payable Invoice</h2>
+  <form role="form">
+    <div class="form-group">
+      <label for="contributor">Usuario:</label>
+      <select ng-model="payable.contributor_id" class="input-medium" id="contributor_id">
+          <option ng-repeat="contributor in contributors" value="{{ contributor.id }}">{{ contributor.name }} </option>
+      </select>
+    </div>
+    <div class="form-group">
+      <label for="concept">Concepto:</label>
+      <select ng-model="payable.concept_id" class="input-medium" id="concept_id">
+          <option ng-repeat="concept in concepts" value="{{ concept.id }}"> {{ concept.name }}</option>
+      </select>
+    </div>
+    <p> Tax and VAT applied should depend on the concept</p>
+    <div class="form-group">
+      <label for="vat_cost">Coste IVA :</label>
+      <input ng-model="payable.vat_cost" type="text" class="input-small" id="vat_cost" disabled placeholder="Calculated based on concept">
+    </div>
+    <div class="form-group">
+        <label for="tax_cost">Coste IRPF:</label>
+        <input ng-model="payable.tax_cost" type="text" class="input-small form-control" id="tax_cost" disabled placeholder="Calculated based on concept">
+    </div>
+    <div class="form-group">
+        <label for="base_cost">Coste total:</label>
+        <input ng-model="payable.base_cost" type="text" class="form-control" id="base_cost" placeholder="Enter base cost">
+    </div>
+    <div class="form-group">
+        <label for="date_issue">Fecha Efectiva:</label>
+        <input ng-model="payable.date_issue" type="date" class="form-control" id="date_issue" placeholder="Select date issue">
+    </div>
+    <div class="form-group">
+        <label for="date_listing">Fecha Registro:</label>
+        <input ng-model="payable.date_listing" type="date" class="form-control" id="date_listing" placeholder="Select date listing">
+    </div>
+
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>
+<div class="container deductible" ng-hide="isPayable" >
+  <h2>Deductible Invoice</h2>
+  <form role="form">
+    <div class="form-group inline">
+      <label for="contributor">Usuario:</label>
+      <select ng-model="payable.contributor_id" class="form-control" id="contributor_id">
+          <option ng-repeat="contributor in contributors" value="{{ contributor.id }}">{{ contributor.name }} </option>
+      </select>
+      <label for="concept">Concepto:</label>
+      <select ng-model="payable.concept_id" class="form-control" id="concept_id">
+          <option  ng-repeat="concept in concepts" value="{{ concept.id }}"> {{ concept.name }}</option>
+      </select>
+
+    </div>
+    <!--<div class="form-group">-->
+    <!--</div>-->
+    <p> Tax and VAT applied should depend on the concept</p>
+    <div class="form-group">
+      <label for="vat_cost">Coste IVA :</label>
+      <input ng-model="deductible.vat_cost" type="text" class="input-small" id="vat_cost" disabled placeholder="Calculated based on concept">
+    </div>
+    <div class="form-group">
+        <label for="base_cost">Coste base:</label>
+        <input ng-model="deductible.base_cost" type="text" class="input-small" id="base_cost" placeholder="Enter total cost">
+    </div>
+    <div class="form-group">
+        <label for="date_issue">Fecha Efectiva:</label>
+        <input ng-model="deductible.date_issue" type="date" class="form-control" id="date_issue" placeholder="Select date issue">
+    </div>
+    <div class="form-group">
+        <label for="date_listing">Fecha Registro:</label>
+        <input ng-model="deductible.date_listing" type="date" class="form-control" id="date_listing" placeholder="Select date listing">
+    </div>
+
+    <button type="submit" class="btn btn-default">Submit</button>
+  </form>
+</div>

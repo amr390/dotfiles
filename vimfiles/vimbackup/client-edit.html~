@@ -1,0 +1,18 @@
+<!-- CLIENT FIELDS -->
+<div id="container-client-edit">
+  <h2>Cliente</h2>
+  <form role="form">
+    <div class="form-group">
+      <label for="client_identifier">DNI/CIF:</label>
+      <input type="text" ng-model="client.identifier" class="form-control" id="client_identifier" placeholder="Enter Name">
+    </div>
+    <div class="form-group">
+      <label for="client_full_name">Nombre Completo:</label>
+      <input type="text" ng-model="client.full_name" class="form-control" id="client_full_name" placeholder="Enter Description">
+    </div>
+    <div class="btn-group pull-right">
+            <a class="btn btn-danger" href="#/client/list">cancelar</a> 
+            <a class="btn btn-success" ng-click="save()">Salvar</a>
+    </div>
+  </form>
+</div>

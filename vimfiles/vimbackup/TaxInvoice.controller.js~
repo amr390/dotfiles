@@ -1,0 +1,83 @@
+(function(){
+    'use strict';
+
+    angular.module('vatbook.controllers').controller('TaxInvoiceController', [
+        'TaxInvoiceApi',
+        'ContributorApi',
+        'ClientApi',
+        'ConceptApi',
+        '$location',
+        '$routeParams',
+        '$scope',
+        function (
+            taxInvoiceApi, contributorApi, clientApi, conceptApi,
+            $location, $routeParams, $scope) {
+                $scope.initialize = function(){
+                    // Initial load for contributors
+                    contributorApi.list().then(function(data){
+                        $scope.contributors = data;
+                    });
+                    // Initial load for clients
+                    clientApi.list().then(function(data){
+                        $scope.clients = data;
+                    });
+                    // Initial load for concepts
+                    conceptApi.list().then(function(data){
+                        $scope.concepts = data;
+                    });
+
+                    //Edit
+                    if($routeParams.id != null){
+                        taxInvoiceApi.get($routeParams.id).then(function(data){
+                            $scope.invoice = data;
+                        });
+                    }else{
+                        taxInvoiceApi.list().then(function(data){
+                            $scope.invoices = data;
+                        });
+                    }
+                };
+
+                $scope.save = function(){
+                    var promise;
+                    if($scope.invoice.id){
+                        promise = taxInvoiceApi.update($scope.taxInvoice);
+                    }else{
+                        promise = taxInvoiceApi.save($scope.taxInvoice);
+                    }
+
+                    promise.then(function(){
+                        $location.path("/invoice/tax/list");
+                    });
+                };
+
+                $scope.remove = function(id){
+                    taxInvoiceApi.remove(id).then(function(){
+                        $scope.initialize();
+                    });
+                };
+
+                $scope.edit = function(id){
+                    // Request taxInvoice on load
+                    $location.path("/invoice/tax/edit/"+id);
+                };
+
+                // We watch for taxInvoices to refresh list view
+                $scope.$watch('invoices');
+
+                $scope.$watch('invoice.base_cost + invoice.concept + invoice.percent_applied', function(){
+                    if ($scope.concepts){
+                        var currentConcept = $scope.concepts.filter(function(item){
+                            return parseInt(item.id) === parseInt($scope.invoice.concept);
+                        });
+
+                        $scope.invoice.vat_cost = $scope.invoice.base_cost *
+                            (currentConcept[0].vat_type/100);
+                        $scope.invoice.effective_cost = $scope.invoice.vat_cost *
+                            ($scope.invoice.percent_applied/100);
+                    }
+                });
+
+                $scope.initialize();
+            }]);
+}());

@@ -1,0 +1,32 @@
+/**
+ *
+ */
+package be.cipal.styx.address.domain.impl;
+
+
+/**
+ * @author amr
+ *
+ */
+@Entity
+@Table(name = "MULTILANGUAGE_PROVIDER")
+public class MultilanguageProviderImpl extends AbstractEntity implements MULTILANGUAGE_PROVIDER{
+
+    private static final String SEQUENCE_STYX_MULTILANGUAGE_GENERATOR = "sequencemultilanguageprovider";
+
+	@Id
+	@SequenceGenerator(name = SEQUENCE_STYX_MULTILANGUAGE_PROVIDER_GENERATOR, sequenceName = "SEQ_MULTILANGUAGE_PROVIDER", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_STYX_MULTILANGUAGE_PROVIDER_GENERATOR)
+	private Long id;
+
+
+    /*
+	 * (non-Javadoc)
+	 *
+	 * @see be.cipal.common.persistence.Identifiable#getObjectId()
+	 */
+	@Override
+	public Long getObjectId() {
+		return this.id;
+	}
+}

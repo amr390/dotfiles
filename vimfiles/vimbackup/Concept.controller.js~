@@ -1,0 +1,54 @@
+(function(){
+    'use strict';
+
+    angular.module('vatbook.controllers')
+    .controller('ConceptController', ['ConceptApi', '$location', '$routeParams', '$scope', function (conceptApi, $location, $routeParams, $scope) {
+        $scope.loadConcepts = function(){
+            //Edit
+            if($routeParams.id != null){
+                conceptApi.get($routeParams.id).then(function(data){
+                    $scope.concept = data;
+                });
+            }else{
+                conceptApi.list().then(function(data){
+                    $scope.concepts = data;
+                });
+            }
+        };
+
+        $scope.concept = {
+            name:"",
+            description:"",
+            vat_type:"",
+            tax_type:""
+        };
+
+        $scope.save = function(){
+            var promise;
+            if($scope.concept.id){
+                promise = conceptApi.update($scope.concept);
+            }else{
+                promise = conceptApi.save($scope.concept);
+            }
+
+            promise.then(function(){
+                $location.path("/concept/list");
+            });
+        };
+
+        $scope.remove = function(id){
+            conceptApi.remove(id).then(function(){
+                $scope.loadConcepts();
+            });
+        };
+
+        $scope.edit = function(id){
+            // Request concept on load
+            $location.path("/contributor/edit/"+id);
+        };
+
+        // We watch for concepts to refresh list view
+        $scope.$watch('concepts');
+        $scope.loadConcepts();
+    }]);
+}());

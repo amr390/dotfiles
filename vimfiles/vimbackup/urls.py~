@@ -1,0 +1,35 @@
+from django.conf.urls import patterns, url
+from core.views import OnePageAppView, ConceptDetail, ConceptList,\
+    ContributorList, ContributorDetail, ClientList, ClientDetail, \
+    PayableVATDetail, PayableVATList, DeductibleVATDetail, DeductibleVATList\
+    VatbookSummary
+
+urlpatterns = patterns(
+    '',
+    url(r'^$', OnePageAppView.as_view()),
+    # incomes vat
+    url(r'^invoice/income/$', PayableVATList.as_view(), name='payable-list'),
+    url(r'^invoice/income/(?P<pk>[0-9]+)/$', PayableVATDetail.as_view(),
+        name='payable-detail'),
+    # tax
+    url(r'^invoice/tax/$', DeductibleVATList.as_view(),
+        name='deductible-list'),
+    url(r'^invoice/tax/(?P<pk>[0-9]+)/$', DeductibleVATDetail.as_view(),
+        name='deductible-detail'),
+    # admin.concepts
+    url(r'^admin/concept/$', ConceptList.as_view(), name='concept-list'),
+    url(r'^admin/concept/(?P<pk>[0-9]+)/$', ConceptDetail.as_view(),
+        name='concept-detail'),
+    # admin.contributors
+    url(r'^admin/contributor/$', ContributorList.as_view(),
+        name='contributor-list'),
+    url(r'^admin/contributor/(?P<pk>[0-9]+)/$', ContributorDetail.as_view(),
+        name='contributor-detail'),
+    # admin.clients
+    url(r'^admin/client/$', ClientList.as_view(),
+        name='client-list'),
+    url(r'^admin/client/(?P<pk>[0-9]+)/$', ClientDetail.as_view(),
+        name='client-detail'),
+    url(r'^summary/$', VatbookSummary.as_view(), name='summ-detail'),
+
+)

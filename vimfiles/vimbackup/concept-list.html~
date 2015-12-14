@@ -1,0 +1,30 @@
+<div id="container-concept-list">
+<!-- CONCEPT FIELDS -->
+    <h2>Conceptos</h2>
+    <table class="table table-hover table-responsive">
+        <thead>
+            <tr>
+                <th>Id</th>
+                <th>Nombre</th>
+                <th>Descripción</th>
+                <th>Tipo IVA</th>
+                <th>Tipo IRPF</th>
+                <th>Borrar</th>
+                <th>Editar</th>
+           </tr>
+        </thead>
+        <tbody>
+            <tr ng-repeat="concept in concepts">
+                <td>{{ concept.id }}</td>
+                <td>{{ concept.name }}</td>
+                <td>{{ concept.description }}</td>
+                <td>{{ concept.vat_type }}%</td>
+                <td>{{ concept.tax_type }}%</td>
+                <td style="text-align:center"><a ng-click="remove(concept.id)"><span class="glyphicon glyphicon-remove" ></span> </a></td>
+                <td style="text-align:center"><a ng-click="edit(concept.id)"><span class="glyphicon glyphicon-pencil" ></span> </a></td>
+            </tr>
+        </tbody>
+    </table>
+    <a href="#/concept/new" class="btn btn-success pull-right">Nuevo</a>
+</div>
+<!-- CONCEPT FIELDS -->

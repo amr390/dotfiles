@@ -1,0 +1,10 @@
+package test
+
+class Book {
+    String name
+    static belongsTo=[author:Author, store:Store]
+    static hasMany=[pages:Page]
+
+    static constraints = {
+    }
+}

@@ -1,0 +1,27 @@
+(function(){
+    'use strict';
+
+    angular.module('vatbook.controllers')
+    .controller('InvoiceController', function ($scope) {
+        $scope.payable = {
+            contributor_id: "test_payable",
+            concept_id: "test_payable",
+            vat_cost:"test_payable",
+            tax_cost:"test_payable",
+            base_cost:"test_payable",
+            date_issue: new Date(),
+            date_listing: new Date()
+        };
+
+        $scope.deductible = {
+            contributor_id: "test_deductible",
+            concept_id: "test_deductible",
+            vat_cost:"test_deductible",
+            base_cost:"test_deductible",
+            date_issue:new Date(),
+            date_listing: new Date()
+        };
+
+        $scope.isPayable = false;
+    });
+}());

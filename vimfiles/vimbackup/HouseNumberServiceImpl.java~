@@ -1,0 +1,425 @@
+package be.cipal.styx.address.service.impl.housenumber;
+
+import java.util.ArrayList;
+import java.util.HashMap;
+import java.util.Iterator;
+import java.util.List;
+import java.util.Map;
+import java.util.Set;
+
+import org.apache.log4j.Logger;
+
+import be.cipal.common.persistence.helper.SpecificationBuilder;
+import be.cipal.styx.address.domain.api.Attribute;
+import be.cipal.styx.address.domain.api.AttributeTypeCodesEnum;
+import be.cipal.styx.address.domain.api.City;
+import be.cipal.styx.address.domain.api.CityFacade;
+import be.cipal.styx.address.domain.api.Country;
+import be.cipal.styx.address.domain.api.HouseNumber;
+import be.cipal.styx.address.domain.api.HouseNumberFacade;
+import be.cipal.styx.address.domain.api.Language;
+import be.cipal.styx.address.domain.api.Multilanguage;
+import be.cipal.styx.address.domain.api.PartOfCity;
+import be.cipal.styx.address.domain.api.PartOfCountry;
+import be.cipal.styx.address.domain.api.PartOfStreet;
+import be.cipal.styx.address.domain.api.Position;
+import be.cipal.styx.address.domain.api.PostalCode;
+import be.cipal.styx.address.domain.api.Street;
+import be.cipal.styx.address.domain.api.criteria.CityCriteria;
+import be.cipal.styx.address.domain.api.criteria.CountryCriteria;
+import be.cipal.styx.address.domain.api.criteria.HouseNumberPositions;
+import be.cipal.styx.address.domain.api.criteria.ListHouseNumberPositionsCriteria;
+import be.cipal.styx.address.service.api.exception.ServiceException;
+import be.cipal.styx.address.service.api.housenumber.HouseNumberService;
+import be.cipal.styx.address.service.api.validation.ValidationService;
+
+public class HouseNumberServiceImpl implements HouseNumberService {
+    private static final String SUPPORTED_COORDINATE_SYSTEM = "EPSG:31370";
+
+    private static Logger logger = Logger.getLogger(HouseNumberServiceImpl.class);
+
+    private ValidationService validationService;
+
+    private HouseNumberFacade houseNumberFacade;
+    private CityFacade cityFacade;
+
+    /**
+     * Default no argument constructor (spring uses it).
+     */
+    public HouseNumberServiceImpl() {
+
+    }
+
+    /**
+     * Constructor with parameters.
+     *
+     * @param validationService The validation service to use
+     * @param houseNumberFacade the houseNumber facade to use
+     */
+    public HouseNumberServiceImpl(final ValidationService validationService, final HouseNumberFacade houseNumberFacade) {
+        this.validationService = validationService;
+        this.houseNumberFacade = houseNumberFacade;
+    }
+
+    @Override
+    public HouseNumber createOrUpdate(final HouseNumber houseNumber) throws ServiceException {
+        HouseNumber savedHouseNumber = null;
+        final HouseNumber existingHouseNumber = houseNumberFacade.findHouseNumberByFunctionalId(houseNumber.getFunctionalId());
+        if (existingHouseNumber == null) {
+            logger.debug("Creating new houseNumber.");
+            savedHouseNumber = createHouseNumber(houseNumber);
+        } else {
+            logger.debug("Updating existing houseNumber.");
+            savedHouseNumber = updateHouseNumber(existingHouseNumber, houseNumber);
+        }
+        return savedHouseNumber;
+    }
+
+    /**
+     * Create a new houseNumber. Makes use of the validation service to validate the houseNumber first. Then goes to the facade to save the houseNumber
+     *
+     * @param houseNumber the houseNumber to create
+     * @return a persisted houseNumber
+     * @throws ServiceException when something goes wrong
+     */
+    protected HouseNumber createHouseNumber(final HouseNumber houseNumber) throws ServiceException {
+        HouseNumber savedHouseNumber = null;
+        if (validationService.isValid(houseNumber)) {
+            savedHouseNumber = houseNumberFacade.saveHouseNumber(houseNumber);
+        }
+        return savedHouseNumber;
+    }
+
+    /**
+     * Updates an existing houseNumber. Makes use of the validation service to validate the houseNumber first. Then goes to the facade to persist(merge) the houseNumber
+     *
+     * @param existingHouseNumber
+     * @param houseNumber
+     * @return
+     * @throws ServiceException
+     */
+    private HouseNumber updateHouseNumber(final HouseNumber existingHousenr, final HouseNumber houseNumber) throws ServiceException {
+
+        HouseNumber savedHouseNumber = null;
+
+        existingHousenr.updateNames(houseNumber.getNameProvider());
+        existingHousenr.setHouseNumber(houseNumber.getHouseNumber());
+        existingHousenr.setStartDate(houseNumber.getStartDate());
+        existingHousenr.setEndDate(houseNumber.getEndDate());
+        existingHousenr.updateAttributes(houseNumber.getAttributes());
+        existingHousenr.updatePositions(houseNumber.getPositions());
+        existingHousenr.setAuditInfo(houseNumber.getAuditInfo());
+        existingHousenr.setStatus(houseNumber.getStatus());
+        String srcCode = (existingHousenr.getSource() == null) ? null : existingHousenr.getSource().getCode();
+        if (srcCode != null && !srcCode.equals(houseNumber.getSource().getCode())) {
+            existingHousenr.setSource(houseNumber.getSource());
+        }
+
+        if (validationService.isValid(existingHousenr)) {
+            savedHouseNumber = houseNumberFacade.saveHouseNumber(existingHousenr);
+        }
+
+        return savedHouseNumber;
+    }
+
+    @Override
+    public PartOfStreet createPartOfStreet() {
+        return houseNumberFacade.newPartOfStreet();
+    }
+
+    @SuppressWarnings("unchecked")
+    @Override
+    public HouseNumberPositions listHouseNumberPositions(final ListHouseNumberPositionsCriteria cityServiceRequest) throws ServiceException {
+        Map<String, Object> queryModel = getValidModel(cityServiceRequest);
+        if (!queryModel.isEmpty()) {
+            List<? extends HouseNumber> queryResult = houseNumberFacade.findAll(
+                    SpecificationBuilder.getInstance().addSpecification(
+                            houseNumberFacade.createListHouseNumberPositionsSpec(cityServiceRequest)).getSpecifications());
+            if (null != queryResult && !queryResult.isEmpty()) {
+                return toHouseNumberPositions(queryResult, cityServiceRequest.getLanguageCode());
+            } else {
+                return toHouseNumberPositions(queryModel, cityServiceRequest.getLanguageCode());
+            }
+        } else {
+            return null;
+        }
+    }
+
+    /*
+     * ListHouseNumberPositions: Helper method to validate that entities used in the request are valid. Things such us entity is active (it doesn't have an end date)
+     * entity are found.
+     */
+    private Map<String, Object> getValidModel(final ListHouseNumberPositionsCriteria cityServiceRequest) throws ServiceException {
+        Map<String, Object> modelObjs = new HashMap<>();
+        Language lang = null;
+
+        if (null != cityServiceRequest.getLanguageCode()) {
+            lang = houseNumberFacade.findLanguageByIso6391Code(cityServiceRequest.getLanguageCode());
+            // Language Not found
+            if (null == lang) {
+                lang = houseNumberFacade.newLanguage();
+                throw new ServiceException(lang);
+            }
+            modelObjs.put("language", lang);
+        }
+
+        City city = findCityByCriteria(cityServiceRequest.getCity());
+        if (null == city) {
+            city = cityFacade.newCity();
+            // City Not found
+            throw new ServiceException(city);
+        } else if (null != city.getEndDate()) {
+            // Inactive City
+            throw new ServiceException(city);
+        }
+        modelObjs.put("city", city);
+
+        Country country = findCountryByCriteria(city, cityServiceRequest.getCountry());
+        if (null == country) {
+            country = cityFacade.newCountry();
+            // Country Not found
+            throw new ServiceException(country);
+        } else if (null != country.getEndDate()) {
+            // Inactive Country
+            throw new ServiceException(country);
+        }
+        modelObjs.put("country", country);
+
+        if (!SUPPORTED_COORDINATE_SYSTEM.equals(cityServiceRequest.getCoordinateSystem())) {
+            // To made exception use String as the cause object with the default constructor need to cast String to object.
+            throw new ServiceException((Object) cityServiceRequest.getCoordinateSystem());
+        }
+        return modelObjs;
+    }
+
+    protected HouseNumberPositions toHouseNumberPositions(final List<? extends HouseNumber> list, final String languageCode) {
+        final String WKT = "POINT (%s, %s)";
+        HouseNumberPositions hnp = new HouseNumberPositions();
+
+        if (!list.isEmpty()) {
+            List<HouseNumberPositions.Street> streetsRes = new ArrayList<>();
+
+            // Navigates to the root country in the address tree
+            City city = list.get(0).getStreets().iterator().next().getStreet().getCities().iterator().next().getCity();
+            Country country = city.getCountries().iterator().next().getCountry();
+
+            // Sets the country response
+            HouseNumberPositions.Country coRes = new HouseNumberPositions.Country();
+            Multilanguage coName = findMessageByLanguageCode(languageCode, city.getFirstLanguage().getIso6391(), country.getNameProvider().getMessages());
+            coRes.setLabel(coName != null ? coName.getLabel() : null);
+            Attribute countryNisCode = findAttributeByType(AttributeTypeCodesEnum.COUNTRY_NISCODE.name(), country.getAttributes());
+            coRes.setNisCode(countryNisCode != null ? countryNisCode.getValue() : null);
+            coRes.setStyxId(country.getFunctionalId());
+
+            // Sets the city response
+            HouseNumberPositions.City ciRes = new HouseNumberPositions.City();
+            Attribute cityCrabId = findAttributeByType(AttributeTypeCodesEnum.CITY_CRAB_ID.name(), city.getAttributes());
+            ciRes.setCrabId(cityCrabId != null ? Long.parseLong(cityCrabId.getValue()) : null);
+            Multilanguage ciName = findMessageByLanguageCode(languageCode, city.getFirstLanguage().getIso6391(), city.getNameProvider().getMessages());
+            ciRes.setLabel(ciName != null ? ciName.getLabel() : null);
+            ciRes.setStyxId(city.getFunctionalId());
+
+            for (HouseNumber hn : list) {
+
+                // sets the PostalCode response
+                PostalCode pc = hn.getCurrentPostalCode().getPostalCode();
+                HouseNumberPositions.PostalCode pcRes = new HouseNumberPositions.PostalCode();
+                Attribute pccrabId = findAttributeByType(AttributeTypeCodesEnum.POSTALCODE_CRAB_ID.name(), pc.getAttributes());
+                pcRes.setCrabId(pccrabId != null ? Long.parseLong(pccrabId.getValue()) : null);
+                pcRes.setPostalCode(pc.getPostalCode());
+                pcRes.setStyxId(pc.getFunctionalId());
+
+                // Sets the HouseNumber response
+                HouseNumberPositions.HouseNumber hnRes = new HouseNumberPositions.HouseNumber();
+                Attribute hncrabId = findAttributeByType(AttributeTypeCodesEnum.HOUSENUMBER_CRAB_ID.name(), hn.getAttributes());
+                hnRes.setStyxId(hn.getFunctionalId())
+                hnRes.setCrabId(hncrabId != null ? Long.parseLong(hncrabId.getValue()) : null);
+                hnRes.setHouseNumber(hn.getHouseNumber());
+                hnRes.setPostalCode(pcRes);
+                hnRes.setStatus(hn.getStatus().getStatusCode().getCode());
+
+                // Sets positions for HouseNumber response
+                for (Position p : hn.getPositions()) {
+                    HouseNumberPositions.Position pRes = new HouseNumberPositions.Position();
+                    pRes.setCoordinateSystem(p.getCoordinateSystem());
+                    pRes.setOrigin(p.getOrigin());
+                    pRes.setWkt(String.format(WKT, p.getCenterX(), p.getCenterY()));
+                    hnRes.getPositions().add(pRes);
+                }
+
+                // Sets Streets response, if a street is being added already just adds the House Number to it.
+                for (PartOfCity poCity : city.getStreets()) {
+                    Street street = poCity.getStreet();
+                    HouseNumberPositions.Street stRes = getStreetFromList(street.getFunctionalId(), streetsRes);
+                    if (null == stRes) {
+                        stRes = new HouseNumberPositions.Street();
+                        Attribute streetCrabId = findAttributeByType(AttributeTypeCodesEnum.STREET_CRAB_ID.name(), hn.getAttributes());
+                        stRes.setCrabId(streetCrabId != null ? Long.parseLong(streetCrabId.getValue()) : null);
+                        Multilanguage stName = findMessageByLanguageCode(languageCode, city.getFirstLanguage().getIso6391(), street.getNameProvider().getMessages());
+                        stRes.setLabel(stName != null ? stName.getLabel() : null);
+                        stRes.setStatus(street.getStatus().getStatusCode().getCode());
+                        stRes.setStyxId(street.getFunctionalId());
+                        stRes.getHouseNumbers().add(hnRes);
+
+                        streetsRes.add(stRes);
+                    } else {
+                        stRes.getHouseNumbers().add(hnRes);
+                    }
+                }
+            }
+            ciRes.getStreets().addAll(streetsRes);
+            coRes.setCity(ciRes);
+            hnp.setCountry(coRes);
+        }
+        return hnp;
+    }
+
+    /*
+     * If there is no house number in the query response, uses the validated data model retrieved to build the response XXX: (amr) This method should be removed and the
+     * query should return at least country/city
+     */
+    private HouseNumberPositions toHouseNumberPositions(final Map<String, Object> queryModel, final String languageCode) {
+        HouseNumberPositions hnp = new HouseNumberPositions();
+        City city = (City) queryModel.get("city");
+        Country country = (Country) queryModel.get("country");
+
+        HouseNumberPositions.City hnpCity = new HouseNumberPositions.City();
+        Attribute cityCrabId = findAttributeByType(AttributeTypeCodesEnum.CITY_CRAB_ID.name(), city.getAttributes());
+        hnpCity.setCrabId(cityCrabId == null ? null : Long.parseLong(cityCrabId.getValue()));
+        hnpCity.setStyxId(city.getFunctionalId());
+        Multilanguage cityName = findMessageByLanguageCode(languageCode, city.getFirstLanguage().getIso6391(), city.getNameProvider().getMessages());
+        hnpCity.setLabel(cityName == null ? null : cityName.getLabel());
+
+        HouseNumberPositions.Country hnpCountry = new HouseNumberPositions.Country();
+        Multilanguage msg = findMessageByLanguageCode(languageCode, city.getFirstLanguage().getIso6391(), country.getNameProvider().getMessages());
+        hnpCountry.setLabel(msg == null ? null : msg.getLabel());
+        Attribute countryNisCode = findAttributeByType(AttributeTypeCodesEnum.COUNTRY_NISCODE.name(), country.getAttributes());
+        hnpCountry.setNisCode(countryNisCode == null ? null : countryNisCode.getValue());
+        hnpCountry.setStyxId(country.getFunctionalId());
+        hnpCountry.setCity(hnpCity);
+
+        hnp.setCountry(hnpCountry);
+
+        return hnp;
+    }
+
+    /*
+     * ListHouseNumberPositions: Helper method to find in the persistence layer the city having one of the criteria from request
+     */
+    private City findCityByCriteria(final CityCriteria cityCriteria) {
+        City city = null != cityCriteria.getStyxId() ? cityFacade.findCityByFunctionalId(cityCriteria.getStyxId()) : null;
+        city = null != cityCriteria.getCrabId() ? cityFacade.findCityByCrabId(cityCriteria.getCrabId()) : city;
+        city = null != cityCriteria.getNisCode() ? cityFacade.findCityByNisCode(cityCriteria.getNisCode()) : city;
+
+        return city;
+    }
+
+    /*
+     * ListHouseNumberPositions: Helper method to find in the persistence layer the country having one of the criteria from request
+     */
+    private Country findCountryByCriteria(final City city, final CountryCriteria countryCriteria) {
+        Country country = null;
+        boolean foundActiveCountry = false;
+        Iterator<PartOfCountry> it = city.getCountries().iterator();
+
+        while (it.hasNext() && !foundActiveCountry) {
+            Country c = it.next().getCountry();
+
+            if (null != countryCriteria) {
+                Attribute itemNisCode = null != countryCriteria && countryCriteria.getNisCode() != null ? findAttributeByType(
+                        AttributeTypeCodesEnum.COUNTRY_NISCODE.name(), c.getAttributes()) : null;
+                country = itemNisCode != null && countryCriteria.getNisCode().equals(itemNisCode.getValue()) ? c : null;
+
+                country = c.getIso31661Alpha2().equals(countryCriteria.getIso31661Alpha2Code()) ? c : country;
+                country = c.getIso31661Alpha3().equals(countryCriteria.getIso31661Alpha3Code()) ? c : country;
+                country = c.getIso31661Numeric().equals(countryCriteria.getIso31661NumCode()) ? c : country;
+            } else {
+                country = null != country && null != c.getEndDate() && country.getEndDate().after(c.getEndDate()) ? country : c;
+            }
+
+            foundActiveCountry = null != country && null == country.getEndDate();
+        }
+
+        return country;
+    }
+
+    /*
+     * ListHouseNumberPositions: Helper method to find in the query response the street having styx id parameter as functional id field.
+     */
+    private HouseNumberPositions.Street getStreetFromList(final String styxId, final List<HouseNumberPositions.Street> list) {
+        Iterator<HouseNumberPositions.Street> it = list.iterator();
+        HouseNumberPositions.Street foundStreet = null;
+
+        while (it.hasNext() && null == foundStreet) {
+            HouseNumberPositions.Street item = it.next();
+            if (styxId.equals(item.getStyxId())) {
+                foundStreet = item;
+            }
+        }
+        return foundStreet;
+    }
+
+    /*
+     * ListHouseNumberPositions: Helper method to find in the query response Area entity, an attribute by its type.
+     */
+    private Attribute findAttributeByType(final String attributeCode, final Set<Attribute> list) {
+        Iterator<Attribute> it = list.iterator();
+        Attribute foundAttribute = null;
+        while (it.hasNext() && null == foundAttribute) {
+            Attribute item = it.next();
+            if (attributeCode.equals(item.getType().getCode())) {
+                foundAttribute = item;
+            }
+        }
+
+        return foundAttribute;
+    }
+
+    /*
+     * ListHouseNumberPositions: Helper method to find in the query response Area entity, a message by the language code passed by parameter or if that one is not found
+     * by the city first language.
+     */
+    private Multilanguage findMessageByLanguageCode(final String languageCode, final String cityFirstLanguageCode, final Set<? extends Multilanguage> list) {
+        Iterator<? extends Multilanguage> it = list.iterator();
+        Multilanguage foundMessage = null;
+        // Looks for the message with languageCode
+        while (it.hasNext() && null == foundMessage) {
+            Multilanguage item = it.next();
+            if (languageCode.equals(item.getLanguage().getIso6391())) {
+                foundMessage = item;
+            }
+        }
+        // looks for the message setting languageCode the city firstLanguage
+        if (null == foundMessage && null != cityFirstLanguageCode) {
+            foundMessage = findMessageByLanguageCode(cityFirstLanguageCode, null, list);
+        }
+        // Finally, last chance is to get the first message.
+        if (null == foundMessage) {
+            foundMessage = list.iterator().next();
+        }
+        return foundMessage;
+    }
+
+    public ValidationService getValidationService() {
+        return validationService;
+    }
+
+    public void setValidationService(final ValidationService validationService) {
+        this.validationService = validationService;
+    }
+
+    public HouseNumberFacade getHouseNumberFacade() {
+        return houseNumberFacade;
+    }
+
+    public void setHouseNumberFacade(final HouseNumberFacade houseNumberFacade) {
+        this.houseNumberFacade = houseNumberFacade;
+    }
+
+    /**
+     * @param cityFacade the cityFacade to set
+     */
+    public void setCityFacade(final CityFacade cityFacade) {
+        this.cityFacade = cityFacade;
+    }
+}

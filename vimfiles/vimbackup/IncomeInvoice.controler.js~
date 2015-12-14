@@ -1,0 +1,47 @@
+(function(){
+    'use strict';
+
+    angular.module('vatbook.controllers')
+    .controller('IncomeInvoiceController', ['ClientApi', '$location', '$routeParams', '$scope', function (clientApi, $location, $routeParams, $scope) {
+        $scope.loadClients = function(){
+            //Edit
+            if($routeParams.id != null){
+                clientApi.get($routeParams.id).then(function(data){
+                    $scope.client = data;
+                });
+            }else{
+                clientApi.list().then(function(data){
+                    $scope.clients = data;
+                });
+            }
+        };
+
+        $scope.save = function(){
+            var promise;
+            if($scope.client.id){
+                promise = clientApi.update($scope.client);
+            }else{
+                promise = clientApi.save($scope.client);
+            }
+
+            promise.then(function(){
+                $location.path("/client/list");
+            });
+        };
+
+        $scope.remove = function(id){
+            clientApi.remove(id).then(function(){
+                $scope.loadClients();
+            });
+        };
+
+        $scope.edit = function(id){
+            // Request client on load
+            $location.path("/client/edit/"+id);
+        };
+
+        // We watch for clients to refresh list view
+        $scope.$watch('clients');
+        $scope.loadClients();
+    }]);
+}

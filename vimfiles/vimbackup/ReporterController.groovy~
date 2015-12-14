@@ -1,0 +1,155 @@
+package com.cucharitas.sat.reporter
+
+import org.codehaus.groovy.grails.plugins.jasper.JasperExportFormat
+import org.codehaus.groovy.grails.plugins.jasper.JasperReportDef
+
+import org.springframework.security.access.annotation.Secured
+import grails.transaction.Transactional
+
+import javax.servlet.http.HttpSession
+
+import net.sf.jasperreports.engine.JasperPrint
+import net.sf.jasperreports.j2ee.servlets.ImageServlet
+
+import org.codehaus.groovy.grails.plugins.jasper.JasperService
+
+import com.cucharitas.sat.domain.Invoice
+import com.cucharitas.sat.common.JasperWithholdingTaxBean
+import grails.converters.JSON
+/*import com.cucharitas.sat.common.JasperExportFormat*/
+/*import com.cucharitas.sat.common.JasperReportDef*/
+
+import org.apache.commons.logging.LogFactory
+
+@Secured(['ROLE_ADMIN'])
+@Transactional(readOnly = true)
+class ReporterController {
+    private static final log = LogFactory.getLog(this)
+    def springSecurityService
+
+    //static allowedMethods = [get: "GET"]
+
+    JasperService jasperService
+
+    def index() { }
+
+    def memberInvoices() {
+        def parameters = parseParameters(params)
+        def jasperData = getWithholdings(params)
+
+
+        def reportDef = new JasperReportDef(name: "withholdingTax",
+            reportData: jasperData,
+            //locale: springSecurityService.isLoggedIn() ? springSecurityService.currentUser.locale : RCU.getLocale(request),
+            parameters: parameters,
+            fileFormat: JasperExportFormat.PDF_FORMAT
+        )
+
+        render file:jasperService.generateReport(reportDef).toByteArray(), contentType:"application/pdf"
+        //render "invoices: $invoices"
+
+    }
+
+    def productInvoices() {
+        render "productInvoice"
+    }
+
+    def allMemberWithholdingTaxes() {
+        def withholdings = getWithholdings(params)
+        render withholdings as JSON
+    }
+
+    private getWithholdings(params){
+        def responseData = []
+
+        def parameters = parseParameters(params)
+
+        def criteriaResult = Invoice.withCriteria{
+            createAlias("provider", "provider")
+            //createAlias("product", "product")
+
+            if(parameters.initialDate && parameters.finalDate){
+                between("registerDate", parameters.initialDate, parameters.finalDate)
+            }
+
+            if (parameters.provider){
+                'in'("provider.id", parameters.provider)
+            }
+
+            if(parameters.product){
+                'in'('product.id', parameters.product)
+            }
+
+            if(parameters.invoiceType){
+                eq('invoiceType', parameters.invoiceType)
+            }
+
+            projections{
+                property("provider.name")
+                property("provider.lastName")
+                property("ivaType")
+                property("irpfType")
+                sum("ivaCost")
+                sum("irpfCost")
+                groupProperty("provider.cif")
+                order("provider.lastName", "asc")
+            }
+        }
+
+        criteriaResult.each{ it ->
+            responseData << [
+                name: "${it[1]} ${it[0]}",
+                iva: it[2],
+                irpf: it[3],
+                ivaCost: it[4].round(2),
+                irpfCost: it[5].round(2),
+                dni: it[6]
+            ]
+        }
+
+        responseData
+    }
+
+    private parseParameters(params){
+        def parameters = [:]
+
+        if (params.initialDate != params.finalDate){
+            if (params.initialDate){
+                parameters.put('initialDate',
+                    Date.parse('dd/MM/yyyy',
+                        "${params.initialDate_day}/${params.initialDate_month}/${params.initialDate_year}")
+                )
+            }
+
+            if (params.finalDate){
+                parameters.put('finalDate',
+                    Date.parse('dd/MM/yyyy',
+                        "${params.finalDate_day}/${params.finalDate_month}/${params.finalDate_year}")
+                )
+            }
+        }
+
+        if (params.type){
+            parameters.put('invoiceType', params.type)
+        }
+
+        if (params.provider){
+            def provIds = []
+            params.provider.id.each{ id ->
+                provIds.add (Long.valueOf(id))
+            }
+            parameters.put('provider', provIds)
+        }
+
+        if (params.product){
+            def prodIds = []
+            params.product.id.each{ id ->
+                prodIds.add(Long.valueOf(id))
+            }
+            parameters.put('product', prodIds)
+        }
+
+        parameters
+    }
+
+}

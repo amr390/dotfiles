@@ -1,0 +1,10 @@
+public class TestMatcher{
+
+    public static void main(String[] args){
+        String matcher = "^[0-9]{5}$";
+        System.out.println("1234567".matches(matcher));
+    }
+}
+
+
+

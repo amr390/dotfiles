@@ -1,0 +1,66 @@
+/*
+ * Created on 08/10/2014
+ *
+ */
+package be.cipal.styx.address.domain.impl;
+
+import static org.junit.Assert.assertEquals;
+
+import java.text.SimpleDateFormat;
+import java.util.Date;
+
+import javax.persistence.EntityManager;
+
+import org.junit.Before;
+import org.junit.Test;
+import org.junit.experimental.categories.Category;
+import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.test.annotation.Rollback;
+import org.springframework.test.context.ContextConfiguration;
+import org.springframework.transaction.annotation.Transactional;
+
+import be.cipal.common.domain.testutils.AbstractSpringDBUnitIntegrationTest;
+import be.cipal.common.domain.testutils.IntegrationTest;
+import be.cipal.common.domain.testutils.annotations.DBUnitConfiguration;
+import be.cipal.styx.address.domain.api.AreaType;
+import be.cipal.styx.address.domain.api.AreaTypeCodesEnum;
+import be.cipal.styx.address.domain.api.AreaTypeFacade;
+import be.cipal.styx.address.domain.api.Country;
+import be.cipal.styx.address.domain.api.MultilanguageProviderFacade;
+import be.cipal.styx.address.domain.dao.CountryDao;
+
+
+@Category(IntegrationTest.class)
+@ContextConfiguration(locations = { "/META-INF/spring/address-beans.xml",
+        "/META-INF/spring/domain-testutils-jpa-database-test-context.xml",
+        "/META-INF/spring/functional-logging-testutils-jpa-database-test-context.xml",
+        "/META-INF/spring/configuration-logging-testutils-jpa-database-test-context.xml" })
+@DBUnitConfiguration(locations = { "/datasets/address-dataset.xml" })
+@Transactional
+public class PartOfCityIntegrationTest extends AbstractSpringDBUnitIntegrationTest{
+	private final static Date DEFAULT_START_DATE = new Date(-1);
+    private final static Date DEFAULT_END_DATE = new Date();
+
+    private EntityManager entityManager;
+
+    private PartOfCityImpl objectToTest;
+    @Autowired
+    private MultilanguageProviderFacade multilanguageProviderFacade;
+    @Autowired
+    private AreaTypeFacade areaTypeFacade;
+    @Autowired
+    private CountryDao countryDao;
+
+    /**
+     * Prepares the fixture for the whole test class.
+     *
+     * @throws java.lang.Exception
+     */
+    @Before
+    public void setUp() throws Exception {
+        objectToTest = new PartOfCityImpl();
+        objectToTest.setStartDate(DEFAULT_START_DATE);
+        objectToTest.setEndDate(DEFAULT_END_DATE);
+    }
+
+}

@@ -1,0 +1,92 @@
+<div id="sc-details-{{ contributor.id }}">
+    <span> {{ contributor.firstName }} {{ contributor.lastName }} </span>
+    <div id="sc-year-{{ contributor.id }}" ng-repeat="year in contributor.years">
+        <div id="sc-t1-{{ contributor.id }}">
+            <div >
+                <span>1er trimestre</span>
+                <div id="sc-t1-inc-{{ contributor.id }}" ng-repeat="income in year.t1.incomes">
+                    <span> {{ income.invoiceId}} </span>
+                    <span> {{ income.conceptName }} </span>
+                    <span> {{ income.vatType }} </span>
+                    <span> {{ income.vatCost }} </span>
+                    <span> {{ income.totalCost }} </span>
+                </div>
+                <div id="sc-t1-tax-{{ contributor.id }}" ng-repeat="tax in year.t1.taxes">
+                    <span> {{ tax.invoiceId }} </span>
+                    <span> {{ tax.conceptName }} </span>
+                    <span> {{ tax.vatType }} </span>
+                    <span> {{ tax.vatCost }} </span>
+                    <span> {{ tax.percVat}} </span>
+                    <span> {{ tax.totalCost }} </span>
+                    <span> {{ tax.effectiveCost }} </span>
+                </div>
+            </div>
+        </div>
+
+        <div id="sc-t2-{{ contributor.id }}">
+            <div >
+                <span>2er trimestre</span>
+                <div id="sc-t2-inc-{{ contributor.id }}" ng-repeat="income in year.t2.incomes">
+                    <span> {{ income.concept_name }} </span>
+                    <span> {{ income.vat_type }} </span>
+                    <span> {{ income.vat_cost }} </span>
+                    <span> {{ income.tax_type }} </span>
+                    <span> {{ income.tax_cost }} </span>
+                    <span> {{ income.total_cost }} </span>
+                </div>
+                <div id="sc-t2-tax-{{ contributor.id }}" ng-repeat="tax in year.t2.taxes">
+                    <span> {{ tax.concept_name }} </span>
+                    <span> {{ tax.vat_type }} </span>
+                    <span> {{ tax.vat_cost }} </span>
+                    <span> {{ tax.percent }} </span>
+                    <span> {{ tax.total_cost }} </span>
+                    <span> {{ tax.effective_cost }} </span>
+                </div>
+            </div>
+        </div>
+
+        <div id="sc-t3-{{ contributor.id }}">
+            <div >
+                <span>3er trimestre</span>
+                <div id="sc-t3-inc-{{ contributor.id }}" ng-repeat="income in year.t3.incomes">
+                    <span> {{ income.concept_name }} </span>
+                    <span> {{ income.vat_type }} </span>
+                    <span> {{ income.vat_cost }} </span>
+                    <span> {{ income.tax_type }} </span>
+                    <span> {{ income.tax_cost }} </span>
+                    <span> {{ income.total_cost }} </span>
+                </div>
+                <div id="sc-t3-tax-{{ contributor.id }}" ng-repeat="tax in year.t3.taxs">
+                    <span> {{ tax.concept_name }} </span>
+                    <span> {{ tax.vat_type }} </span>
+                    <span> {{ tax.vat_cost }} </span>
+                    <span> {{ tax.percent }} </span>
+                    <span> {{ tax.total_cost }} </span>
+                    <span> {{ tax.effective_cost }} </span>
+                </div>
+            </div>
+        </div>
+
+        <div id="sc-t4-{{ contributor.id }}">
+            <div >
+                <span>4er trimestre</span>
+                <div id="sc-t4-inc-{{ contributor.id }}" ng-repeat="income in year.t4.incomes">
+                    <span> {{ income.concept_name }} </span>
+                    <span> {{ income.vat_type }} </span>
+                    <span> {{ income.vat_cost }} </span>
+                    <span> {{ income.tax_type }} </span>
+                    <span> {{ income.tax_cost }} </span>
+                    <span> {{ income.total_cost }} </span>
+                </div>
+                <div id="sc-t4-tax-{{ contributor.id }}" ng-repeat="tax in year.t4.taxes">
+                    <span> {{ tax.concept_name }} </span>
+                    <span> {{ tax.vat_type }} </span>
+                    <span> {{ tax.vat_cost }} </span>
+                    <span> {{ tax.percent }} </span>
+                    <span> {{ tax.total_cost }} </span>
+                    <span> {{ tax.effective_cost }} </span>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

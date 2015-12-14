@@ -1,0 +1,7 @@
+#!/bin/sh
+/usr/lib/jvm/jre1.7.0_67_x86/bin/java \
+  -classpath /home/amr/.juniper_networks/network_connect/NC.jar NC \
+  -h token.cipal.be \
+  -u amr \
+  -p cipal123 \
+  -f /home/amr/.ssh/vpncert.crt

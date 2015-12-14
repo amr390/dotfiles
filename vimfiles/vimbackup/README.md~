@@ -1,0 +1,29 @@
+oauth_django17
+==============
+
+oauth example with django-oauth-toolkit based on django 1.7
+
+
+Primitives
+==========
+-	^login/$  
+        Login goes directly to django.contrib.auth.views.login. --> when login is successful then redirects to app_profile (registration/profile)
+-	^logout/$
+-	^password_change/$
+-	^password_change/done/$
+-	^password_reset/$
+-	^password_reset/done/$
+-	^reset/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+/$
+-	^reset/done/$
+-	^signup/$
+-	^signup/done/$
+-	^signup/(?P<uidb36>[0-9A-Za-z]+)-(?P<token>.+)/$
+-	^signup/complete/$
+-	^profile/$
+
+Next steps
+=============
+- [x] Create apps for accounts and registration templates.
+- [x] Migrate registration logic from 1.5 version to 1.7
+- [x] Add the accounts logic (user, profile etc...)
+- [ ] End up the oauth 1st step.

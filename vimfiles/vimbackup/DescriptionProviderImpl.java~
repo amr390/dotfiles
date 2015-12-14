@@ -1,0 +1,142 @@
+/**
+ * 
+ */
+package be.cipal.styx.address.domain.impl;
+
+import java.util.Date;
+
+import javax.persistence.CascadeType;
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.ManyToOne;
+import javax.persistence.SequenceGenerator;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.TemporalType;
+
+import be.cipal.common.persistence.AbstractEntity;
+import be.cipal.styx.address.domain.api.Area;
+import be.cipal.styx.address.domain.api.AreaType;
+import be.cipal.styx.address.domain.api.Description;
+import be.cipal.styx.address.domain.api.Language;
+
+/**
+ * @author amr
+ *
+ */
+@Entity
+@Table(name = "DESCRIPTION")
+public class DescriptionImpl extends AbstractEntity implements Description {
+
+	private static final String SEQUENCE_STYX_DESCRIPTION_GENERATOR = "sequencedescription";
+
+	@Id
+	@SequenceGenerator(name = SEQUENCE_STYX_DESCRIPTION_GENERATOR, sequenceName = "SEQ_DESCRIPTION", allocationSize = 1, initialValue = 1)
+	@GeneratedValue(strategy = GenerationType.SEQUENCE, generator = SEQUENCE_STYX_DESCRIPTION_GENERATOR)
+	private Long id;
+
+	@Column(name = "LABEL")
+	private String label;
+
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@Column(name = "LANGUAGE_ID")
+	private Language language;
+
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@Column(name = "AREA_NAME_ID")
+	private Area nameOfArea;
+	
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@Column(name = "AREA_TYPE_NAME_ID")
+	private AreaType nameOfAreaType;
+	
+	@ManyToOne(cascade=CascadeType.ALL, fetch=FetchType.LAZY)
+	@Column(name = "AREA_TYPE_DESCRIPTION_ID")
+	private AreaType descriptionOfAreaType;
+
+	@Column(name = "START_DATE")
+	@Temporal(TemporalType.DATE)
+	private Date startDate;
+
+	@Column(name = "END_DATE")
+	@Temporal(TemporalType.DATE)
+	private Date endDate;
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see be.cipal.common.persistence.Identifiable#getObjectId()
+	 */
+	@Override
+	public Long getObjectId() {
+		return this.id;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see be.cipal.styx.address.domain.api.Description#getLabel()
+	 */
+	@Override
+	public String getLabel() {
+		return this.label;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * be.cipal.styx.address.domain.api.Description#setLabel(java.lang.String)
+	 */
+	@Override
+	public void setLabel(String label) {
+		this.label = label;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see be.cipal.styx.address.domain.api.Description#getLanguage()
+	 */
+	@Override
+	public Language getLanguage() {
+		return this.language;
+	}
+
+	/*
+	 * (non-Javadoc)
+	 * 
+	 * @see
+	 * be.cipal.styx.address.domain.api.Description#setLanguage(be.cipal.styx
+	 * .address.domain.api.Language)
+	 */
+	@Override
+	public void setLanguage(Language language) {
+		this.language = language;
+	}
+
+	@Override
+	public Date getStartDate() {
+		return this.startDate;
+	}
+
+	@Override
+	public void setStartDate(Date date) {
+		this.startDate = date;
+	}
+
+	@Override
+	public Date getEndDate() {
+		return this.endDate;
+	}
+
+	@Override
+	public void setEndDate(Date date) {
+		this.endDate = date;
+	}
+
+}

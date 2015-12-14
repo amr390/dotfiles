@@ -1,0 +1,49 @@
+import javax.xml.bind.*;
+import javax.xml.bind.annotation.XmlAccesorType;
+import javax.xml.bind.annotation.XmlAccesType;
+import javax.xml.namespace.QName;
+import javax.xml.transform.stream.StreamSource;
+
+class Region {
+    Long id
+    List<Long> cityId;
+
+    public Long getId(){
+        return id;
+    }
+    public void setId(Long id){
+        this.id = id;
+    }
+
+    public List<Long> getCityId(){
+        return cityId;
+    }
+}
+
+public Class Regions{
+
+
+    public static void main (String[] args){
+
+        try{
+            StreamSource xml = new StreamSource("regions.xml");
+            JAXBElement<Region> je1 =(JAXBElement<Region>) readFromXml(xml, Region.class);
+            List<Region> regions = (List<Region>)je1.getValue();
+            for (Region r : regions){
+                System.out.println( String.fromat("Region id: %s, citis %s", region.getId(), region.getCities()));
+            }
+        }catch(JAXBException e){
+            e.printStackTrace();
+        }
+    }
+
+    private static JAXBElement<?> readFromXml(XmlStreamSource xml, Class<?> t)throws JAXBException{
+        JAXBElement<?> je1 = null;
+        JAXBContext jc = JAXBContext.newInstance(t);
+        Unmarshaller unmarshaller = jc.createUnmarshaller();
+        je1 = unmarshaller.unmarshal(xml, t);
+
+        return je1;
+
+    }
+}

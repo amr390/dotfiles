@@ -1,0 +1,46 @@
+<div class="fieldcontain" >
+	<label for="initialDate">
+		<g:message code="report.initialDate.label" default="Initial Date" />
+	</label>
+	<g:datePicker name="initialDate" precision="day"  relativeYears="${-5..0}" noSelection="['':'-Elige-']" />
+</div>
+
+<div class="fieldcontain">
+	<label for="finalDate">
+		<g:message code="invoice.finalDate.label" default="Final Date" />
+	</label>
+	<g:datePicker name="finalDate" precision="day" relativeYears="${-5..0}" noSelection="['':'-Elige-']" />
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: reportInstance, field: 'name', 'error')} required">
+    <label for="invoiceType">
+		<g:message code="report.name.label" default="Tipo de Factura" />
+	</label>
+    <div><label for="compra">Compra</label><g:checkBox name="type_compra" id="type_compra" value="compra" checked="true" /></div>
+    <div><label for="compra">Venta</label><g:checkBox name="type_venta" id="type_venta" value="venta" /></div>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: invoiceInstance, field: 'product', 'error')} required">
+	<label for="product">
+		<g:message code="invoice.product.label" default="Product" />
+	</label>
+	<g:select id="product" name="product.id" from="${com.cucharitas.sat.domain.Product.list()}" optionKey="id" value="${invoiceInstance?.product?.id}" multiple="true"  class="many-to-one"/>
+</div>
+
+<div class="fieldcontain ${hasErrors(bean: invoiceInstance, field: 'provider', 'error')} required">
+	<label for="provider">
+		<g:message code="invoice.provider.label" default="Provider" />
+	</label>
+	<g:select id="provider" name="provider.id" from="${com.cucharitas.sat.domain.Provider.list(sort:'lastName')}" optionKey="id" value="${invoiceInstance?.provider?.id}" multiple="true" class="many-to-one"/>
+</div>
+
+<%--<div class="fieldcontain ${hasErrors(bean: reportInstance, field: 'activity', 'error')} required">--%>
+	<%--<label for="activity">--%>
+		<%--<g:message code="report.activity.label" default="Activity" />--%>
+		<%--<span class="required-indicator">*</span>--%>
+	<%--</label>--%>
+	<%--<g:select id="activity" name="activity.id" from="${com.cucharitas.sat.domain.Activity.list()}" optionKey="id" required="" value="${reportInstance?.activity?.id}" class="many-to-one"/>--%>
+
+<%--</div>--%>
+
+

@@ -1,0 +1,32 @@
+rootProject.name = 'styx-parent-osgi'
+include ':styx-database'
+include ':styx-address-domain'
+include ':styx-address-domain-impl'
+include ':styx-address-service'
+include ':styx-address-service-impl'
+include ':styx-address-domain-test-exposed'
+include ':styx-address-domain-test'
+include ':styx-crab-ws'
+include ':styx-xml'
+include ':styx-feed'
+include ':styx-batch-feed'
+include ':styx-runner:provision'
+include ':styx-runner:exploded-application-bundles'
+include ':styx-runner:distribution'
+include ':styx-runner'
+
+project(':styx-database').projectDir = "$rootDir/styx-database" as File
+project(':styx-address-domain').projectDir = "$rootDir/styx-address-domain" as File
+project(':styx-address-domain-impl').projectDir = "$rootDir/styx-address-domain-impl" as File
+project(':styx-address-service').projectDir = "$rootDir/styx-address-service" as File
+project(':styx-address-service-impl').projectDir = "$rootDir/styx-address-service-impl" as File
+project(':styx-address-domain-test-exposed').projectDir = "$rootDir/styx-address-domain-test-exposed" as File
+project(':styx-address-domain-test').projectDir = "$rootDir/styx-address-domain-test" as File
+project(':styx-crab-ws').projectDir = "$rootDir/styx-crab-ws" as File
+project(':styx-xml').projectDir = "$rootDir/styx-xml" as File
+project(':styx-feed').projectDir = "$rootDir/styx-feed" as File
+project(':styx-batch-feed').projectDir = "$rootDir/styx-batch-feed" as File
+project(':styx-runner:provision').projectDir = "$rootDir/styx-runner/provision" as File
+project(':styx-runner:exploded-application-bundles').projectDir = "$rootDir/styx-runner/exploded-application-bundles" as File
+project(':styx-runner:distribution').projectDir = "$rootDir/styx-runner/distribution" as File
+project(':styx-runner').projectDir = "$rootDir/styx-runner" as File

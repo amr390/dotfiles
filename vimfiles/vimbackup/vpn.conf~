@@ -1,0 +1,4 @@
+host=www.token.cipal.be
+user=amr
+password=cipal123
+cafile=/home/amr/.ssh/vpncert.crt

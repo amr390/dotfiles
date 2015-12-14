@@ -1,0 +1,96 @@
+" Modeline and Notes {
+" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
+"
+"}
+
+" Environment {
+
+    " Basics {
+        set nocompatible        " Must be first line
+        set background=dark     " Assume a dark background
+    " }
+
+    " Setup Bundle Support {
+        " The next three lines ensure that the ~/.vim/bundle/ system works
+        filetype off
+        set rtp+=~/.vim/bundle/vundle
+        call vundle#rc()
+    " }
+
+" }
+
+" Bundles {
+
+    " Deps
+        Bundle 'gmarik/vundle'
+        Bundle 'MarcWeber/vim-addon-mw-utils'
+    " }
+
+    
+    " General  
+            Bundle 'scrooloose/nerdtree'
+            Bundle 'kien/ctrlp.vim'
+            Bundle 'jistr/vim-nerdtree-tabs'
+            Bundle 'flazz/vim-colorschemes'
+            Bundle 'nathanaelkane/vim-indent-guides'
+            Bundle 'mileszs/ack.vim'
+            Bundle 'jlanzarotta/bufexplorer'
+            Bundle 'schickling/vim-bufonly'
+    " General Programming
+        " Pick one of the checksyntax, jslint, or syntastic
+        Bundle 'scrooloose/syntastic'
+        Bundle 'tpope/vim-fugitive'
+        Bundle 'mattn/webapi-vim'
+        Bundle 'mattn/gist-vim'
+        Bundle 'scrooloose/nerdcommenter'
+        Bundle 'godlygeek/tabular'
+        if executable('ctags')
+            Bundle 'majutsushi/tagbar'
+            Bundle 'szw/vim-tags'
+        endif
+
+    " Snippets & AutoComplete
+        Bundle 'garbas/vim-snipmate'
+        Bundle 'honza/vim-snippets'
+        " Source support_function.vim to support vim-snippets.
+        if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
+            source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
+        endif
+        Bundle 'Shougo/neocomplcache'
+        Bundle 'Shougo/neosnippet'
+        Bundle 'honza/vim-snippets'
+        Bundle 'Shougo/neocomplete.vim.git'
+
+    " Python
+        Bundle 'klen/python-mode'
+        Bundle 'python.vim'
+        Bundle 'python_match.vim'
+        Bundle 'pythoncomplete'
+
+    " Javascript
+        Bundle 'elzr/vim-json'
+        Bundle 'groenewege/vim-less'
+        Bundle 'pangloss/vim-javascript'
+        Bundle 'briancollins/vim-jst'
+        Bundle 'kchmck/vim-coffee-script'
+
+    " Java
+        Bundle 'derekwyatt/vim-scala'
+        Bundle 'derekwyatt/vim-sbt'
+        Bundle 'tpope/vim-classpath'
+
+    " Grails
+        Bundle 'vim-scripts/grails-vim'
+        Bundle 'davidhalter/jedi-vim'
+        
+    " HTML
+        Bundle 'amirh/HTML-AutoCloseTag'
+        Bundle 'hail2u/vim-css3-syntax'
+        Bundle 'tpope/vim-haml'
+" }
+
+" General {
+    " set autowrite                  " automatically write a file when leaving a modified buffer
+    set shortmess+=filmnrxoOtT      " Abbrev. of messages (avoids 'hit enter')
+" }
+

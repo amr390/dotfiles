@@ -1,0 +1,3 @@
+service.pid="${jms.service.pid}"
+jms.brokerURL="${jms.brokerURL}"
+internal.jms.maxPoolSize=50

@@ -1,0 +1,5 @@
+persistence.unit.name=test-styx-domain
+db.driver=oracle.jdbc.OracleDriver
+db.url=jdbc:oracle:thin:@GEDEVcsf-db.vm.cipal.net:1521/DEV13.cipal.be
+db.username=styx_amr
+db.password=styx_amr

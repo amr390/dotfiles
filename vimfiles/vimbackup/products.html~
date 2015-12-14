@@ -1,0 +1,23 @@
+{% extends "common/base.html" %}
+
+{% block left_menu_block %}
+{% include "store/products_left_menu.html" %}
+{% include "common/fb_comment.html" %}
+{% endblock left_menu_block %}
+
+{% block content_block %}
+    {% block non_modal %}
+        {% include "store/products_item_list.html" %}
+    {% endblock non_modal %}
+
+    {% block modal %}
+        <div id="show_details" class="modal fade">
+            {% include "store/products_detail.html" %}
+        </div>
+    {% endblock modal %}
+{% endblock content_block %}
+
+<h1>test</h1>
+    <script src="{% static "common/js/store.js" %}"></script>
+{% block extra_js_files %}
+{% endblock extra_js_files %}
