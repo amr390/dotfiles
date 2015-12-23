@@ -22,12 +22,12 @@ alias gfc="git flow feature start $1"
 alias gfp="git flow feature publish $1"
 alias gff="git flow feature finish $1"
 
-if [ -f aliases-cipal ]; 
+if [ -f ~/dotfiles/bash/aliases-cipal ]; 
 then
-    . aliases-cipal
+    . ~/dotfiles/bash/aliases-cipal
 fi
 
-if [ -f aliases-manning ]; 
+if [ -f ~/dotfiles/bash/aliases-manning ]; 
 then
-    . aliases-manning
+    . ~/dotfiles/bash/aliases-manning
 fi
