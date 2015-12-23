@@ -1,0 +1,3 @@
+#!/bin/bash
+
+alias v="go-dev && cd manning/vBook/manning-vbook"
