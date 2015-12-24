@@ -1,4 +1,5 @@
 #!/bin/bash
+alias aptu="sudo apt-get update && sudo apt-get dist-ugrade -y"
 alias sb="source ~/.bashrc"
 
 alias go-dev="cd /home/amr/dev/"

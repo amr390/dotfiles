@@ -268,6 +268,7 @@ export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 
 export JAVA_HOME=/opt/jdk
 export JAVA_ARGS="-XX:-UseLoopPredicate"
+export GRAILS_OPTS="$GRAILS_OPTS -Dgrails.server.ssl.key-store=/home/amr/.grailsTomcatKeystore"
 
 export NVM_DIR="/home/amr/.nvm"
 [ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
