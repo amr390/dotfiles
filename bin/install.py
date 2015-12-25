@@ -7,32 +7,32 @@ import datetime
 import subprocess
 
 HOME = os.environ['HOME']
-BASH_FOLDER = os.pardir
-BASHRC = os.path.abspath(os.path.join(BASH_FOLDER, 'bashrc'))
 HOME_BASHRC = os.path.join(HOME, '.bashrc')
+DOTFILES_FOLDER = os.path.join(HOME, 'dotfiles')
+BASHRC = os.path.abspath(os.path.join(DOTFILES_FOLDER, 'bashrc'))
 SOURCE_COMMAND = ['bash', '-c', 'source ~/.bashrc']
 DATETIME_PREFIX = datetime.datetime.today().strftime('%Y%m%d%H%M_')
 
 
 def install_vim():
-    subprocess(['./bootstrap.sh'])
+    subprocess.call([os.path.join(DOTFILES_FOLDER, 'bin', 'bootstrap.sh')])
 
 
 def backup_files():
     bash_files = glob.glob(os.path.join(HOME, '.bash*'))
-    bkp_path = os.path.join(BASH_FOLDER, 'bkp', DATETIME_PREFIX + 'bash.zip')
-    os.mkdir(os.path.join(BASH_FOLDER, 'tmp'))
+    bkp_path = os.path.join(DOTFILES_FOLDER, 'bkp', DATETIME_PREFIX + 'bash.zip')
+    os.mkdir(os.path.join(DOTFILES_FOLDER, 'tmp'))
 
     for f in bash_files:
         if not os.path.islink(f):
-            shutil.move(f, os.path.join(BASH_FOLDER, 'tmp'))
+            shutil.move(f, os.path.join(DOTFILES_FOLDER, 'tmp'))
 
     with zipfile.ZipFile(bkp_path, 'w') as myZip:
-        for f in os.listdir(os.path.join(BASH_FOLDER, 'tmp')):
-            filename = os.path.join(BASH_FOLDER, 'tmp', f)
+        for f in os.listdir(os.path.join(DOTFILES_FOLDER, 'tmp')):
+            filename = os.path.join(DOTFILES_FOLDER, 'tmp', f)
             myZip.write(filename, f, zipfile.ZIP_DEFLATED)
 
-    shutil.rmtree(os.path.join(HOME, 'tmp'))
+    shutil.rmtree(os.path.join(DOTFILES_FOLDER, 'tmp'))
 
 
 def install_bash():
