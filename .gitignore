@@ -1,5 +1,5 @@
 vim/vimundo*
 vim/vimswap*
 vim/vimviews*
-bash_history
-vimfiles/vim/bundle/*
+bkp/*
+bin/.ropeproject*
