@@ -1,4 +1,10 @@
 #!/usr/bin/env python3
+# --- INSTALL Bash and Vim custom tools
+#
+#   TODO: add here the proper description
+#
+#
+
 import os, glob, shutil, zipfile, datetime, subprocess
 
 HOME = os.environ['HOME']
@@ -10,7 +16,10 @@ DATETIME_PREFIX = datetime.datetime.today().strftime('%Y%m%d%H%M_')
 
 
 def install_vim():
+    vim_snippets_path = os.path.join(DOTFILES_FOLDER, 'vim', 'vim-grails-snippets')
+    home_vim_snippets = os.path.join(HOME, '.vim', 'bundle', 'vim_snippets')
     subprocess.call([os.path.join(DOTFILES_FOLDER, 'bin', 'bootstrap.sh')])
+    shutil.copytree(vim_snippets_path, home_vim_snippets)
 
 
 def backup_files():
