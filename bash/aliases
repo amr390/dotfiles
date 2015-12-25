@@ -12,12 +12,21 @@ alias ..="cd ../"
 alias ...="cd ../../"
 
 # Git
-alias gg="git status -s"
-alias gco="git checkout $1"
-alias gci="git commit -v \"$*\""
-alias gcia="git commit -v -a -m \"$*\""
-alias gb="git branch"
-alias gba="git branch -a"
+alias gst='git status -v'
+alias gl='git pull'
+alias gp='git push'
+alias gd='git diff | vim'
+alias gau='git add --update'
+alias gc='git commit -v -m'
+alias gca='git commit -v -a -m'
+alias gb='git branch'
+alias gba='git branch -a'
+alias gco='git checkout'
+alias gcob='git checkout -b'
+alias gcot='git checkout -t'
+alias gcotb='git checkout --track -b'
+alias glog='git log'
+alias glogp='git log --pretty=format:"%h %s" --graph'
 
 alias gfc="git flow feature start $1"
 alias gfp="git flow feature publish $1"
