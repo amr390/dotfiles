@@ -1,10 +1,5 @@
 #!/usr/bin/env python3
-import os
-import glob
-import shutil
-import zipfile
-import datetime
-import subprocess
+import os, glob, shutil, zipfile, datetime, subprocess
 
 HOME = os.environ['HOME']
 HOME_BASHRC = os.path.join(HOME, '.bashrc')
