@@ -1,3 +1,7 @@
 #!/bin/bash
 
 alias v="go-dev && cd manning/vBook/manning-vbook"
+#324536
+alias mcurlproducts="curl -H "\""Accept:application/json"\"" -H "\""Authorization:Basic YXBpX3VzZXI6cCFENlBAcnBTdV8="\"" https://marketplacews-qa.manning.com/api/user/$1/products"
+alias mcas="grails run-app -https -Dgrails.env=casDev"
+alias mcasd="grails run-app -https -debug-jvm -Dgrails.env=casDev"

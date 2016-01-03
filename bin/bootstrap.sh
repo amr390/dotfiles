@@ -1,6 +1,6 @@
 #!/usr/bin/env bash
 ############################  SETUP PARAMETERS
-app_name='vimamr'
+app_name='dotfiles/vim'
 debug_mode='0'
 
 ############################  BASIC SETUP TOOLS
