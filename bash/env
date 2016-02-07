@@ -30,6 +30,7 @@ export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 export JAVA_HOME=/usr/lib/jvm/default-java/
 export JAVA_ARGS="-XX:-UseLoopPredicate"
 export GRAILS_OPTS="$GRAILS_OPTS -Dgrails.server.ssl.key-store=/home/amr/.grailsTomcatKeystore"
+export GRADLE_OPTS="$GRADLE_OPTS -Dorg.gradle.daemon=true"
 
 export NVM_DIR="/home/amr/.nvm"
 

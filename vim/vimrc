@@ -1,4 +1,184 @@
-" Modeline and Notes {
+"t a/bash/aliases b/bash/aliases
+"index 00fb702..9a2e297 100644
+"--- a/bash/aliases
+"+++ b/bash/aliases
+"@@ -1,6 +1,7 @@
+" #!/bin/bash
+"  alias aptu="sudo apt-get update && sudo apt-get dist-upgrade -y"
+"   alias sb="source ~/.bashrc"
+"   +alias myip="curl http://ipecho.net/plain; echo"
+"    
+"     alias go-dev="cd /home/amr/dev/"
+"      alias go-vatbook="cd /home/amr/dev/python/django/vatbook/"
+"      @@ -32,6 +33,13 @@ alias gfc="git flow feature start $1"
+"       alias gfp="git flow feature publish $1"
+"        alias gff="git flow feature finish $1"
+"         
+"         +# TOMCAT
+"         +alias t7w="cd /var/lib/tomcat7$1"
+"         +alias t7l="sudo tail -f /var/log/tomcat7/catalina.out"
+"         +alias t8w="cd /var/lib/tomcat8$1"
+"         +alias t8l="sudo tail -f /var/log/tomcat8/catalina.out"
+"         +alias t8s="sudo service tomcat8 $1"
+"         +
+"          if [ -f ~/dotfiles/bash/aliases-cipal ]; 
+"           then
+"                . ~/dotfiles/bash/aliases-cipal
+"                diff --git a/bash/aliases-manning b/bash/aliases-manning
+"                index 4045206..70741e1 100644
+"                --- a/bash/aliases-manning
+"                +++ b/bash/aliases-manning
+"                @@ -1,7 +1,13 @@
+"                 #!/bin/bash
+"                  
+"                  -alias v="go-dev && cd manning/vBook/manning-vbook"
+"                  +alias v="go-dev && cd manning/vBook/"
+"                  +alias vwardemo="grails run-app -https -debug-jvm
+"                  -Dgrails.env=casDev"
+"                   #324536
+"                    alias mcurlproducts="curl -H
+"                    "\""Accept:application/json"\"" -H
+"\""Authorization:Basic YXBpX3VzZXI6cCFENlBAcnBTdV8="\""
+"https://marketplacews-qa.manning.com/api/user/$1/products"
+"+alias mcurlstore="curl -H "Accept:application/json" -H "Authorization:Basic
+"YXBpX3VzZXI6cCFENlBAcnBTdV8="
+"https://marketplacews-qa.manning.com/book?query=picheta -O"
+" alias mcas="grails run-app -https -Dgrails.env=casDev"
+"  alias mcasd="grails run-app -https -debug-jvm -Dgrails.env=casDev"
+"  +
+"  +alias dv="sudo rm -rf /var/lib/tomcat8/webapps/vbook* && cd
+"  /var/lib/tomcat8/webapps/ && sudo cp
+"  /home/amr/dev/manning/vBook/manning-vbook/build/libs/manning-vbook-0.1.war.original
+"  /var/lib/tomcat8/webapps/vbook.war && cd -"
+"  +
+"  +alias aws-search="aws cloudsearchdomain --endpoint-url
+"  http://search-vbook-manning-t4ftyj363fc2yl2g6gcs3mlrr4.eu-west-1.cloudsearch.amazonaws.com
+"  search --search-query ninja  --return _no_fields --profile default --region
+"  eu-west-1"
+"  diff --git a/bash/env b/bash/env
+"  index c44a5e7..ab19ebb 100644
+"  --- a/bash/env
+"  +++ b/bash/env
+"  @@ -30,6 +30,7 @@ export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
+"   export JAVA_HOME=/usr/lib/jvm/default-java/
+"    export JAVA_ARGS="-XX:-UseLoopPredicate"
+"     export GRAILS_OPTS="$GRAILS_OPTS
+"     -Dgrails.server.ssl.key-store=/home/amr/.grailsTomcatKeystore"
+"     +export GRADLE_OPTS="$GRADLE_OPTS -Dorg.gradle.daemon=true"
+"      
+"       export NVM_DIR="/home/amr/.nvm"
+"        
+"        diff --git a/vim/vimrc b/vim/vimrc
+"        index d2b3072..ea2d318 100644
+"        --- a/vim/vimrc
+"        +++ b/vim/vimrc
+"        @@ -638,6 +638,9 @@
+"                     silent execute ":!open
+"                     target/test-reports/html/index.html"
+"                              endfunction
+"                                   " }
+"                                   +    " Vimwiki {
+"                                   +        let g:vimwiki_list =
+"                                   [{'path':'~/Dropbox/wiki/',
+"                                   'path_html':'~/Dropbox/wiki/export/html'}] 
+"                                   +    " }
+"                                    
+"                                     " }
+"                                      
+"                                      @@ -739,25 +742,6 @@
+"                                           endfunction
+"                                                " }
+"                                                 
+"                                                 -    " Strip whitespace {
+"                                                 -    function!
+"                                                 StripTrailingWhitespace()
+"                                                 -        " To disable the
+"                                                 stripping of whitespace, add
+"                                                 the following to your
+"                                                 -        "
+"                                                 .vimrc.before.local file:
+"                                                 -        "   let
+"                                                 g:spf13_keep_trailing_whitespace
+"                                                 = 1
+"                                                 -        if
+"                                                 !exists('g:spf13_keep_trailing_whitespace')
+"                                                 -            " Preparation:
+"                                                 save last search, and cursor
+"                                                 position.
+"                                                 -            let _s=@/
+"                                                 -            let l =
+"                                                 line(".")
+"                                                 -            let c =
+"                                                 col(".")
+"                                                 -            " do the
+"                                                 business:
+"                                                 -            %s/\s\+$//e
+"                                                 -            " clean up:
+"                                                 restore previous search
+"                                                 history, and cursor position
+"                                                 -            let @/=_s
+"                                                 -            call cursor(l,
+"                                                 c)
+"                                                 -        endif
+"                                                 -    endfunction
+"                                                 -    " }
+"                                                 -
+"                                                      " Shell command {
+"                                                           function!
+"                                                           s:RunShellCommand(cmdline)
+"                                                                    botright
+"                                                                    new
+"                                                                    @@
+"                                                                    -783,23
+"                                                                    +767,3 @@
+"                                                                     
+"                                                                      " }
+"                                                                       
+"                                                                       -" Use
+"                                                                       fork
+"                                                                       vimrc
+"                                                                       if
+"                                                                       available
+"                                                                       {
+"                                                                       -
+"                                                                       if
+"                                                                       filereadable(expand("~/.vimrc.fork"))
+"                                                                       -
+"                                                                       source
+"                                                                       ~/.vimrc.fork
+"                                                                       -
+"                                                                       endif
+"                                                                       -" }
+"                                                                       -
+"                                                                       -" Use
+"                                                                       local
+"                                                                       vimrc
+"                                                                       if
+"                                                                       available
+"                                                                       {
+"                                                                       -
+"                                                                       if
+"                                                                       filereadable(expand("~/.vimrc.local"))
+"                                                                       -
+"                                                                       source
+"                                                                       ~/.vimrc.local
+"                                                                       -
+"                                                                       endif
+"                                                                       -" }
+"                                                                       -
+"                                                                       -" Use
+"                                                                       local
+"                                                                       gvimrc
+"                                                                       if
+"                                                                       available
+"                                                                       and
+"                                                                       gui is
+"                                                                       running
+"                                                                       {
+"                                                                       -
+"                                                                       if
+"                                                                       has('gui_running')
+"                                                                       Modeline and Notes {
 " vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
 "
 " Forked from Steve's Francia Project http://http://github.com/spf13/
@@ -638,6 +818,9 @@
             silent execute ":!open target/test-reports/html/index.html"
         endfunction
     " }
+    " Vimwiki {
+        let g:vimwiki_list = [{'path':'~/Dropbox/wiki/', 'path_html':'~/Dropbox/wiki/export/html'}] 
+    " }
 
 " }
 
@@ -783,23 +966,3 @@
 
 " }
 
-" Use fork vimrc if available {
-    if filereadable(expand("~/.vimrc.fork"))
-        source ~/.vimrc.fork
-    endif
-" }
-
-" Use local vimrc if available {
-    if filereadable(expand("~/.vimrc.local"))
-        source ~/.vimrc.local
-    endif
-" }
-
-" Use local gvimrc if available and gui is running {
-    if has('gui_running')
-        if filereadable(expand("~/.gvimrc.local"))
-            source ~/.gvimrc.local
-        endif
-    endif
-" }
-"

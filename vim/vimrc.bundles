@@ -46,6 +46,8 @@
         if executable('ctags')
             Bundle 'majutsushi/tagbar'
         endif
+    " Notes vimwiki
+        Bundle 'vimwiki/vimwiki'
 
     " Snippets & AutoComplete
         Bundle 'garbas/vim-snipmate'

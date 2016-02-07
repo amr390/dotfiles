@@ -1,6 +1,7 @@
 #!/bin/bash
 alias aptu="sudo apt-get update && sudo apt-get dist-upgrade -y"
 alias sb="source ~/.bashrc"
+alias myip="curl http://ipecho.net/plain; echo"
 
 alias go-dev="cd /home/amr/dev/"
 alias go-vatbook="cd /home/amr/dev/python/django/vatbook/"
@@ -31,6 +32,13 @@ alias glogp='git log --pretty=format:"%h %s" --graph'
 alias gfc="git flow feature start $1"
 alias gfp="git flow feature publish $1"
 alias gff="git flow feature finish $1"
+
+# TOMCAT
+alias t7w="cd /var/lib/tomcat7$1"
+alias t7l="sudo tail -f /var/log/tomcat7/catalina.out"
+alias t8w="cd /var/lib/tomcat8$1"
+alias t8l="sudo tail -f /var/log/tomcat8/catalina.out"
+alias t8s="sudo service tomcat8 $1"
 
 if [ -f ~/dotfiles/bash/aliases-cipal ]; 
 then
