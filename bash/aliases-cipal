@@ -5,7 +5,7 @@ alias go-csf-parent="go-dev && cd cipal/csf/csf-parent-osgi/"
 alias go-styx="cd /home/amr/dev/cipal/styx/trunk/styx-parent-osgi/"
 alias go-common-parent="cd /home/amr/dev/cipal/cipalcommon3/cipal-common-parent/"
 alias go-felix="cd /home/amr/dev/cipal/felix/"
-alias go-eten="go-dev && cd cipal/etend_ws/etendering"
+alias go-et="go-dev && cd cipal/etend_ws/etendering"
 
 #FELIX TASKS
 alias felix-stop="go-felix && ./felix.sh stop"
@@ -31,13 +31,6 @@ alias mvn-version="mvn versions:set -DnewVersion=$1 -DgenerateBackupPoms=false"
 #CIPROCURE
 alias mysql_test="mysql -u etendering -pgvb3lg13 etendering_test"
 alias mysql_speed="/home/amr/dev/scripts/mysql_speedup.sh"
-
-alias ssh-it-acc="ssh -i ~/.ssh/key_gv_eTenderingTest01.pem ubuntu@54.194.154.245"
-alias ssh-it-dev="ssh -i ~/.ssh/key_gv_et_dev.pem ubuntu@ec2-54-229-189-139.eu-west-1.compute.amazonaws.com"
-
-
-alias ssh-it-acc="ssh -i ~/.ssh/key_gv_eTenderingTest01.pem ubuntu@54.194.154.245"
-alias ssh-it-dev="ssh -i ~/.ssh/key_gv_et_dev.pem ubuntu@ec2-54-229-189-139.eu-west-1.compute.amazonaws.com"
 
 alias deploy-etendering="sudo service tomcat7 stop && sudo rm -rf /var/lib/tomcat7/webapps/etendering* && 
                         cd /home/amr/dev/cipal/etend_ws/etendering/etendering-web && mvn clean install -Dmaven.test.skip=true  && 
