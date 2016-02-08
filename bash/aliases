@@ -12,6 +12,11 @@ alias ll="ls -lrt --color"
 alias ..="cd ../"
 alias ...="cd ../../"
 
+# vim wiki
+ni() {
+    vim -c ":VimwikiIndex"
+}
+
 # Git
 alias gst='git status -s'
 alias gl='git pull'

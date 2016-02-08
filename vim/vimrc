@@ -819,7 +819,12 @@
         endfunction
     " }
     " Vimwiki {
-        let g:vimwiki_list = [{'path':'~/Dropbox/wiki/', 'path_html':'~/Dropbox/wiki/export/html'}] 
+        let wiki = {}
+        let wiki.path = '~/Dropbox/wiki/'
+        let wiki.path_html = '~/Dropbox/wiki/export/html'
+        let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'java': 'java', 'groovy':'groovy', 'js':'javascript'}
+
+        let g:vimwiki_list = [wiki] 
     " }
 
 " }
