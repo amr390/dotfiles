@@ -6,6 +6,9 @@ alias go-styx="cd /home/amr/dev/cipal/styx/trunk/styx-parent-osgi/"
 alias go-common-parent="cd /home/amr/dev/cipal/cipalcommon3/cipal-common-parent/"
 alias go-felix="cd /home/amr/dev/cipal/felix/"
 alias go-et="go-dev && cd cipal/etend_ws/etendering"
+alias et="~/dev/cipal/etend_ws/etendering"
+alias etw="~/dev/cipal/etend_ws/etendering"
+alias etdb="~/dev/cipal/etend_ws/etendering"
 
 #FELIX TASKS
 alias felix-stop="go-felix && ./felix.sh stop"
@@ -26,6 +29,7 @@ alias mvn-build="go-styx && mvn clean install && cd styx-runner/ && mvn clean in
 alias mvn-drop="go-styx && cd styx-database && mvn sql:execute liquibase:dropAll && mvn clean install" 
 alias mvn-deploy="go-felix && rm -f bundles/* && rm -rf felix/cache/runner/* && mvn-drop && mvn-build-notest && felix-start"
 alias mvn-version="mvn versions:set -DnewVersion=$1 -DgenerateBackupPoms=false"
+alias mvn-ro="mvn requirejs:optimize -Plocal -f ~/dev/cipal/etend_ws/etendering/etendering-web/"
 #alias mvn-common="go-common-parent && mvn clean install -Dmaven.test.skip=true"
 
 #CIPROCURE
