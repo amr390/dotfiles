@@ -8,6 +8,6 @@ alias mcurlstore="curl -H "Accept:application/json" -H "Authorization:Basic YXBp
 alias mcas="grails run-app -https -Dgrails.env=casDev"
 alias mcasd="grails run-app -https -debug-jvm -Dgrails.env=casDev"
 
-alias dv="sudo rm -rf /var/lib/tomcat8/webapps/vbook* && cd /var/lib/tomcat8/webapps/ && sudo cp /home/amr/dev/manning/vBook/manning-vbook/build/libs/manning-vbook-0.1.war.original /var/lib/tomcat8/webapps/vbook.war && cd -"
+alias dv="sudo rm -rf /var/lib/tomcat8/webapps/vbook* && cd /var/lib/tomcat8/webapps/ && sudo cp /home/amr/dev/manning/vBook/build/libs/vbook-0.1.war.original /var/lib/tomcat8/webapps/vbook.war && cd -"
 
 alias aws-search="aws cloudsearchdomain --endpoint-url http://search-vbook-manning-t4ftyj363fc2yl2g6gcs3mlrr4.eu-west-1.cloudsearch.amazonaws.com search --search-query ninja  --return _no_fields --profile default --region eu-west-1"
