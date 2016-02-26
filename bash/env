@@ -11,16 +11,6 @@ if [ -s ~/.nvm/nvm.sh ]; then
     nvm use v0.10.12 &> /dev/null # silence nvm use; needed for rsync
 fi
 
-# Configure PATH
-#  - These are line by line so that you can kill one without affecting the others.
-#  - Lowest priority first, highest priority last.
-export PATH=$PATH
-export PATH=$HOME/bin:$PATH
-export PATH=/usr/bin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
-export PATH=/usr/local/heroku/bin:$PATH # Heroku: https://toolbelt.heroku.com/standalone
-export PATH=$PATH:$HOME/.local/bin:$HOME/Apps/bin:$JAVA_HOME/bin # Java home
 
 # User specific environment and startup programs
 # User specific aliases and functions
@@ -31,6 +21,10 @@ export JAVA_HOME=/usr/lib/jvm/default-java/
 export JAVA_ARGS="-XX:-UseLoopPredicate"
 export GRAILS_OPTS="$GRAILS_OPTS -Dgrails.server.ssl.key-store=/home/amr/.grailsTomcatKeystore"
 export GRADLE_OPTS="$GRADLE_OPTS -Dorg.gradle.daemon=true"
+
+# Search cloud tools variables.
+export CS_HOME=/home/amr/Apps/aws/cloud-search-tools/
+export CS_ENDPOINT=cloudsearch.us-east1.amazonaws.com
 
 export NVM_DIR="/home/amr/.nvm"
 
@@ -44,3 +38,16 @@ export SDKMAN_DIR="/home/amr/.sdkman"
 source /etc/bash_completion.d/virtualenvwrapper
 
 complete -C '/usr/local/bin/aws_completer' aws
+
+# Configure PATH
+#  - These are line by line so that you can kill one without affecting the others.
+#  - Lowest priority first, highest priority last.
+#export PATH=$PATH
+export PATH=$HOME/bin:$PATH
+export PATH=/usr/bin:$PATH
+export PATH=/usr/local/bin:$PATH
+export PATH=/usr/local/sbin:$PATH
+export PATH=/usr/local/heroku/bin:$PATH # Heroku: https://toolbelt.heroku.com/standalone
+export PATH=$PATH:$HOME/.local/bin:$HOME/Apps/bin:$JAVA_HOME/bin # Java home
+export PATH=$PATH:$CS_HOME/bin
+
