@@ -24,7 +24,7 @@ export GRADLE_OPTS="$GRADLE_OPTS -Dorg.gradle.daemon=true"
 
 # Search cloud tools variables.
 export CS_HOME=/home/amr/Apps/aws/cloud-search-tools/
-export CS_ENDPOINT=cloudsearch.us-east1.amazonaws.com
+export CS_ENDPOINT=cloudsearch.us-east-1.amazonaws.com
 
 export NVM_DIR="/home/amr/.nvm"
 

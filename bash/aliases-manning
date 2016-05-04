@@ -1,9 +1,10 @@
 #!/bin/bash
 
 alias v="go-dev && cd manning/vBook/"
+alias cas="go-dev && cd cas/VagrantImages/cas/"
 alias vwardemo="grails run-app -https -debug-jvm -Dgrails.env=casDev"
 #324536
-alias mcurlproducts="curl -H "\""Accept:application/json"\"" -H "\""Authorization:Basic YXBpX3VzZXI6cCFENlBAcnBTdV8="\"" https://marketplacews-qa.manning.com/api/user/$1/products"
+alias mcurlproducts="curl -H "\""Accept:application/json"\"" -H "\""Authorization:Basic YXBpX3VzZXI6cCFENlBAcnBTdV8="\"" https://marketplacews-qa.manning.com/api/user/324536/products"
 alias mcurlstore="curl -H "Accept:application/json" -H "Authorization:Basic YXBpX3VzZXI6cCFENlBAcnBTdV8=" https://marketplacews-qa.manning.com/book?query=picheta -O"
 alias mcas="grails run-app -https -Dgrails.env=casDev"
 alias mcasd="grails run-app -https -debug-jvm -Dgrails.env=casDev"
@@ -11,3 +12,8 @@ alias mcasd="grails run-app -https -debug-jvm -Dgrails.env=casDev"
 alias dv="sudo rm -rf /var/lib/tomcat8/webapps/vbook* && cd /var/lib/tomcat8/webapps/ && sudo cp /home/amr/dev/manning/vBook/build/libs/vbook-0.1.war.original /var/lib/tomcat8/webapps/vbook.war && cd -"
 
 alias aws-search="aws cloudsearchdomain --endpoint-url http://search-vbook-manning-t4ftyj363fc2yl2g6gcs3mlrr4.eu-west-1.cloudsearch.amazonaws.com search --search-query ninja  --return _no_fields --profile default --region eu-west-1"
+alias s3-ls=s3_ls_summary
+
+s3_ls_summary() {
+    aws s3 ls --summarize --human-readable --recursive s3://$1
+}

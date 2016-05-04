@@ -283,7 +283,8 @@
 " Vim UI {
 
     set t_Co=256
-    color lucius                    " Load a colorscheme
+    "color lucius                   " Load a colorscheme
+    color jellybeans                " Load a colorscheme
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode
@@ -835,7 +836,8 @@
     if has('gui_running')
         set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
-        set guifont=Dejavu\ Sans\ Mono\ 11
+        "set guifont=Dejavu\ Sans\ Mono\ 11
+        set guifont=Monaco\ 11
         if has("gui_gtk")
 "            set guifont=Monospace\ 11,Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
             set guifont=Dejavu\ Sans\ Mono\ 11
@@ -857,7 +859,8 @@
     else
         if &term == 'xterm' || &term == 'screen'
             set t_Co=256            " Enable 256 colors to stop the CSApprox warning and make xterm vim shine
-            set guifont=Ubuntu\ Mono\ Bold\ 11
+            "set guifont=Ubuntu\ Mono\ Bold\ 11
+            set guifont=Monaco\ 11
          endif
         "set term=builtin_ansi       " Make arrow and other keys work
     endif
