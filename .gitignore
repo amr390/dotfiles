@@ -1,5 +1,6 @@
 vim/vimundo*
 vim/vimswap*
 vim/vimviews*
+**/private*
 bkp/*
 bin/.ropeproject*
