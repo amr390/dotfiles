@@ -29,7 +29,7 @@ alias mvn-build="go-styx && mvn clean install && cd styx-runner/ && mvn clean in
 alias mvn-drop="go-styx && cd styx-database && mvn sql:execute liquibase:dropAll && mvn clean install" 
 alias mvn-deploy="go-felix && rm -f bundles/* && rm -rf felix/cache/runner/* && mvn-drop && mvn-build-notest && felix-start"
 alias mvn-version="mvn versions:set -DnewVersion=$1 -DgenerateBackupPoms=false"
-alias mvn-ro="mvn requirejs:optimize -Plocal -f ~/dev/cipal/etend_ws/etendering/etendering-web/"
+alias mvn-ro="mvn process-resources -Plocal -f ~/dev/cipal/etend_ws/etendering/etendering-web/"
 #alias mvn-common="go-common-parent && mvn clean install -Dmaven.test.skip=true"
 
 #CIPROCURE
@@ -40,6 +40,6 @@ alias deploy-etendering="sudo service tomcat7 stop && sudo rm -rf /var/lib/tomca
                         cd /home/amr/dev/cipal/etend_ws/etendering/etendering-web && mvn clean install -Dmaven.test.skip=true  && 
                         sudo mv /home/amr/dev/cipal/etend_ws/etendering/etendering-web/target/etendering.war /var/lib/tomcat7/webapps/ && 
                         sudo service tomcat7 start"
-alias mysql_reset="mvn clean install -Pclean-db-test -f /home/amr/dev/cipal/etend_ws/etendering/etendering-db/ && mysql -u root -proot etendering_test < /home/amr/dev/cipal/etend_ws/sql/dumps/20160302_genk.sql"
+alias mysql_reset="mvn clean install -Pclean-db-test -f /home/amr/dev/cipal/etend_ws/etendering/etendering-db/ && mysql -u root -proot etendering_test < /home/amr/dev/cipal/etend_ws/sql/dumps/latest.sql && mvn clean install -f /home/amr/dev/cipal/etend_ws/etendering/etendering-db/"
 
 
