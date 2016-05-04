@@ -13,3 +13,7 @@ alias s3-ls=s3_ls_summary
 s3_ls_summary() {
     aws s3 ls --summarize --human-readable --recursive s3://$1
 }
+
+if [ -f private-manning-aliases ]; then
+    source private-manning-aliases
+fi
