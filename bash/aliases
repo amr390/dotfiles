@@ -19,7 +19,7 @@ wikii() {
 
 # Git
 alias gst='git status -s'
-alias gl='git pull'
+alias gl='git pull -r'
 alias gp='git push'
 alias gd='git diff | vim'
 alias gau='git add --update'
@@ -34,7 +34,7 @@ alias gcotb='git checkout --track -b'
 alias glog='git log'
 alias glogp='git log --pretty=format:"%h %s" --graph'
 
-alias gfc="git flow feature start $1"
+alias gfs="git flow feature start $1"
 alias gfp="git flow feature publish $1"
 alias gff="git flow feature finish $1"
 

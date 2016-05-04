@@ -7,8 +7,8 @@ alias go-common-parent="cd /home/amr/dev/cipal/cipalcommon3/cipal-common-parent/
 alias go-felix="cd /home/amr/dev/cipal/felix/"
 alias go-et="go-dev && cd cipal/etend_ws/etendering"
 alias et="~/dev/cipal/etend_ws/etendering"
-alias etw="~/dev/cipal/etend_ws/etendering"
-alias etdb="~/dev/cipal/etend_ws/etendering"
+alias etw="~/dev/cipal/etend_ws/etendering/etendering-web/"
+alias etdb="~/dev/cipal/etend_ws/etendering/etendering-db/"
 
 #FELIX TASKS
 alias felix-stop="go-felix && ./felix.sh stop"
@@ -40,4 +40,6 @@ alias deploy-etendering="sudo service tomcat7 stop && sudo rm -rf /var/lib/tomca
                         cd /home/amr/dev/cipal/etend_ws/etendering/etendering-web && mvn clean install -Dmaven.test.skip=true  && 
                         sudo mv /home/amr/dev/cipal/etend_ws/etendering/etendering-web/target/etendering.war /var/lib/tomcat7/webapps/ && 
                         sudo service tomcat7 start"
+alias mysql_reset="mvn clean install -Pclean-db-test -f /home/amr/dev/cipal/etend_ws/etendering/etendering-db/ && mysql -u root -proot etendering_test < /home/amr/dev/cipal/etend_ws/sql/dumps/20160302_genk.sql"
+
 
