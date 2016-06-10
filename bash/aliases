@@ -14,7 +14,7 @@ alias ...="cd ../../"
 
 # vim wiki
 wikii() {
-    vim -c ":VimwikiIndex"
+    gvim -c ":VimwikiIndex"
 }
 
 # Git
@@ -33,6 +33,15 @@ alias gcot='git checkout -t'
 alias gcotb='git checkout --track -b'
 alias glog='git log'
 alias glogp='git log --pretty=format:"%h %s" --graph'
+
+gfo() {
+    git checkout "feature/ET-$1"
+}
+
+grd() {
+    CURRENT_VERSION=`git rev-parse --abbrev-ref HEAD`
+    git checkout develop && git pull && git checkout $CURRENT_VERSION
+}
 
 alias gfs="git flow feature start $1"
 alias gfp="git flow feature publish $1"

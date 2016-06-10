@@ -185,10 +185,12 @@
     let mapleader = ','
 
     " to move between buffers
-    map <C-J> <C-W>j<C-W>_
-    map <C-K> <C-W>k<C-W>_
-    map <C-L> <C-W>l<C-W>_
-    map <C-H> <C-W>h<C-W>_
+    "map <C-J> <C-W>j<C-W>_ "If you want to maximize the one with the focus
+    map <C-J> <C-W>j
+    map <C-K> <C-W>k
+    map <C-L> <C-W>l
+    map <C-H> <C-W>h
+
 
 
     " Wrapped lines goes down/up to next row, rather than next line in file.
@@ -261,6 +263,8 @@
 
     " Adjust viewports to the same size
     map <Leader>= <C-w>=
+    " Maximize current view port.
+    map <leader>_ <C-W>_
 
     " Map <Leader>ff to display all lines with keyword under cursor
     " and ask which one to jump to
@@ -342,7 +346,7 @@
         let NERDTreeChDirMode=0
         let NERDTreeQuitOnOpen=1
         let NERDTreeMouseMode=2
-        let NERDTreeShowHidden=1
+        let NERDTreeShowHidden=0
         let NERDTreeKeepTreeInNewTab=1
         let g:nerdtree_tabs_open_on_gui_startup=0
     " }
