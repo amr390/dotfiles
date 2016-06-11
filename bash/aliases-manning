@@ -1,6 +1,7 @@
 #!/bin/bash
 
 alias v="go-dev && cd manning/vBook/"
+alias m="go-dev && cd manning/"
 alias cas="go-dev && cd cas/VagrantImages/cas/"
 alias vwardemo="grails run-app -https -debug-jvm -Dgrails.env=casDev"
 alias mcas="grails run-app -https -Dgrails.env=casDev"
