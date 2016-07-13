@@ -47,6 +47,7 @@ alias mysql_reset="mvn clean install -Pclean-db-test -f $ET_FOLDER/etendering-db
 
 pick_db_bkp() {
     TODAY=`date +%Y-%m-%d`
+    #TODAY="2016-06-28"
     BKP_FOLDER="/var/backups/mysql/daily/etendering_genk"
 
     rm -f $DUMPS_FOLDER/*

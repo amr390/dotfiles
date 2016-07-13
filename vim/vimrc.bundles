@@ -48,6 +48,7 @@
         endif
     " Notes vimwiki
         Bundle 'vimwiki/vimwiki'
+        Bundle 'mattn/calendar-vim'
 
     " Snippets & AutoComplete
         Bundle 'garbas/vim-snipmate'
