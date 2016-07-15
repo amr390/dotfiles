@@ -270,6 +270,8 @@
     map zl zL
     map zh zH
 
+    map <Leader>pj :%! python -m json.tool
+
 
 " }
 
