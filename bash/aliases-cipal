@@ -58,4 +58,36 @@ pick_db_bkp() {
     mysql_reset
 }
 
+g_hotfix_start() {
+    if [! $# -neq 2 ]; then
+        g_hotfix_syntax
+    fi
+    echo "git checkout release/$1"
+    echo "git pull"
+    echo "git checkout -b release/$1 hotfix/$1/$2"
+}
+
+g_hotfix_finish() {
+    if [! $# -neq 2 ]; then
+        g_hotfix_syntax
+    fi
+    echo "git checkout release/$1"
+    echo "git pull"
+    echo "git checkout hotfix/$1/$2"
+    echo "git rebase -i release/$1"
+    echo "git push -f"
+    echo "git checkout release/$1"
+    echo "git merge hotfix/$1/$2"
+    echo "git branch -D hotfix/$1/$2"
+    echo "git push origin :hotfix/$1/$2"
+}
+
+g_hotfix_syntax () {
+    echo -e "  - The proper Syntax is:"
+    echo -e "\t#: g_hotfix_[start|finish] release issue"
+    echo -e "  - where:"
+    echo -e "\t-- release: is the release candidate number i.e. 1608.02"
+    echo -e "\t-- issue: is the issue identifying the fix i.e. ET-3880"
+}
+
 
