@@ -11,6 +11,13 @@ alias dv="sudo rm -rf /var/lib/tomcat8/webapps/vbook* && cd /var/lib/tomcat8/web
 
 alias s3-ls=s3_ls_summary
 
+alias open_m="open_idea ~/dev/manning/Marketplace"
+alias open_mws="open_idea ~/dev/manning/MarketplaceWS"
+alias open_madmin="open_idea ~/dev/manning/MarketplaceAdmin"
+alias open_maadmin="open_idea ~/dev/manning/ManAdmin"
+alias open_v="open_idea ~/dev/manning/vBook"
+alias open_i="open_idea ~/dev/manning/ivc"
+
 s3_ls_summary() {
     aws s3 ls --summarize --human-readable --recursive s3://$1
 }

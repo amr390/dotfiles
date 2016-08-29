@@ -90,4 +90,6 @@ g_hotfix_syntax () {
     echo -e "\t-- issue: is the issue identifying the fix i.e. ET-3880"
 }
 
+alias open_et="open_idea ~/dev/cipal/etend_ws/etendering"
 
+mysql_speed

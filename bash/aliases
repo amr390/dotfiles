@@ -54,6 +54,10 @@ alias t8w="cd /var/lib/tomcat8$1"
 alias t8l="sudo tail -f /var/log/tomcat8/catalina.out"
 alias t8s="sudo service tomcat8 $1"
 
+open_idea() {
+    idea $1 &> /dev/null &
+}
+
 if [ -f ~/dotfiles/bash/aliases-cipal ]; 
 then
     . ~/dotfiles/bash/aliases-cipal

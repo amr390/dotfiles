@@ -53,3 +53,6 @@ export PATH=/usr/local/heroku/bin:$PATH # Heroku: https://toolbelt.heroku.com/st
 export PATH=$PATH:$HOME/.local/bin:$HOME/Apps/bin:$JAVA_HOME/bin # Java home
 export PATH=$PATH:$CS_HOME/bin
 
+
+xset r rate 150 100
+
