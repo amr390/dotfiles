@@ -5,3 +5,5 @@ source ~/dotfiles/bash/aliases
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/amr/.sdkman"
 [[ -s "/home/amr/.sdkman/bin/sdkman-init.sh" ]] && source "/home/amr/.sdkman/bin/sdkman-init.sh"
+
+. /home/amr/dev/manning/mitoc/node_modules/deepify/hooks/deepify_comp.sh

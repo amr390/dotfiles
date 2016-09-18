@@ -1,4 +1,7 @@
 #!/bin/bash
+
+alias gnome-open=xdg-open
+
 alias aptu="sudo apt-get update && sudo apt-get dist-upgrade -y"
 alias sb="source ~/.bashrc"
 alias myip="curl http://ipecho.net/plain; echo"
