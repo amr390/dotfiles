@@ -92,4 +92,4 @@ g_hotfix_syntax () {
 
 alias open_et="open_idea ~/dev/cipal/etend_ws/etendering"
 
-mysql_speed
+#mysql_speed

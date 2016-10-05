@@ -73,6 +73,8 @@
         Bundle 'pangloss/vim-javascript'
         Bundle 'briancollins/vim-jst'
         Bundle 'kchmck/vim-coffee-script'
+        Bundle 'mxw/vim-jsx'
+        Bundle 'isRuslan/vim-es6'
 
     " Java
         Bundle 'derekwyatt/vim-scala'

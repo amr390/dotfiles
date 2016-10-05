@@ -60,6 +60,7 @@ create_symlinks() {
 
     lnif "$endpath/vimrc"              "$HOME/.vimrc"
     lnif "$endpath/vimrc.bundles"      "$HOME/.vimrc.bundles"
+    lnif "$endpath/eslintrc"      "$HOME/.eslintrc"
 
     ret="$?"
     success "$1"
