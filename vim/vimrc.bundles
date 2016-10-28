@@ -75,6 +75,7 @@
         Bundle 'kchmck/vim-coffee-script'
         Bundle 'mxw/vim-jsx'
         Bundle 'isRuslan/vim-es6'
+        Bundle 'leafgarland/typescript-vim'
 
     " Java
         Bundle 'derekwyatt/vim-scala'
