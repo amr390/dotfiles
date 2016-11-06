@@ -2,14 +2,14 @@
 
 # 2.7) node.js and nvm
 # http://nodejs.org/api/repl.html#repl_repl
-alias node="env NODE_NO_READLINE=1 rlwrap node"
-alias node_repl="node -e \"require('repl').start({ignoreUndefined: true})\""
-export NODE_DISABLE_COLORS=1
-if [ -s ~/.nvm/nvm.sh ]; then
-    NVM_DIR=~/.nvm
-    source ~/.nvm/nvm.sh
-    nvm use v0.10.12 &> /dev/null # silence nvm use; needed for rsync
-fi
+#alias node="env NODE_NO_READLINE=1 rlwrap node"
+#alias node_repl="node -e \"require('repl').start({ignoreUndefined: true})\""
+#export NODE_DISABLE_COLORS=1
+#if [ -s ~/.nvm/nvm.sh ]; then
+#    NVM_DIR=~/.nvm
+#    source ~/.nvm/nvm.sh
+#    nvm use v0.10.12 &> /dev/null # silence nvm use; needed for rsync
+#fi
 
 
 # User specific environment and startup programs
@@ -19,8 +19,8 @@ export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 
 export JAVA_HOME=/usr/lib/jvm/default-java/
 export JAVA_ARGS="-XX:-UseLoopPredicate"
-export XX_OPTS="-XX:MaxPermSize=1024M"
-export GRAILS_OPTS="$GRAILS_OPTS $XX_OPTS -Dgrails.server.ssl.key-store=/home/amr/.grailsTomcatKeystore"
+#export XX_OPTS="-XX:MaxPermSize=1024M"
+#export GRAILS_OPTS="$GRAILS_OPTS $XX_OPTS -Dgrails.server.ssl.key-store=/home/amr/.grailsTomcatKeystore"
 export MAVEN_OPTS="$MAVEN_OPTS $XX_OPTS"
 export GRADLE_OPTS="$GRADLE_OPTS -Dorg.gradle.daemon=true"
 
@@ -28,9 +28,9 @@ export GRADLE_OPTS="$GRADLE_OPTS -Dorg.gradle.daemon=true"
 export CS_HOME=/home/amr/Apps/aws/cloud-search-tools/
 export CS_ENDPOINT=cloudsearch.us-east-1.amazonaws.com
 
-export NVM_DIR="/home/amr/.nvm"
+#export NVM_DIR="/home/amr/.nvm"
 
-[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
+#[ -s "$NVM_DIR/nvm.sh" ] && . "$NVM_DIR/nvm.sh"  # This loads nvm
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/amr/.sdkman"
