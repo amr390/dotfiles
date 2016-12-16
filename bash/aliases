@@ -1,19 +1,35 @@
 #!/bin/bash
 
+# Safety
+alias rm="rm -i"
+alias mv="mv -i"
+alias cp="cp -i"
+set -o noclobber
+
+# Listing, directories, and motion
+alias ll="ls -lrtF --color"
+alias la="ls -alrtF --color"
+alias lA="ls -A"
+alias l="ls -CF"
+alias dir='ls --color=auto --format=vertical'
+alias vdir='ls --color=auto --format=long'
+alias m='less'
+alias ..='cd ..'
+alias ...='cd ..;cd ..'
+alias md='mkdir'
+alias du='du -ch --max-depth=1'
+alias treeacl='tree -A -C -L 2'
+alias suspend="dbus-send --system --print-reply --dest='org.freedesktop.login1' /org/freedesktop/login1 org.freedesktop.login1.Manager.Suspend boolean:true"
+
 alias gnome-open=xdg-open
 
 alias aptu="sudo apt update && sudo apt dist-upgrade -y"
 alias sb="source ~/.bashrc"
 alias myip="curl http://ipecho.net/plain; echo"
 
-alias go-dev="cd /home/amr/dev/"
 alias go-vatbook="cd /home/amr/dev/python/django/vatbook/"
 
 alias remove-old-kernels="sudo apt-get remove $(dpkg -l|egrep '^ii  linux-(im|he)'|awk '{print $2}'|grep -v `uname -r`)"
-
-alias ll="ls -lrt --color"
-alias ..="cd ../"
-alias ...="cd ../../"
 
 # vim wiki
 wikii() {
@@ -37,14 +53,6 @@ alias gcotb='git checkout --track -b'
 alias glog='git log'
 alias glogp='git log --pretty=format:"%h %s" --graph'
 
-gfo() {
-    git checkout "feature/ET-$1"
-}
-
-grd() {
-    CURRENT_VERSION=`git rev-parse --abbrev-ref HEAD`
-    git checkout develop && git pull && git checkout $CURRENT_VERSION
-}
 
 alias gfs="git flow feature start $1"
 alias gfp="git flow feature publish $1"

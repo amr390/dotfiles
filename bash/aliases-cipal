@@ -1,49 +1,17 @@
 #!/bin/bash
-#
-#GO TO LOCATIONS CIPAL
-DUMPS_FOLDER="/home/amr/dev/cipal/etend_ws/sql/dumps"
-ET_FOLDER="/home/amr/dev/cipal/etend_ws/etendering"
 
-alias go-csf-parent="go-dev && cd cipal/csf/csf-parent-osgi/"
-alias go-styx="cd /home/amr/dev/cipal/styx/trunk/styx-parent-osgi/"
-alias go-common-parent="cd /home/amr/dev/cipal/cipalcommon3/cipal-common-parent/"
-alias go-felix="cd /home/amr/dev/cipal/felix/"
-alias go-et="go-dev && cd cipal/etend_ws/etendering"
+#GO TO LOCATIONS CIPAL
 alias et="~/dev/cipal/etend_ws/etendering"
 alias etw="~/dev/cipal/etend_ws/etendering/etendering-web/"
 alias etdb="~/dev/cipal/etend_ws/etendering/etendering-db/"
 
-#FELIX TASKS
-alias felix-stop="go-felix && ./felix.sh stop"
-alias felix-start="go-felix && ./felix.sh start"
-alias felix-status="go-felix && ./felix.sh start"
-
-#SUBVERSION TASKS
-alias svn-status="svn status | grep -v .settings | grep -v .classpath | grep -v .project | grep -v target"
-alias svn-switch-dev="go-styx && svn switch ^/branches/crab-from-file-dev/styx-parent-osgi"
-alias svn-switch-trunk="go-styx && svn switch ^/trunk/styx-parent-osgi"
-
-#RUN MAVEN TASKS
-#alias mvn-csf="go-csf-parent && mvn clean install -Dmaven.test.skip=true"
-#alias mvn-styx="go-csf-parent && mvn clean install -Dbuild.type=styx"
-alias mvn-verify-styx="go-styx && mvn verify -Dbuild.type=styx -Dmaven.integration-test.skip=false"
-alias mvn-build-notest="go-styx && mvn clean install -Dmaven.test.skip=true && cd styx-runner/ && mvn clean install pax:provision -Pstandalone"
-alias mvn-build="go-styx && mvn clean install && cd styx-runner/ && mvn clean install pax:provision -Pstandalone"
-alias mvn-drop="go-styx && cd styx-database && mvn sql:execute liquibase:dropAll && mvn clean install" 
-alias mvn-deploy="go-felix && rm -f bundles/* && rm -rf felix/cache/runner/* && mvn-drop && mvn-build-notest && felix-start"
-alias mvn-version="mvn versions:set -DnewVersion=$1 -DgenerateBackupPoms=false"
-alias mvn-ro="mvn process-resources -Plocal -f ~/dev/cipal/etend_ws/etendering/etendering-web/"
-#alias mvn-common="go-common-parent && mvn clean install -Dmaven.test.skip=true"
-
-#CIPROCURE
+# CIPROCURE
 alias mysql_test="mysql -u etendering -pgvb3lg13 etendering_test"
 alias mysql_speed="/home/amr/dev/scripts/mysql_speedup.sh"
-
-alias deploy-etendering="sudo service tomcat7 stop && sudo rm -rf /var/lib/tomcat7/webapps/etendering* && 
-                        cd /home/amr/dev/cipal/etend_ws/etendering/etendering-web && mvn clean install -Dmaven.test.skip=true  && 
-                        sudo mv /home/amr/dev/cipal/etend_ws/etendering/etendering-web/target/etendering.war /var/lib/tomcat7/webapps/ && 
-                        sudo service tomcat7 start"
 alias mysql_reset="mvn clean install -Pclean-db-test -f $ET_FOLDER/etendering-db/ && mysql -u root -proot etendering_test < $DUMPS_FOLDER/latest.sql && mvn clean install -f $ET_FOLDER/etendering-db/"
+
+DUMPS_FOLDER="/home/amr/dev/cipal/etend_ws/sql/dumps"
+ET_FOLDER="/home/amr/dev/cipal/etend_ws/etendering"
 
 pick_db_bkp() {
     TODAY=`date +%Y-%m-%d`
@@ -58,6 +26,7 @@ pick_db_bkp() {
     mysql_reset
 }
 
+# NOt used 
 g_hotfix_start() {
     if [! $# -neq 2 ]; then
         g_hotfix_syntax
@@ -67,6 +36,7 @@ g_hotfix_start() {
     echo "git checkout -b release/$1 hotfix/$1/$2"
 }
 
+# NOt used 
 g_hotfix_finish() {
     if [! $# -neq 2 ]; then
         g_hotfix_syntax
@@ -82,6 +52,7 @@ g_hotfix_finish() {
     echo "git push origin :hotfix/$1/$2"
 }
 
+# NOt used 
 g_hotfix_syntax () {
     echo -e "  - The proper Syntax is:"
     echo -e "\t#: g_hotfix_[start|finish] release issue"
@@ -92,5 +63,14 @@ g_hotfix_syntax () {
 
 alias open_et="open_idea ~/dev/cipal/etend_ws/etendering"
 alias open_sts_et="open_sts ~/dev/cipal/etend_ws/etendering"
+
+gfo() {
+    git checkout "feature/ET-$1"
+}
+
+grd() {
+    CURRENT_VERSION=`git rev-parse --abbrev-ref HEAD`
+    git checkout develop && git pull && git checkout $CURRENT_VERSION
+}
 
 #mysql_speed
