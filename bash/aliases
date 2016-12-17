@@ -29,8 +29,7 @@ alias sb="source ~/.bashrc"
 alias myip="curl http://ipecho.net/plain; echo"
 
 alias go-vatbook="cd /home/amr/dev/python/django/vatbook/"
-
-alias remove-old-kernels="sudo apt-get remove $(dpkg -l|egrep '^ii  linux-(im|he)'|awk '{print $2}'|grep -v `uname -r`)"
+alias go-dev="cd /home/amr/dev"
 
 # vim wiki
 wikii() {
