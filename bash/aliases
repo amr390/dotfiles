@@ -7,6 +7,7 @@ alias cp="cp -i"
 set -o noclobber
 
 # Listing, directories, and motion
+alias grep='grep --color=auto'
 alias ll="ls -lrtF --color"
 alias la="ls -alrtF --color"
 alias lA="ls -A"
