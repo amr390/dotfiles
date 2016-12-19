@@ -1,9 +1,9 @@
 #!/bin/bash
 
 #GO TO LOCATIONS CIPAL
-alias et="~/dev/cipal/etend_ws/etendering"
-alias etw="~/dev/cipal/etend_ws/etendering/etendering-web/"
-alias etdb="~/dev/cipal/etend_ws/etendering/etendering-db/"
+alias et="cd ~/dev/cipal/etend_ws/etendering"
+alias etw="cd ~/dev/cipal/etend_ws/etendering/etendering-web/"
+alias etdb="cd ~/dev/cipal/etend_ws/etendering/etendering-db/"
 
 # CIPROCURE
 alias mysql_test="mysql -u etendering -pgvb3lg13 etendering_test"
