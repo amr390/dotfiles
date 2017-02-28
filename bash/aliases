@@ -18,7 +18,8 @@ alias m='less'
 alias ..='cd ..'
 alias ...='cd ..;cd ..'
 alias md='mkdir'
-alias du='du -ch --max-depth=1'
+#alias du='du -ch --max-depth=1'
+alias du='du -ch'
 alias treeacl='tree -A -C -L 2'
 alias suspend="dbus-send --system --print-reply --dest='org.freedesktop.login1' /org/freedesktop/login1 org.freedesktop.login1.Manager.Suspend boolean:true"
 

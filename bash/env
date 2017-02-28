@@ -23,6 +23,7 @@ export WORKON_HOME=/home/amr/.virtualenvs
 export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 source /etc/bash_completion.d/virtualenvwrapper
 
+export DOCKER_WORKDIR=/home/amr/dev/cipal/docker
 
 complete -C '/usr/local/bin/aws_completer' aws
 
@@ -36,5 +37,5 @@ export PATH=/usr/local/sbin:$PATH
 export PATH=$PATH:$HOME/.local/bin:$JAVA_HOME/bin # Java home
 export PATH=$PATH:$CS_HOME/bin
 
-xset r rate 150 100
+#xset r rate 150 100
 

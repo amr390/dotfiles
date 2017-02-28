@@ -1,4 +1,6 @@
 #!/bin/bash
+DUMPS_FOLDER="/home/amr/dev/cipal/etend_ws/sql/dumps"
+ET_FOLDER="/home/amr/dev/cipal/etend_ws/etendering"
 
 #GO TO LOCATIONS CIPAL
 alias et="cd ~/dev/cipal/etend_ws/etendering"
@@ -8,10 +10,11 @@ alias etdb="cd ~/dev/cipal/etend_ws/etendering/etendering-db/"
 # CIPROCURE
 alias mysql_test="mysql -u etendering -pgvb3lg13 etendering_test"
 alias mysql_speed="/home/amr/dev/scripts/mysql_speedup.sh"
-alias mysql_reset="mvn clean install -Pclean-db-test -f $ET_FOLDER/etendering-db/ && mysql -u root -proot etendering_test < $DUMPS_FOLDER/latest.sql && mvn clean install -f $ET_FOLDER/etendering-db/"
-
-DUMPS_FOLDER="/home/amr/dev/cipal/etend_ws/sql/dumps"
-ET_FOLDER="/home/amr/dev/cipal/etend_ws/etendering"
+#alias mysql_reset="mvn clean install -Pclean-db-test -f $ET_FOLDER/etendering-db/ && mysql -u root -proot etendering_test < $DUMPS_FOLDER/latest.sql && mvn clean install -f $ET_FOLDER/etendering-db/"
+alias mysql_reset="gradle dropAll -b $ET_FOLDER/etendering-db/build.gradle && mysql -u root -proot etendering_test < $DUMPS_FOLDER/latest.sql && gradle update -b $ET_FOLDER/etendering-db/build.gradle"
+alias mvn-ro="mvn process-resources -Plocal -f ~/dev/cipal/etend_ws/etendering/etendering-web/"
+alias mvn-cm="mvn clean test -Dtest=DomainModelChangesTest#generateSerializedModel -f $ET_FOLDER/etendering-web/ && mvn clean test -Dtest=DomainModelChangesTest -f $ET_FOLDER/etendering-web/"
+alias mvn-ci="mvn clean install -Dmaven.test.skip=true -f $ET_FOLDER"
 
 pick_db_bkp() {
     TODAY=`date +%Y-%m-%d`

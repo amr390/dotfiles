@@ -678,11 +678,18 @@
     if has('gui_running')
         set guioptions-=T           " Remove the toolbar
         set lines=40                " 40 lines of text instead of 24
+<<<<<<< HEAD
         set guifont=Dejavu\ Sans\ Mono\ 11
         "set guifont=Monaco\ Bold\ 11
         if has("gui_gtk")
             "set guifont=Monaco\ Bold\ 11,Dejavu\ Sans\ Mono\ 11,Monospace\ 11,Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
             set guifont=Dejavu\ Sans\ Mono\ 11
+=======
+        set guifont=Dejavu\ Sans\ Mono\ 12
+        "set guifont=Monaco\ Bold\ 11
+        if has("gui_gtk")
+            set guifont=Dejavu\ Sans\ Mono\ 12,Monaco\ Bold\ 11,Dejavu\ Sans\ Mono\ 11,Monospace\ 11,Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
+>>>>>>> update config
         elseif has("gui_mac")
             set guifont=Dejavu\ Sans\ Mono\ 12,Monaco\ Bold\ 11,Dejavu\ Sans\ Mono\ 11,Monospace\ 11,Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
         elseif has("gui_win32")
