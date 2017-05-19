@@ -7,6 +7,8 @@ alias cp="cp -i"
 set -o noclobber
 
 # Listing, directories, and motion
+alias ..='cd ..'
+alias ...='cd ..;cd ..'
 alias grep='grep --color=auto'
 alias ll="ls -lrtF --color"
 alias la="ls -alrtF --color"
@@ -15,8 +17,6 @@ alias l="ls -CF"
 alias dir='ls --color=auto --format=vertical'
 alias vdir='ls --color=auto --format=long'
 alias m='less'
-alias ..='cd ..'
-alias ...='cd ..;cd ..'
 alias md='mkdir'
 #alias du='du -ch --max-depth=1'
 alias du='du -ch'
@@ -54,7 +54,7 @@ alias gcotb='git checkout --track -b'
 alias glog='git log'
 alias glogp='git log --pretty=format:"%h %s" --graph'
 
-
+# Git flow
 alias gfs="git flow feature start $1"
 alias gfp="git flow feature publish $1"
 alias gff="git flow feature finish $1"
@@ -84,3 +84,6 @@ if [ -f ~/dotfiles/bash/aliases-manning ];
 then
     . ~/dotfiles/bash/aliases-manning
 fi
+
+
+alias superl='cd ~/dev/python/django/superleague_project'

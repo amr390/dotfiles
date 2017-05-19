@@ -17,6 +17,12 @@ alias open_maadmin="open_idea ~/dev/manning/ManAdmin"
 alias open_v="open_idea ~/dev/manning/vBook"
 alias open_i="open_idea ~/dev/manning/ivc"
 
+alias gpm="m && cd Marketplace && gco master && gl"
+alias gpma="m && cd MarketplaceAdmin && gco master && gl"
+alias gpman="m && cd ManAdmin && gco master && gl"
+alias gpmws="m && cd MarketplaceWS && gco master && gl"
+alias gpmanning="gpm && gpma && gpman && gpmws"
+
 s3_ls_summary() {
     aws s3 ls --summarize --human-readable --recursive s3://$1
 }

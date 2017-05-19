@@ -146,6 +146,7 @@
     set foldenable                  " Auto fold code
     set list
     set listchars=tab:›\ ,trail:•,extends:#,nbsp:. " Highlight problematic whitespace
+    set lazyredraw                  " Don't redraw while executing macros.
 
 " }
 
@@ -160,7 +161,7 @@
     set nojoinspaces                " Prevents inserting two spaces after punctuation on a join (J)
     set splitright                  " Puts new vsplit windows to the right of the current
     set splitbelow                  " Puts new split windows to the bottom of the current
-    "set matchpairs+=<:>             " Match, to be used with %
+    set matchpairs+=<:>             " Match, to be used with %
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
@@ -185,10 +186,16 @@
     let mapleader = ','
 
     " to move between buffers
-    map <C-J> <C-W>j<C-W>
-    map <C-K> <C-W>k<C-W>
-    map <C-L> <C-W>l<C-W>
-    map <C-H> <C-W>h<C-W>
+    "map <C-J> <C-W>j<C-W>
+    "map <C-K> <C-W>k<C-W>
+    "map <C-L> <C-W>l<C-W>
+    "map <C-H> <C-W>h<C-W>
+
+    " to move between splitted buffers
+    map <C-J> <C-W>j
+    map <C-K> <C-W>k
+    map <C-L> <C-W>l
+    map <C-H> <C-W>h
 
     " Wrapped lines goes down/up to next row, rather than next line in file.
     noremap j gj
@@ -212,7 +219,6 @@
         command! -bang Qa qa<bang>
     endif
 
-
     cmap Tabe tabe
 
     " Yank from the cursor to the end of the line, to be consistent with C and D.
@@ -223,7 +229,7 @@
     map <leader>X "+x
     map <leader>V "+gP
 
-
+    " to redraw windows and hide search results
     nmap <silent> <leader>/ :set invhlsearch<CR>
 
     nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
@@ -269,8 +275,6 @@
     " Easier horizontal scrolling
     map zl zL
     map zh zH
-
-    map <Leader>pj :%! python -m json.tool
 
 
 " }
@@ -355,27 +359,6 @@
         let g:nerdtree_tabs_open_on_gui_startup=0
     " }
 
-    " Tabularize {
-        nmap <Leader>a& :Tabularize /&<CR>
-        vmap <Leader>a& :Tabularize /&<CR>
-        nmap <Leader>a= :Tabularize /=<CR>
-        vmap <Leader>a= :Tabularize /=<CR>
-        nmap <Leader>a: :Tabularize /:<CR>
-        vmap <Leader>a: :Tabularize /:<CR>
-        nmap <Leader>a:: :Tabularize /:\zs<CR>
-        vmap <Leader>a:: :Tabularize /:\zs<CR>
-        nmap <Leader>a, :Tabularize /,<CR>
-        vmap <Leader>a, :Tabularize /,<CR>
-        nmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-        vmap <Leader>a<Bar> :Tabularize /<Bar><CR>
-    " }
-
-    " Session List {
-        set sessionoptions=blank,buffers,curdir,folds,tabpages,winsize
-        nmap <leader>sl :SessionList<CR>
-        nmap <leader>ss :SessionSave<CR>
-    " }
-
     " JSON {
         nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
     " }
@@ -389,6 +372,25 @@
         let g:pymode_lint_checker = "pyflakes"
         let g:pymode_utils_whitespaces = 0
         let g:pymode_options = 0
+        let g:ycm_autoclose_preview_window_after_completion=1
+        let python_highlight_all=1
+        map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
+        au BufNewFile,BufRead .py
+                    \ setlocal tabstop=4
+                    \ setlocal softtabstop=4
+                    \ setlocal shiftwidth=4
+                    \ setlocal textwidth=79
+                    \ setlocal expandtab
+                    \ setlocal autoindent
+                    \ setlocal fileformat=unix
+
+        " Disable if python support not present
+        if !has('python')
+            let g:pymode = 1
+        endif
+        if has('python3')
+            let g:pymode_python= 'python3'
+        endif
     " }
 
     " ctrlp {
@@ -439,12 +441,6 @@
             \ }
     "}
 
-    " PythonMode {
-        " Disable if python support not present
-        if !has('python')
-            let g:pymode = 1
-        endif
-    " }
 
     " Fugitive {
         nnoremap <silent> <leader>gits :Gstatus<CR>
@@ -579,12 +575,18 @@
         "   let g:airline_powerline_fonts=1
         " If the previous symbols do not render for you then install a
         " powerline enabled font.
-        let g:airline_theme = 'powerlineish'
-        if !exists('g:airline_powerline_fonts')
-            " Use the default set of separators with a few customizations
-            let g:airline_left_sep='›'  " Slightly fancier than '>'
-            let g:airline_right_sep='‹' " Slightly fancier than '<'
-        endif
+        "let g:airline_theme = 'powerlineish'
+        "if !exists('g:airline_powerline_fonts')
+            "" Use the default set of separators with a few customizations
+            "let g:airline_left_sep='›'  " Slightly fancier than '>'
+            "let g:airline_right_sep='‹' " Slightly fancier than '<'
+        "endif
+        
+        let g:airline_theme = 'zenburn'
+        let g:airline_left_sep = ''
+        let g:airline_left_sep = ''
+        let g:airline_right_sep = ''
+        let g:airline_right_sep = ''
     " }
 
     " vim-gitgutter {

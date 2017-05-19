@@ -6,6 +6,10 @@ else
     umask 022
 fi
 
+if [ -f /etc/bash_completion ]; then
+    . /etc/bash_completion
+fi
+
 # ---------------------------------------------------------
 # -- 1.2) Set up bash prompt and ~/.bash_eternal_history --
 # ---------------------------------------------------------
@@ -93,5 +97,3 @@ force_color_prompt=yes
 # Git branch setup 
 source ~/.git-completion.bash
 source ~/.git-prompt.sh
-
-

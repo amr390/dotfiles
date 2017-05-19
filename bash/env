@@ -4,10 +4,9 @@
 # User specific aliases and functions
 export JAVA_HOME=/usr/lib/jvm/default-java/
 export JAVA_ARGS="-XX:-UseLoopPredicate"
-#export XX_OPTS="-XX:MaxPermSize=1024M"
-#export GRAILS_OPTS="$GRAILS_OPTS $XX_OPTS -Dgrails.server.ssl.key-store=/home/amr/.grailsTomcatKeystore"
-#export GRAILS_OPTS="$GRAILS_OPTS $XX_OPTS -Dgrails.server.ssl.key-store=/home/amr/.grailsTomcatKeystore"
-export GRAILS_OPTS="$GRAILS_OPTS $XX_OPTS"
+export XX_OPTS="-XX:MaxPermSize=1024M"
+
+#export GRAILS_OPTS="$GRAILS_OPTS -Dgrails.server.ssl.key-store=/home/amr/.grailsTomcatKeystore"
 export MAVEN_OPTS="$MAVEN_OPTS $XX_OPTS"
 export GRADLE_OPTS="$GRADLE_OPTS -Dorg.gradle.daemon=true"
 
