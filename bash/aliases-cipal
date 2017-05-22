@@ -76,4 +76,15 @@ grd() {
     git checkout develop && git pull && git checkout $CURRENT_VERSION
 }
 
+et_set_remote(){
+    if [ $# -eq 1 ]; then
+        ORIGIN=https://toni_mr@bitbucket.org/greenvalleybelgium/etendering.git
+    else
+        ORIGIN=git@csprocure-git:greenvalleybelgium/etendering.git
+    fi
+    cd $ET_FOLDER
+    git remote set-url origin $ORIGIN
+}
+
+export CATALINA_HOME=/home/amr/dev/cipal/etend_ws/
 #mysql_speed

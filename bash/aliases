@@ -77,12 +77,12 @@ open_sts() {
 
 if [ -f ~/dotfiles/bash/aliases-cipal ]; 
 then
-    . ~/dotfiles/bash/aliases-cipal
+    source ~/dotfiles/bash/aliases-cipal
 fi
 
 if [ -f ~/dotfiles/bash/aliases-manning ]; 
 then
-    . ~/dotfiles/bash/aliases-manning
+    source ~/dotfiles/bash/aliases-manning
 fi
 
 

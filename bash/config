@@ -87,7 +87,7 @@ export LC_ALL=POSIX
 
 # 2.6) Install rlwrap if not present
 # http://stackoverflow.com/a/677212
-command -v rlwrap >/dev/null 2>&1 || { echo >&2 "Install rlwrap to use node: sudo apt-get install -y rlwrap";}
+# command -v rlwrap >/dev/null 2>&1 || { echo >&2 "Install rlwrap to use node: sudo apt-get install -y rlwrap";}
 
 # uncomment for a colored prompt, if the terminal has the capability; turned
 # off by default to not distract the user: the focus in a terminal window
@@ -97,3 +97,9 @@ force_color_prompt=yes
 # Git branch setup 
 source ~/.git-completion.bash
 source ~/.git-prompt.sh
+
+# eb autocompletion
+if [ -f ~/.local/bin/eb_completion.bash ] ; 
+then
+    source ~/.local/bin/eb_completion.bash
+fi
