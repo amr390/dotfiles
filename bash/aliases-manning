@@ -27,6 +27,31 @@ s3_ls_summary() {
     aws s3 ls --summarize --human-readable --recursive s3://$1
 }
 
+pull_m() {
+    m && cd MarketplaceWS
+    pull_n_back
+
+    m && cd MarketplaceAdmin
+    pull_n_back
+
+    m && cd Marketplace
+    pull_n_back
+
+    m && cd ManAdmin
+    pull_n_back
+}
+
+pull_n_back() {
+    CURRENT_VERSION=`git rev-parse --abbrev-ref HEAD`
+    git stash 
+    gco master && gl
+    gco $CURRENT_VERSION
+    git stash pop
+}
+
+
+
+
 if [ -f private-manning-aliases ]; then
     source private-manning-aliases
 fi
