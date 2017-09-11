@@ -33,7 +33,6 @@
             Bundle 'jistr/vim-nerdtree-tabs'
             Bundle 'flazz/vim-colorschemes'
             Bundle 'nathanaelkane/vim-indent-guides'
-            Bundle 'mileszs/ack.vim'
 
     " General Programming
         " Pick one of the checksyntax, jslint, or syntastic
@@ -92,7 +91,7 @@
 " }
 
 " General {
-    " set autowrite                  " automatically write a file when leaving a modified buffer
+    set autowrite                  " automatically write a file when leaving a modified buffer
     set shortmess+=filmnrxoOtT      " Abbrev. of messages (avoids 'hit enter')
 " }
 
