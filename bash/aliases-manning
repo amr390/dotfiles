@@ -1,6 +1,7 @@
 #!/bin/bash
 
 alias v="go-dev && cd manning/vBook/"
+alias ui="go-dev && cd manning/livebook-ui/"
 alias m="go-dev && cd manning/"
 alias cas="go-dev && cd cas/VagrantImages/cas/"
 alias mcas="grails run-app -https -Dgrails.env=casDev"
@@ -22,6 +23,8 @@ alias gpma="m && cd MarketplaceAdmin && gco master && gl"
 alias gpman="m && cd ManAdmin && gco master && gl"
 alias gpmws="m && cd MarketplaceWS && gco master && gl"
 alias gpmanning="gpm && gpma && gpman && gpmws"
+
+alias vui_comp_upgrade="m && cd livebook-ui && yarn upgrade git@manning:ManningPublications/vbook-ui-components.git"
 
 s3_ls_summary() {
     aws s3 ls --summarize --human-readable --recursive s3://$1
@@ -52,6 +55,6 @@ pull_n_back() {
 
 
 
-if [ -f private-manning-aliases ]; then
-    source private-manning-aliases
+if [ -f ~/dotfiles/bash/private-manning-aliases ]; then
+    source ~/dotfiles/bash/private-manning-aliases
 fi

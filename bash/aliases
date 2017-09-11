@@ -21,8 +21,6 @@ alias md='mkdir'
 #alias du='du -ch --max-depth=1'
 alias du='du -ch'
 alias treeacl='tree -A -C -L 2'
-alias suspend="dbus-send --system --print-reply --dest='org.freedesktop.login1' /org/freedesktop/login1 org.freedesktop.login1.Manager.Suspend boolean:true"
-
 alias gnome-open=xdg-open
 
 alias aptu="sudo apt update && sudo apt dist-upgrade -y"
@@ -31,6 +29,7 @@ alias myip="curl http://ipecho.net/plain; echo"
 
 alias go-vatbook="cd /home/amr/dev/python/django/vatbook/"
 alias go-dev="cd /home/amr/dev"
+alias a2d="python3 /home/amr/dev/scripts/a2dp.py"
 
 # vim wiki
 wikii() {
@@ -84,6 +83,3 @@ if [ -f ~/dotfiles/bash/aliases-manning ];
 then
     source ~/dotfiles/bash/aliases-manning
 fi
-
-
-alias superl='cd ~/dev/python/django/superleague_project'

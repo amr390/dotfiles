@@ -1,40 +1,37 @@
 #!/bin/bash
 
 # User specific environment and startup programs
-# User specific aliases and functions
 export JAVA_HOME=/usr/lib/jvm/default-java/
-export JAVA_ARGS="-XX:-UseLoopPredicate"
 # This causes grails to fail
 #export GRAILS_OPTS="-Dserver.ssl.key-store=/home/amr/.grailsTomcatKeystore"
-#export GRAILS_OPTS="$GRAILS_OPTS $XX_OPTS"
 export MAVEN_OPTS="$MAVEN_OPTS"
 export GRADLE_OPTS="$GRADLE_OPTS -Dorg.gradle.daemon=true"
-
-# Search cloud tools variables.
-export CS_HOME=/home/amr/Apps/aws/cloud-search-tools/
-export CS_ENDPOINT=cloudsearch.us-east-1.amazonaws.com
 
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/amr/.sdkman"
 [[ -s "/home/amr/.sdkman/bin/sdkman-init.sh" ]] && source "/home/amr/.sdkman/bin/sdkman-init.sh"
 
+# ####### PYTHON VIRTUALENV ###############
 export WORKON_HOME=/home/amr/.virtualenvs
 export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 source /etc/bash_completion.d/virtualenvwrapper
 
+# ####### DOCKER ###############
 export DOCKER_WORKDIR=/home/amr/dev/cipal/docker
 
+# Search cloud tools variables.
+export CS_HOME=/home/amr/Apps/aws/cloud-search-tools/
+export CS_ENDPOINT=cloudsearch.us-east-1.amazonaws.com
 complete -C '/usr/local/bin/aws_completer' aws
 
-# Configure PATH
+# RDS variables
+export AWS_RDS_HOME=/home/amr/Apps/RDSCli
+
+
+
+# ####### Configure PATH ###############
 #  - These are line by line so that you can kill one without affecting the others.
 #  - Lowest priority first, highest priority last.
-export PATH=$HOME/bin:$PATH
-export PATH=/usr/bin:$PATH
-export PATH=/usr/local/bin:$PATH
-export PATH=/usr/local/sbin:$PATH
-export PATH=$PATH:$HOME/.local/bin:$JAVA_HOME/bin # Java home
-export PATH=$PATH:$CS_HOME/bin
-
-#xset r rate 150 100
-
+export PATH=/usr/bin:/usr/local/bin:/usr/local/sbin:$HOME/.local/bin:$PATH
+export PATH=$JAVA_HOME/bin:$PATH # Java home
+export PATH=$CS_HOME/bin:$AWS_RDS_HOME/bin:$PATH # AWS path
