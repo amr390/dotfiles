@@ -106,5 +106,6 @@ fi
 
 if [ -f django-auth-config ] ;
 then 
+    echo "loading django-auth-config"
     source django-auth-config
 fi

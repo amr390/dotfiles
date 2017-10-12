@@ -73,6 +73,10 @@ open_sts() {
     sts $1 &> /dev/null &
 }
 
+bookmark_pwd() {
+    echo "alias $1='cd `pwd`'" >> ~/dotfiles/bash/aliases
+}
+
 
 if [ -f ~/dotfiles/bash/aliases-cipal ]; 
 then
@@ -83,3 +87,6 @@ if [ -f ~/dotfiles/bash/aliases-manning ];
 then
     source ~/dotfiles/bash/aliases-manning
 fi
+
+alias dj-auth="cd /home/amr/dev/python/django/djangoAuth"
+alias dj-auth='cd /home/amr/dev/python/django/djangoAuth'

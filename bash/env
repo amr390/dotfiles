@@ -16,18 +16,12 @@ export WORKON_HOME=/home/amr/.virtualenvs
 export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 source /etc/bash_completion.d/virtualenvwrapper
 
-# ####### DOCKER ###############
-export DOCKER_WORKDIR=/home/amr/dev/cipal/docker
-
 # Search cloud tools variables.
 export CS_HOME=/home/amr/Apps/aws/cloud-search-tools/
 export CS_ENDPOINT=cloudsearch.us-east-1.amazonaws.com
 complete -C '/usr/local/bin/aws_completer' aws
-
 # RDS variables
 export AWS_RDS_HOME=/home/amr/Apps/RDSCli
-
-
 
 # ####### Configure PATH ###############
 #  - These are line by line so that you can kill one without affecting the others.
