@@ -103,3 +103,8 @@ if [ -f ~/.local/bin/eb_completion.bash ] ;
 then
     source ~/.local/bin/eb_completion.bash
 fi
+
+if [ -f django-auth-config ] ;
+then 
+    source django-auth-config
+fi
