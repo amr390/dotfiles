@@ -44,20 +44,23 @@
         if executable('ctags')
             Bundle 'majutsushi/tagbar'
         endif
+        Bundle 'sukima/xmledit'
+
     " Notes vimwiki
         Bundle 'vimwiki/vimwiki'
         Bundle 'mattn/calendar-vim'
 
     " Snippets & AutoComplete
-        Bundle 'garbas/vim-snipmate'
-        Bundle 'honza/vim-snippets'
+        "Bundle 'garbas/vim-snipmate'
+        "Bundle 'honza/vim-snippets'
         " Source support_function.vim to support vim-snippets.
-        if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
-            source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
-        endif
+        "if filereadable(expand("~/.vim/bundle/vim-snippets/snippets/support_functions.vim"))
+            "source ~/.vim/bundle/vim-snippets/snippets/support_functions.vim
+        "endif
+        "Bundle 'Shougo/neosnippet'
+        "Bundle 'Shougo/neosnippet-snippets'
+        Bundle 'sirver/ultisnips'
         Bundle 'Shougo/neocomplcache'
-        Bundle 'Shougo/neosnippet'
-        Bundle 'Shougo/neosnippet-snippets'
         Bundle 'valloric/YouCompleteMe'
 
     " Python
@@ -65,6 +68,8 @@
         Bundle 'python.vim'
         Bundle 'python_match.vim'
         Bundle 'pythoncomplete'
+        Bundle 'surround.vim'
+        Bundle 'jmcomets/vim-pony'
 
     " Javascript
         Bundle 'elzr/vim-json'

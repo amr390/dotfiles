@@ -77,6 +77,13 @@ setup_vundle() {
     debug
 }
 
+copy_folders() {
+    cp -rf "$endpath/syntax" "$HOME/.vim/"
+
+    success "$1"
+    debug
+}
+
 ############################ MAIN()
 program_exists "vim" "To install $app_name you first need to install Vim."
 
@@ -85,6 +92,8 @@ create_symlinks "Setting up vim symlinks"
 clone_vundle    "Successfully cloned vundle"
 
 setup_vundle    "Now updating/installing plugins using Vundle"
+
+copy_folders    "copy syntax folder into .vim"
 
 msg             "\nThanks for installing $app_name."
 msg             "© `date +%Y` A cloned http://vim.spf13.com/ suite simplified"
