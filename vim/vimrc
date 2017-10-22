@@ -49,10 +49,7 @@
         set clipboard=unnamed
     endif
 
-    autocmd BufEnter * if bufname("") !~ "^\[A-Za-z0-9\]*://" | lcd %:p:h | endif
-    " Always switch to the current file directory
-
-    "set autowrite                       " Automatically write a file when leaving a modified buffer
+    set autowrite                       " Automatically write a file when leaving a modified buffer
     set shortmess+=filmnrxoOtT          " Abbrev. of messages (avoids 'hit enter')
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
@@ -64,30 +61,13 @@
     " set it to the first line when editing a git commit message
     au FileType gitcommit au! BufEnter COMMIT_EDITMSG call setpos('.', [0, 1, 1, 0])
 
-    " http://vim.wikia.com/wiki/Restore_cursor_to_file_position_in_previous_editing_session
-    " Restore cursor to file position in previous editing session
-    " To disable this, add the following to your .vimrc.before.local file:
-    function! ResCur()
-        if line("'\"") <= line("$")
-            normal! g`"
-            return 1
-        endif
-    endfunction
-
-    augroup resCur
-        autocmd!
-        autocmd BufWinEnter * call ResCur()
-    augroup END
-
     " Setting up the directories {
-        set backup                  " Backups are nice ...
-        if has('persistent_undo')
-            set undofile                " So is persistent undo ...
-            set undolevels=1000         " Maximum number of changes that can be undone
-            set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
-        endif
-
-
+    set backup                  " Backups are nice ...
+    if has('persistent_undo')
+        set undofile                " So is persistent undo ...
+        set undolevels=1000         " Maximum number of changes that can be undone
+        set undoreload=10000        " Maximum number lines to save for undo on a buffer reload
+    endif
     " }
 
 " }
@@ -112,8 +92,7 @@
 
     if has('cmdline_info')
         set ruler                   " Show the ruler
-        "set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
-        set rulerformat=%30(%=\:b%n%y%m%r%w\ %P%) " A ruler on steroids
+        set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
         set showcmd                 " Show partial commands in status line and
                                     " Selected characters/lines in visual mode
     endif
@@ -169,15 +148,7 @@
     autocmd FileType c,cpp,java,groovy,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
     autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
-    autocmd FileType haskell setlocal expandtab shiftwidth=2 softtabstop=2
     " preceding line best in a plugin but here for now.
-
-    autocmd BufNewFile,BufRead *.coffee set filetype=coffee
-
-    " Workaround vim-commentary for Haskell
-    autocmd FileType haskell setlocal commentstring=--\ %s
-    " Workaround broken colour highlighting in Haskell
-    autocmd FileType haskell setlocal nospell
 
 " }
 
@@ -226,19 +197,23 @@
     nnoremap Y y$
 
     " Use leader to map global register operations to C, X, V
-    map <leader>C "+y
-    map <leader>X "+x
-    map <leader>V "+gP
+    map <leader>c "+y
+    map <leader>x "+x
+    map <leader>v "+gP
 
     " to redraw windows and hide search results
     nmap <silent> <leader>/ :set invhlsearch<CR>
 
+    " in gui toggle menu tools bars
     nnoremap <C-F1> :if &go=~#'m'<Bar>set go-=m<Bar>else<Bar>set go+=m<Bar>endif<CR>
     nnoremap <C-F2> :if &go=~#'T'<Bar>set go-=T<Bar>else<Bar>set go+=T<Bar>endif<CR>
     nnoremap <C-F3> :if &go=~#'r'<Bar>set go-=r<Bar>else<Bar>set go+=r<Bar>endif<CR>
 
     " Find merge conflict markers
     map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
+    " Map <Leader>ff to display all lines with keyword under cursor
+    " and ask which one to jump to
+    nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
     " Shortcuts
     " Change Working Directory to that of the current file
@@ -269,10 +244,6 @@
     map <Leader>= <C-w>=
     map <Leader>_ <C-w>_
 
-    " Map <Leader>ff to display all lines with keyword under cursor
-    " and ask which one to jump to
-    nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
-
     " Easier horizontal scrolling
     map zl zL
     map zh zH
@@ -290,8 +261,8 @@
     " }
 
     " PIV {
-        let g:DisableAutoPHPFolding = 0
-        let g:PIVAutoClose = 0
+        "let g:DisableAutoPHPFolding = 0
+        "let g:PIVAutoClose = 0
     " }
 
     " Misc {
@@ -334,17 +305,6 @@
         endif
     " }
 
-    " AutoCloseTag {
-        " Make it so AutoCloseTag works for xml and xhtml files as well
-        au FileType xhtml,xml ru ftplugin/html/autoclosetag.vim
-        nmap <Leader>ac <Plug>ToggleAutoCloseMappings
-    " }
-
-    " SnipMate {
-        " Setting the author var
-        let g:snips_author = 'AMR <dquijote22@gmail.com'
-    " }
-
     " NerdTree {
         map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
         map <leader>e :NERDTreeFind<CR>
@@ -363,24 +323,28 @@
     " JSON {
         nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
     " }
-    
+
     " XML {
         nmap <leader>xt <Esc>:%!xmllint --format %<CR><Esc>:set filetype=xml<CR>
     " }
 
+    " ultisnips {
+        let g:UltiSnipsExpandTrigger       = "<c-j>"
+        let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+        let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+        let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
+    " }
 
     " PyMode {
         let g:pymode_lint_checker = "pyflakes"
         let g:pymode_utils_whitespaces = 0
         let g:pymode_options = 0
-        let g:ycm_autoclose_preview_window_after_completion=1
         let python_highlight_all=1
-        map <leader>g  :YcmCompleter GoToDefinitionElseDeclaration<CR>
         au BufNewFile,BufRead .py
                     \ setlocal tabstop=4
                     \ setlocal softtabstop=4
                     \ setlocal shiftwidth=4
-                    \ setlocal textwidth=79
+                    \ setlocal textwidth=80
                     \ setlocal expandtab
                     \ setlocal autoindent
                     \ setlocal fileformat=unix
@@ -391,6 +355,8 @@
         endif
         if has('python3')
             let g:pymode_python= 'python3'
+            let s:python_version = 3
+            let g:jedi#force_py_version = 3
         endif
     " }
 
@@ -456,103 +422,6 @@
         nnoremap <silent> <leader>gitg :GitGutterToggle<CR>
     "}
 
-    " neocomplcache {
-        let g:acp_enableAtStartup = 0
-        let g:neocomplcache_enable_at_startup = 1
-        let g:neocomplcache_enable_camel_case_completion = 1
-        let g:neocomplcache_enable_smart_case = 1
-        let g:neocomplcache_enable_underbar_completion = 1
-        let g:neocomplcache_enable_auto_delimiter = 1
-        let g:neocomplcache_max_list = 15
-        let g:neocomplcache_force_overwrite_completefunc = 1
-
-        " SuperTab like snippets behavior.
-        imap <silent><expr><TAB> neosnippet#expandable() ?
-                    \ "\<Plug>(neosnippet_expand_or_jump)" : (pumvisible() ?
-                    \ "\<C-e>" : "\<TAB>")
-        smap <TAB> <Right><Plug>(neosnippet_jump_or_expand)
-
-        " Define dictionary.
-        let g:neocomplcache_dictionary_filetype_lists = {
-                    \ 'default' : '',
-                    \ 'vimshell' : $HOME.'/.vimshell_hist',
-                    \ 'scheme' : $HOME.'/.gosh_completions'
-                    \ }
-
-        " Define keyword.
-        if !exists('g:neocomplcache_keyword_patterns')
-            let g:neocomplcache_keyword_patterns = {}
-        endif
-        let g:neocomplcache_keyword_patterns._ = '\h\w*'
-
-        " Plugin key-mappings {
-            " These two lines conflict with the default digraph mapping of <C-K>
-            " If you prefer that functionality, add the following to your
-            imap <C-k> <Plug>(neosnippet_expand_or_jump)
-            smap <C-k> <Plug>(neosnippet_expand_or_jump)
-
-            inoremap <expr><C-g> neocomplcache#undo_completion()
-            inoremap <expr><C-l> neocomplcache#complete_common_string()
-            inoremap <expr><CR> neocomplcache#complete_common_string()
-
-            " <TAB>: completion.
-            inoremap <expr><TAB> pumvisible() ? "\<C-n>" : "\<TAB>"
-            inoremap <expr><S-TAB> pumvisible() ? "\<C-p>" : "\<TAB>"
-
-            " <CR>: close popup
-            " <s-CR>: close popup and save indent.
-            inoremap <expr><s-CR> pumvisible() ? neocomplcache#close_popup()"\<CR>" : "\<CR>"
-            inoremap <expr><CR> pumvisible() ? neocomplcache#close_popup() : "\<CR>"
-
-            " <C-h>, <BS>: close popup and delete backword char.
-            inoremap <expr><BS> neocomplcache#smart_close_popup()."\<C-h>"
-            inoremap <expr><C-y> neocomplcache#close_popup()
-        " }
-
-        " Enable omni completion.
-        autocmd FileType css setlocal omnifunc=csscomplete#CompleteCSS
-        autocmd FileType html,markdown setlocal omnifunc=htmlcomplete#CompleteTags
-        autocmd FileType javascript setlocal omnifunc=javascriptcomplete#CompleteJS
-        autocmd FileType python setlocal omnifunc=pythoncomplete#Complete
-        autocmd FileType xml setlocal omnifunc=xmlcomplete#CompleteTags
-        autocmd FileType ruby setlocal omnifunc=rubycomplete#Complete
-        autocmd FileType haskell setlocal omnifunc=necoghc#omnifunc
-        autocmd Filetype java setlocal omnifunc=javacomplete#Complete 
-
-        " Haskell post write lint and check with ghcmod
-        " $ `cabal install ghcmod` if missing and ensure
-        " ~/.cabal/bin is in your $PATH.
-        if !executable("ghcmod")
-            autocmd BufWritePost *.hs GhcModCheckAndLintAsync
-        endif
-
-        " Enable heavy omni completion.
-        if !exists('g:neocomplcache_omni_patterns')
-            let g:neocomplcache_omni_patterns = {}
-        endif
-        let g:neocomplcache_omni_patterns.php = '[^. \t]->\h\w*\|\h\w*::'
-        let g:neocomplcache_omni_patterns.perl = '\h\w*->\h\w*\|\h\w*::'
-        let g:neocomplcache_omni_patterns.c = '[^.[:digit:] *\t]\%(\.\|->\)'
-        let g:neocomplcache_omni_patterns.cpp = '[^.[:digit:] *\t]\%(\.\|->\)\|\h\w*::'
-        let g:neocomplcache_omni_patterns.ruby = '[^. *\t]\.\h\w*\|\h\w*::'
-
-        " Use honza's snippets.
-        let g:neosnippet#snippets_directory='~/.vim/bundle/vim-snippets/snippets'
-
-        " Enable neosnippet snipmate compatibility mode
-        let g:neosnippet#enable_snipmate_compatibility = 1
-
-        " For snippet_complete marker.
-        if has('conceal')
-            set conceallevel=2 concealcursor=i
-        endif
-
-        " Disable the neosnippet preview candidate window
-        " When enabled, there can be too much visual noise
-        " especially when splits are used.
-        set completeopt-=preview
-    " }
-
     " UndoTree {
         nnoremap <Leader>u :UndotreeToggle<CR>
         " If undotree is opened, it is likely one wants to interact with it.
@@ -582,7 +451,7 @@
             "let g:airline_left_sep='›'  " Slightly fancier than '>'
             "let g:airline_right_sep='‹' " Slightly fancier than '<'
         "endif
-        
+
         let g:airline_theme = 'zenburn'
         let g:airline_left_sep = ''
         let g:airline_left_sep = ''
@@ -647,6 +516,7 @@
             silent execute ":!open target/test-reports/html/index.html"
         endfunction
     " }
+
     " Vimwiki {
         let wiki = {}
         let wiki.path = '~/Dropbox/wiki/'
@@ -810,6 +680,44 @@
     command! -complete=file -nargs=+ Shell call s:RunShellCommand(<q-args>)
     " e.g. Grep current file for <search_term>: Shell grep -Hn <search_term> %
     " }
+    
+    " Django naviation {
+        " for django file naviation
+        let g:last_relative_dir = ''
+        nnoremap \1 :call RelatedFile ("models.py")<cr>
+        nnoremap \2 :call RelatedFile ("views.py")<cr>
+        nnoremap \3 :call RelatedFile ("urls.py")<cr>
+        nnoremap \4 :call RelatedFile ("admin.py")<cr>
+        nnoremap \5 :call RelatedFile ("tests.py")<cr>
+        nnoremap \6 :call RelatedFile ( "templates/" )<cr>
+        nnoremap \7 :call RelatedFile ( "templatetags/" )<cr>
+        nnoremap \8 :call RelatedFile ( "management/" )<cr>
+        nnoremap \0 :e settings.py<cr>
+        nnoremap \9 :e urls.py<cr>
+
+        fun! RelatedFile(file)
+            #This is to check that the directory looks djangoish
+            if filereadable(expand("%:h"). '/models.py') || isdirectory(expand("%:h") . "/templatetags/")
+                exec "edit %:h/" . a:file
+                let g:last_relative_dir = expand("%:h") . '/'
+                return ''
+            endif
+            if g:last_relative_dir != ''
+                exec "edit " . g:last_relative_dir . a:file
+                return ''
+            endif
+            echo "Cant determine where relative file is : " . a:file
+            return ''
+        endfun
+
+        fun SetAppDir()
+            if filereadable(expand("%:h"). '/models.py') || isdirectory(expand("%:h") . "/templatetags/")
+                let g:last_relative_dir = expand("%:h") . '/'
+                return ''
+            endif
+        endfun
+        autocmd BufEnter *.py call SetAppDir()
+    "}
 
 " }
 
