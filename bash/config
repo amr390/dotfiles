@@ -104,8 +104,8 @@ then
     source ~/.local/bin/eb_completion.bash
 fi
 
-if [ -f django-auth-config ] ;
+if [ -f private-django-auth-config ] ;
 then 
     echo "loading django-auth-config"
-    source django-auth-config
+    source private-django-auth-config
 fi
