@@ -1,5 +1,7 @@
 #!/bin/bash
 
+DOTFILES=$HOME/dotfiles
+
 # Safety
 alias rm="rm -i"
 alias mv="mv -i"
@@ -27,7 +29,6 @@ alias aptu="sudo apt update && sudo apt dist-upgrade -y"
 alias sb="source ~/.bashrc"
 alias myip="curl http://ipecho.net/plain; echo"
 
-alias go-vatbook="cd /home/amr/dev/python/django/vatbook/"
 alias go-dev="cd /home/amr/dev"
 alias a2d="python3 /home/amr/dev/scripts/a2dp.py"
 
@@ -74,19 +75,35 @@ open_sts() {
 }
 
 bookmark_pwd() {
-    echo "alias $1='cd `pwd`'" >> ~/dotfiles/bash/aliases
+    path=`pwd`
+    path=${path//\//\\/}
+    sed -e "/${path}/d" ${DOTFILES}/bash/aliases &>/dev/null
+    if [ $? -eq 0 ]; then
+        echo "alias $1='cd `pwd`'" >> $DOTFILES/bash/aliases
+    else
+        echo "Bookmark already exists"
+    fi
+
+    source $HOME/.bashrc
 }
 
+delete_bookmark_pwd() {
+    pattern=$1
+    unalias $1
+    sed -e "/${pattern}/d" ${DOTFILES}/bash/aliases &>/dev/null
 
-if [ -f ~/dotfiles/bash/aliases-cipal ]; 
+    source $HOME/.bashrc
+}
+
+if [ -f $DOTFILES/bash/aliases-cipal ]; 
 then
-    source ~/dotfiles/bash/aliases-cipal
+    source $DOTFILES/bash/aliases-cipal
 fi
 
-if [ -f ~/dotfiles/bash/aliases-manning ]; 
+if [ -f $DOTFILES/bash/aliases-manning ]; 
 then
-    source ~/dotfiles/bash/aliases-manning
+    source $DOTFILES/bash/aliases-manning
 fi
-
-alias dj-auth="cd /home/amr/dev/python/django/djangoAuth"
-alias dj-auth='cd /home/amr/dev/python/django/djangoAuth'
+alias vb3='cd /home/amr/dev/python/django/vatbook'
+alias vtmp='cd /home/amr/Documents/Manning/data/db_backups/tmp'
+alias sat='cd /home/amr/dev/python/django/sat8485'
