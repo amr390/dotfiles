@@ -12,8 +12,8 @@ set -o noclobber
 alias ..='cd ..'
 alias ...='cd ..;cd ..'
 alias grep='grep --color=auto'
-alias ll="ls -lrtF --color"
-alias la="ls -alrtF --color"
+alias ll="ls -lrtF --color -h --group-directories-first"
+alias la="ls -alrtF --color -h --group-directories-first"
 alias lA="ls -A"
 alias l="ls -CF"
 alias dir='ls --color=auto --format=vertical'
