@@ -51,7 +51,10 @@
 
     " Snippets & AutoComplete
         Bundle 'sirver/ultisnips'
-        Bundle 'Shougo/deoplete.nvim'
+        Bundle 'honza/vim-snippets'
+        Bundle 'Shougo/neosnippets'
+        Bundle 'Shougo/neocomplcache'
+        Bundle 'Shougo/neocomplete'
 
     " Python
         Bundle 'klen/python-mode'

@@ -53,6 +53,8 @@ alias gcot='git checkout -t'
 alias gcotb='git checkout --track -b'
 alias glog='git log'
 alias glogp='git log --pretty=format:"%h %s" --graph'
+alias grp='git remote update -p'
+alias grv='git remote -v'
 
 # Git flow
 alias gfs="git flow feature start $1"
