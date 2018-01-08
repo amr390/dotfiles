@@ -26,7 +26,6 @@
         Bundle 'MarcWeber/vim-addon-mw-utils'
     " }
 
-    
     " General  
             Bundle 'scrooloose/nerdtree'
             Bundle 'kien/ctrlp.vim'

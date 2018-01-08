@@ -32,6 +32,8 @@ alias myip="curl http://ipecho.net/plain; echo"
 alias go-dev="cd /home/amr/dev"
 alias a2d="python3 /home/amr/dev/scripts/a2dp.py"
 
+alias vimclean="rm -rf /home/amr/.vimbackup/*"
+
 # vim wiki
 wikii() {
     gvim -c ":VimwikiIndex"
@@ -109,3 +111,5 @@ fi
 alias vb3='cd /home/amr/dev/python/django/vatbook'
 alias vtmp='cd /home/amr/Documents/Manning/data/db_backups/tmp'
 alias sat='cd /home/amr/dev/python/django/sat8485'
+alias mdbackups='cd /home/amr/Documents/Manning/data/db_backups'
+alias sat_reset_db='rm -f /home/amr/Dropbox/Aplicaciones/sat/db.sqlite3'

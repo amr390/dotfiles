@@ -252,48 +252,6 @@
 
 " Plugins {
 
-    " Syntastic { a
-    " https://jaxbot.me/articles/setting-up-vim-for-react-js-jsx-02-03-2015
-        let g:syntastic_javascript_checkers = ['eslint']
-        let g:jsx_ext_required = 0 " Allow JSX in normal js files.  
-
-    " }
-
-    " PIV {
-        "let g:DisableAutoPHPFolding = 0
-        "let g:PIVAutoClose = 0
-    " }
-
-    " Misc {
-        let g:NERDShutUp=1
-        let b:match_ignorecase = 1
-    " }
-
-    " OmniComplete {
-        if has("autocmd") && exists("+omnifunc")
-            autocmd Filetype *
-                \if &omnifunc == "" |
-                \setlocal omnifunc=syntaxcomplete#Complete |
-                \endif
-        endif
-
-        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-
-        " Some convenient mappings
-        inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-        inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-        inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-        inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-        inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-        inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-
-        " Automatically open and close the popup menu / preview window
-        au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-        set completeopt=menu,preview,longest
-    " }
-
     " Ctags {
         set tags=./tags;/,~/.vimtags
 
@@ -301,61 +259,6 @@
         let gitroot = substitute(system('git rev-parse --show-toplevel'), '[\n\r]', '', 'g')
         if gitroot != ''
             let &tags = &tags . ',' . gitroot . '/.git/tags'
-        endif
-    " }
-
-    " NerdTree {
-        map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
-        map <leader>e :NERDTreeFind<CR>
-        nmap <leader>nt :NERDTreeFind<CR>
-
-        let NERDTreeShowBookmarks=1
-        let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
-        let NERDTreeChDirMode=0
-        let NERDTreeQuitOnOpen=1
-        let NERDTreeMouseMode=2
-        let NERDTreeShowHidden=0
-        let NERDTreeKeepTreeInNewTab=1
-        let g:nerdtree_tabs_open_on_gui_startup=0
-    " }
-
-    " JSON {
-        nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
-    " }
-
-    " XML {
-        nmap <leader>xt <Esc>:%!xmllint --format %<CR><Esc>:set filetype=xml<CR>
-    " }
-
-    " ultisnips {
-        let g:UltiSnipsExpandTrigger       = "<c-j>"
-        let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
-        let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
-        let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
-    " }
-
-    " PyMode {
-        let g:pymode_lint_checker = "pyflakes"
-        let g:pymode_utils_whitespaces = 0
-        let g:pymode_options = 0
-        let python_highlight_all=1
-        au BufNewFile,BufRead .py
-                    \ setlocal tabstop=4
-                    \ setlocal softtabstop=4
-                    \ setlocal shiftwidth=4
-                    \ setlocal textwidth=80
-                    \ setlocal expandtab
-                    \ setlocal autoindent
-                    \ setlocal fileformat=unix
-
-        " Disable if python support not present
-        if !has('python')
-            let g:pymode = 1
-        endif
-        if has('python3')
-            let g:pymode_python= 'python3'
-            let s:python_version = 3
-            let g:jedi#force_py_version = 3
         endif
     " }
 
@@ -388,6 +291,109 @@
         endif
     "}
 
+    " Fugitive {
+        nnoremap <silent> <leader>gits :Gstatus<CR>
+        nnoremap <silent> <leader>gitd :Gdiff<CR>
+        nnoremap <silent> <leader>gitc :Gcommit<CR>
+        nnoremap <silent> <leader>gitb :Gblame<CR>
+        nnoremap <silent> <leader>gitl :Glog<CR>
+        nnoremap <silent> <leader>gitp :Git push<CR>
+        nnoremap <silent> <leader>gitr :Gread<CR>:GitGutter<CR>
+        nnoremap <silent> <leader>gitw :Gwrite<CR>:GitGutter<CR>
+        nnoremap <silent> <leader>gite :Gedit<CR>
+        nnoremap <silent> <leader>gitg :GitGutterToggle<CR>
+    "}
+
+    " indent_guides {
+        " For some colorschemes, autocolor will not work (eg: 'desert', 'ir_black')
+        autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#212121 ctermbg=3
+        autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#404040 ctermbg=4
+        let g:indent_guides_start_level = 2
+        let g:indent_guides_guide_size = 1
+        let g:indent_guides_enable_on_vim_startup = 1
+    " }
+
+    " JSON {
+        nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
+    " }
+
+    " NerdTree {
+        map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+        map <leader>e :NERDTreeFind<CR>
+        nmap <leader>nt :NERDTreeFind<CR>
+
+        let NERDTreeShowBookmarks=1
+        let NERDTreeIgnore=['\.pyc', '\~$', '\.swo$', '\.swp$', '\.git', '\.hg', '\.svn', '\.bzr']
+        let NERDTreeChDirMode=0
+        let NERDTreeQuitOnOpen=1
+        let NERDTreeMouseMode=2
+        let NERDTreeShowHidden=0
+        let NERDTreeKeepTreeInNewTab=1
+        let g:nerdtree_tabs_open_on_gui_startup=0
+    " }
+
+    " Misc {
+        let g:NERDShutUp=1
+        let b:match_ignorecase = 1
+    " }
+
+    " OmniComplete {
+        if has("autocmd") && exists("+omnifunc")
+            autocmd Filetype *
+                \if &omnifunc == "" |
+                \setlocal omnifunc=syntaxcomplete#Complete |
+                \endif
+        endif
+
+        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
+        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
+        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
+
+        " Some convenient mappings
+        inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
+        inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
+        inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
+        inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
+        inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
+        inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
+
+        " Automatically open and close the popup menu / preview window
+        au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
+        set completeopt=menu,preview,longest
+    " 
+
+    " PyMode {
+        let g:pymode_lint_checker = "pyflakes"
+        let g:pymode_utils_whitespaces = 0
+        let g:pymode_options = 0
+        let python_highlight_all=1
+        au BufNewFile,BufRead .py
+                    \ setlocal tabstop=4
+                    \ setlocal softtabstop=4
+                    \ setlocal shiftwidth=4
+                    \ setlocal textwidth=80
+                    \ setlocal expandtab
+                    \ setlocal autoindent
+                    \ setlocal fileformat=unix
+
+        " Disable if python support not present
+        if !has('python')
+            let g:pymode = 1
+        endif
+        if has('python3')
+            let g:pymode_python= 'python3'
+            let s:python_version = 3
+            let g:jedi#force_py_version = 3
+        endif
+    " }
+
+    " Syntastic { a
+    " https://jaxbot.me/articles/setting-up-vim-for-react-js-jsx-02-03-2015
+        let g:syntastic_javascript_checkers = ['eslint']
+        let g:jsx_ext_required = 0 " Allow JSX in normal js files.  
+
+    " }
+
     " TagBar {
         nnoremap <silent> <leader>tt :TagbarToggle<CR>
 
@@ -408,18 +414,13 @@
     "}
 
 
-    " Fugitive {
-        nnoremap <silent> <leader>gits :Gstatus<CR>
-        nnoremap <silent> <leader>gitd :Gdiff<CR>
-        nnoremap <silent> <leader>gitc :Gcommit<CR>
-        nnoremap <silent> <leader>gitb :Gblame<CR>
-        nnoremap <silent> <leader>gitl :Glog<CR>
-        nnoremap <silent> <leader>gitp :Git push<CR>
-        nnoremap <silent> <leader>gitr :Gread<CR>:GitGutter<CR>
-        nnoremap <silent> <leader>gitw :Gwrite<CR>:GitGutter<CR>
-        nnoremap <silent> <leader>gite :Gedit<CR>
-        nnoremap <silent> <leader>gitg :GitGutterToggle<CR>
-    "}
+    " ultisnips {
+    " https://code.djangoproject.com/wiki/UsingVimWithDjango
+        let g:UltiSnipsExpandTrigger       = "<c-j>" " <c-j>
+        let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+        let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+        let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
+    " }
 
     " UndoTree {
         nnoremap <Leader>u :UndotreeToggle<CR>
@@ -427,14 +428,11 @@
         let g:undotree_SetFocusWhenToggle=1
     " }
 
-    " indent_guides {
-        " For some colorschemes, autocolor will not work (eg: 'desert', 'ir_black')
-        autocmd VimEnter,Colorscheme * :hi IndentGuidesOdd  guibg=#212121 ctermbg=3
-        autocmd VimEnter,Colorscheme * :hi IndentGuidesEven guibg=#404040 ctermbg=4
-        let g:indent_guides_start_level = 2
-        let g:indent_guides_guide_size = 1
-        let g:indent_guides_enable_on_vim_startup = 1
+    " XML {
+        nmap <leader>xt <Esc>:%!xmllint --format %<CR><Esc>:set filetype=xml<CR>
     " }
+
+
 
     " vim-airline {
         " Set configuration options for the statusline plugin vim-airline.
@@ -451,11 +449,16 @@
             "let g:airline_right_sep='‹' " Slightly fancier than '<'
         "endif
 
-        let g:airline_theme = 'zenburn'
+        let g:airline_theme = 'jellybeans'
         let g:airline_left_sep = ''
         let g:airline_left_sep = ''
         let g:airline_right_sep = ''
         let g:airline_right_sep = ''
+    " }
+
+    " VimCompletesMe {
+        autocmd FileType text,markdown let b:vcm_tab_complete = 'dict'
+        
     " }
 
     " vim-gitgutter {
@@ -540,6 +543,14 @@
             end
         endfunction
         :autocmd FileType vimwiki map <leader>c :call ToggleCalendar()
+    " }
+
+    " YCM {
+        "let g:ycm_collect_identifiers_from_tags_files = 1 " Let YCM read tags from Ctags file
+        "let g:ycm_use_ultisnips_completer = 1 " Default 1, just ensure
+        "let g:ycm_seed_identifiers_with_syntax = 1 " Completion for programming language's keyword
+        "let g:ycm_complete_in_comments = 1 " Completion in comments
+        "let g:ycm_complete_in_strings = 1 " Completion in string
     " }
 
 " }
