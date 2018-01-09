@@ -110,6 +110,9 @@ then
 fi
 alias vb3='cd /home/amr/dev/python/django/vatbook'
 alias vtmp='cd /home/amr/Documents/Manning/data/db_backups/tmp'
-alias sat='cd /home/amr/dev/python/django/sat8485'
 alias mdbackups='cd /home/amr/Documents/Manning/data/db_backups'
+
+SAT_HOME='/home/amr/dev/python/django/sat8485'
+alias sat="cd $SAT_HOME"
+alias run-sat="$SAT_HOME/manage.py runserver --settings=sat8485.settings.develop"
 alias sat_reset_db='rm -f /home/amr/Dropbox/Aplicaciones/sat/db.sqlite3'
