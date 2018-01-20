@@ -51,7 +51,7 @@
     " Snippets & AutoComplete
         Bundle 'sirver/ultisnips'
         Bundle 'honza/vim-snippets'
-        Bundle 'Shougo/neosnippets'
+        Bundle 'Shougo/neosnippet'
         Bundle 'Shougo/neocomplcache'
         Bundle 'Shougo/neocomplete'
 
