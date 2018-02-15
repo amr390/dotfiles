@@ -34,6 +34,13 @@ alias a2d="python3 /home/amr/dev/scripts/a2dp.py"
 
 alias vimclean="rm -rf /home/amr/.vimbackup/*"
 
+alias startlemp='docker run -d --name=lemp \
+    -v /home/amr/dev/php/docker-lemp/www:/var/www \
+    -v /home/amr/dev/php/docker-lemp/mysql:/var/lib/mysql \
+    -v /home/amr/dev/php/docker-lemp/log:/var/log/php \
+    -p 9000:80 \
+    stenote/docker-lemp:latest'
+
 # vim wiki
 wikii() {
     gvim -c ":VimwikiIndex"
