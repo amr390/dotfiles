@@ -49,11 +49,10 @@
         Bundle 'mattn/calendar-vim'
 
     " Snippets & AutoComplete
-    " Use either neosnippets or ultisnips
-        "Bundle 'sirver/ultisnips'
-        "Bundle 'honza/vim-snippets'
-        Bundle 'Shougo/neosnippet'
-        Bundle 'Shougo/neosnippet-snippets'
+        Bundle 'sirver/ultisnips'
+        Bundle 'honza/vim-snippets'
+        "Bundle 'Shougo/neosnippet-snippets'
+        "Bundle 'Shougo/neosnippet'
         Bundle 'Shougo/neocomplcache'
         Bundle 'Shougo/neocomplete'
 
