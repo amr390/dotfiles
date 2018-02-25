@@ -121,13 +121,14 @@ alias vtmp='cd /home/amr/Documents/Manning/data/db_backups/tmp'
 alias mdbackups='cd /home/amr/Documents/Manning/data/db_backups'
 
 SAT_HOME='/home/amr/dev/python/django/sat8485'
-SAT_DB_HOME='/home/amr/Dropbox/Applicaciones/sat/'
+SAT_DB_HOME='/home/amr/Dropbox/Aplicaciones/sat/'
 alias sat="cd $SAT_HOME"
 alias sat-run="$SAT_HOME/manage.py runserver --settings=sat8485.settings.develop"
 alias sat-mm="$SAT_HOME/manage.py makemigrations --settings=sat8485.settings.develop"
 alias sat-m="$SAT_HOME/manage.py migrate --settings=sat8485.settings.develop"
 alias sat-reset-db='rm -f /home/amr/Dropbox/Aplicaciones/sat/db.sqlite3'
 alias sat-dbbackup="cd $SAT_DB_HOME && \
-    sqlite3 .schema db.sqlite3 > schema.sql && \
-    sqlite3 .dump db.sqlite3 > dump.sql && \
-    grep -cv -f schema.sql dump.sql > sat.backup.$TODAY.sql && cd -"
+    sqlite3 db.sqlite3 .schema > schema.sql && \
+    sqlite3 db.sqlite3 .dump > dump.sql && \
+    grep -xv -f schema.sql dump.sql > sat.backup.$TODAY.sql && \
+    rm -f schema.sql dump.sql && cd -"
