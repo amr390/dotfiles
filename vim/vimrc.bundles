@@ -74,7 +74,6 @@
         Bundle 'mxw/vim-jsx'
         Bundle 'isRuslan/vim-es6'
         Bundle 'leafgarland/typescript-vim'
-        Bundle 'Quramy/tsuquyomi'
         Bundle 'ianks/vim-tsx'
 
     " Java
