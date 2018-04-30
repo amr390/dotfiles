@@ -148,6 +148,7 @@
     autocmd FileType c,cpp,java,groovy,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
     autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
+    au BufRead,BufNewFile *.scss set filetype=scss.css
     " preceding line best in a plugin but here for now.
 
 " }
@@ -421,7 +422,7 @@
 
     " ultisnips {
     " https://code.djangoproject.com/wiki/UsingVimWithDjango
-        let g:UltiSnipsExpandTrigger       = "<c-j>" " <c-j>
+        let g:UltiSnipsExpandTrigger       = "<j>" " <c-j>
         let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
         let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
         let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
@@ -435,7 +436,7 @@
     " }
 
     " XML {
-        nmap <leader>xt <Esc>:%!xmllint --format %<CR><Esc>:set filetype=xml<CR>
+        nmap <leader>xt <Esc>:%!xmllint --format <CR><Esc>:set filetype=xml<CR>
     " }
 
 

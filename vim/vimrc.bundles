@@ -74,6 +74,8 @@
         Bundle 'mxw/vim-jsx'
         Bundle 'isRuslan/vim-es6'
         Bundle 'leafgarland/typescript-vim'
+        Bundle 'ianks/vim-tsx'
+        Bundle 'Quramy/tsuquyomi'
 
     " Java
         Bundle 'derekwyatt/vim-scala'
@@ -85,6 +87,7 @@
 
     " HTML
         Bundle 'hail2u/vim-css3-syntax'
+        Bundle 'cakebaker/scss-syntax.vim'
         Bundle 'tpope/vim-haml'
         Bundle 'sukima/xmledit'
 " }
