@@ -1,0 +1,2 @@
+sudo apt install vim vim-gnome git git-core virtualenv virtualenvwrapper
+sudo apt-get install build-essential
