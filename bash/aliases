@@ -144,5 +144,15 @@ alias sat-m-p="$SAT_HOME/manage.py migrate --settings=sat8485.settings.staging"
 alias sat-sh-p="$SAT_HOME/manage.py shell --settings=sat8485.settings.staging"
 
 alias rabbitrun="docker run -d --hostname my-rabbit  --name some-rabbit  -p 15672:15672  -p 4369:4369  -p 5671:5671  -p 5672:5672  -p 15671:15671  -p 25672:25672  -v /home/amr/data/rabbitmq:/var/lib/rabbitmq/ rabbitmq:3-management"
+alias rabbitstop="docker kill some-rabbit && docker rm some-rabbit"
 alias hostip="ip route show 0.0.0.0/0 | grep -Eo 'via \S+' | awk '{ print \$2 }'"
 alias tomcatrun="docker run -d --add-host=localhost:$(hostip) --hostname tomcat --name tomcat -p 8090:8080 -v /home/amr/dev/manning/e-commerce/MarketplaceWS/build/libs/:/usr/local/tomcat/webapps tomcat:8-jre8-alpine"
+
+kill_process() {
+    pids=$(ps aux | grep $1 | awk '{ print $2 }')
+
+    for pid in "${pids[@]}"
+    do 
+        kill $pid
+    done
+}
