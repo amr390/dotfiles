@@ -64,6 +64,7 @@
         Bundle 'python_match.vim'
         Bundle 'pythoncomplete'
         Bundle 'surround.vim'
+        Bundle 'repeat.vim'
         Bundle 'jmcomets/vim-pony'
 
     " Javascript
