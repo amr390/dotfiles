@@ -104,6 +104,13 @@ then
     source ~/.local/bin/eb_completion.bash
 fi
 
+# host aliases
+if [ -f ./host.aliases ] ; 
+then
+    echo "generating host aliases"
+    export HOSTALIASES=./host.aliases
+fi
+
 if [ -f private-django-auth-config ] ;
 then 
     echo "loading django-auth-config"
