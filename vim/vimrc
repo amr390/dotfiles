@@ -435,8 +435,8 @@
         let g:undotree_SetFocusWhenToggle=1
     " }
 
-    " XML {
-        nmap <leader>xt <Esc>:%!xmllint --format <CR><Esc>:set filetype=xml<CR>
+    " XML { map @@x !%xmllint --format --recover -^M
+        nmap <leader>xt <Esc>:%!xmllint --format --recover -<CR><Esc>:set filetype=xml<CR>
     " }
 
 

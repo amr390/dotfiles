@@ -19,14 +19,15 @@ alias lA="ls -A"
 alias l="ls -CF"
 alias dir='ls --color=auto --format=vertical'
 alias vdir='ls --color=auto --format=long'
-alias m='less'
-alias md='mkdir'
+#alias m='less'
+#alias md='mkdir'
 #alias du='du -ch --max-depth=1'
 alias du='du -ch'
 alias treeacl='tree -A -C -L 2'
 alias gnome-open=xdg-open
 
 alias aptu="sudo apt update && sudo apt dist-upgrade -y"
+alias aptunoff="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove -y && sudo poweroff"
 alias sb="source ~/.bashrc"
 alias myip="curl http://ipecho.net/plain; echo"
 
@@ -162,5 +163,5 @@ kill_process() {
     done
 }
 
-
 #sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7FCC7D46ACCC4CF8
+alias freerider="cd /opt/freerider/ && fr"
