@@ -119,9 +119,32 @@ if [ -f $DOTFILES/bash/aliases-manning ];
 then
     source $DOTFILES/bash/aliases-manning
 fi
-alias vb3='cd /home/amr/dev/python/django/vatbook'
 alias vtmp='cd /home/amr/Documents/Manning/data/db_backups/tmp'
 alias mdbackups='cd /home/amr/Documents/Manning/data/db_backups'
+
+VB_HOME='/home/amr/dev/python/django/vatbook'
+VB_DB_HOME='/home/amr/Dropbox/Aplicaciones/sat/'
+alias vb3='cd /home/amr/dev/python/django/vatbook'
+
+#DEVELOP
+alias vb-run="$VB_HOME/manage.py runserver --settings=vatbook.settings.develop"
+alias vb-mm="$VB_HOME/manage.py makemigrations --settings=vatbook.settings.develop"
+alias vb-m="$VB_HOME/manage.py migrate --settings=vatbook.settings.develop"
+alias vb-sh="$VB_HOME/manage.py shell --settings=vatbook.settings.develop"
+alias vb-reset-db='rm -f /home/amr/Dropbox/Aplicaciones/vatbook/db.sqlite3'
+alias vb-dbbackup="cd $VB_DB_HOME && \
+    sqlite3 db.sqlite3 .schema > schema.sql && \
+    sqlite3 db.sqlite3 .dump > dump.sql && \
+    grep -xv -f schema.sql dump.sql > vb.backup.$TODAY.sql && \
+    rm -f schema.sql dump.sql && cd -"
+
+
+#STAGING
+alias vb-run-p="$VB_HOME/manage.py runserver --settings=vatbook.settings.staging"
+alias vb-mm-p="$VB_HOME/manage.py makemigrations --settings=vatbook.settings.staging"
+alias vb-m-p="$VB_HOME/manage.py migrate --settings=vatbook.settings.staging"
+alias vb-sh-p="$VB_HOME/manage.py shell --settings=vatbook.settings.staging"
+
 
 SAT_HOME='/home/amr/dev/python/django/sat8485'
 SAT_DB_HOME='/home/amr/Dropbox/Aplicaciones/sat/'
