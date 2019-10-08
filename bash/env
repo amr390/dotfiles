@@ -29,7 +29,7 @@ export JAVA_OPTS="$JAVA_OPTS -Xmx2G -Xms1500M"
 #export ANDROID_HOME=/home/amr/Apps/android-sdk-tools/
 export ANDROID_SDK_ROOT=/home/amr/Apps/android-sdk-tools/
 
-export DBX_ACCESS_TOKEN=foR6_pdpo_AAAAAAAAAJqeLq2SUStTQSh566vQtMA7zRIJS7IBYlDTyZA-8eK-dD
+export DBX_ACCESS_TOKEN=xxx
 
 # ####### Configure PATH ###############
 #  - These are line by line so that you can kill one without affecting the others.

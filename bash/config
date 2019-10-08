@@ -29,9 +29,9 @@ if [ "$PS1" ]; then
     done
     fi
 
-    if [ -f ./dotfiles/bash/prompts ]; then
-        . ./dotfiles/bash/prompts
-        export PS1=$LIGHT2_PROMPT
+    if [ -f /home/amr/dotfiles/bash/prompts ]; then
+        . /home/amr/dotfiles/bash/prompts
+        export PS1=$LIGHT_PROMPT
     fi
 fi
 

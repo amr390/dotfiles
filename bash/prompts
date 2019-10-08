@@ -35,7 +35,7 @@ DARK_PROMPT=$BLUE'$(
         fi)'$BLUE" \W"$DARK_GRAY": "
 
 #export PS1=$DARK_GRAY"\u@\h"'$(
-        LIGHT2_PROMPT='$(
+LIGHT2_PROMPT='$(
             if [[ $(__git_ps1) =~ \*\)$ ]]
 # a file has been modified but not added
             then echo "'$YELLOW'"$(__git_ps1 " (%s)")
