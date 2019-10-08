@@ -43,13 +43,13 @@
         Plug 'mattn/calendar-vim'
 
     " Snippets & AutoComplete
-        Plug 'jordwalke/VimCompleteLikeAModernEditor'
+        Plug 'Shougo/deoplete.nvim'
+        Plug 'roxma/nvim-yarp'
+        Plug 'roxma/vim-hug-neovim-rpc'
+        Plug 'ervandew/supertab'
+
         Plug 'sirVer/ultisnips'
         Plug 'honza/vim-snippets'
-        " Plug 'Shougo/neosnippet-snippets'
-        " Plug 'Shougo/neosnippet'
-        Plug 'Shougo/neocomplcache'
-        Plug 'Shougo/neocomplete'
 
     " Python
         Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }

@@ -12,6 +12,8 @@
 
 " }
 
+" curl -fLo ~/.vim/autoload/plug.vim --create-dirs \
+" https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim
 " vim-plug {
     call plug#begin('~/.vim/plugged')
     " Use bundles config {
@@ -386,14 +388,26 @@
             \ }
     "}
 
-
-    " ultisnips {
+    "https://www.gregjs.com/vim/2016/neovim-deoplete-jspc-ultisnips-and-tern-a-config-for-kickass-autocompletion/
+    " supertab {
+        autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
+    " }
+    " deoplete {
+        set completeopt=longest,menuone,preview
+        let g:deoplete#sources = {}
+        let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips']
+        let g:tern#command = ['tern']
+        let g:tern#arguments = ['--persistent']
+        let g:deoplete#enable_at_startup = 1
+    " }
     " https://code.djangoproject.com/wiki/UsingVimWithDjango
-        let g:UltiSnipsExpandTrigger       = "<j>" " <c-j>
-        let g:UltiSnipsJumpForwardTrigger  = "<c-j>"
+    " ultisnips {
+        let g:UltiSnipsExpandTrigger       = "<c-j>" " <c-j>
+        let g:UltiSnipsJumpForwardTrigger  = "<c-n>"
         let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
         let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
         let g:UltiSnipsEditSplit           = "horizontal"
+        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
     " }
 
     " UndoTree {
