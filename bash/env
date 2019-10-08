@@ -1,7 +1,5 @@
 #!/bin/bash
 
-# User specific environment and startup programs
-export JAVA_HOME=/usr/lib/jvm/default-java/
 # This causes grails to fail
 #export GRAILS_OPTS="-Dserver.ssl.key-store=/home/amr/.grailsTomcatKeystore"
 export MAVEN_OPTS="$MAVEN_OPTS"
@@ -23,9 +21,20 @@ complete -C '/usr/local/bin/aws_completer' aws
 # RDS variables
 export AWS_RDS_HOME=/home/amr/Apps/RDSCli
 
+# Overrides sdk JAVA 
+# User specific environment and startup programs
+JAVA_HOME=/usr/lib/jvm/default-java/ 
+export JAVA_OPTS="$JAVA_OPTS -Xmx2G -Xms1500M"
+
+#export ANDROID_HOME=/home/amr/Apps/android-sdk-tools/
+export ANDROID_SDK_ROOT=/home/amr/Apps/android-sdk-tools/
+
+export DBX_ACCESS_TOKEN=foR6_pdpo_AAAAAAAAAJqeLq2SUStTQSh566vQtMA7zRIJS7IBYlDTyZA-8eK-dD
+
 # ####### Configure PATH ###############
 #  - These are line by line so that you can kill one without affecting the others.
 #  - Lowest priority first, highest priority last.
 export PATH=/usr/bin:/usr/local/bin:/usr/local/sbin:$HOME/.local/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH # Java home
 export PATH=$CS_HOME/bin:$AWS_RDS_HOME/bin:$PATH # AWS path
+export PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH

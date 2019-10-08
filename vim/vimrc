@@ -10,24 +10,16 @@
         endif
     " }
 
-    " Setup Bundle Support {
-        " The next three lines ensure that the ~/.vim/bundle/ system works
-        filetype on
-        filetype off
-        set rtp+=~/.vim/bundle/vundle
-        call vundle#rc()
-    " }
-
 " }
 
-" Bundles {
-
+" vim-plug {
+    call plug#begin('~/.vim/plugged')
     " Use bundles config {
         if filereadable(expand("~/.vimrc.bundles"))
             source ~/.vimrc.bundles
         endif
     " }
-
+    call plug#end()
 " }
 
 " General {
@@ -55,7 +47,7 @@
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
     set nospell                         " Spell checking off
-    set hidden                          " Allow buffer switching without saving
+    "set hidden                          " Allow buffer switching without saving
 
     " Instead of reverting the cursor to the last position in the buffer, we
     " set it to the first line when editing a git commit message
@@ -118,7 +110,7 @@
     set winminheight=0              " Windows can be 0 line high
     set ignorecase                  " Case insensitive search
     set smartcase                   " Case sensitive when uc present
-    set wildmenu                    " Show list instead of just completing
+    "set wildmenu                    " Show list instead of just completing
     set wildmode=list:longest,full  " Command <Tab> completion, list matches, then longest common part, then all.
     set whichwrap=b,s,h,l,<,>,[,]   " Backspace and cursor keys wrap too
     set scrolljump=5                " Lines to scroll when cursor leaves screen
@@ -343,31 +335,6 @@
         let b:match_ignorecase = 1
     " }
 
-    " OmniComplete {
-        if has("autocmd") && exists("+omnifunc")
-            autocmd Filetype *
-                \if &omnifunc == "" |
-                \setlocal omnifunc=syntaxcomplete#Complete |
-                \endif
-        endif
-
-        hi Pmenu  guifg=#000000 guibg=#F8F8F8 ctermfg=black ctermbg=Lightgray
-        hi PmenuSbar  guifg=#8A95A7 guibg=#F8F8F8 gui=NONE ctermfg=darkcyan ctermbg=lightgray cterm=NONE
-        hi PmenuThumb  guifg=#F8F8F8 guibg=#8A95A7 gui=NONE ctermfg=lightgray ctermbg=darkcyan cterm=NONE
-
-        " Some convenient mappings
-        inoremap <expr> <Esc>      pumvisible() ? "\<C-e>" : "\<Esc>"
-        inoremap <expr> <CR>       pumvisible() ? "\<C-y>" : "\<CR>"
-        inoremap <expr> <Down>     pumvisible() ? "\<C-n>" : "\<Down>"
-        inoremap <expr> <Up>       pumvisible() ? "\<C-p>" : "\<Up>"
-        inoremap <expr> <C-d>      pumvisible() ? "\<PageDown>\<C-p>\<C-n>" : "\<C-d>"
-        inoremap <expr> <C-u>      pumvisible() ? "\<PageUp>\<C-p>\<C-n>" : "\<C-u>"
-
-        " Automatically open and close the popup menu / preview window
-        au CursorMovedI,InsertLeave * if pumvisible() == 0|silent! pclose|endif
-        set completeopt=menu,preview,longest
-    " 
-
     " PyMode {
         let g:pymode_lint_checker = "pyflakes"
         let g:pymode_utils_whitespaces = 0
@@ -393,7 +360,7 @@
         endif
     " }
 
-    " Syntastic { a
+    " Syntastic { 
     " https://jaxbot.me/articles/setting-up-vim-for-react-js-jsx-02-03-2015
         let g:syntastic_javascript_checkers = ['eslint']
         let g:jsx_ext_required = 0 " Allow JSX in normal js files.  
@@ -473,59 +440,6 @@
         let g:gitgutter_realtime = 0
     " }
 
-    " vim-grails {
-        " Rename grails Map prefix to grails
-        let g:GrailsMapPrefix=',v'
-
-        "Open file under cursor
-        map <C-i> :call OpenVariableUnderCursor(expand("<cword>"))<CR>
-        map <Leader>h :call FindSubClasses(expand("<cword>"))<CR>
-
-        function! OpenVariableUnderCursor(varName)
-            let filename = substitute(a:varName,'(<w+>)', 'u1', 'g')
-            :call OpenFileUnderCursor(filename)
-        endfunction
-
-        function! OpenFileUnderCursor(filename)
-            let ext = fnamemodify(expand("%:p"), ":t:e")
-            execute ":find " . a:filename . "." . ext
-        endfunction
-
-        function! FindSubClasses(filename)
-            execute ":Grep \(implements\|extends\) " . a:filename
-        endfunction
-
-        "Grails testing
-        map <S-F9> <Esc>:w<CR>:call RunSingleGrailsTest()<CR>
-        map <F9> <Esc>:w<CR>:call RunGrailsTestFile()<CR>
-        map <D-F9> :call RunLastCommandInTerminal()<CR>
-        command! TestResults :call TestResults()
-
-        function! RunSingleGrailsTest()
-            let testName = expand("%:t:r.") . "." . expand("<cword>")
-            :call RunGrailsTest(testName)
-        endfunction
-
-        function! RunGrailsTestFile()
-            let testName = expand("%:t:r")
-            :call RunGrailsTest(testName)
-        endfunction
-
-        function! RunGrailsTest(testName)
-            let path = expand("%:r")
-            if path =~ "integration"
-                let flag = "--integration"
-            else
-                let flag = "--unit"
-            endif
-            execute ":!grails test-app " . flag . " " . a:testName
-        endfunction
-
-        function! TestResults()
-            silent execute ":!open target/test-reports/html/index.html"
-        endfunction
-    " }
-
     " Vimwiki {
         let wiki = {}
         let wiki.path = '~/Dropbox/wiki/'
@@ -594,16 +508,6 @@
 " }
 
 " Functions {
-
-    " UnBundle {
-    function! UnBundle(arg, ...)
-      let bundle = vundle#config#init_bundle(a:arg, a:000)
-      call filter(g:bundles, 'v:val["name_spec"] != "' . a:arg . '"')
-    endfunction
-
-    com! -nargs=+         UnBundle
-    \ call UnBundle(<args>)
-    " }
 
     " Initialize directories {
     function! InitializeDirectories()
@@ -706,9 +610,9 @@
         nnoremap \3 :call RelatedFile ("urls.py")<cr>
         nnoremap \4 :call RelatedFile ("admin.py")<cr>
         nnoremap \5 :call RelatedFile ("tests.py")<cr>
-        nnoremap \6 :call RelatedFile ( "templates/" )<cr>
-        nnoremap \7 :call RelatedFile ( "templatetags/" )<cr>
-        nnoremap \8 :call RelatedFile ( "management/" )<cr>
+        nnoremap \6 :call RelatedFile ("templates/" )<cr>
+        nnoremap \7 :call RelatedFile ("templatetags/" )<cr>
+        nnoremap \8 :call RelatedFile ("management/" )<cr>
         nnoremap \0 :e settings.py<cr>
         nnoremap \9 :e urls.py<cr>
 

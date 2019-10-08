@@ -26,7 +26,7 @@ alias du='du -ch'
 alias treeacl='tree -A -C -L 2'
 alias gnome-open=xdg-open
 
-alias aptu="sudo apt update && sudo apt dist-upgrade -y"
+alias aptu="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove"
 alias aptunoff="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove -y && sudo poweroff"
 alias sb="source ~/.bashrc"
 alias myip="curl http://ipecho.net/plain; echo"
@@ -176,7 +176,6 @@ alias tomcatrun="docker run -d --add-host=localhost:$(hostip) --hostname tomcat 
 alias wsdstat="watch -t -n1 'awk \"{ print \$9}\" /sys/block/sdd/stat'"
 alias wmm="watch grep -e Dirty: -e Writeback: /proc/meminfo"
 
-
 kill_process() {
     pids=$(ps aux | grep $1 | awk '{ print $2 }')
 
@@ -188,3 +187,5 @@ kill_process() {
 
 #sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7FCC7D46ACCC4CF8
 alias freerider="cd /opt/freerider/ && fr"
+CHROME_SANDBOX="/home/amr/dev/manning/livebook/livebook-ui/node_modules/electron/dist/chrome-sandbox"
+alias set-chrome-bin="sudo chown root:root $CHROME_SANDBOX && sudo chmod 4755 $CHROME_SANDBOX"
