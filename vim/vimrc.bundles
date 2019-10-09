@@ -21,7 +21,9 @@
 
     " General  
             Plug 'scrooloose/nerdtree'
-            Plug 'ctrlpvim/ctrlp.vim'
+            " Plug 'ctrlpvim/ctrlp.vim'
+            Plug 'junegunn/fzf', { 'dir': '~/.fzf', 'do': './install --all' }
+            Plug 'junegunn/fzf.vim'
             Plug 'jistr/vim-nerdtree-tabs'
             Plug 'flazz/vim-colorschemes'
             Plug 'nathanaelkane/vim-indent-guides'

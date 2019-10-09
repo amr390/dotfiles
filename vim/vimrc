@@ -262,33 +262,21 @@
         endif
     " }
 
-    " ctrlp {
-        let g:ctrlp_working_path_mode = 'ra'
-        set wildignore+=*/tmp/*,*.so,*.swp,*.zip
-        nnoremap <silent> <D-t> :CtrlP<CR>
-        nnoremap <silent> <D-r> :CtrlPMRU<CR>
-        let g:ctrlp_custom_ignore = {
-            \ 'dir':  '\.git$\|\.hg$\|\.svn$|\node_modules',
-            \ 'file': '\.exe$\|\.so$\|\.dll$\|\.pyc$' }
+    " fzf {
+        nmap <Leader>g :Commits<cr>
+        nmap <C-p> :Files<cr>
 
-        " On Windows use "dir" as fallback command.
-        if has('win32') || has('win64')
-            let g:ctrlp_user_command = {
-                \ 'types': {
-                    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-                \ },
-                \ 'fallback': 'dir %s /-n /b /s /a-d'
-            \ }
-        else
-            let g:ctrlp_user_command = {
-                \ 'types': {
-                    \ 1: ['.git', 'cd %s && git ls-files . --cached --exclude-standard --others'],
-                    \ 2: ['.hg', 'hg --cwd %s locate -I .'],
-                \ },
-                \ 'fallback': 'find %s -type f'
-            \ }
-        endif
+        " [Buffers] Jump to the existing window if possible
+        let g:fzf_buffers_jump = 1
+
+        " [[B]Commits] Customize the options used by 'git log':
+        let g:fzf_commits_log_options = '--graph --color=always --format="%C(auto)%h%d %s %C(black)%C(bold)%cr"'
+
+        " [Tags] Command to generate tags file
+        let g:fzf_tags_command = 'ctags -R'
+
+        " [Commands] --expect expression for directly executing the command
+        let g:fzf_commands_expect = 'alt-enter,ctrl-x'
     "}
 
     " Fugitive {

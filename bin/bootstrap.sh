@@ -45,11 +45,9 @@ lnif() {
 }
 
 clone_vundle() {
-    if [ ! -e "$HOME/.vim/bundle/vundle" ]; then
-        git clone https://github.com/gmarik/vundle.git "$HOME/.vim/bundle/vundle"
-    else
-        upgrade_repo "vundle"   "Successfully updated vundle"
-    fi
+    eval `curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ 
+        https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
+
     ret="$?"
     success "$1"
     debug
@@ -61,6 +59,7 @@ create_symlinks() {
     lnif "$endpath/vimrc"              "$HOME/.vimrc"
     lnif "$endpath/vimrc.bundles"      "$HOME/.vimrc.bundles"
     lnif "$endpath/eslintrc"      "$HOME/.eslintrc"
+    lnif "$endpath/tslintrc"      "$HOME/.tslintrc"
 
     ret="$?"
     success "$1"
@@ -70,7 +69,7 @@ create_symlinks() {
 setup_vundle() {
     system_shell="$SHELL"
     export SHELL='/bin/sh'
-    vim -u "$HOME/.vimrc.bundles" +BundleInstall! +BundleClean +qall
+    vim -u "$HOME/.vimrc.bundles" +PlugInstall! +PlugClean +qall
     export SHELL="$system_shell"
 
     success "$1"
@@ -96,4 +95,4 @@ setup_vundle    "Now updating/installing plugins using Vundle"
 copy_folders    "copy syntax folder into .vim"
 
 msg             "\nThanks for installing $app_name."
-msg             "© `date +%Y` A cloned http://vim.spf13.com/ suite simplified"
+msg             "© `date +%Y` A forked of http://vim.spf13.com/ suite simplified"
