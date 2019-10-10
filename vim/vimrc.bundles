@@ -15,7 +15,6 @@
 " Plugs {
 
     " Deps
-        Plug 'gmarik/vundle'
         Plug 'MarcWeber/vim-addon-mw-utils'
     " }
 
