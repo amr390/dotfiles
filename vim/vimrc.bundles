@@ -26,6 +26,9 @@
             Plug 'jistr/vim-nerdtree-tabs'
             Plug 'flazz/vim-colorschemes'
             Plug 'nathanaelkane/vim-indent-guides'
+            Plug 'powerline/powerline'
+            Plug 'vim-airline/vim-airline'
+            Plug 'vim-airline/vim-airline-themes'
 
     " General Programming
         " Pick one of the checksyntax, jslint, or syntastic
@@ -64,6 +67,7 @@
         Plug 'kchmck/vim-coffee-script'
         Plug 'mxw/vim-jsx'
         Plug 'isRuslan/vim-es6'
+        Plug 'Quramy/tsuquyomi'
         Plug 'leafgarland/typescript-vim'
         Plug 'ianks/vim-tsx'
 
