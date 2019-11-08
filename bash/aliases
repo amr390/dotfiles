@@ -31,6 +31,9 @@ alias aptu="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove"
 =======
 alias aptu="sudo apt update && sudo apt dist-upgrade -y"
 <<<<<<< Updated upstream
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
 >>>>>>> Stashed changes
 =======
 >>>>>>> Stashed changes
