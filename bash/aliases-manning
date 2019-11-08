@@ -1,0 +1,52 @@
+#!/bin/bash
+
+alias v="go-dev && cd manning/livebook/vBook/"
+alias ui="go-dev && cd manning/livebook/livebook-ui/"
+alias m="go-dev && cd manning/"
+alias cas="go-dev && cd cas/VagrantImages/cas/"
+alias mcas="grails run-app -https -Dgrails.env=casDev"
+alias mcasd="grails run-app -https -debug-jvm -Dgrails.env=casDev"
+alias startcas="cas && vagrant ssh -c \"sudo service tomcat7 restart\""
+
+
+alias s3-ls=s3_ls_summary
+
+alias open_m="open_idea ~/dev/manning/e-commerce/Marketplace"
+alias open_mws="open_idea ~/dev/manning/e-commerce/MarketplaceWS"
+alias open_madmin="open_idea ~/dev/manning/e-commerce/MarketplaceAdmin"
+alias open_maadmin="open_idea ~/dev/manning/e-commerce/ManAdmin"
+alias open_v="open_idea ~/dev/manning/livebook/vBook"
+alias open_i="open_idea ~/dev/manning/livevideo/ivc"
+
+s3_ls_summary() {
+    aws s3 ls --summarize --human-readable --recursive s3://$1
+}
+
+pull_m() {
+    m && cd e-commerce/MarketplaceWS
+    pull_n_back
+
+    m && cd e-commerce/MarketplaceAdmin
+    pull_n_back
+
+    m && cd e-commerce/Marketplace
+    pull_n_back
+
+    m && cd e-commerce/ManAdmin
+    pull_n_back
+}
+
+pull_n_back() {
+    CURRENT_VERSION=`git rev-parse --abbrev-ref HEAD`
+    git stash 
+    gco master && gl
+    gco $CURRENT_VERSION
+    git stash pop
+}
+
+
+
+
+if [ -f ~/dotfiles/bash/private-manning-aliases ]; then
+    source ~/dotfiles/bash/private-manning-aliases
+fi

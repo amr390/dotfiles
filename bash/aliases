@@ -26,20 +26,7 @@ alias du='du -ch'
 alias treeacl='tree -A -C -L 2'
 alias gnome-open=xdg-open
 
-<<<<<<< Updated upstream
 alias aptu="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove"
-=======
-alias aptu="sudo apt update && sudo apt dist-upgrade -y"
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
-<<<<<<< Updated upstream
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
-=======
->>>>>>> Stashed changes
 alias aptunoff="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove -y && sudo poweroff"
 alias sb="source ~/.bashrc"
 alias myip="curl http://ipecho.net/plain; echo"
@@ -210,3 +197,5 @@ kill_process() {
 alias freerider="cd /opt/freerider/ && fr"
 CHROME_SANDBOX="/home/amr/dev/manning/livebook/livebook-ui/node_modules/electron/dist/chrome-sandbox"
 alias set-chrome-bin="sudo chown root:root $CHROME_SANDBOX && sudo chmod 4755 $CHROME_SANDBOX"
+
+alias sat_reset_db='rm -f /home/amr/Dropbox/Aplicaciones/sat/db.sqlite3'
