@@ -26,7 +26,14 @@ alias du='du -ch'
 alias treeacl='tree -A -C -L 2'
 alias gnome-open=xdg-open
 
+<<<<<<< Updated upstream
 alias aptu="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove"
+=======
+alias aptu="sudo apt update && sudo apt dist-upgrade -y"
+<<<<<<< Updated upstream
+>>>>>>> Stashed changes
+=======
+>>>>>>> Stashed changes
 alias aptunoff="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove -y && sudo poweroff"
 alias sb="source ~/.bashrc"
 alias myip="curl http://ipecho.net/plain; echo"
