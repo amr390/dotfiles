@@ -8,7 +8,10 @@ fi
 
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
-    . ~/dotfiles/bash/kubectl_completion
+    command -v kubectl
+    if [ $? -eq 0 ]; then
+        . ~/dotfiles/bash/kubectl_completion
+    fi
 fi
 
 # ---------------------------------------------------------
