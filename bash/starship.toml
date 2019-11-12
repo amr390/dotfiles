@@ -3,6 +3,10 @@
 # sudo apt install fonts-powerline
 # /tonsky/FiraCode/wiki/Linux-instructions#installing-with-a-package-manager
 # Don't print a new line at the start of the prompt
+# wget -q --show-progress https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz
+# $ tar xvf starship-x86_64-unknown-linux-gnu.tar.gz
+# $ sudo mv starship /usr/local/bin/
+#
 add_newline = false
 
 [hostname]
