@@ -8,7 +8,7 @@ fi
 
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
-    command -v kubectl
+    command -v kubectl 2> /dev/null
     if [ $? -eq 0 ]; then
         . ~/dotfiles/bash/kubectl_completion
     fi
@@ -17,26 +17,26 @@ fi
 # ---------------------------------------------------------
 # -- 1.2) Set up bash prompt and ~/.bash_eternal_history --
 # ---------------------------------------------------------
-if [ "$PS1" ]; then
+#if [ "$PS1" ]; then
 
-    PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo -e $$\\t$USER\\t$HOSTNAME\\tscreen $WINDOW\\t`date +%D%t%T%t%Y%t%s`\\t$PWD"$(history 1)" >> ~/.bash_eternal_history'
+    #PROMPT_COMMAND="${PROMPT_COMMAND:+$PROMPT_COMMAND ; }"'echo -e $$\\t$USER\\t$HOSTNAME\\tscreen $WINDOW\\t`date +%D%t%T%t%Y%t%s`\\t$PWD"$(history 1)" >> ~/.bash_eternal_history'
 
-    # Turn on checkwinsize
-    shopt -s checkwinsize
+    ## Turn on checkwinsize
+    #shopt -s checkwinsize
 
-    if [ "x$SHLVL" != "x1" ]; then # We're not a login shell
-        for i in /etc/profile.d/*.sh; do
-        if [ -r "$i" ]; then
-            . $i
-        fi
-    done
-    fi
+    #if [ "x$SHLVL" != "x1" ]; then # We're not a login shell
+        #for i in /etc/profile.d/*.sh; do
+        #if [ -r "$i" ]; then
+            #. $i
+        #fi
+    #done
+    #fi
 
-    if [ -f /home/amr/dotfiles/bash/prompts ]; then
-        . /home/amr/dotfiles/bash/prompts
-        export PS1=$LIGHT_PROMPT
-    fi
-fi
+    #if [ -f /home/amr/dotfiles/bash/prompts ]; then
+        #. /home/amr/dotfiles/bash/prompts
+        #export PS1=$LIGHT_PROMPT
+    #fi
+#fi
 
 # Append to history
 # See: http://www.tldp.org/HOWTO/Bash-Prompt-HOWTO/x329.html

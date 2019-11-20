@@ -23,7 +23,7 @@ export AWS_RDS_HOME=/home/amr/Apps/RDSCli
 
 # Overrides sdk JAVA 
 # User specific environment and startup programs
-JAVA_HOME=/usr/lib/jvm/default-java/ 
+JAVA_HOME=/home/amr/.sdkman/candidates/java/8.0.171-oracle/
 export JAVA_OPTS="$JAVA_OPTS -Xmx2G -Xms1500M"
 
 #export ANDROID_HOME=/home/amr/Apps/android-sdk-tools/

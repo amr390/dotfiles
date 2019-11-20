@@ -2,7 +2,9 @@
 
 alias v="go-dev && cd manning/livebook/vBook/"
 alias ui="go-dev && cd manning/livebook/livebook-ui/"
-alias m="go-dev && cd manning/"
+alias m="go-dev && cd manning/e-commerce/Marketplace"
+alias mws="go-dev && cd manning/e-commerce/MarketplaceWS"
+alias ma="go-dev && cd manning/e-commerce/MarketplaceAdmin"
 alias cas="go-dev && cd cas/VagrantImages/cas/"
 alias mcas="grails run-app -https -Dgrails.env=casDev"
 alias mcasd="grails run-app -https -debug-jvm -Dgrails.env=casDev"
