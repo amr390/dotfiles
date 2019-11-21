@@ -518,6 +518,7 @@
             set guifont=Fira\ Code\ Retina\ 11
             "set guifont=Monaco\ Bold\ 11,Dejavu\ Sans\ Mono\ 11,Monospace\ 11,Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
             "set guifont=Dejavu\ Sans\ Mono\ 11
+            set guifont=Fira\ Code\ Retina\ 11
         elseif has("gui_mac")
             set guifont=Dejavu\ Sans\ Mono\ 12,Monaco\ Bold\ 11,Dejavu\ Sans\ Mono\ 11,Monospace\ 11,Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
         elseif has("gui_win32")
