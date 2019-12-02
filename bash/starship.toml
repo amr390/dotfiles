@@ -74,7 +74,7 @@ style = "bold dimmed green"
 #symbol = "🌟 "
 
 [time]
-disabled = false
+disabled = true
 format = "🕙[ %T ]"
 utc_time_offset = -5
 
