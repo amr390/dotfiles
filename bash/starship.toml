@@ -61,7 +61,7 @@ truncation_symbol = ""
 [kubernetes]
 symbol = "⛵ "
 style = "dim green"
-disabled = false
+disabled = true
 
 [memory_usage]
 show_percentage = true

@@ -25,6 +25,8 @@ alias vdir='ls --color=auto --format=long'
 alias du='du -ch'
 alias treeacl='tree -A -C -L 2'
 alias gnome-open=xdg-open
+alias ksc="sed -i '/\[kubernetes\]/,/disabled/s/disabled = true/disabled = false/' starship.toml"
+alias khc="sed -i '/\[kubernetes\]/,/disabled/s/disabled = false/disabled = true/' starship.toml"
 
 alias aptu="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove"
 alias aptunoff="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove -y && sudo poweroff"
@@ -169,10 +171,11 @@ alias sat-mm-p="$SAT_HOME/manage.py makemigrations --settings=sat8485.settings.s
 alias sat-m-p="$SAT_HOME/manage.py migrate --settings=sat8485.settings.staging"
 alias sat-sh-p="$SAT_HOME/manage.py shell --settings=sat8485.settings.staging"
 
-alias rabbitrun="docker run -d --hostname my-rabbit  --name some-rabbit  -p 15672:15672  -p 4369:4369  -p 5671:5671  -p 5672:5672  -p 15671:15671  -p 25672:25672  -v /home/amr/data/docker/rabbitmq:/var/lib/rabbitmq/ rabbitmq:3-management"
+alias rabbitrun="docker run -d --hostname my-rabbit  --name some-rabbit  -p 15672:15672  -p 4369:4369  -p 5671:5671  -p 5672:5672  -p 15671:15671  -p 25672:25672  -v /media/amr/data/var/lib/rabbitmq:/var/lib/rabbitmq/ rabbitmq:3-management"
 alias rabbitstop="docker kill some-rabbit;  docker rm some-rabbit"
-alias mongorun="docker run -d --hostname mongo --name mongo -p 27017:27017 -v /home/amr/data/docker/mongo:/data/db mongo"
+alias mongorun="docker run -d --hostname mongo --name mongo -p 27017:27017 -v /media/amr/data/var/lib/mongo:/var/lib/mongo/ mongo"
 alias mongostop="docker kill mongo;  docker rm mongo"
+
 alias hostip="ip route show 0.0.0.0/0 | grep -Eo 'via \S+' | awk '{ print \$2 }'"
 alias tomcatrun="docker run -d \
     --add-host=localhost:$(hostip) \
