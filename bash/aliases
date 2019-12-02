@@ -25,8 +25,8 @@ alias vdir='ls --color=auto --format=long'
 alias du='du -ch'
 alias treeacl='tree -A -C -L 2'
 alias gnome-open=xdg-open
-alias ksc="sed -i '/\[kubernetes\]/,/disabled/s/disabled = true/disabled = false/' starship.toml"
-alias khc="sed -i '/\[kubernetes\]/,/disabled/s/disabled = false/disabled = true/' starship.toml"
+alias kcs="sed -i '/\[kubernetes\]/,/disabled/s/disabled = true/disabled = false/' ~/.config/starship.toml"
+alias kch="sed -i '/\[kubernetes\]/,/disabled/s/disabled = false/disabled = true/' ~/.config/starship.toml"
 
 alias aptu="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove"
 alias aptunoff="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove -y && sudo poweroff"
@@ -199,7 +199,7 @@ kill_process() {
 }
 
 #sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7FCC7D46ACCC4CF8
-alias freerider="cd /opt/freerider/ && fr"
+alias freerider="cd /opt/freerider/ && FPVFreerider.x86_64"
 CHROME_SANDBOX="/home/amr/dev/manning/livebook/livebook-ui/node_modules/electron/dist/chrome-sandbox"
 alias set-chrome-bin="sudo chown root:root $CHROME_SANDBOX && sudo chmod 4755 $CHROME_SANDBOX"
 
