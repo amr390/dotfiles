@@ -58,13 +58,15 @@
     " Python
         Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
         Plug 'jmcomets/vim-pony'
+        Plug 'davidhalter/jedi-vim' " requires pip install jedi
 
     " Javascript
         Plug 'elzr/vim-json'
         Plug 'groenewege/vim-less'
         Plug 'pangloss/vim-javascript'
         Plug 'briancollins/vim-jst'
-        Plug 'kchmck/vim-coffee-script'
+        "Plug 'kchmck/vim-coffee-script'
+        " Reactjs and typescript Plugs
         Plug 'mxw/vim-jsx'
         Plug 'isRuslan/vim-es6'
         Plug 'Quramy/tsuquyomi'
@@ -72,12 +74,11 @@
         Plug 'ianks/vim-tsx'
 
     " Java
-        Plug 'derekwyatt/vim-scala'
-        Plug 'derekwyatt/vim-sbt'
+        "Plug 'derekwyatt/vim-scala'
+        "Plug 'derekwyatt/vim-sbt'
 
     " Grails
         " Plug 'vim-scripts/grails-vim'
-        Plug 'davidhalter/jedi-vim'
 
     " HTML
         Plug 'hail2u/vim-css3-syntax'
