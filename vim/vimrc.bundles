@@ -59,6 +59,7 @@
         Plug 'python-mode/python-mode', { 'for': 'python', 'branch': 'develop' }
         Plug 'jmcomets/vim-pony'
         Plug 'davidhalter/jedi-vim' " requires pip install jedi
+        Plug 'jmcantrell/vim-virtualenv'
 
     " Javascript
         Plug 'elzr/vim-json'
