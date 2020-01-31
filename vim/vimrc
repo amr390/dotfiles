@@ -177,7 +177,7 @@
     " opens search results in a window w/ links and highlight the matches
     command! -nargs=+ Grep execute 'silent grep! -I -r -n --exclude *.{xml,pyc} . -e <args>' | copen | execute 'silent /<args>'
     " shift-control-* Greps for the word under the cursor
-    :nmap <leader>g :Grep <c-r>=expand("<cword>")<cr><cr> 
+    :nmap <localleader>* :Grep <c-r>=expand("<cword>")<cr><cr> 
 
     " Stupid shift key fixes
     if has("user_commands")
