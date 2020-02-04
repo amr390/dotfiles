@@ -112,9 +112,9 @@ delete_bookmark_pwd() {
     source $HOME/.bashrc
 }
 
-if [ -f $DOTFILES/bash/aliases-cipal ]; 
+if [ -f $DOTFILES/bash/private-aliases ]; 
 then
-    source $DOTFILES/bash/aliases-cipal
+    source $DOTFILES/bash/private-aliases
 fi
 
 if [ -f $DOTFILES/bash/aliases-manning ]; 
