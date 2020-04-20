@@ -124,9 +124,13 @@ fi
 alias vtmp='cd /home/amr/Documents/Manning/data/db_backups/tmp'
 alias mdbackups='cd /home/amr/Documents/Manning/data/db_backups'
 
+TC_HOME='/home/amr/dev/python/timecop'
+alias tc3="cd $TC_HOME && source timecop-be/env/bin/activate"
+
+
 VB_HOME='/home/amr/dev/python/django/vatbook'
 VB_DB_HOME='/home/amr/Dropbox/Aplicaciones/sat/'
-alias vb3='cd /home/amr/dev/python/django/vatbook'
+alias vb3="cd $VB_HOME && workon vb3"
 
 #DEVELOP
 alias vb-run="$VB_HOME/manage.py runserver --settings=vatbook.settings.develop"

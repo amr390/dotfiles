@@ -44,7 +44,7 @@ lnif() {
     debug
 }
 
-clone_vundle() {
+clone_plug () {
     eval `curl -fLo ~/.vim/autoload/plug.vim --create-dirs \ 
         https://raw.githubusercontent.com/junegunn/vim-plug/master/plug.vim`
 
@@ -66,7 +66,7 @@ create_symlinks() {
     debug
 }
 
-setup_vundle() {
+setup_plug() {
     system_shell="$SHELL"
     export SHELL='/bin/sh'
     vim -u "$HOME/.vimrc.bundles" +PlugInstall! +PlugClean +qall
@@ -88,11 +88,11 @@ program_exists "vim" "To install $app_name you first need to install Vim."
 
 create_symlinks "Setting up vim symlinks"
 
-clone_vundle    "Successfully cloned vundle"
+clone_plug "Successfully cloned plug"
 
-setup_vundle    "Now updating/installing plugins using Vundle"
+setup_plug "Now updating/installing plugins using Plug"
 
-copy_folders    "copy syntax folder into .vim"
+copy_folders "copy syntax folder into .vim"
 
-msg             "\nThanks for installing $app_name."
-msg             "© `date +%Y` A forked of http://vim.spf13.com/ suite simplified"
+msg "\nThanks for installing $app_name."
+msg "© `date +%Y` A forked of http://vim.spf13.com/ suite simplified"

@@ -187,7 +187,7 @@
     :nmap <localleader>* :Grep <c-r>=expand("<cword>")<cr><cr> 
 
     " Stupid shift key fixes
-    if has("user_commands")
+    "if has("user_commands")
         command! -bang -nargs=* -complete=file E e<bang> <args>
         command! -bang -nargs=* -complete=file W w<bang> <args>
         command! -bang -nargs=* -complete=file Wq wq<bang> <args>
@@ -197,7 +197,11 @@
         command! -bang Q q<bang>
         command! -bang QA qa<bang>
         command! -bang Qa qa<bang>
-    endif
+    "endif
+
+
+    " command Bd :up | %bd | e#  used like this :Bd
+    nnoremap <leader>bd :<c-u>up <bar> %bd <bar> e#<cr>
 
     cmap Tabe tabe
 
@@ -516,8 +520,8 @@
 
     " Vimwiki {
         let wiki = {}
-        let wiki.path = '~/Dropbox/wiki/'
-        let wiki.path_html = '~/Dropbox/wiki/export/html'
+        let wiki.path = '~/net/Dropbox/wiki/'
+        let wiki.path_html = '~/net/Dropbox/wiki/export/html'
         let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'java': 'java', 'groovy':'groovy', 'js':'javascript'}
 
         let g:vimwiki_list = [wiki] 
