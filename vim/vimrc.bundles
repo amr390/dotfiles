@@ -1,7 +1,4 @@
-" Modeline and Notes {
-" vim: set sw=4 ts=4 sts=4 et tw=78 foldmarker={,} foldlevel=0 foldmethod=marker spell:
-"
-"}
+
 
 " Environment {
 
@@ -34,6 +31,7 @@
         " Pick one of the checksyntax, jslint, or syntastic
         Plug 'scrooloose/syntastic'
         Plug 'tpope/vim-fugitive'
+        Plug 'tpope/vim-surround'
         Plug 'mattn/webapi-vim'
         Plug 'mattn/gist-vim'
         Plug 'scrooloose/nerdcommenter'
@@ -84,7 +82,7 @@
     " HTML
         Plug 'hail2u/vim-css3-syntax'
         Plug 'cakebaker/scss-syntax.vim'
-        Plug 'tpope/vim-haml'
+        "Plug 'tpope/vim-haml'
         Plug 'sukima/xmledit'
 " }
 

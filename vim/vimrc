@@ -48,7 +48,7 @@
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
-    set nospell                         " Spell checking off
+    "set nospell                         " Spell checking off
     "set hidden                          " Allow buffer switching without saving
 
     " Instead of reverting the cursor to the last position in the buffer, we
@@ -264,6 +264,22 @@
 
 " Plugins {
 
+    " Vim-Surround {
+        "shortcuts: 
+        "cs change surrounding
+        "yss yank line surrounding
+        "ysiw yank word surrounding
+
+
+        "cs change surrounding
+        "cs'"  " change single quite surrounding with double quote
+        "cst'  " change tag by single quote i.e <p>hello world</p> -- 'hello world'
+        "ds'    " delete surrounding single quote
+        "ysiw) " surround word with parenthesis or other character
+        "yssb  " surround the entire line with a parenthesis
+        "yss)  " surround the entire line with a parenthesis
+    " }
+
     " Ctags {
         set tags=./tags;/,~/.vimtags
 
@@ -315,6 +331,10 @@
 
     " JSON {
         nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
+    " }
+
+    " HTML {
+        vmap <leader>ht :!tidy -q -i --show-errors 0<CR> 
     " }
 
     " NerdTree {
@@ -727,3 +747,16 @@
     let g:pymode_rope_regenerate_on_write = 0
 " }
 
+" spell {  zw to add valid word zg to add invalid word
+    inoremap <expr> <c-x><c-k> SpellCheck("\<c-x>\<c-k>")
+    nnoremap z= :<c-u>call SpellCheck()<cr>z=
+    function! SpellCheck(...)
+        let s:spell_restore = &spell
+        set spell
+        augroup restore_spell_option
+            autocmd!
+            autocmd CursorMoved,CompleteDone <buffer> let &spell = s:spell_restore | autocmd! restore_spell_option
+        augroup END
+        return a:0 ? a:1 : ''
+    endfunction"
+" }
