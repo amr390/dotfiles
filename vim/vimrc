@@ -451,8 +451,8 @@
     " }
     " deoplete {
         set completeopt=longest,menuone,preview
-        let g:deoplete#sources = {}
-        let g:deoplete#sources['javascript.jsx'] = ['file', 'ultisnips']
+        let g:deoplete#custom#sources = {}
+        let g:deoplete#custom#sources['javascript.jsx'] = ['file', 'ultisnips']
         let g:tern#command = ['tern']
         let g:tern#arguments = ['--persistent']
         let g:deoplete#enable_at_startup = 1

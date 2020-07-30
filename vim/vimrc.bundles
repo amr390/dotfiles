@@ -71,6 +71,9 @@
         Plug 'Quramy/tsuquyomi'
         Plug 'leafgarland/typescript-vim'
         Plug 'ianks/vim-tsx'
+        " either tsuquyomi for tsserver completion or this for neoplete
+        " integration
+        " Plug 'mhartington/nvim-typescript'
 
     " Java
         "Plug 'derekwyatt/vim-scala'
