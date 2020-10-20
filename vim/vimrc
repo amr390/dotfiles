@@ -28,6 +28,8 @@
 
     set background=dark         " Assume a dark background
     set colorcolumn=80          " Sets the vertical column to warn the 80 columns being reached.
+    " set tw=80                 " Sets the text width to 80 characters and
+    " auto linebreaks
     if !has('gui')
        "set term=$TERM          " Make arrow and other keys work
     endif
@@ -139,19 +141,19 @@
     set pastetoggle=<F12>           " pastetoggle (sane indentation on pastes)
     "set comments=sl:/*,mb:*,elx:*/  " auto format comment blocks
     " Remove trailing whitespaces and ^M chars
-    autocmd FileType c,cpp,java,groovy,go,php,javascript,python,twig,xml,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
+    autocmd FileType c,cpp,java,groovy,go,php,javascript,ts,tsx,python,twig,xml,yml autocmd BufWritePre <buffer> call StripTrailingWhitespace()
     autocmd FileType go autocmd BufWritePre <buffer> Fmt
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
     au BufRead,BufNewFile *.scss set filetype=scss.css
     " preceding line best in a plugin but here for now.
-    au BufNewFile,BufRead *.js, *.html, *.css, *.yml, *.yaml
+    au BufNewFile,BufRead *ts, *tsx, *.js, *.html, *.css, *.yml, *.yaml
                 \ set tabstop=2
                 \ set softtabstop=2
                 \ set shiftwidth=2
                 \ set expandtab
                 \ set textwidth=120
                 \ set autoindent
-    au BufRead,BufNewFile *.js, *.html, *.css, *.yml, *.yaml, *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+    au BufRead,BufNewFile *.ts, *.tsx, *.js, *.html, *.css, *.yml, *.yaml, *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " }
 
 " Key (re)Mappings {
@@ -330,7 +332,7 @@
     " }
 
     " JSON {
-        nmap <leader>jt <Esc>:%!python -m json.tool<CR><Esc>:set filetype=json<CR>
+        nmap <leader>jt <Esc>:%!python3 -m json.tool<CR><Esc>:set filetype=json<CR>
     " }
 
     " HTML {

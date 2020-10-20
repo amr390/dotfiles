@@ -1,6 +1,8 @@
 #!/bin/bash
 
 alias v="go-dev && cd manning/livebook/vBook/"
+alias ivc="go-dev && cd manning/livevideo/ivc/"
+alias vui="go-dev && cd manning/livevideo/ivc-ui/"
 alias ui="go-dev && cd manning/livebook/livebook-ui/"
 alias m="go-dev && cd manning/e-commerce/Marketplace"
 alias mws="go-dev && cd manning/e-commerce/MarketplaceWS"
@@ -9,6 +11,8 @@ alias cas="go-dev && cd cas/VagrantImages/cas/"
 alias mcas="grails run-app -https -Dgrails.env=casDev"
 alias mcasd="grails run-app -https -debug-jvm -Dgrails.env=casDev"
 alias startcas="cas && vagrant ssh -c \"sudo service tomcat7 restart\""
+alias vbuild="v && gradle clean build -x test -x integrationTest"
+alias vqdeploy="vbuild && eb deploy livebook-qa --profile tonim"
 
 
 alias s3-ls=s3_ls_summary
