@@ -191,6 +191,8 @@ alias mongostop="docker kill mongo;  docker rm mongo"
 alias postgresrun="docker run -d --hostname pg --name postgres -p 5432:5432 -v /media/amr/data/var/lib/postgres/data:/var/lib/postgresql/data postgres"
 alias postgresstop="docker kill postgres;  docker rm postgres"
 
+alias tcc="mongo \"mongodb+srv://timecop.qlqog.mongodb.net/ioclock\" --username" $1
+
 alias hostip="ip route show 0.0.0.0/0 | grep -Eo 'via \S+' | awk '{ print \$2 }'"
 alias tomcatrun="docker run -d \
     --add-host=localhost:$(hostip) \
