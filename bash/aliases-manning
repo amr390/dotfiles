@@ -29,17 +29,15 @@ s3_ls_summary() {
 }
 
 pull_m() {
-    m && cd e-commerce/MarketplaceWS
+    mws
     pull_n_back
 
-    m && cd e-commerce/MarketplaceAdmin
+    m
     pull_n_back
 
-    m && cd e-commerce/Marketplace
+    ma
     pull_n_back
 
-    m && cd e-commerce/ManAdmin
-    pull_n_back
 }
 
 pull_n_back() {

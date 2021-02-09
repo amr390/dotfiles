@@ -541,8 +541,19 @@
     " }
 
     " Vimwiki {
+        let g:vimwiki_global_ext = 0
+        let g:vimwiki_key_mappings = { 'table_mappings': 0, }
+        let g:vimwiki_table_mappings = 0
+        let g:vimwiki_valid_html_tags = 'b,i,s,u,sub,sup,kbd,br,hr, pre, script'
+
         let wiki = {}
         let wiki.path = '~/net/Dropbox/wiki/'
+        let wiki.template_path = '$HOME/net/Dropbox/wiki/templates'
+        let wiki.template_default = 'def_template'
+        let wiki.template_ext = '.html'
+        let wiki.ext = '.md'
+        "let wiki.syntax = 'markdown'
+		"let wiki.custom_wiki2html = 'vimwiki_markdown'
         let wiki.path_html = '~/net/Dropbox/wiki/export/html'
         let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'java': 'java', 'groovy':'groovy', 'js':'javascript'}
 
