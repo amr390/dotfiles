@@ -1,43 +1,37 @@
 #!/bin/bash
 
+alias ivc="go-dev && cd manning/livevideo/ivc/"
 alias v="go-dev && cd manning/livebook/vBook/"
 alias ivc="go-dev && cd manning/livevideo/ivc/"
 alias vui="go-dev && cd manning/livevideo/ivc-ui/"
 alias ui="go-dev && cd manning/livebook/livebook-ui/"
-alias m="go-dev && cd manning/e-commerce/Marketplace"
+alias m="go-dev && cd manning/"
+alias mk="go-dev && cd manning/e-commerce/Marketplace"
 alias mws="go-dev && cd manning/e-commerce/MarketplaceWS"
 alias ma="go-dev && cd manning/e-commerce/MarketplaceAdmin"
-alias cas="go-dev && cd cas/VagrantImages/cas/"
-alias mcas="grails run-app -https -Dgrails.env=casDev"
-alias mcasd="grails run-app -https -debug-jvm -Dgrails.env=casDev"
-alias startcas="cas && vagrant ssh -c \"sudo service tomcat7 restart\""
+alias cas="m && cd cas-server"
 alias vbuild="v && gradle clean build -x test -x integrationTest"
-alias vqdeploy="vbuild && eb deploy livebook-qa --profile tonim"
+alias vqdeploy="vbuild && eb deploy livebook-qa"
 
 
 alias s3-ls=s3_ls_summary
-
-alias open_m="open_idea ~/dev/manning/e-commerce/Marketplace"
-alias open_mws="open_idea ~/dev/manning/e-commerce/MarketplaceWS"
-alias open_madmin="open_idea ~/dev/manning/e-commerce/MarketplaceAdmin"
-alias open_maadmin="open_idea ~/dev/manning/e-commerce/ManAdmin"
-alias open_v="open_idea ~/dev/manning/livebook/vBook"
-alias open_i="open_idea ~/dev/manning/livevideo/ivc"
 
 s3_ls_summary() {
     aws s3 ls --summarize --human-readable --recursive s3://$1
 }
 
 pull_m() {
+    CWD = eval `pwd`
     mws
     pull_n_back
 
-    m
+    mk 
     pull_n_back
 
     ma
     pull_n_back
 
+    cd $CWD
 }
 
 pull_n_back() {
@@ -47,8 +41,6 @@ pull_n_back() {
     gco $CURRENT_VERSION
     git stash pop
 }
-
-
 
 
 if [ -f ~/dotfiles/bash/private-manning-aliases ]; then

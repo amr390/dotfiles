@@ -1,5 +1,7 @@
 #!/bin/bash
 
+NODE_MODULES="~/Apps/node_modules"
+
 # This causes grails to fail
 #export GRAILS_OPTS="-Dserver.ssl.key-store=/home/amr/.grailsTomcatKeystore"
 export MAVEN_OPTS="$MAVEN_OPTS"
@@ -36,6 +38,7 @@ export DBX_ACCESS_TOKEN=xxx
 #  - Lowest priority first, highest priority last.
 export PATH=/usr/bin:/usr/local/bin:/usr/local/sbin:$HOME/.local/bin:$PATH
 export PATH=$JAVA_HOME/bin:$PATH # Java home
+export PATH=$NODE_MODULES/.bin:$PATH # node modules bin 
 export PATH=$CS_HOME/bin:$AWS_RDS_HOME/bin:$PATH # AWS path
 export PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
 #kubectx and kubens https://github.com/ahmetb/kubectx 

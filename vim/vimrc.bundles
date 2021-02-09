@@ -46,6 +46,9 @@
 
     " Snippets & AutoComplete
         Plug 'Shougo/deoplete.nvim'
+        Plug 'msgpack/msgpack-python' " required by deoplete
+        Plug 'deoplete-plugins/deoplete-jedi' " autocomplete for jedi (python)
+        "Plug 'mhartington/nvim-typescript' " autocomplete for typescript
         Plug 'roxma/nvim-yarp'
         Plug 'roxma/vim-hug-neovim-rpc'
         Plug 'ervandew/supertab'
