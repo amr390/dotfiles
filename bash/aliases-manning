@@ -21,7 +21,7 @@ s3_ls_summary() {
 }
 
 pull_m() {
-    CWD = eval `pwd`
+    CWD=`pwd`
     mws
     pull_n_back
 
