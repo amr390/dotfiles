@@ -27,6 +27,7 @@ alias treeacl='tree -A -C -L 2'
 alias gnome-open=xdg-open
 alias kcs="sed -i '/\[kubernetes\]/,/disabled/s/disabled = true/disabled = false/' ~/.config/starship.toml"
 alias kch="sed -i '/\[kubernetes\]/,/disabled/s/disabled = false/disabled = true/' ~/.config/starship.toml"
+alias k="kubectl"
 
 alias aptu="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove -y"
 alias aptunoff="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremove -y && sudo poweroff"
