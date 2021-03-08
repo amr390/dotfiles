@@ -1,8 +1,8 @@
 
 eval "$(starship init bash)"
 
-source ~/dotfiles/bash/config
-source ~/dotfiles/bash/env
-source ~/dotfiles/bash/aliases
+source ~/Documents/dotfiles/bash/config
+source ~/Documents/dotfiles/bash/env
+source ~/Documents/dotfiles/bash/aliases
 
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
