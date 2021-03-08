@@ -1,16 +1,16 @@
 #!/bin/bash
 
-alias ivc="go-dev && cd manning/livevideo/ivc/"
-alias v="go-dev && cd manning/livebook/vBook/"
-alias ivc="go-dev && cd manning/livevideo/ivc/"
-alias vui="go-dev && cd manning/livevideo/ivc-ui/"
-alias ui="go-dev && cd manning/livebook/livebook-ui/"
-alias m="go-dev && cd manning/"
-alias mk="go-dev && cd manning/e-commerce/Marketplace"
-alias mws="go-dev && cd manning/e-commerce/MarketplaceWS"
-alias ma="go-dev && cd manning/e-commerce/MarketplaceAdmin"
-alias cas="m && cd cas-server"
-alias vbuild="v && gradle clean build -x test -x integrationTest"
+alias ivc="cd $DEV/manning/livevideo/ivc/"
+alias v="cd $DEV/manning/livebook/vBook/"
+alias ivc="cd $DEV/manning/livevideo/ivc/"
+alias vui="cd $DEV/manning/livevideo/ivc-ui/"
+alias ui="cd $DEV/manning/livebook/livebook-ui/"
+alias m="cd $DEV/manning/"
+alias mk="cd $DEV/manning/e-commerce/Marketplace"
+alias mws="cd $DEV/manning/e-commerce/MarketplaceWS"
+alias ma="cd $DEV/manning/e-commerce/MarketplaceAdmin"
+alias cas="cd $DEV/cas.6.3/cas-server"
+alias vbuild="sdk use gradle 5.6.4 && v && gradle clean build -x test -x integrationTest"
 alias vqdeploy="vbuild && eb deploy livebook-qa"
 
 
@@ -43,6 +43,6 @@ pull_n_back() {
 }
 
 
-if [ -f ~/dotfiles/bash/private-manning-aliases ]; then
-    source ~/dotfiles/bash/private-manning-aliases
+if [ -f ~/Documents/dotfiles/bash/private-manning-aliases ]; then
+    source ~/Documents/dotfiles/bash/private-manning-aliases
 fi

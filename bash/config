@@ -8,9 +8,9 @@ fi
 
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion
-    command -v kubectl 2> /dev/null
+    command -v kubectl > /dev/null
     if [ $? -eq 0 ]; then
-        . ~/dotfiles/bash/kubectl_completion
+        . ~/Documents/dotfiles/bash/kubectl_completion
     fi
 fi
 
@@ -80,6 +80,3 @@ then
     echo "loading django-auth-config"
     source private-django-auth-config
 fi
-
-source <(kubectl completion bash) 
-complete -F __start_kubectl k
