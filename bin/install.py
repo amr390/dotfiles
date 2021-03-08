@@ -9,7 +9,7 @@ import os, glob, shutil, zipfile, datetime, subprocess
 
 HOME = os.environ['HOME']
 HOME_BASHRC = os.path.join(HOME, '.bashrc')
-DOTFILES_FOLDER = os.path.join(HOME, 'dotfiles')
+DOTFILES_FOLDER = os.path.join(HOME, 'Documents', 'dotfiles')
 BASHRC = os.path.abspath(os.path.join(DOTFILES_FOLDER, 'bashrc'))
 SOURCE_COMMAND = ['bash', '-c', 'source ~/.bashrc']
 DATETIME_PREFIX = datetime.datetime.today().strftime('%Y%m%d%H%M_')
