@@ -14,7 +14,7 @@ export SDKMAN_DIR="/home/amr/.sdkman"
 # ####### PYTHON VIRTUALENV ###############
 export WORKON_HOME=/home/amr/.virtualenvs
 export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
-source /etc/bash_completion.d/virtualenvwrapper
+[[ -f /etc/bash_completion.d/virtualenvwrapper ]] && source /etc/bash_completion.d/virtualenvwrapper
 
 # Search cloud tools variables.
 export CS_HOME=/home/amr/Apps/aws/cloud-search-tools/
