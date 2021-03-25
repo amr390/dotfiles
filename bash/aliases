@@ -46,6 +46,10 @@ alias startlemp="docker run -d --name=lemp \
     -p 9000:80 \
     stenote/docker-lemp:latest"
 
+alias jdk8='sdk use java 8.0.265-open'
+alias jdk11='sdk use java 11.0.10-open'
+alias kcas='kill $(lsof -t -i:9443)'
+
 # vim wiki
 wikii() {
     gvim -c ":VimwikiIndex"
@@ -178,7 +182,7 @@ alias sat-m-p="$SAT_HOME/manage.py migrate --settings=sat8485.settings.staging"
 alias sat-sh-p="$SAT_HOME/manage.py shell --settings=sat8485.settings.staging"
 
 alias rabbitstop="docker ps | grep some-rabbit && docker kill some-rabbit; docker rm some-rabbit"
-alias rabbitrun="rabbitstop && docker run -d \
+alias rabbitrun="rabbitstop; docker run -d \
              --hostname my-rabbit \
              --name some-rabbit \
              -p 15672:15672 \
