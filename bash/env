@@ -2,6 +2,7 @@
 
 echo "setting node modules variable"
 NODE_MODULES="~/Documents/Apps/node_modules"
+MONGO_HOME="~/Documents/Apps/mongodb"
 
 echo "setting gradle OPTS"
 # This causes grails to fail
@@ -33,7 +34,7 @@ echo "adding path folders"
 #  - These are line by line so that you can kill one without affecting the others.
 #  - Lowest priority first, highest priority last.
 export PATH=/usr/bin:/usr/local/bin:/usr/local/sbin:$HOME/.local/bin:$PATH
-export PATH=$JAVA_HOME/bin:$PATH # Java home
+export PATH=$MONGO_HOME/bin:$PATH # MongoDB home
 export PATH=$NODE_MODULES/.bin:$PATH # node modules bin 
 export PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
 #kubectx and kubens https://github.com/ahmetb/kubectx 

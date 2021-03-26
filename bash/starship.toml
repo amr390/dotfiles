@@ -18,7 +18,7 @@ disabled = false
 
 # Replace the "❯" symbol in the prompt with "➜"
 [character]      # The name of the module we are configuring is "character"
-symbol = "➜"     # The "symbol" segment is being set to "➜"
+success_symbol = "[➜](bold green)"
 
 # Disable the package module, hiding it from the prompt completely
 [package]
@@ -98,7 +98,8 @@ disabled = true
 #symbol = "🌟 "
 
 [python]
-format = "[$symbol$version]($style) "
+#format = "[$symbol$version]($style) "
+format = 'via [${symbol}${pyenv_prefix}(${version} )(\($virtualenv\))]($style)'
 style = "bold green"
 
 [time]

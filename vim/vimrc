@@ -146,14 +146,14 @@
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
     au BufRead,BufNewFile *.scss set filetype=scss.css
     " preceding line best in a plugin but here for now.
-    au BufNewFile,BufRead *ts, *tsx, *.js, *.html, *.css, *.yml, *.yaml
+    au BufNewFile,BufRead *.ts,*.tsx,*.js,*.html,*.css,*.yml,*.yaml
                 \ set tabstop=2
                 \ set softtabstop=2
                 \ set shiftwidth=2
                 \ set expandtab
                 \ set textwidth=120
                 \ set autoindent
-    au BufRead,BufNewFile *.ts, *.tsx, *.js, *.html, *.css, *.yml, *.yaml, *.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
+    au BufRead,BufNewFile *.ts,*.tsx,*.js,*.html,*.css,*.yml,*.yaml,*.py,*.pyw,*.c,*.h match BadWhitespace /\s\+$/
 " }
 
 " Key (re)Mappings {
@@ -412,6 +412,7 @@
     " }
     
     " typescript vim {
+        " npm install tsc
         let g:typescript_compiler_binary = 'tsc'
         let g:typescript_compiler_options = ''
     " }
@@ -439,11 +440,13 @@
     " supertab {
         autocmd FileType javascript let g:SuperTabDefaultCompletionType = "<c-x><c-o>"
     " }
-    " deoplete {
+    " deoplete {a
         set completeopt=longest,menuone,preview
-        let g:deoplete#custom#sources = {}
-        let g:deoplete#custom#sources['javascript.jsx'] = ['file', 'ultisnips']
-        "let g:deoplete#sources#jedi
+        " Ignore current buffer for searches and around not sure what it is.
+        "let g:deoplete#custom#option('ignore_sources', {'_': ['around', 'buffer']})
+        "let g:deoplete#custom#sources = {}
+        "let g:deoplete#custom#sources['javascript.jsx'] = ['file', 'ultisnips']
+        "let g:deoplete#sources#jedi " pip install --user jedi
         let g:tern#command = ['tern']
         let g:tern#arguments = ['--persistent']
         let g:deoplete#enable_at_startup = 1
@@ -455,7 +458,9 @@
         let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
         let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
         let g:UltiSnipsEditSplit           = "horizontal"
-        inoremap <expr><TAB>  pumvisible() ? "\<C-n>" : "\<TAB>"
+        let g:UltiSnipsSnippetDirectories  = ["UltiSnips", "~/Documents/dotfiles/vim/UltiSnips"]
+        let g:UltiSnipsSnippetsDir         = "~/Documents/dotfiles/vim/UltiSnips"
+        inoremap <expr><c-j>  pumvisible() ? "\<C-n>" : "\<c-j>"
     " }
 
     " UndoTree {
@@ -541,13 +546,14 @@
         let wiki.template_default = 'def_template'
         let wiki.template_ext = '.html'
         let wiki.ext = '.md'
-        "let wiki.syntax = 'markdown'
+        let wiki.syntax = 'markdown'
 		"let wiki.custom_wiki2html = 'vimwiki_markdown'
         let wiki.path_html = '$HOME/Documents/net/Dropbox/wiki/export/html'
         let wiki.nested_syntaxes = {'python': 'python', 'c++': 'cpp', 'java': 'java', 'groovy':'groovy', 'js':'javascript'}
 
         let g:vimwiki_list = [wiki] 
         let g:vimwiki_autowriteall = 1
+        let g:vimwiki_ext2syntax = {'.md': 'markdown', '.markdown': 'markdown', '.mdown': 'markdown'}
 
         au BufRead,BufNewFile *.wiki set filetype=vimwiki
         :autocmd FileType vimwiki map <leader>d :VimwikiMakeDiaryNote
