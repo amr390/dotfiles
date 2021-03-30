@@ -2,6 +2,9 @@
 
 eval "$(starship init bash)"
 
+[[ -f /etc/bash_completion.d/virtualenvwrapper ]] && source /etc/bash_completion.d/virtualenvwrapper
+
+
 echo "enabling bash autocompletion if exists"
 if [ -f /etc/bash_completion ]; then
     . /etc/bash_completion

@@ -2,16 +2,16 @@
 # https://github.com/starship/starship
 # sudo apt install fonts-powerline
 # /tonsky/FiraCode/wiki/Linux-instructions#installing-with-a-package-manager
-# Don't print a new line at the start of the prompt
 # wget -q --show-progress https://github.com/starship/starship/releases/latest/download/starship-x86_64-unknown-linux-gnu.tar.gz
 # $ tar xvf starship-x86_64-unknown-linux-gnu.tar.gz
 # $ sudo mv starship /usr/local/bin/
 #
+# Don't print a new line at the start of the prompt
 add_newline = false
 
 [hostname]
 ssh_only = false
-format = "<[$hostname]($style)>"
+format = "⟪[$hostname]($style)⟫"
 trim_at = "-"
 style = "bold dimmed white"
 disabled = false
@@ -19,6 +19,7 @@ disabled = false
 # Replace the "❯" symbol in the prompt with "➜"
 [character]      # The name of the module we are configuring is "character"
 success_symbol = "[➜](bold green)"
+error_symbol = "[✗](bold red)"
 
 # Disable the package module, hiding it from the prompt completely
 [package]

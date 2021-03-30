@@ -24,9 +24,6 @@ export WORKON_HOME=/home/amr/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
 export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
-source /usr/local/bin/virtualenvwrapper.sh
-[[ -f /etc/bash_completion.d/virtualenvwrapper ]] && source /etc/bash_completion.d/virtualenvwrapper
-
 export DBX_ACCESS_TOKEN=xxx
 
 echo "adding path folders"
