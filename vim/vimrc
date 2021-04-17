@@ -146,7 +146,7 @@
     autocmd BufNewFile,BufRead *.html.twig set filetype=html.twig
     au BufRead,BufNewFile *.scss set filetype=scss.css
     " preceding line best in a plugin but here for now.
-    au BufNewFile,BufRead *.ts,*.tsx,*.js,*.html,*.css,*.yml,*.yaml
+    au BufNewFile,BufRead *.html,*.css,*.yml,*.yaml
                 \ set tabstop=2     |
                 \ set softtabstop=2 |
                 \ set shiftwidth=2  |
