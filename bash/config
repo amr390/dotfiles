@@ -2,8 +2,12 @@
 
 eval "$(starship init bash)"
 
+#virtualenvwrapper
+export WORKON_HOME=$HOME/.virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 [[ -f /etc/bash_completion.d/virtualenvwrapper ]] && source /etc/bash_completion.d/virtualenvwrapper
-
+[[ -f /usr/local/bin/virtualenvwrapper.sh ]]  && source /usr/local/bin/virtualenvwrapper.sh
 
 echo "enabling bash autocompletion if exists"
 if [ -f /etc/bash_completion ]; then
