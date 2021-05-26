@@ -1,10 +1,10 @@
 #!/bin/bash
 
-echo "setting node modules variable"
+#echo "setting node modules variable"
 NODE_MODULES="~/Documents/Apps/node_modules"
 MONGO_HOME="~/Documents/Apps/mongodb"
 
-echo "setting gradle OPTS"
+#echo "setting gradle OPTS"
 # This causes grails to fail
 export GRADLE_OPTS="$GRADLE_OPTS -Dorg.gradle.daemon=true"
 # User specific environment and startup programs
@@ -13,20 +13,18 @@ export JAVA_OPTS="$JAVA_OPTS -Xmx2G -Xms1500M"
 export ANDROID_SDK_ROOT=/home/amr/Documents/Apps/android-sdk-tools/
 
 
-echo "initializing sdkman"
+#echo "initializing sdkman"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/amr/.sdkman"
-[[ -s "/home/amr/.sdkman/bin/sdkman-init.sh" ]] && source "/home/amr/.sdkman/bin/sdkman-init.sh"
 
-echo "initializing virtualenv"
 # ####### PYTHON VIRTUALENV ###############
-export WORKON_HOME=/home/amr/.virtualenvs
+export WORKON_HOME=$HOME/.virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/bin/virtualenv
+export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 export DBX_ACCESS_TOKEN=xxx
 
-echo "adding path folders"
+#echo "adding path folders"
 # ####### Configure PATH ###############
 #  - These are line by line so that you can kill one without affecting the others.
 #  - Lowest priority first, highest priority last.
@@ -34,5 +32,3 @@ export PATH=/usr/bin:/usr/local/bin:/usr/local/sbin:$HOME/.local/bin:$PATH
 export PATH=$MONGO_HOME/bin:$PATH # MongoDB home
 export PATH=$NODE_MODULES/.bin:$PATH # node modules bin 
 export PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
-#kubectx and kubens https://github.com/ahmetb/kubectx 
-export PATH=$HOME/Documents/Apps/.kubectx:$PATH

@@ -2,36 +2,15 @@
 
 eval "$(starship init bash)"
 
-#virtualenvwrapper
-export WORKON_HOME=$HOME/.virtualenvs
-export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
-[[ -f /etc/bash_completion.d/virtualenvwrapper ]] && source /etc/bash_completion.d/virtualenvwrapper
-[[ -f /usr/local/bin/virtualenvwrapper.sh ]]  && source /usr/local/bin/virtualenvwrapper.sh
-
-echo "enabling bash autocompletion if exists"
-if [ -f /etc/bash_completion ]; then
-    . /etc/bash_completion
-fi
-
-echo "enabling kubectl autocompletion"
-#command -v kubectl > /dev/null
-if [ $? -eq 0 ]; then
-    . ~/Documents/dotfiles/bash/kubectl_completion
-fi
-
-echo "enabling git prompt and autocompletion"
-# Git branch setup 
-source ~/.git-completion.bash
-source ~/.git-prompt.sh
-
-
-echo "enabling eb autocompletion"
-# eb autocompletion
-if [ -f ~/.local/bin/eb_completion.bash ] ; 
-then
-    source ~/.local/bin/eb_completion.bash
-fi
-
-echo "enabling fuzzy finder"
+[ -f /etc/bash_completion ] && source /etc/bash_completion
+[ -f /etc/bash_completion.d/virtualenvwrapper ] && source /etc/bash_completion.d/virtualenvwrapper
+[ -f /usr/local/bin/virtualenvwrapper.sh ]  && source /usr/local/bin/virtualenvwrapper.sh
+[ -f ~/Documents/dotfiles/bash/kubectl_completion ] && source ~/Documents/dotfiles/bash/kubectl_completion
+[ -f ~/Documents/dotfiles/git-completion.bash ] && source ~/Documents/dotfiles/git-completion.bash
+[ -f ~/Documents/dotfiles/git-prompt.sh ] && source ~/Documents/dotfiles/git-prompt.sh
+[ -f ~/.local/bin/eb_completion.bash ] && source ~/.local/bin/eb_completion.bash
 [ -f ~/.fzf.bash ] && source ~/.fzf.bash
+[ -f /home/amr/.sdkman/bin/sdkman-init.sh ] && source ~/.sdkman/bin/sdkman-init.sh
+#[ -f /etc/bashrc ] && source /etc/bashrc
+
+alias vim='nvim'

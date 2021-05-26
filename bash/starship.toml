@@ -25,10 +25,15 @@ error_symbol = "[✗](bold red)"
 [package]
 disabled = true
 
+
 [aws]
+format = 'on [$symbol($profile)(\($region\) )]($style)'
 style = "bold blue"
 symbol = "🅰 "
-display_items = "region"
+[aws.region_aliases]
+ap-southeast-2="au"
+us-east-1="va"
+us-west-2="or"
 
 [directory]
 truncation_length = 5
@@ -55,8 +60,8 @@ format = " took [$duration]($style)"
 # deleted = "🗑"
 
  [git_state]
- progress_divider = " of "
- cherry_pick = "🍒 PICKING"
+ format = '[\($state( $progress_current of $progress_total)\)]($style) '
+ cherry_pick = "[🍒 PICKING](bold red)"
 
  [git_branch]
  symbol = " "
@@ -111,13 +116,13 @@ utc_time_offset = -5
 [username]
 disabled = true
 
-[memory_usage]
-format = "$symbol[${ram}( | ${swap})]($style) "
-show_percentage = true
-show_swap = true
-threshold = 70
-style = "bold dimmed white"
-disabled = false
+#[memory_usage]
+#format = "$symbol[${ram}( | ${swap})]($style) "
+#show_percentage = true
+#show_swap = true
+#threshold = 70
+#style = "bold dimmed white"
+#disabled = false
 
 # [memory_usage]
 # show_percentage = true

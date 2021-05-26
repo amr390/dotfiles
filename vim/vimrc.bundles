@@ -26,6 +26,7 @@
             Plug 'powerline/powerline'
             Plug 'vim-airline/vim-airline'
             Plug 'vim-airline/vim-airline-themes'
+            Plug 'morhetz/gruvbox'
 
     " General Programming
         " Pick one of the checksyntax, jslint, or syntastic
