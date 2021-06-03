@@ -18,9 +18,13 @@ export ANDROID_SDK_ROOT=/home/amr/Documents/Apps/android-sdk-tools/
 export SDKMAN_DIR="/home/amr/.sdkman"
 
 # ####### PYTHON VIRTUALENV ###############
-export WORKON_HOME=$HOME/.virtualenvs
+export WORKON_HOME=$HOME/.local/share/virtualenv/virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+if [[ -f /usr/local/bin/virtualenv ]] ; then
+    export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+elif [[ -f ~/.local/bin/virtualenv ]]; then
+    export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv 
+fi
 export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 export DBX_ACCESS_TOKEN=xxx
 
