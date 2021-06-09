@@ -22,12 +22,21 @@ s3_ls_summary() {
 
 pull_m() {
     CWD=`pwd`
+    echo "***************************************"
+    echo "*        PULLING MARKETPLACEWS        *"
+    echo "***************************************"
     mws
     pull_n_back
 
+    echo "***************************************"
+    echo "*         PULLING MARKETPLACE         *"
+    echo "***************************************"
     mk 
     pull_n_back
 
+    echo "***************************************"
+    echo "*     PULLING MARKETPLACEADMIN        *"
+    echo "***************************************"
     ma
     pull_n_back
 
