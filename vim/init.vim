@@ -488,23 +488,23 @@
         let g:airline_left_sep = '▶'
         let g:airline_right_sep = '«'
         let g:airline_right_sep = '◀'
-        let g:airline_symbols.linenr = '␊'
-        let g:airline_symbols.linenr = '␤'
-        let g:airline_symbols.linenr = '¶'
-        let g:airline_symbols.branch = '⎇'
-        let g:airline_symbols.paste = 'ρ'
-        let g:airline_symbols.paste = 'Þ'
-        let g:airline_symbols.paste = '∥'
-        let g:airline_symbols.whitespace = 'Ξ'
+        "let g:airline_symbols.linenr = '␊'
+        "let g:airline_symbols.linenr = '␤'
+        "let g:airline_symbols.linenr = '¶'
+        "let g:airline_symbols.branch = '⎇'
+        "let g:airline_symbols.paste = 'ρ'
+        "let g:airline_symbols.paste = 'Þ'
+        "let g:airline_symbols.paste = '∥'
+        "let g:airline_symbols.whitespace = 'Ξ'
 
         " airline symbols
         "let g:airline_left_sep = ''
         "let g:airline_left_alt_sep = ''
         "let g:airline_right_sep = ''
         "let g:airline_right_alt_sep = ''
-        "let g:airline_symbols.branch = ''
-        "let g:airline_symbols.readonly = ''
-        "let g:airline_symbols.linenr = ''
+        let g:airline_symbols.branch = ''
+        let g:airline_symbols.readonly = ''
+        let g:airline_symbols.linenr = ''
     " }
 
     " VimCompletesMe {
@@ -571,14 +571,14 @@
     " GVIM- (here instead of .gvimrc)
     set guioptions-=T           " Remove the toolbar
     set lines=40                " 40 lines of text instead of 24
-    set guifont=Fira\ Code\ Retina\ 11
+    set guifont=Fira\ Code\ 11
     "set guifont=Dejavu\ Sans\ Mono\ 11
     "set guifont=Monaco\ Bold\ 11
     if has("gui_gtk")
-        set guifont=Fira\ Code\ Retina\ 11
+        set guifont=Fira\ Code\ 11
         "set guifont=Monaco\ Bold\ 11,Dejavu\ Sans\ Mono\ 11,Monospace\ 11,Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
         "set guifont=Dejavu\ Sans\ Mono\ 11
-        set guifont=Fira\ Code\ Retina\ 11
+        set guifont=Fira\ Code\ 11
     elseif has("gui_mac")
         set guifont=Dejavu\ Sans\ Mono\ 12,Monaco\ Bold\ 11,Dejavu\ Sans\ Mono\ 11,Monospace\ 11,Andale\ Mono\ Regular\ 16,Menlo\ Regular\ 15,Consolas\ Regular\ 16,Courier\ New\ Regular\ 18
     elseif has("gui_win32")
