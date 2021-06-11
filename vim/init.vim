@@ -27,8 +27,8 @@
     set viewoptions=folds,options,cursor,unix,slash " Better Unix / Windows compatibility
     set virtualedit=onemore             " Allow for cursor beyond last character
     set history=1000                    " Store a ton of history (default is 20)
+    set hidden                          " Allow buffer switching without saving
     "set nospell                         " Spell checking off
-    "set hidden                          " Allow buffer switching without saving
 
     " Instead of reverting the cursor to the last position in the buffer, we
     " set it to the first line when editing a git commit message
@@ -67,18 +67,6 @@
         set rulerformat=%30(%=\:b%n%y%m%r%w\ %l,%c%V\ %P%) " A ruler on steroids
         set showcmd                 " Show partial commands in status line and
                                     " Selected characters/lines in visual mode
-    endif
-
-    if has('statusline')
-        set laststatus=2
-
-        " Broken down into easily includeable segments
-        set statusline=%<%f\                     " Filename
-        set statusline+=%w%h%m%r                 " Options
-        set statusline+=%{fugitive#statusline()} " Git Hotness
-        set statusline+=\ [%{&ff}/%Y]            " Filetype
-        set statusline+=\ [%{getcwd()}]          " Current dir
-        set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
     endif
 
     set backspace=indent,eol,start  " Backspace for dummies
@@ -163,7 +151,7 @@
 
     " opens search results in a window w/ links and highlight the matches
     command! -nargs=+ Grep execute 'silent grep! -I -r -n --exclude *.{xml,pyc} . -e <args>' | copen | execute 'silent /<args>'
-    " shift-control-* Greps for the word under the cursor
+    " ;-* Greps for the word under the cursor
     :nmap <localleader>* :Grep <c-r>=expand("<cword>")<cr><cr> 
 
     " Stupid shift key fixes
@@ -180,7 +168,7 @@
     "endif
 
 
-    " command Bd :up | %bd | e#  used like this :Bd
+    " command Bd :up | %bd | e#  used like this :Bd -- deletes other buffers
     nnoremap <leader>bd :<c-u>up <bar> %bd <bar> e#<cr>
 
     cmap Tabe tabe
@@ -203,9 +191,9 @@
 
     " Find merge conflict markers
     map <leader>fc /\v^[<\|=>]{7}( .*\|$)<CR>
-    " Map <Leader>ff to display all lines with keyword under cursor
+    " Map <Leader>fk to display all lines with keyword under cursor
     " and ask which one to jump to
-    nmap <Leader>ff [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
+    nmap <Leader>fk [I:let nr = input("Which one: ")<Bar>exe "normal " . nr ."[\t"<CR>
 
     " Shortcuts
     " Change Working Directory to that of the current file
@@ -288,16 +276,17 @@
     "}
 
     " Fugitive {
-        nnoremap <silent> <leader>gits :Gstatus<CR>
-        nnoremap <silent> <leader>gitd :Gdiff<CR>
-        nnoremap <silent> <leader>gitc :Gcommit<CR>
-        nnoremap <silent> <leader>gitb :Gblame<CR>
-        nnoremap <silent> <leader>gitl :Glog<CR>
-        nnoremap <silent> <leader>gitp :Git push<CR>
-        nnoremap <silent> <leader>gitr :Gread<CR>:GitGutter<CR>
-        nnoremap <silent> <leader>gitw :Gwrite<CR>:GitGutter<CR>
-        nnoremap <silent> <leader>gite :Gedit<CR>
-        nnoremap <silent> <leader>gitg :GitGutterToggle<CR>
+        nnoremap <silent> <leader>gst :Git status<CR>
+        nnoremap <silent> <leader>gd :Git diff<CR>
+        nnoremap <silent> <leader>gc :Git commit<CR>
+        nnoremap <silent> <leader>gb :Git blame<CR>
+        nnoremap <silent> <leader>glog :Git log<CR>
+        nnoremap <silent> <leader>gl :Git log<CR>
+        nnoremap <silent> <leader>gp :Git push<CR>
+        nnoremap <silent> <leader>gr :Git read<CR>:GitGutter<CR>
+        nnoremap <silent> <leader>gw :Git write<CR>:GitGutter<CR>
+        nnoremap <silent> <leader>ge :Git edit<CR>
+        nnoremap <silent> <leader>gg :GitGutterToggle<CR>
     "}
 
     " indent_guides {
@@ -319,11 +308,16 @@
     " }
 
     " HTML {
-        vmap <leader>ht :!tidy -q -i --show-errors 0<CR> 
+        vmap <leader>jh :!tidy -q -i --show-errors 0<CR> 
+    " }
+
+    " XML { map @@x !%xmllint --format --recover -^M
+        nmap <leader>xt <Esc>:%!xmllint --format --recover -<CR><Esc>:set filetype=xml<CR>
     " }
 
     " NerdTree {
-        map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+        "map <C-e> :NERDTreeToggle<CR>:NERDTreeMirror<CR>
+        map <C-e> :NERDTreeToggle<CR>
         map <leader>e :NERDTreeFind<CR>
         nmap <leader>nt :NERDTreeFind<CR>
         "" nerdtree toggle with ctrl n
@@ -455,18 +449,14 @@
     " }
     " https://code.djangoproject.com/wiki/UsingVimWithDjango
     " ultisnips {
-        let g:UltiSnipsExpandTrigger       = "<c-j>" " <c-j>
-        let g:UltiSnipsJumpForwardTrigger  = "<c-n>"
-        let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
-        let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
-        let g:UltiSnipsEditSplit           = "horizontal"
-        let g:UltiSnipsSnippetDirectories  = ["UltiSnips", "~/Documents/dotfiles/vim/UltiSnips"]
-        let g:UltiSnipsSnippetsDir         = "~/Documents/dotfiles/vim/UltiSnips"
-        inoremap <expr><Tab>  pumvisible() ? "\<C-n>" : "\<Tab>"
-    " }
-
-    " XML { map @@x !%xmllint --format --recover -^M
-        nmap <leader>xt <Esc>:%!xmllint --format --recover -<CR><Esc>:set filetype=xml<CR>
+        "let g:UltiSnipsExpandTrigger       = "<c-j>" " <c-j>
+        "let g:UltiSnipsJumpForwardTrigger  = "<c-n>"
+        "let g:UltiSnipsJumpBackwardTrigger = "<c-p>"
+        "let g:UltiSnipsListSnippets        = "<c-k>" "List possible snippets based on current file
+        "let g:UltiSnipsEditSplit           = "horizontal"
+        "let g:UltiSnipsSnippetDirectories  = ["UltiSnips", "~/Documents/dotfiles/vim/UltiSnips"]
+        "let g:UltiSnipsSnippetsDir         = "~/Documents/dotfiles/vim/UltiSnips"
+        "inoremap <expr><Tab>  pumvisible() ? "\<C-n>" : "\<Tab>"
     " }
 
     " vim-airline {
@@ -516,6 +506,19 @@
         let g:airline_symbols.branch = ''
         let g:airline_symbols.readonly = ''
         let g:airline_symbols.linenr = ''
+        
+        "if has('statusline')
+            "set laststatus=2
+
+            "" Broken down into easily includeable segments
+            "set statusline=%<%f\                     " Filename
+            "set statusline+=%w%h%m%r                 " Options
+            "set statusline+=%{fugitive#statusline()} " Git Hotness
+            "set statusline+=\ [%{&ff}/%Y]            " Filetype
+            "set statusline+=\ [%{getcwd()}]          " Current dir
+            "set statusline+=%=%-14.(%l,%c%V%)\ %p%%  " Right aligned file nav info
+        "endif
+
     " }
 
     " VimCompletesMe {
@@ -664,8 +667,8 @@
     function! StripTrailingWhitespace()
         " To disable the stripping of whitespace, add the following to your
         " .vimrc.before.local file:
-        "   let g:spf13_keep_trailing_whitespace = 1
-        if !exists('g:spf13_keep_trailing_whitespace')
+        "   let g:keep_trailing_whitespace = 1
+        if !exists('g:keep_trailing_whitespace')
             " Preparation: save last search, and cursor position.
             let _s=@/
             let l = line(".")
