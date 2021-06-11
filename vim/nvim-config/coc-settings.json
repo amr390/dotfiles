@@ -8,20 +8,16 @@
     "javascriptreact",
     "typescript.tsx",
     "graphql",
-    "css", 
-    "markdown", 
-    "html", 
-    "yaml",  
+    "css",
+    "markdown",
+    "html",
+    "yaml",
     "python"
   ],
 
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
+  "python.pythonPath": "$HOME/.local/share/virtualenv/virtualenvs",
 
-  "snippets.ultisnips.directories":
-  [
-    "UltiSnips",
-    "~/.config/nvim/UltiSnips"
-  ]
- 
+  "snippets.ultisnips.directories": ["UltiSnips", "~/.config/nvim/UltiSnips"]
 }
