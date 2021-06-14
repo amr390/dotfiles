@@ -17,7 +17,8 @@
 
   "python.linting.enabled": true,
   "python.linting.pylintEnabled": true,
-  "python.pythonPath": "$HOME/.local/share/virtualenv/virtualenvs",
+  "python.jediEnabled": false,
+  "python.pythonPath": "python",
 
   "snippets.ultisnips.directories": ["UltiSnips", "~/.config/nvim/UltiSnips"]
 }
