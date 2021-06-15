@@ -6,11 +6,11 @@
         "nmap <C-n> :NERDTreeToggle<CR> 
 
         " open NERDTree automatically
-        autocmd StdinReadPre * let s:std_in=1
-        autocmd VimEnter * NERDTree
+        "autocmd StdinReadPre * let s:std_in=1
+        "autocmd VimEnter * NERDTree
 
-        let NERDTreeShowBookmarks=1
-        let NERDTreeChDirMode=0
+        let NERDTreeShowBookmarks=0
+        let NERDTreeChDirMode=2
         let NERDTreeQuitOnOpen=1
         let NERDTreeMouseMode=2
         let NERDTreeShowHidden=0

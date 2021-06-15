@@ -18,6 +18,7 @@ alias ll="ls -lrtF --color -h --group-directories-first"
 alias la="ls -alrtF --color -h --group-directories-first"
 alias lA="ls -A"
 alias l="ls -CF"
+alias v="nvim"
 alias dir='ls --color=auto --format=vertical'
 alias vdir='ls --color=auto --format=long'
 #alias m='less'
@@ -52,7 +53,7 @@ alias kcas='kill $(lsof -t -i:9443)'
 
 # vim wiki
 wikii() {
-    gvim -c ":VimwikiIndex"
+    v -c ":VimwikiIndex"
 }
 
 # Git

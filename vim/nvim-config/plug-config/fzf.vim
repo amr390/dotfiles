@@ -1,5 +1,6 @@
 " fzf {
     nmap <Leader>g :Commits<cr>
+    nnoremap <silent> <expr> <Leader><Leader> (expand('%') =~ 'NERD_tree' ? "\<c-w>\<c-w>" : '').":FZF\<cr>"
     nmap <C-p> :Files<cr>
 
     " [Buffers] Jump to the existing window if possible

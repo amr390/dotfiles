@@ -164,7 +164,7 @@
     endfunction
 
     " Highlight currently open buffer in NERDTree
-    autocmd BufEnter * call SyncTree()
+    "autocmd BufEnter * call SyncTree()
 
     function! s:check_back_space() abort
         let col = col('.') - 1
