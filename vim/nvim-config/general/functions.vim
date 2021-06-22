@@ -171,6 +171,4 @@
         return !col || getline('.')[col - 1]  =~# '\s'
     endfunction
 
-
-
     " }
