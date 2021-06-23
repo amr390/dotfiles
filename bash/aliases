@@ -76,6 +76,7 @@ alias grp='git remote update -p'
 alias grv='git remote -v'
 alias gsts='git stash'
 alias gstsp='git stash pop'
+alias gpd='cd ~/Documents/dotfiles && gca "new commit" && gp'
 
 # Git flow
 alias gfs="git flow feature start $1"
