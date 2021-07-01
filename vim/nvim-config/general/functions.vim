@@ -166,7 +166,7 @@
     " Highlight currently open buffer in NERDTree
     "autocmd BufEnter * call SyncTree()
 
-    function! s:check_back_space() abort
+    function! Check_back_space() abort
         let col = col('.') - 1
         return !col || getline('.')[col - 1]  =~# '\s'
     endfunction

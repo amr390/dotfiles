@@ -106,7 +106,7 @@
 " }
 " SQL {
 "   requires pip install sqlformat
-    nmap <leader>js <Esc>:%!sqlformat --reindent --keywords upper --identifier lower -<CR><Esc>:set filetype=json<CR>
+    nmap <leader>js <Esc>:%!sqlformat --reindent --keywords upper --identifier lower -<CR><Esc>:set filetype=sql<CR>
 " }
 
 " JSON {
