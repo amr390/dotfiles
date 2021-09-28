@@ -226,6 +226,8 @@ alias tomcatrun="docker run -d \
     tomcat:8-jre8-alpine"
 alias wsdstat="watch -t -n1 'awk \"{ print \$9}\" /sys/block/sdd/stat'"
 alias wmm="watch grep -e Dirty: -e Writeback: /proc/meminfo"
+alias enc="gpg --output $TODAY.vg.gpg --symmetric " $1
+alias dec="gpg --output v.mkv -d " $1
 
 kill_process() {
     pids=$(ps aux | grep $1 | awk '{ print $2 }')
@@ -242,3 +244,5 @@ CHROME_SANDBOX="$DEV/manning/livebook/livebook-ui/node_modules/electron/dist/chr
 alias set-chrome-bin="sudo chown root:root $CHROME_SANDBOX && sudo chmod 4755 $CHROME_SANDBOX"
 
 alias sat_reset_db='rm -f /home/amr/Documents/Dropbox/Aplicaciones/sat/db.sqlite3'
+
+alias epubChk="java -jar /home/amr/Documents/Apps/epubcheck-4.2.6/epubcheck.jar $1"
