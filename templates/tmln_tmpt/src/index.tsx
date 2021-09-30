@@ -1,12 +1,32 @@
 import React from 'react';
 import ReactDOM from 'react-dom';
+import Timeline from './components/Timeline';
 import './index.css';
-import App from './App';
+// import App from './App';
 import reportWebVitals from './reportWebVitals';
+
+const items = [
+  {
+    name: 'Step 1',
+    active: true,
+  },
+  {
+    name: 'Step 2',
+    active: true,
+  },
+  {
+    name: 'Step 3',
+    active: true,
+  },
+  {
+    name: 'Step 4',
+    active: false,
+  }
+]
 
 ReactDOM.render(
   <React.StrictMode>
-    <App />
+    <Timeline items={items} />
   </React.StrictMode>,
   document.getElementById('root')
 );
