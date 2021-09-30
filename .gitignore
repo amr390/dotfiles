@@ -6,3 +6,5 @@ vim/vimviews*
 **/private*
 bkp/*
 bin/.ropeproject*
+
+**/node_modules/
