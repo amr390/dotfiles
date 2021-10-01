@@ -68,7 +68,6 @@ M.config = function()
       ["e"] = { "<cmd>lua require'core.nvimtree'.toggle_tree()<CR>", "Explorer" },
       ["f"] = { "<cmd>Telescope find_files<CR>", "Find File" },
       ["h"] = { '<cmd>let @/=""<CR>', "No Highlight" },
-      ["d"] = { '<cmd>cd `pwd`<CR>', "Cd" },
       [";"] = { "<cmd>Dashboard<CR>", "Dashboard" },
       p = {
         name = "Packer",

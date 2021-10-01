@@ -5,18 +5,18 @@ TERMINAL = vim.fn.expand "$TERMINAL"
 USER = vim.fn.expand "$USER"
 
 O = {
-  leader_key = "space",
+  leader_key = ",",
   colorscheme = "spacegray",
   line_wrap_cursor_movement = true,
   transparent_window = false,
   format_on_save = true,
-  vsnip_dir = vim.fn.stdpath "config" .. "/snippets",
+  vsnip_dir = CONFIG_PATH .. "/snippets",
 
   default_options = {
     backup = false, -- creates a backup file
     clipboard = "unnamedplus", -- allows neovim to access the system clipboard
     cmdheight = 2, -- more space in the neovim command line for displaying messages
-    colorcolumn = "99999", -- fixes indentline for now
+--    colorcolumn = "99999", -- fixes indentline for now
     completeopt = { "menuone", "noselect" },
     conceallevel = 0, -- so that `` is visible in markdown files
     fileencoding = "utf-8", -- the encoding written to a file
@@ -66,7 +66,7 @@ O = {
     popup_border = "single",
   },
 
-  database = { save_location = "~/.config/lunarvim_db", auto_execute = 1 },
+  database = { save_location = "~/.config/nvim_db", auto_execute = 1 },
 
   -- TODO: just using mappings (leader mappings)
   user_which_key = {},

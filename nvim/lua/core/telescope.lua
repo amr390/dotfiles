@@ -89,7 +89,6 @@ M.setup = function()
   if not status_ok then
     return
   end
-  print ("Telescope", telescope)
   telescope.setup(O.plugin.telescope)
   vim.api.nvim_set_keymap("n", "<Leader>f", ":Telescope find_files<CR>", { noremap = true, silent = true })
 end

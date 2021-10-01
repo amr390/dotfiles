@@ -50,7 +50,6 @@ local mappings = {
     { "]q", ":cnext<CR>" },
     { "[q", ":cprev<CR>" },
 
-    { "<leader-d>", ":cd `pwd`<CR>" },
     -- {'<C-TAB>', 'compe#complete()', {noremap = true, silent = true, expr = true}},
   },
   t = { -- Terminal mode
