@@ -29,6 +29,10 @@ return require("packer").startup(function(use)
 
   -- TODO: refactor all of this (for now it works, but yes I know it could be wrapped in a simpler function)
   use { "neovim/nvim-lspconfig" }
+  use { "tamago324/nlsp-settings.nvim" }
+  use { "jose-elias-alvarez/null-ls.nvim" }
+  use { "antoinemadec/FixCursorHold.nvim" } -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
+
   use {
     "kabouzeid/nvim-lspinstall",
     event = "VimEnter",
@@ -39,7 +43,6 @@ return require("packer").startup(function(use)
 
   use { "nvim-lua/popup.nvim" }
   use { "nvim-lua/plenary.nvim" }
-  use { "tjdevries/astronauta.nvim" }
 
   -- Telescope
   use {
@@ -178,15 +181,6 @@ return require("packer").startup(function(use)
 
   -- Builtins, these do not load by default
 
-  -- Dashboard
-  use {
-    "ChristianChiarulli/dashboard-nvim",
-    event = "BufWinEnter",
-    config = function()
-      require("core.dashboard").setup()
-    end,
-    disable = not O.plugin.dashboard.active,
-  }
 
   -- TODO: remove in favor of akinsho/nvim-toggleterm.lua
   -- Floating terminal

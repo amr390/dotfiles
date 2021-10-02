@@ -252,7 +252,7 @@ O = {
     },
     svelte = {},
     tailwindcss = {
-      active = false,
+      active = true,
       filetypes = {
         "html",
         "css",
@@ -262,6 +262,10 @@ O = {
         "typescript",
         "typescriptreact",
       },
+      formatter = {
+        exe = "prettier",
+        args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+      }
     },
     terraform = {
       formatter = {
