@@ -1,5 +1,5 @@
 import { Component } from 'react';
-import './Timeline.scss';
+import './TLComp.scss';
 
 interface IItem {
   name: string;
@@ -7,8 +7,28 @@ interface IItem {
 }
 
 interface IProps {
-  items: IItem[];
+        items: IItem[];
 }
+
+// Example props
+// const items = [
+//   {
+//     name: "Step 1",
+//     active: true,
+//   },
+//   {
+//     name: "Step 2",
+//     active: true,
+//   },
+//   {
+//     name: "Step 3",
+//     active: true,
+//   },
+//   {
+//     name: "Step 4",
+//     active: false,
+//   },
+// ];
 
 export default class Timeline extends Component<IProps, {}> {
 
@@ -36,6 +56,3 @@ export default class Timeline extends Component<IProps, {}> {
     )
   }
 }
-
-
-

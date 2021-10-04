@@ -1,34 +1,15 @@
 import React from "react";
 import ReactDOM from "react-dom";
-import CircularProgress from "./components/CircularProgress";
-import Timeline from "./components/Timeline";
+import { TimelineApp } from "./components/timeline/TimelineApp";
+// import App from "./App";
 import "./index.css";
-// import App from './App';
 import reportWebVitals from "./reportWebVitals";
 
-const items = [
-  {
-    name: "Step 1",
-    active: true,
-  },
-  {
-    name: "Step 2",
-    active: true,
-  },
-  {
-    name: "Step 3",
-    active: true,
-  },
-  {
-    name: "Step 4",
-    active: false,
-  },
-];
+
 
 ReactDOM.render(
   <React.StrictMode>
-    <Timeline items={items} />
-    <CircularProgress />
+    <TimelineApp />
   </React.StrictMode>,
   document.getElementById("root")
 );
