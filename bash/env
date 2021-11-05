@@ -1,6 +1,7 @@
 #!/bin/bash
 
 #echo "setting node modules variable"
+APPS_HOME="/home/amr/Documents/Apps"
 NODE_MODULES="~/Documents/Apps/node_modules"
 MONGO_HOME="~/Documents/Apps/mongodb"
 APPS_HOME="~/Documents/Apps"
