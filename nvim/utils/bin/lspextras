@@ -11,7 +11,7 @@ npm config set loglevel="silent"
 npm config set prefix "~/Documents/Apps/node_modules" 
 
 # Installing stylua for lua formatting
-wget -qO- https://github.com/JohnnyMorganz/StyLua/releases/download/v0.11.0/stylua-0.11.0-linux.zip | tar -xvf -
+wget -qO- https://github.com/JohnnyMorganz/StyLua/releases/download/v0.11.0/stylua-0.11.0-linux.zip | bsdtar -xvf -
 mv stylua ~/.local/bin/
 chmod u+x ~/.local/bin/stylua
 
