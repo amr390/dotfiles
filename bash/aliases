@@ -2,7 +2,7 @@
 
 DOTFILES=$HOME/Documents/dotfiles
 DEV=$HOME/Documents/dev
-TODAY=`date +%Y-%m-%d`
+TODAY=$(date +%Y-%m-%d)
 
 # Safety
 alias rm="rm -i"
@@ -53,7 +53,7 @@ alias kcas='kill $(lsof -t -i:9443)'
 
 # vim wiki
 wikii() {
-    v -c ":VimwikiIndex"
+	v -c ":VimwikiIndex"
 }
 
 # Git
@@ -90,43 +90,39 @@ alias t8w="cd /var/lib/tomcat8$1"
 alias t8l="sudo tail -f /var/log/tomcat8/catalina.out"
 alias t8s="sudo service tomcat8 $1"
 
-
 bookmark_pwd() {
-    path=`pwd`
-    path=${path//\//\\/}
-    sed -e "/${path}/d" ${DOTFILES}/bash/aliases &>/dev/null
-    if [ $? -eq 0 ]; then
-        echo "alias $1='cd `pwd`'" >> $DOTFILES/bash/aliases
-    else
-        echo "Bookmark already exists"
-    fi
+	path=$(pwd)
+	path=${path//\//\\/}
+	sed -e "/${path}/d" ${DOTFILES}/bash/aliases &>/dev/null
+	if [ $? -eq 0 ]; then
+		echo "alias $1='cd $(pwd)'" >>$DOTFILES/bash/aliases
+	else
+		echo "Bookmark already exists"
+	fi
 
-    source $HOME/.bashrc
+	source $HOME/.bashrc
 }
 
 delete_bookmark_pwd() {
-    pattern=$1
-    unalias $1
-    sed -e "/${pattern}/d" ${DOTFILES}/bash/aliases &>/dev/null
+	pattern=$1
+	unalias $1
+	sed -e "/${pattern}/d" ${DOTFILES}/bash/aliases &>/dev/null
 
-    source $HOME/.bashrc
+	source $HOME/.bashrc
 }
 
-if [ -f $DOTFILES/bash/private-aliases ]; 
-then
-    source $DOTFILES/bash/private-aliases
+if [ -f $DOTFILES/bash/private-aliases ]; then
+	source $DOTFILES/bash/private-aliases
 fi
 
-if [ -f $DOTFILES/bash/aliases-manning ]; 
-then
-    source $DOTFILES/bash/aliases-manning
+if [ -f $DOTFILES/bash/aliases-manning ]; then
+	source $DOTFILES/bash/aliases-manning
 fi
 alias vtmp='cd /home/amr/Documents/Manning/data/db_backups/tmp'
 alias mdbackups='cd /home/amr/Documents/Manning/data/db_backups'
 
 TC_HOME='/home/amr/dev/python/timecop'
 alias tc3="cd $TC_HOME && source timecop-be/env/bin/activate"
-
 
 VB_HOME="$DEV/python/django/vatbook"
 VB_DB_HOME="/home/amr/Documents/Dropbox/Aplicaciones/sat/"
@@ -144,13 +140,11 @@ alias vb-dbbackup="cd $VB_DB_HOME && \
     grep -xv -f schema.sql dump.sql > vb.backup.$TODAY.sql && \
     rm -f schema.sql dump.sql && cd -"
 
-
 #STAGING
 alias vb-run-p="$VB_HOME/manage.py runserver --settings=vatbook.settings.staging"
 alias vb-mm-p="$VB_HOME/manage.py makemigrations --settings=vatbook.settings.staging"
 alias vb-m-p="$VB_HOME/manage.py migrate --settings=vatbook.settings.staging"
 alias vb-sh-p="$VB_HOME/manage.py shell --settings=vatbook.settings.staging"
-
 
 TC_HOME="$DEV/sandbox/timecop"
 TC_REST="$DEV/sandbox/timecop/timecop-rest/"
@@ -175,7 +169,6 @@ alias sat-dbbackup="cd $SAT_DB_HOME && \
     sqlite3 db.sqlite3 .dump > dump.sql && \
     grep -xv -f schema.sql dump.sql > sat.backup.$TODAY.sql && \
     rm -f schema.sql dump.sql && cd -"
-
 
 #STAGING
 alias sat-run-p="$SAT_HOME/manage.py runserver --settings=sat8485.settings.staging"
@@ -211,8 +204,7 @@ alias postgresrun="docker run -d \
 alias postgresstop="docker kill postgres;  docker rm postgres"
 alias encgroup="sudo mkdir /sys/fs/cgroup/systemd && sudo mount -t cgroup -o none,name=systemd cgroup /sys/fs/cgroup/systemd"
 
-
-alias tcc="mongo \"mongodb+srv://timecop.qlqog.mongodb.net/ioclock\" --username" $1
+#alias tcc="mongo \"mongodb+srv://timecop.qlqog.mongodb.net/ioclock\" --username" $1
 
 alias hostip="ip route show 0.0.0.0/0 | grep -Eo 'via \S+' | awk '{ print \$2 }'"
 alias tomcatrun="docker run -d \
@@ -230,12 +222,11 @@ alias enc="gpg --output $TODAY.vg.gpg --symmetric " $1
 alias dec="gpg --output v.mkv -d " $1
 
 kill_process() {
-    pids=$(ps aux | grep $1 | awk '{ print $2 }')
+	pids=$(ps aux | grep $1 | awk '{ print $2 }')
 
-    for pid in "${pids[@]}"
-    do 
-        kill $pid
-    done
+	for pid in "${pids[@]}"; do
+		kill $pid
+	done
 }
 
 #sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7FCC7D46ACCC4CF8

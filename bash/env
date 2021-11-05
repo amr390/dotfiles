@@ -3,6 +3,7 @@
 #echo "setting node modules variable"
 NODE_MODULES="~/Documents/Apps/node_modules"
 MONGO_HOME="~/Documents/Apps/mongodb"
+APPS_HOME="~/Documents/Apps"
 
 #echo "setting gradle OPTS"
 # This causes grails to fail
@@ -12,7 +13,6 @@ export JAVA_OPTS="$JAVA_OPTS -Xmx2G -Xms1500M"
 #export ANDROID_HOME=/home/amr/Apps/android-sdk-tools/
 export ANDROID_SDK_ROOT=/home/amr/Documents/Apps/android-sdk-tools/
 
-
 #echo "initializing sdkman"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/amr/.sdkman"
@@ -20,10 +20,10 @@ export SDKMAN_DIR="/home/amr/.sdkman"
 # ####### PYTHON VIRTUALENV ###############
 export WORKON_HOME=$HOME/.local/share/virtualenv/virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
-if [[ -f /usr/local/bin/virtualenv ]] ; then
-    export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+if [[ -f /usr/local/bin/virtualenv ]]; then
+	export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 elif [[ -f ~/.local/bin/virtualenv ]]; then
-    export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv 
+	export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
 fi
 export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 export DBX_ACCESS_TOKEN=xxx
@@ -34,5 +34,6 @@ export DBX_ACCESS_TOKEN=xxx
 #  - Lowest priority first, highest priority last.
 export PATH=/usr/bin:/usr/local/bin:/usr/local/sbin:$HOME/.local/bin:$PATH
 export PATH=$MONGO_HOME/bin:$PATH # MongoDB home
-export PATH=$NODE_MODULES/.bin:$PATH # node modules bin 
+export PATH=$APPS_HOME/tinkerpop/bin:$PATH
+export PATH=$NODE_MODULES/bin:$PATH # node modules bin
 export PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
