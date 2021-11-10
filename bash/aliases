@@ -230,8 +230,14 @@ kill_process() {
 }
 
 reset_db() {
-  sudo su postgres -c "dropdb $1; createdb $1"
+	sudo su postgres -c "dropdb $1; createdb $1"
 }
+
+open_tunel() {
+	ssh -a -N -f -L $2:$1:$2 bastion
+}
+
+alias moNeptune="open_tunel smart-search.cluster-cttghrdpki6v.us-west-2.neptune.amazonaws.com 8182"
 
 #sudo apt-key adv --keyserver keyserver.ubuntu.com --recv-keys 7FCC7D46ACCC4CF8
 alias freerider="cd /opt/freerider/ && FPVFreerider.x86_64"
