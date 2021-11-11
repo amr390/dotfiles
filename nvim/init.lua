@@ -1,4 +1,5 @@
-require("default-config")
+require("defaults")
+require("langs")
 require("keymappings")
 
 local status_ok, _ = pcall(vim.cmd, "luafile " .. CONFIG_PATH .. "/lv-config.lua")
