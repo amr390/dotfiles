@@ -205,22 +205,6 @@ return require("packer").startup(function(use)
 
 	---------------------------------------------------------------------------------
 
-	-- LANGUAGE SPECIFIC GOES HERE
-	use({
-		"lervag/vimtex",
-		ft = "tex",
-	})
-
-	-- Rust tools
-	-- TODO: use lazy loading maybe?
-	use({
-		"simrat39/rust-tools.nvim",
-		disable = not O.lang.rust.rust_tools.active,
-	})
-
-	-- Elixir
-	use({ "elixir-editors/vim-elixir", ft = { "elixir", "eelixir", "euphoria3" } })
-
 	-- Javascript / Typescript
 	use({
 		"jose-elias-alvarez/nvim-lsp-ts-utils",

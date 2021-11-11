@@ -22,25 +22,6 @@ O.lang = {
 	css = {
 		virtual_text = true,
 	},
-	dart = {
-		sdk_path = "/usr/lib/dart/bin/snapshots/analysis_server.dart.snapshot",
-		formatter = {
-			exe = "dart",
-			args = { "format" },
-		},
-	},
-	docker = {},
-	efm = {},
-	elm = {},
-	emmet = { active = false },
-	elixir = {},
-	graphql = {},
-	go = {
-		formatter = {
-			exe = "gofmt",
-			args = {},
-		},
-	},
 	html = {},
 	java = {
 		java_tools = {
@@ -62,11 +43,6 @@ O.lang = {
 			args = { "-m", "json.tool" },
 		},
 	},
-	kotlin = {},
-	latex = {
-		auto_save = false,
-		ignore_errors = {},
-	},
 	lua = {
 		diagnostics = {
 			virtual_text = { spacing = 0, prefix = "" },
@@ -77,27 +53,6 @@ O.lang = {
 			-- https://github.com/JohnnyMorganz/StyLua
 			exe = "stylua",
 			args = {},
-			stdin = false,
-		},
-	},
-	php = {
-		format = {
-			format = {
-				default = "psr12",
-			},
-		},
-		environment = {
-			php_version = "7.4",
-		},
-		diagnostics = {
-			virtual_text = { spacing = 0, prefix = "" },
-			signs = true,
-			underline = true,
-		},
-		filetypes = { "php", "phtml" },
-		formatter = {
-			exe = "phpcbf",
-			args = { "--standard=PSR12", vim.api.nvim_buf_get_name(0) },
 			stdin = false,
 		},
 	},
@@ -120,36 +75,6 @@ O.lang = {
 			args = {},
 		},
 	},
-	ruby = {
-		diagnostics = {
-			virtualtext = { spacing = 0, prefix = "" },
-			signs = true,
-			underline = true,
-		},
-		filetypes = { "rb", "erb", "rakefile", "ruby" },
-		formatter = {
-			exe = "rufo",
-			args = { "-x" },
-		},
-	},
-	rust = {
-		rust_tools = {
-			active = false,
-			parameter_hints_prefix = "<-",
-			other_hints_prefix = "=>", -- prefix for all the other hints (type, chaining)
-		},
-		-- @usage can be clippy
-		formatter = {
-			exe = "rustfmt",
-			args = { "--emit=stdout", "--edition=2018" },
-		},
-		linter = "",
-		diagnostics = {
-			virtual_text = { spacing = 0, prefix = "" },
-			signs = true,
-			underline = true,
-		},
-	},
 	sh = {
 		-- @usage can be 'shellcheck'
 		linter = "",
@@ -166,9 +91,8 @@ O.lang = {
 			stdin = false,
 		},
 	},
-	svelte = {},
 	tailwindcss = {
-		active = true,
+		active = false,
 		filetypes = {
 			"html",
 			"css",
@@ -191,42 +115,24 @@ O.lang = {
 			stdin = false,
 		},
 	},
-	typescriptreact = {
-		-- @usage can be 'eslint' or 'eslint_d'
-		linter = "eslint",
-		diagnostics = {
-			virtual_text = { spacing = 0, prefix = "" },
-			signs = true,
-			underline = true,
-		},
-		formatter = {
-			exe = "prettier",
-			args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
-			stdin = false,
-		},
-	},
-	typescript = {
-		-- @usage can be 'eslint' or 'eslint_d'
-		linter = "eslint",
-		diagnostics = {
-			virtual_text = { spacing = 0, prefix = "" },
-			signs = true,
-			underline = true,
-		},
-		formatter = {
-			exe = "prettier",
-			args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
-			stdin = false,
-		},
-	},
 	tsserver = {
 		-- @usage can be 'eslint' or 'eslint_d'
+		active = true,
 		linter = "eslint",
 		autoformat = true,
 		diagnostics = {
 			virtual_text = { spacing = 0, prefix = "" },
 			signs = true,
 			underline = true,
+		},
+		filetypes = {
+			"html",
+			"css",
+			"scss",
+			"javascript",
+			"javascriptreact",
+			"typescript",
+			"typescriptreact",
 		},
 		formatter = {
 			exe = "prettier",
