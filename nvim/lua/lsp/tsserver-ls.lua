@@ -17,11 +17,38 @@
 -- 		}
 -- 	end,
 -- }
-O.formatters.filetype["javascript"] = O.formatters.filetype["javascriptreact"]
+
+-- TODO: AMR this tries but fails. Format ts with gF by now
+-- O.formatters.filetype["javascript"] = {
+--   function()
+--     return O.formatters.filetype["tsserver"]
+--   end
+-- }
+-- O.formatters.filetype["javascriptreact"] = {
+--   function()
+--     return O.formatters.filetype["tsserver"]
+--   end
+-- }
+-- O.formatters.filetype["typescript"] = {
+--   function()
+--     return O.formatters.filetype["tsserver"]
+--   end
+-- }
+-- 
+-- O.formatters.filetype["typescriptreact"] = {
+--   function()
+--     return O.formatters.filetype["tsserver"]
+--   end
+-- }
+
 
 require("formatter.config").set_defaults({
 	logging = false,
 	filetype = O.formatters.filetype,
+})
+
+require("formatter").setup({
+  filetype = O.formatters.filetype
 })
 
 if require("lv-utils").check_lsp_client_active("tsserver") then
@@ -54,7 +81,7 @@ require("lspconfig").tsserver.setup({
 	-- This makes sure tsserver is not used for formatting (I prefer prettier)
 	-- on_attach = require'lsp'.common_on_attach,
 	root_dir = require("lspconfig/util").root_pattern("package.json", "tsconfig.json", "jsconfig.json", ".git"),
-	settings = { documentFormatting = false },
+	settings = { documentFormatting = true },
 	handlers = {
 		["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
 			virtual_text = O.lang.tsserver.diagnostics.virtual_text,
@@ -64,4 +91,4 @@ require("lspconfig").tsserver.setup({
 		}),
 	},
 })
-require("lsp.ts-fmt-lint").setup()
+-- require("lsp.ts-fmt-lint").setup()

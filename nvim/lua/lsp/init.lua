@@ -176,17 +176,20 @@ if O.lsp.document_highlight then
 end
 
 local buf_map = function(bufnr, mode, lhs, rhs, opts)
-	vim.api.nvim_buf_keymap(bufnr, mode, lhs, rhs, opts or {
+	vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {
 		silent = true,
 	})
 end
+
 function lsp_config.tsserver_on_attach(client, bufnr)
 	-- lsp_config.common_on_attach(client, bufnr)
 	client.resolved_capabilities.document_formatting = false
 	client.resolved_capabilities.document_range_formatting = false
 
-	local ts_utils = require("nvim-lsp-ts-utils")
+	-- Call Formatter manually until we get the on_save from formatter
+	buf_map(bufnr, "n", "gF", ":silent %!prettier --stdin-filepath %<CR>")
 
+	local ts_utils = require("nvim-lsp-ts-utils")
 	-- defaults
 	ts_utils.setup({
 		debug = false,
