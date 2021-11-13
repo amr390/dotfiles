@@ -70,7 +70,6 @@ return require("packer").startup(function(use)
 	})
 
 	-- Snippets
-
 	use({ "hrsh7th/vim-vsnip", event = "InsertEnter" })
 	use({ "rafamadriz/friendly-snippets", event = "InsertEnter" })
 
@@ -201,6 +200,48 @@ return require("packer").startup(function(use)
 			require("core.zen").setup()
 		end,
 		disable = not O.plugin.zen.active,
+	})
+
+	-- Dashboard
+	use({
+		"ChristianChiarulli/dashboard-nvim",
+		event = "BufWinEnter",
+		config = function()
+			require("core.dashboard").setup()
+		end,
+		disable = false,
+	})
+
+	-- project.nvim
+	use({
+		"ahmedkhalf/project.nvim",
+		-- commit = commit.project,
+		config = function()
+			require("core.project").setup()
+		end,
+		disable = false,
+	})
+
+	use({
+		"vimwiki/vimwiki",
+		config = function()
+			vim.g.vimwiki_list = {
+				{
+					path = "$HOME/Documents/net/Dropbox/wiki/",
+					syntax = "markdown",
+					ext = ".md",
+				},
+			}
+		end,
+		disable = false,
+	})
+
+	-- GRUVBOX THEME
+	use({
+		"npxbr/gruvbox.nvim",
+		requires = { "rktjmp/lush.nvim" },
+		disable = false,
+		-- disable = not O.plugin.vimwiki.active
 	})
 
 	---------------------------------------------------------------------------------
