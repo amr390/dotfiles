@@ -53,6 +53,7 @@ O = {
 		spell = false,
 		spelllang = "en",
 		scrolloff = 8, -- is one of my fav
+		mmp = 2000000,
 	},
 
 	plugin = {},

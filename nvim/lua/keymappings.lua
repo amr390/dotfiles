@@ -38,9 +38,6 @@ local mappings = {
 		{ "<C-Left>", ":vertical resize -2<CR>", { silent = true } },
 		{ "<C-Right>", ":vertical resize +2<CR>", { silent = true } },
 
-		{ "<leader>C", ":e ~/.config/nvim/init.lua<CR>" },
-		{ "<leader>c<leader>d", ":lcd %:p:h<CR>" },
-
 		-- Tab switch buffer
 		-- { "<TAB>", ":bnext<CR>" },
 		-- { "<S-TAB>", ":bprevious<CR>" },
