@@ -209,7 +209,7 @@ return require("packer").startup(function(use)
 		config = function()
 			require("core.dashboard").setup()
 		end,
-		disable = false,
+		disable = not O.plugin.dashboard.active,
 	})
 
 	-- project.nvim
@@ -219,7 +219,7 @@ return require("packer").startup(function(use)
 		config = function()
 			require("core.project").setup()
 		end,
-		disable = false,
+		disable = not O.plugin.project.active,
 	})
 
 	use({
@@ -233,15 +233,13 @@ return require("packer").startup(function(use)
 				},
 			}
 		end,
-		disable = false,
+		disable = not O.plugin.vimwiki.active,
 	})
 
 	-- GRUVBOX THEME
 	use({
 		"npxbr/gruvbox.nvim",
 		requires = { "rktjmp/lush.nvim" },
-		disable = false,
-		-- disable = not O.plugin.vimwiki.active
 	})
 
 	---------------------------------------------------------------------------------

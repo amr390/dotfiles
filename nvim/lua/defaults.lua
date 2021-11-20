@@ -11,7 +11,6 @@ O = {
 	transparent_window = false,
 	format_on_save = true,
 	vsnip_dir = CONFIG_PATH .. "/snippets",
-
 	default_options = {
 		backup = false, -- creates a backup file
 		clipboard = "unnamedplus", -- allows neovim to access the system clipboard
@@ -56,7 +55,26 @@ O = {
 		mmp = 2000000,
 	},
 
-	plugin = {},
+	plugin = {
+		floatterm = {
+			active = true,
+		},
+		dashboard = {
+			active = true,
+		},
+		project = {
+			active = true,
+		},
+		dap = {
+			active = true,
+		},
+		galaxyline = {
+			active = true,
+		},
+		vimwiki = {
+			active = true,
+		},
+	},
 
 	-- TODO: refactor for tree
 	auto_close_tree = 0,
