@@ -55,16 +55,8 @@ O = {
 		mmp = 2000000,
 	},
 
+	-- Better setup on each plugin definition
 	plugin = {
-		floatterm = {
-			active = true,
-		},
-		dashboard = {
-			active = true,
-		},
-		project = {
-			active = true,
-		},
 		dap = {
 			active = true,
 		},

@@ -209,7 +209,8 @@ return require("packer").startup(function(use)
 		config = function()
 			require("core.dashboard").setup()
 		end,
-		disable = not O.plugin.dashboard.active,
+		-- disable = not O.plugin.dashboard.active,
+		disable = false,
 	})
 
 	-- project.nvim
