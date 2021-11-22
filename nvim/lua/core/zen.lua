@@ -1,6 +1,7 @@
 local M = {}
 M.config = function()
   O.plugin["zen"] = {
+    active = true,
     window = {
       backdrop = 1,
       height = 0.85, -- height of the Zen window

@@ -1,7 +1,7 @@
 local M = {}
 M.config = function()
 	O.plugin.dashboard = {
-		active = false,
+		active = true,
 		search_handler = "telescope",
 		custom_header = {
 			"⠀⠀⠀⠀⠀⠀⠀     ⠀⠀⠀⠀   ⠀⠀⠸⣷⡄⠀⠀⠀⠀⠀⠸⣷⡄⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀⠀                 ",
