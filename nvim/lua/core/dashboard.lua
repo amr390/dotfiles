@@ -48,7 +48,7 @@ M.config = function()
 			},
 			g = {
 				description = { "  Settings           " },
-				command = ":e " .. CONFIG_PATH .. "/lv-config.lua",
+				command = ":e " .. CONFIG_PATH .. "/init.lua",
 			},
 		},
 

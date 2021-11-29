@@ -10,6 +10,8 @@ alias mv="mv -i"
 alias cp="cp -i"
 set -o noclobber
 
+alias vim='nvim'
+
 # Listing, directories, and motion
 alias ..='cd ..'
 alias ...='cd ..;cd ..'
@@ -82,6 +84,15 @@ alias gpd='cd ~/Documents/dotfiles && gl && gca "new commit" && gp'
 alias gfs="git flow feature start $1"
 alias gfp="git flow feature publish $1"
 alias gff="git flow feature finish $1"
+
+function delete-branches() {
+	local branches_to_delete
+	branches_to_delete=$(git branch | fzf --multi)
+
+	if [ -n "$branches_to_delete" ]; then
+		git branch --delete --force $branches_to_delete
+	fi
+}
 
 # TOMCAT
 alias t7w="cd /var/lib/tomcat7$1"

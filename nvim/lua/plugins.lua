@@ -149,7 +149,6 @@ return require("packer").startup(function(use)
 			require("core.galaxyline")
 		end,
 		event = "BufWinEnter",
-		disable = not O.plugin.galaxyline.active,
 	})
 
 	use({
@@ -167,7 +166,6 @@ return require("packer").startup(function(use)
 		config = function()
 			require("core.dap").setup()
 		end,
-		disable = not O.plugin.dap.active,
 	})
 
 	-- Debugger management
@@ -175,7 +173,6 @@ return require("packer").startup(function(use)
 		"Pocco81/DAPInstall.nvim",
 		-- event = "BufWinEnter",
 		-- event = "BufRead",
-		disable = not O.plugin.dap.active,
 	})
 
 	-- Builtins, these do not load by default
@@ -188,7 +185,6 @@ return require("packer").startup(function(use)
 		config = function()
 			require("core.floatterm").setup()
 		end,
-		disable = not O.plugin.floatterm.active,
 	})
 
 	-- Zen Mode
@@ -199,7 +195,6 @@ return require("packer").startup(function(use)
 		config = function()
 			require("core.zen").setup()
 		end,
-		disable = not O.plugin.zen.active,
 	})
 
 	-- Dashboard
@@ -209,8 +204,6 @@ return require("packer").startup(function(use)
 		config = function()
 			require("core.dashboard").setup()
 		end,
-		-- disable = not O.plugin.dashboard.active,
-		disable = false,
 	})
 
 	-- project.nvim
@@ -220,7 +213,6 @@ return require("packer").startup(function(use)
 		config = function()
 			require("core.project").setup()
 		end,
-		disable = not O.plugin.project.active,
 	})
 
 	use({
@@ -234,7 +226,6 @@ return require("packer").startup(function(use)
 				},
 			}
 		end,
-		disable = not O.plugin.vimwiki.active,
 	})
 
 	-- GRUVBOX THEME
@@ -261,7 +252,6 @@ return require("packer").startup(function(use)
 	use({
 		"mfussenegger/nvim-jdtls",
 		-- ft = { "java" },
-		disable = not O.lang.java.java_tools.active,
 	})
 
 	-- Install user plugins

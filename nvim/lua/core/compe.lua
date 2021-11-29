@@ -87,13 +87,13 @@ M.setup = function()
 	vim.api.nvim_set_keymap("s", "<S-Tab>", "v:lua.s_tab_complete()", { expr = true })
 
 	vim.api.nvim_set_keymap("i", "<C-Space>", "compe#complete()", { noremap = true, silent = true, expr = true })
-	-- vim.api.nvim_set_keymap("i", "<CR>", "compe#confirm('<CR>')", { noremap = true, silent = true, expr = true })
-	vim.api.nvim_set_keymap(
-		"i",
-		"<CR>",
-		"compe#confirm({'keys':'<CR>', 'select':v:true})",
-		{ noremap = true, silent = true, expr = true }
-	)
+	-- vim.api.nvim_set_keymap("i", "<TAB>", "compe#confirm('<CR>')", { noremap = true, silent = true, expr = true })
+	-- vim.api.nvim_set_keymap(
+	-- 	"i",
+	-- 	"<CR>",
+	-- 	"compe#confirm({'keys':'<CR>', 'select':v:true})",
+	-- 	{ noremap = true, silent = true, expr = true }
+	-- )
 	vim.api.nvim_set_keymap("i", "<C-e>", "compe#close('<C-e>')", { noremap = true, silent = true, expr = true })
 	vim.api.nvim_set_keymap(
 		"i",
