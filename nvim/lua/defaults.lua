@@ -52,7 +52,7 @@ O = {
 		spell = false,
 		spelllang = "en",
 		scrolloff = 8, -- is one of my fav
-		mmp = 2000000,
+		mmp = 2000,
 	},
 
 	-- Better setup on each plugin definition

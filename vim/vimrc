@@ -4,6 +4,7 @@
         set nocompatible        " Must be first line
         set encoding=utf-8
         set fileencoding=utf-8
+        set mmp=2000
 
         if !(has('win16') || has('win32') || has('win64'))
             set shell=/bin/sh
@@ -72,6 +73,7 @@
 
     set t_Co=256
     "color lucius                   " Load a colorscheme
+    "color jellybeans               " Load a colorscheme
     color gruvbox                   " Load a colorscheme
 
     set tabpagemax=15               " Only show 15 tabs
