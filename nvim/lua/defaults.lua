@@ -6,7 +6,7 @@ USER = vim.fn.expand("$USER")
 
 O = {
 	leader_key = ",",
-	colorscheme = "spacegray",
+	colorscheme = "gruvbox",
 	line_wrap_cursor_movement = true,
 	transparent_window = false,
 	format_on_save = true,

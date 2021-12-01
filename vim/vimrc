@@ -72,7 +72,7 @@
 
     set t_Co=256
     "color lucius                   " Load a colorscheme
-    color jellybeans                " Load a colorscheme
+    color gruvbox                   " Load a colorscheme
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode

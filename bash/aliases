@@ -10,8 +10,6 @@ alias mv="mv -i"
 alias cp="cp -i"
 set -o noclobber
 
-alias vim='nvim'
-
 # Listing, directories, and motion
 alias ..='cd ..'
 alias ...='cd ..;cd ..'
