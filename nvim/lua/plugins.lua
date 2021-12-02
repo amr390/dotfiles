@@ -41,7 +41,7 @@ return require("packer").startup(function(use)
 	-- Telescope
 	use({
 		"nvim-telescope/telescope.nvim",
-		config = [[require('core.telescope').setup()]],
+		config = [[require('plugins.telescope').setup()]],
 	})
 
 	-- Autocomplete
@@ -49,7 +49,7 @@ return require("packer").startup(function(use)
 		"hrsh7th/nvim-cmp",
 		-- event = "InsertEnter",
 		config = function()
-			require("core.cmp").setup()
+			require("plugins.cmp").setup()
 		end,
 		requires = {
 			"L3MON4D3/LuaSnip",
@@ -69,7 +69,7 @@ return require("packer").startup(function(use)
 		-- event = "InsertEnter",
 		after = { "telescope.nvim" },
 		config = function()
-			require("core.autopairs")
+			require("plugins.autopairs")
 		end,
 	})
 
@@ -88,7 +88,7 @@ return require("packer").startup(function(use)
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		config = function()
-			require("core.treesitter").setup()
+			require("plugins.treesitter").setup()
 		end,
 	})
 
@@ -96,7 +96,7 @@ return require("packer").startup(function(use)
 	use({
 		"mhartington/formatter.nvim",
 		config = function()
-			require("core.formatter")
+			require("plugins.formatter")
 		end,
 	})
 
@@ -107,7 +107,7 @@ return require("packer").startup(function(use)
 		-- cmd = "NvimTreeToggle",
 		commit = "fd7f60e242205ea9efc9649101c81a07d5f458bb",
 		config = function()
-			require("core.nvimtree").setup()
+			require("plugins.nvimtree").setup()
 		end,
 	})
 
@@ -115,7 +115,7 @@ return require("packer").startup(function(use)
 		"lewis6991/gitsigns.nvim",
 
 		config = function()
-			require("core.gitsigns").setup()
+			require("plugins.gitsigns").setup()
 		end,
 		event = "BufRead",
 	})
@@ -124,7 +124,7 @@ return require("packer").startup(function(use)
 	use({
 		"folke/which-key.nvim",
 		config = function()
-			require("core.which-key").setup()
+			require("plugins.which-key").setup()
 		end,
 		event = "BufWinEnter",
 	})
@@ -157,7 +157,7 @@ return require("packer").startup(function(use)
 	use({
 		"glepnir/galaxyline.nvim",
 		config = function()
-			require("core.galaxyline")
+			require("plugins.galaxyline")
 		end,
 		event = "BufWinEnter",
 	})
@@ -165,7 +165,7 @@ return require("packer").startup(function(use)
 	use({
 		"romgrk/barbar.nvim",
 		config = function()
-			require("core.bufferline")
+			require("plugins.bufferline")
 		end,
 		event = "BufWinEnter",
 	})
@@ -178,7 +178,7 @@ return require("packer").startup(function(use)
 		"numToStr/FTerm.nvim",
 		event = "BufWinEnter",
 		config = function()
-			require("core.floatterm").setup()
+			require("plugins.floatterm").setup()
 		end,
 	})
 
@@ -188,7 +188,7 @@ return require("packer").startup(function(use)
 		cmd = "ZenMode",
 		event = "BufRead",
 		config = function()
-			require("core.zen").setup()
+			require("plugins.zen").setup()
 		end,
 		disabled = true,
 	})
@@ -198,7 +198,7 @@ return require("packer").startup(function(use)
 		"ChristianChiarulli/dashboard-nvim",
 		event = "BufWinEnter",
 		config = function()
-			require("core.dashboard").setup()
+			require("plugins.dashboard").setup()
 		end,
 		disabled = true,
 	})
@@ -207,7 +207,7 @@ return require("packer").startup(function(use)
 	use({
 		"ahmedkhalf/project.nvim",
 		config = function()
-			require("core.project").setup()
+			require("plugins.project").setup()
 		end,
 		disabled = true,
 	})

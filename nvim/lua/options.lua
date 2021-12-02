@@ -91,17 +91,17 @@ O = {
 	},
 }
 
-require("core.status_colors")
-require("core.gitsigns").config()
-require("core.cmp").config()
-require("core.dashboard").config()
-require("core.project").config()
-require("core.floatterm").config()
-require("core.dap").config()
-require("core.zen").config()
-require("core.telescope").config()
-require("core.treesitter").config()
-require("core.which-key").config()
+require("plugins.status_colors")
+require("plugins.gitsigns").config()
+require("plugins.cmp").config()
+require("plugins.dashboard").config()
+require("plugins.project").config()
+require("plugins.floatterm").config()
+require("plugins.dap").config()
+require("plugins.zen").config()
+require("plugins.telescope").config()
+require("plugins.treesitter").config()
+require("plugins.which-key").config()
 
 ---  HELPERS  ---
 
