@@ -14,7 +14,7 @@ if not packer_ok then
 end
 
 packer.init({
-	-- package_root = require("packer.util").join_paths(vim.fn.stdpath "data", "lvim", "pack"),
+	-- package_root = require("packer.util").join_paths(vim.fn.stdpath "data", "nvim", "pack"),
 	git = { clone_timeout = 300 },
 	display = {
 		open_fn = function()
@@ -46,12 +46,22 @@ return require("packer").startup(function(use)
 
 	-- Autocomplete
 	use({
-		"hrsh7th/nvim-compe",
+		"hrsh7th/nvim-cmp",
 		-- event = "InsertEnter",
 		config = function()
-			require("core.compe").setup()
+			require("core.cmp").setup()
 		end,
+		requires = {
+			"L3MON4D3/LuaSnip",
+			"rafamadriz/friendly-snippets",
+		},
 	})
+	use({ "hrsh7th/cmp-nvim-lsp" })
+	use({ "hrsh7th/cmp-buffer" })
+	use({ "hrsh7th/cmp-path" })
+	use({ "hrsh7th/cmp-cmdline" })
+	use({ "hrsh7th/cmp-vsnip" })
+	-- use({ "hrsh7th/f3fora-spell" })
 
 	-- Autopairs
 	use({
@@ -64,8 +74,14 @@ return require("packer").startup(function(use)
 	})
 
 	-- Snippets
-	use({ "hrsh7th/vim-vsnip", event = "InsertEnter" })
-	use({ "rafamadriz/friendly-snippets", event = "InsertEnter" })
+	use({ "rafamadriz/friendly-snippets" })
+	-- use({ "L3MON4D3/LuaSnip", event = "InsertEnter" })
+	use({
+		"L3MON4D3/LuaSnip",
+		config = function()
+			require("luasnip/loaders/from_vscode").lazy_load()
+		end,
+	})
 
 	-- Treesitter
 	use({
