@@ -1,8 +1,4 @@
 O.lang = {
-	css = {
-		virtual_text = true,
-	},
-	html = {},
 	java = {
 		java_tools = {
 			active = false,
@@ -109,6 +105,7 @@ O.lang = {
 			"html",
 			"css",
 			"scss",
+			"sass",
 			"javascript",
 			"javascriptreact",
 			"typescript",
@@ -120,7 +117,6 @@ O.lang = {
 			stdin = false,
 		},
 	},
-	vim = {},
 	yaml = {
 		formatter = {
 			exe = "prettier",
@@ -130,7 +126,6 @@ O.lang = {
 	},
 }
 
--- TODO: these guys need to be in language files
 require("lsp")
 -- if O.lang.emmet.active then
 --   require "lsp.emmet-ls"
