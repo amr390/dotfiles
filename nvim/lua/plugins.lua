@@ -82,6 +82,7 @@ return require("packer").startup(function(use)
 			require("luasnip/loaders/from_vscode").lazy_load()
 		end,
 	})
+	use({ "saadparwaiz1/cmp_luasnip" })
 
 	-- Treesitter
 	use({

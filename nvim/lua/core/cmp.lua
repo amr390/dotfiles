@@ -1,7 +1,6 @@
 local M = {}
 M.methods = {}
-local status_cmp_ok, cmp = pcall(require, "cmp")
-
+local cmp_config
 ---checks if the character preceding the cursor is a space character
 ---@return boolean true if it is a space character, false otherwise
 local check_backspace = function()
@@ -147,6 +146,7 @@ end
 M.methods.jumpable = jumpable
 
 M.config = function()
+	local status_cmp_ok, cmp = pcall(require, "cmp")
 	if not status_cmp_ok then
 		return
 	end
@@ -155,7 +155,7 @@ M.config = function()
 		return
 	end
 
-	cmp = {
+	cmp_config = {
 		confirm_opts = {
 			behavior = cmp.ConfirmBehavior.Replace,
 			select = false,
@@ -215,9 +215,10 @@ M.config = function()
 			},
 			duplicates_default = 0,
 			format = function(entry, vim_item)
-				vim_item.kind = cmp.formatting.kind_icons[vim_item.kind]
-				vim_item.menu = cmp.formatting.source_names[entry.source.name]
-				vim_item.dup = cmp.formatting.duplicates[entry.source.name] or cmp.formatting.duplicates_default
+				vim_item.kind = cmp_config.formatting.kind_icons[vim_item.kind]
+				vim_item.menu = cmp_config.formatting.source_names[entry.source.name]
+				vim_item.dup = cmp_config.formatting.duplicates[entry.source.name]
+					or cmp_config.formatting.duplicates_default
 				return vim_item
 			end,
 		},
@@ -301,7 +302,7 @@ M.config = function()
 end
 
 function M.setup()
-	require("cmp").setup(cmp)
+	require("cmp").setup(cmp_config)
 end
 
 return M
