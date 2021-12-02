@@ -1,24 +1,4 @@
 O.lang = {
-	cmake = {
-		formatter = {
-			exe = "clang-format",
-			args = {},
-		},
-	},
-	clang = {
-		diagnostics = {
-			virtual_text = { spacing = 0, prefix = "" },
-			signs = true,
-			underline = true,
-		},
-		cross_file_rename = true,
-		header_insertion = "never",
-		filetypes = { "c", "cpp", "objc" },
-		formatter = {
-			exe = "clang-format",
-			args = {},
-		},
-	},
 	css = {
 		virtual_text = true,
 	},
@@ -149,3 +129,16 @@ O.lang = {
 		},
 	},
 }
+
+-- TODO: these guys need to be in language files
+require("lsp")
+-- if O.lang.emmet.active then
+--   require "lsp.emmet-ls"
+-- end
+
+-- if O.lang.tailwindcss.active then
+-- 	require("lsp.tailwindcss-ls")
+-- end
+-- if O.lang.tsserver.active then
+-- 	require("lsp.tsserver-ls")
+-- end

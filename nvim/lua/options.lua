@@ -11,7 +11,7 @@ O = {
 	transparent_window = false,
 	format_on_save = true,
 	vsnip_dir = CONFIG_PATH .. "/snippets",
-	default_options = {
+	default_config = {
 		backup = false, -- creates a backup file
 		clipboard = "unnamedplus", -- allows neovim to access the system clipboard
 		cmdheight = 2, -- more space in the neovim command line for displaying messages
@@ -81,10 +81,6 @@ O = {
 
 	-- TODO: just using mappings (leader mappings)
 	user_which_key = {},
-
-	user_plugins = {
-		-- use lv-config.lua for this not put here
-	},
 
 	user_autocommands = {
 		{ "FileType", "qf", "set nobuflisted" },

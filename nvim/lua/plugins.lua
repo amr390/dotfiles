@@ -33,13 +33,7 @@ return require("packer").startup(function(use)
 	use({ "jose-elias-alvarez/null-ls.nvim" })
 	use({ "antoinemadec/FixCursorHold.nvim" }) -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 
-	use({
-		"kabouzeid/nvim-lspinstall",
-		event = "VimEnter",
-		config = function()
-			require("lspinstall").setup()
-		end,
-	})
+	use({ "williamboman/nvim-lsp-installer" })
 
 	use({ "nvim-lua/popup.nvim" })
 	use({ "nvim-lua/plenary.nvim" })
@@ -159,22 +153,6 @@ return require("packer").startup(function(use)
 		event = "BufWinEnter",
 	})
 
-	-- Debugging
-	use({
-		"mfussenegger/nvim-dap",
-		-- event = "BufWinEnter",
-		config = function()
-			require("core.dap").setup()
-		end,
-	})
-
-	-- Debugger management
-	use({
-		"Pocco81/DAPInstall.nvim",
-		-- event = "BufWinEnter",
-		-- event = "BufRead",
-	})
-
 	-- Builtins, these do not load by default
 
 	-- TODO: remove in favor of akinsho/nvim-toggleterm.lua
@@ -209,22 +187,8 @@ return require("packer").startup(function(use)
 	-- project.nvim
 	use({
 		"ahmedkhalf/project.nvim",
-		-- commit = commit.project,
 		config = function()
 			require("core.project").setup()
-		end,
-	})
-
-	use({
-		"vimwiki/vimwiki",
-		config = function()
-			vim.g.vimwiki_list = {
-				{
-					path = "$HOME/Documents/net/Dropbox/wiki/",
-					syntax = "markdown",
-					ext = ".md",
-				},
-			}
 		end,
 	})
 
@@ -253,9 +217,4 @@ return require("packer").startup(function(use)
 		"mfussenegger/nvim-jdtls",
 		-- ft = { "java" },
 	})
-
-	-- Install user plugins
-	for _, plugin in pairs(O.user_plugins) do
-		packer.use(plugin)
-	end
 end)

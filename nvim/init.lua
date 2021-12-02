@@ -1,4 +1,4 @@
-require("defaults")
+require("options")
 require("langs")
 require("keymappings")
 
@@ -7,16 +7,3 @@ vim.g.colors_name = O.colorscheme -- Colorscheme must get called after plugins a
 
 require("settings")
 require("lv-utils")
-
--- TODO: these guys need to be in language files
-require("lsp")
--- if O.lang.emmet.active then
---   require "lsp.emmet-ls"
--- end
-
-if O.lang.tailwindcss.active then
-	require("lsp.tailwindcss-ls")
-end
-if O.lang.tsserver.active then
-	require("lsp.tsserver-ls")
-end
