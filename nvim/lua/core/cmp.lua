@@ -1,5 +1,6 @@
 local M = {}
 M.methods = {}
+local status_cmp_ok, cmp = pcall(require, "cmp")
 
 ---checks if the character preceding the cursor is a space character
 ---@return boolean true if it is a space character, false otherwise
@@ -146,7 +147,6 @@ end
 M.methods.jumpable = jumpable
 
 M.config = function()
-	local status_cmp_ok, cmp = pcall(require, "cmp")
 	if not status_cmp_ok then
 		return
 	end
@@ -215,10 +215,9 @@ M.config = function()
 			},
 			duplicates_default = 0,
 			format = function(entry, vim_item)
-				vim_item.kind = lvim.builtin.cmp.formatting.kind_icons[vim_item.kind]
-				vim_item.menu = lvim.builtin.cmp.formatting.source_names[entry.source.name]
-				vim_item.dup = lvim.builtin.cmp.formatting.duplicates[entry.source.name]
-					or lvim.builtin.cmp.formatting.duplicates_default
+				vim_item.kind = cmp.formatting.kind_icons[vim_item.kind]
+				vim_item.menu = cmp.formatting.source_names[entry.source.name]
+				vim_item.dup = cmp.formatting.duplicates[entry.source.name] or cmp.formatting.duplicates_default
 				return vim_item
 			end,
 		},
@@ -282,7 +281,7 @@ M.config = function()
 			["<C-Space>"] = cmp.mapping.complete(),
 			["<C-e>"] = cmp.mapping.abort(),
 			["<CR>"] = cmp.mapping(function(fallback)
-				if cmp.visible() and cmp.confirm(lvim.builtin.cmp.confirm_opts) then
+				if cmp.visible() and cmp.confirm(cmp.confirm_opts) then
 					if jumpable() then
 						luasnip.jump(1)
 					end

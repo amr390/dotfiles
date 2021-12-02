@@ -11,7 +11,7 @@ O = {
 	transparent_window = false,
 	format_on_save = true,
 	vsnip_dir = CONFIG_PATH .. "/snippets",
-	default_config = {
+	default_options = {
 		backup = false, -- creates a backup file
 		clipboard = "unnamedplus", -- allows neovim to access the system clipboard
 		cmdheight = 2, -- more space in the neovim command line for displaying messages
@@ -82,6 +82,10 @@ O = {
 	-- TODO: just using mappings (leader mappings)
 	user_which_key = {},
 
+	user_plugins = {
+		-- use lv-config.lua for this not put here
+	},
+
 	user_autocommands = {
 		{ "FileType", "qf", "set nobuflisted" },
 	},
@@ -93,7 +97,7 @@ O = {
 
 require("core.status_colors")
 require("core.gitsigns").config()
-require("core.cmp").config()
+require("core.compe").config()
 require("core.dashboard").config()
 require("core.project").config()
 require("core.dap").config()
@@ -102,64 +106,3 @@ require("core.zen").config()
 require("core.telescope").config()
 require("core.treesitter").config()
 require("core.which-key").config()
-
----  HELPERS  ---
-
-local cmd = vim.cmd
-local opt = vim.opt
-
----  VIM ONLY COMMANDS  ---
-
-cmd("filetype plugin on")
-cmd('let &titleold="' .. TERMINAL .. '"')
-cmd("set inccommand=split")
-cmd("set iskeyword+=-")
-
-if O.line_wrap_cursor_movement then
-	cmd("set whichwrap+=<,>,[,],h,l")
-end
-
-if O.transparent_window then
-	cmd("au ColorScheme * hi Normal ctermbg=none guibg=none")
-	cmd("au ColorScheme * hi SignColumn ctermbg=none guibg=none")
-	cmd("let &fcs='eob: '")
-end
-
----  SETTINGS  ---
-
-opt.shortmess:append("c")
-
-local disabled_built_ins = {
-	"netrw",
-	"netrwPlugin",
-	"netrwSettings",
-	"netrwFileHandlers",
-	"gzip",
-	"zip",
-	"zipPlugin",
-	"tar",
-	"tarPlugin", -- 'man',
-	"getscript",
-	"getscriptPlugin",
-	"vimball",
-	"vimballPlugin",
-	"2html_plugin",
-	"logipat",
-	"rrhelper",
-	"spellfile_plugin",
-	-- 'matchit', 'matchparen', 'shada_plugin',
-}
-
-if O.leader_key == " " or O.leader_key == "space" then
-	vim.g.mapleader = " "
-else
-	vim.g.mapleader = O.leader_key
-end
-
-for _, plugin in pairs(disabled_built_ins) do
-	vim.g["loaded_" .. plugin] = 1
-end
-
-for k, v in pairs(O.default_config) do
-	vim.opt[k] = v
-end
