@@ -190,6 +190,7 @@ return require("packer").startup(function(use)
 		config = function()
 			require("core.zen").setup()
 		end,
+		disabled = true,
 	})
 
 	-- Dashboard
@@ -199,6 +200,7 @@ return require("packer").startup(function(use)
 		config = function()
 			require("core.dashboard").setup()
 		end,
+		disabled = true,
 	})
 
 	-- project.nvim
@@ -207,6 +209,7 @@ return require("packer").startup(function(use)
 		config = function()
 			require("core.project").setup()
 		end,
+		disabled = true,
 	})
 
 	-- GRUVBOX THEME
