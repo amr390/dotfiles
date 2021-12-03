@@ -30,18 +30,18 @@ M.config = function()
 				description = { "  New File           " },
 				command = ":ene!",
 			},
-			c = {
-				description = { "  Recent Projects    " },
-				command = "Telescope projects",
-			},
+			-- c = {
+			-- 	description = { "  Recent Projects    " },
+			-- 	command = "Telescope projects",
+			-- },
 			d = {
 				description = { "  Recently Used Files" },
 				command = "Telescope oldfiles",
 			},
-			e = {
-				description = { "  Load Last Session  " },
-				command = "SessionLoad",
-			},
+			-- e = {
+			-- 	description = { "  Load Last Session  " },
+			-- 	command = "SessionLoad",
+			-- },
 			f = {
 				description = { "  Find Word          " },
 				command = "Telescope live_grep",

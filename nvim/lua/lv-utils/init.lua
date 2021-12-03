@@ -72,7 +72,7 @@ lv_utils.define_augroups({
 			"*",
 			"setlocal formatoptions-=c formatoptions-=r formatoptions-=o",
 		},
-		{ "BufWritePost", "*/nvim/lua/**/*.lua", "lua require('lv-utils').reload_lv_config()" },
+		{ "BufWritePost", "*.lua", "lua require('lv-utils').reload_lv_config()" },
 		-- { "VimLeavePre", "*", "set title set titleold=" },
 	},
 	_solidity = {
