@@ -57,9 +57,6 @@ O = {
 
 	-- Better setup on each plugin definition
 	plugin = {
-		dap = {
-			active = true,
-		},
 		galaxyline = {
 			active = true,
 		},

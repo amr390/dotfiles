@@ -193,25 +193,6 @@ return require("packer").startup(function(use)
 		disabled = true,
 	})
 
-	-- Dashboard
-	use({
-		"ChristianChiarulli/dashboard-nvim",
-		event = "BufWinEnter",
-		config = function()
-			require("plugins.dashboard").setup()
-		end,
-		disabled = true,
-	})
-
-	-- project.nvim
-	use({
-		"ahmedkhalf/project.nvim",
-		config = function()
-			require("plugins.project").setup()
-		end,
-		disabled = true,
-	})
-
 	-- GRUVBOX THEME
 	use({
 		"npxbr/gruvbox.nvim",
