@@ -71,7 +71,6 @@ M.config = function()
 			["f"] = { "<cmd>Telescope find_files<CR>", "Find File" },
 			["h"] = { '<cmd>let @/=""<CR>', "No Highlight" },
 			["W"] = { "<leader>ww<CR>", "Wiki" },
-			[";"] = { "<cmd>Dashboard<CR>", "Dashboard" },
 			p = {
 				name = "Packer",
 				c = { "<cmd>PackerCompile<cr>", "Compile" },
@@ -182,11 +181,6 @@ M.setup = function()
 	--   vim.api.nvim_set_keymap("n", "<leader>Th", ":TSHighlightCapturesUnderCursor<CR>", { noremap = true, silent = true })
 	--   mappings[""] = "Highlight Capture"
 	-- end
-
-	if O.plugin.zen.active then
-		vim.api.nvim_set_keymap("n", "<leader>z", ":ZenMode<CR>", { noremap = true, silent = true })
-		mappings["z"] = "Zen"
-	end
 
 	local wk = require("which-key")
 

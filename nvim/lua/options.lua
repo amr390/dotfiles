@@ -88,14 +88,10 @@ O = {
 	},
 }
 
-require("plugins.status_colors")
 require("plugins.gitsigns").config()
 require("plugins.cmp").config()
-require("plugins.dashboard").config()
 require("plugins.project").config()
 require("plugins.floatterm").config()
-require("plugins.dap").config()
-require("plugins.zen").config()
 require("plugins.telescope").config()
 require("plugins.treesitter").config()
 require("plugins.which-key").config()
