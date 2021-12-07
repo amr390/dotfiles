@@ -182,17 +182,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Zen Mode
-	use({
-		"folke/zen-mode.nvim",
-		cmd = "ZenMode",
-		event = "BufRead",
-		config = function()
-			require("plugins.zen").setup()
-		end,
-		disabled = true,
-	})
-
 	-- GRUVBOX THEME
 	use({
 		"npxbr/gruvbox.nvim",

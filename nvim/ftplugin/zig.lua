@@ -1,5 +1,5 @@
 if not require("lv-utils").check_lsp_client_active "zls" then
-  -- Because lspinstall don't support zig yet,
+  -- Because lsp_servers don't support zig yet,
   -- So we need zls preset in global lib
   -- Further custom install zls in
   -- https://github.com/zigtools/zls/wiki/Downloading-and-Building-ZLS

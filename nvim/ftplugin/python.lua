@@ -38,7 +38,7 @@ end
 if not require("lv-utils").check_lsp_client_active "efm" then
   require("lspconfig").efm.setup {
     -- init_options = {initializationOptions},
-    cmd = { DATA_PATH .. "/lspinstall/efm/efm-langserver" },
+    cmd = { DATA_PATH .. "/lsp_servers/efm/efm-langserver" },
     init_options = { documentFormatting = true, codeAction = false },
     root_dir = require("lspconfig").util.root_pattern(".git/", "requirements.txt"),
     filetypes = { "python" },
@@ -55,7 +55,7 @@ if not require("lv-utils").check_lsp_client_active "pyright" then
   -- npm i -g pyright
   require("lspconfig").pyright.setup {
     cmd = {
-      DATA_PATH .. "/lspinstall/python/node_modules/.bin/pyright-langserver",
+      DATA_PATH .. "/lsp_servers/python/node_modules/.bin/pyright-langserver",
       "--stdio",
     },
     on_attach = require("lsp").common_on_attach,

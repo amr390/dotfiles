@@ -19,7 +19,7 @@ if require("lv-utils").check_lsp_client_active "terraformls" then
 end
 
 require("lspconfig").terraformls.setup {
-  cmd = { DATA_PATH .. "/lspinstall/terraform/terraform-ls", "serve" },
+  cmd = { DATA_PATH .. "/lsp_servers/terraform/terraform-ls", "serve" },
   on_attach = require("lsp").common_on_attach,
   filetypes = { "tf", "terraform", "hcl" },
 }

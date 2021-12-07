@@ -4,7 +4,7 @@ local lspconfig = require "lspconfig"
 lspconfig.tailwindcss.setup {
   cmd = {
     "node",
-    DATA_PATH .. "/lspinstall/tailwindcss/tailwindcss-intellisense/extension/dist/server/tailwindServer.js",
+    DATA_PATH .. "/lsp_servers/tailwindcss/tailwindcss-intellisense/extension/dist/server/tailwindServer.js",
     "--stdio",
   },
   filetypes = O.lang.tailwindcss.filetypes,

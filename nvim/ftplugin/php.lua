@@ -17,7 +17,7 @@ if require("lv-utils").check_lsp_client_active "intelephense" then
 end
 
 require("lspconfig").intelephense.setup {
-  cmd = { DATA_PATH .. "/lspinstall/php/node_modules/.bin/intelephense", "--stdio" },
+  cmd = { DATA_PATH .. "/lsp_servers/php/node_modules/.bin/intelephense", "--stdio" },
   on_attach = require("lsp").common_on_attach,
   handlers = {
     ["textDocument/publishDiagnostics"] = vim.lsp.with(vim.lsp.diagnostic.on_publish_diagnostics, {
