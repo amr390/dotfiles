@@ -4,7 +4,7 @@
 APPS_HOME="/home/amr/Documents/Apps"
 NODE_MODULES="~/Documents/Apps/node_modules"
 MONGO_HOME="~/Documents/Apps/mongodb"
-APPS_HOME="~/Documents/Apps"
+WORK_DIR="~/Documents/dotfiles"
 
 #echo "setting gradle OPTS"
 # This causes grails to fail
@@ -36,5 +36,7 @@ export DBX_ACCESS_TOKEN=xxx
 export PATH=/usr/bin:/usr/local/bin:/usr/local/sbin:$HOME/.local/bin:$PATH
 export PATH=$MONGO_HOME/bin:$PATH # MongoDB home
 export PATH=$APPS_HOME/tinkerpop/bin:$PATH
+export PATH=$WORK_DIR/bin:$PATH
+export PATH=$NODE_MODULES/bin:$PATH # node modules bin
 export PATH=$NODE_MODULES/bin:$PATH # node modules bin
 export PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
