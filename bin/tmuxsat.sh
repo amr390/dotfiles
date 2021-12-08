@@ -11,7 +11,7 @@ if [ "$SESSIONEXISTS" = "" ]; then
 
 	# Name first Pane and start ssh
 	tmux rename-window -t 1 'Console'
-	tmux send-keys -t 'Console' 'sat && workon sat && sat-run-t' 'C-m'
+	tmux send-keys -t 'Console' 'sat && workon sat && sat-run-p' 'C-m'
 	tmux split-window -h
 	tmux send-keys -t 'Console' 'sat && cd sat8485/static && npm run start' 'C-m'
 
