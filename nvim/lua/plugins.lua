@@ -35,16 +35,15 @@ return require("packer").startup(function(use)
 
 	use({ "williamboman/nvim-lsp-installer" })
 
+	-- Telescope
 	use({ "nvim-lua/popup.nvim" })
 	use({ "nvim-lua/plenary.nvim" })
-
-	-- Telescope
 	use({
 		"nvim-telescope/telescope.nvim",
 		config = [[require('plugins.telescope').setup()]],
 	})
 
-	-- Autocomplete
+	-- Autocomplete and Snippets 
 	use({
 		"hrsh7th/nvim-cmp",
 		-- event = "InsertEnter",
@@ -185,6 +184,7 @@ return require("packer").startup(function(use)
 	-- GRUVBOX THEME
 	use({
 		"npxbr/gruvbox.nvim",
+		-- "ellisonleao/gruvbox.nvim",
 		requires = { "rktjmp/lush.nvim" },
 	})
 
