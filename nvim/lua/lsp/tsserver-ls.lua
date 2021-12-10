@@ -6,8 +6,7 @@ local buf_map = function(bufnr, mode, lhs, rhs, opts)
 	})
 end
 
-M.tsserver_on_attach = function (client, bufnr)
-  print ("running tsserver_on_attache from lua/lsp/tsserver-ls")
+M.tsserver_on_attach = function(client, bufnr)
 	-- lsp_config.common_on_attach(client, bufnr)
 	client.resolved_capabilities.document_formatting = false
 	client.resolved_capabilities.document_range_formatting = false
@@ -49,12 +48,11 @@ M.tsserver_on_attach = function (client, bufnr)
 	ts_utils.setup_client(client)
 
 	-- TODO: keymap these?
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", {silent = true})
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "qq", ":TSLspFixCurrent<CR>", {silent = true})
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", {silent = true})
-	vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", {silent = true})
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "gs", ":TSLspOrganize<CR>", { silent = true })
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "qq", ":TSLspFixCurrent<CR>", { silent = true })
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", ":TSLspRenameFile<CR>", { silent = true })
+	vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", { silent = true })
 end
-
 
 --- vim.cmd("let proj = FindRootDirectory()")
 -- local root_dir = vim.api.nvim_get_var("proj")
@@ -92,22 +90,21 @@ end
 --     return O.formatters.filetype["tsserver"]
 --   end
 -- }
--- 
+--
 -- O.formatters.filetype["typescriptreact"] = {
 --   function()
 --     return O.formatters.filetype["tsserver"]
 --   end
 -- }
 
-
-require("formatter.config").set_defaults({
-	logging = false,
-	filetype = O.formatters.filetype,
-})
-
-require("formatter").setup({
-  filetype = O.formatters.filetype
-})
+-- require("formatter.config").set_defaults({
+-- 	logging = false,
+-- 	filetype = O.formatters.filetype,
+-- })
+--
+-- require("formatter").setup({
+-- 	filetype = O.formatters.filetype,
+-- })
 
 if require("utils").check_lsp_client_active("tsserver") then
 	return

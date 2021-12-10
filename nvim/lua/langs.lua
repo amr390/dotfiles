@@ -5,7 +5,7 @@ O.lang = {
 		},
 		formatter = {
 			exe = "prettier",
-			args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+			args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--single-quote" },
 		},
 	},
 	json = {
@@ -67,30 +67,6 @@ O.lang = {
 			stdin = false,
 		},
 	},
-	tailwindcss = {
-		active = false,
-		filetypes = {
-			"html",
-			"css",
-			"scss",
-			"javascript",
-			"javascriptreact",
-			"typescript",
-			"typescriptreact",
-		},
-		formatter = {
-			exe = "prettier",
-			args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
-			stdin = false,
-		},
-	},
-	terraform = {
-		formatter = {
-			exe = "terraform",
-			args = { "fmt" },
-			stdin = false,
-		},
-	},
 	tsserver = {
 		-- @usage can be 'eslint' or 'eslint_d'
 		active = true,
@@ -113,15 +89,15 @@ O.lang = {
 		},
 		formatter = {
 			exe = "prettier",
-			args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
+			args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--single-quote" },
 			stdin = false,
 		},
 	},
 	yaml = {
 		formatter = {
 			exe = "prettier",
-			args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
-			stdin = false,
+			args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--single-quote" },
+			stdin = true,
 		},
 	},
 }
