@@ -27,7 +27,6 @@ function utils.define_augroups(definitions) -- {{{1
 	--    3. Text
 	-- just like how they would normally be defined from Vim itself
 	for group_name, definition in pairs(definitions) do
-    print ("working for group name", group_name)
 		vim.cmd("augroup " .. group_name)
 		vim.cmd("autocmd!")
 
@@ -73,22 +72,12 @@ utils.define_augroups({
 			"*",
 			"setlocal formatoptions-=c formatoptions-=r formatoptions-=o",
 		},
-		{ "BufWritePost", "*.lua", "lua require('utils').reload_lv_config()" },
-		-- { "VimLeavePre", "*", "set title set titleold=" },
 	},
 	_solidity = {
 		{ "BufWinEnter", ".tf", "setlocal filetype=hcl" },
 		{ "BufRead", "*.tf", "setlocal filetype=hcl" },
 		{ "BufNewFile", "*.tf", "setlocal filetype=hcl" },
 	},
-	-- _solidity = {
-	--     {'BufWinEnter', '.sol', 'setlocal filetype=solidity'}, {'BufRead', '*.sol', 'setlocal filetype=solidity'},
-	--     {'BufNewFile', '*.sol', 'setlocal filetype=solidity'}
-	-- },
-	-- _gemini = {
-	--     {'BufWinEnter', '.gmi', 'setlocal filetype=markdown'}, {'BufRead', '*.gmi', 'setlocal filetype=markdown'},
-	--     {'BufNewFile', '*.gmi', 'setlocal filetype=markdown'}
-	-- },
 	_markdown = {
 		{ "FileType", "markdown", "setlocal wrap" },
 		{ "FileType", "markdown", "setlocal spell" },
@@ -104,19 +93,6 @@ utils.define_augroups({
 		-- will cause split windows to be resized evenly if main window is resized
 		{ "BufWritePost", "plugins.lua", "PackerCompile" },
 	},
-
-	-- _fterm_lazygit = {
-	--   -- will cause esc key to exit lazy git
-	--   {"TermEnter", "*", "call LazyGitNativation()"}
-	-- },
-	-- _mode_switching = {
-	--   -- will switch between absolute and relative line numbers depending on mode
-	--   {'InsertEnter', '*', 'if &relativenumber | let g:ms_relativenumberoff = 1 | setlocal number norelativenumber | endif'},
-	--   {'InsertLeave', '*', 'if exists("g:ms_relativenumberoff") | setlocal relativenumber | endif'},
-	--   {'InsertEnter', '*', 'if &cursorline | let g:ms_cursorlineoff = 1 | setlocal nocursorline | endif'},
-	--   {'InsertLeave', '*', 'if exists("g:ms_cursorlineoff") | setlocal cursorline | endif'},
-	-- },
-	_user_autocommands = O.user_autocommands,
 })
 
 vim.cmd([[
