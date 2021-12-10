@@ -1,4 +1,4 @@
-if require("lv-utils").check_lsp_client_active "omnisharp" then
+if require("utils").check_lsp_client_active "omnisharp" then
   return
 end
 

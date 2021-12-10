@@ -1,13 +1,13 @@
-local lv_utils = {}
+local utils = {}
 
-function lv_utils.reload_lv_config()
+function utils.reload_lv_config()
 	vim.cmd("source ~/.config/nvim/lua/plugins.lua")
 	vim.cmd("source ~/.config/nvim/lua/options.lua")
 	vim.cmd("source ~/.config/nvim/lua/plugins/formatter.lua")
 	vim.cmd(":PackerInstall")
 end
 
-function lv_utils.check_lsp_client_active(name)
+function utils.check_lsp_client_active(name)
 	local clients = vim.lsp.get_active_clients()
 	for _, client in pairs(clients) do
 		if client.name == name then
@@ -17,7 +17,7 @@ function lv_utils.check_lsp_client_active(name)
 	return false
 end
 
-function lv_utils.define_augroups(definitions) -- {{{1
+function utils.define_augroups(definitions) -- {{{1
 	-- Create autocommand groups based on the passed definitions
 	--
 	-- The key will be the name of the group, and each definition
@@ -27,6 +27,7 @@ function lv_utils.define_augroups(definitions) -- {{{1
 	--    3. Text
 	-- just like how they would normally be defined from Vim itself
 	for group_name, definition in pairs(definitions) do
+    print ("working for group name", group_name)
 		vim.cmd("augroup " .. group_name)
 		vim.cmd("autocmd!")
 
@@ -39,12 +40,12 @@ function lv_utils.define_augroups(definitions) -- {{{1
 	end
 end
 
-function lv_utils.unrequire(m)
+function utils.unrequire(m)
 	package.loaded[m] = nil
 	_G[m] = nil
 end
 
-lv_utils.define_augroups({
+utils.define_augroups({
 
 	_general_settings = {
 		{
@@ -72,7 +73,7 @@ lv_utils.define_augroups({
 			"*",
 			"setlocal formatoptions-=c formatoptions-=r formatoptions-=o",
 		},
-		{ "BufWritePost", "*.lua", "lua require('lv-utils').reload_lv_config()" },
+		{ "BufWritePost", "*.lua", "lua require('utils').reload_lv_config()" },
 		-- { "VimLeavePre", "*", "set title set titleold=" },
 	},
 	_solidity = {
@@ -128,6 +129,6 @@ vim.cmd([[
 endfunction
 ]])
 
-return lv_utils
+return utils
 
 -- TODO: find a new home for these autocommands

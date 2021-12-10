@@ -109,7 +109,7 @@ require("formatter").setup({
   filetype = O.formatters.filetype
 })
 
-if require("lv-utils").check_lsp_client_active("tsserver") then
+if require("utils").check_lsp_client_active("tsserver") then
 	return
 end
 

@@ -185,7 +185,7 @@ local buf_map = function(bufnr, mode, lhs, rhs, opts)
 end
 
 
-require("lv-utils").define_augroups({
+require("utils").define_augroups({
 	_general_lsp = {
 		{ "FileType", "lspinfo", "nnoremap <silent> <buffer> q :q<CR>" },
 	},

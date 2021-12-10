@@ -1,4 +1,4 @@
-if not require("lv-utils").check_lsp_client_active "html" then
+if not require("utils").check_lsp_client_active "html" then
   -- npm install -g vscode-html-languageserver-bin
   local capabilities = vim.lsp.protocol.make_client_capabilities()
   capabilities.textDocument.completion.completionItem.snippetSupport = true

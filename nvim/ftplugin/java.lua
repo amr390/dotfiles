@@ -23,7 +23,7 @@ require("formatter.config").set_defaults {
   filetype = O.formatters.filetype,
 }
 
-if require("lv-utils").check_lsp_client_active "jdtls" then
+if require("utils").check_lsp_client_active "jdtls" then
   return
 end
 

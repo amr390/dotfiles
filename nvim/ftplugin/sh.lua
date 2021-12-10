@@ -12,7 +12,7 @@ require("formatter.config").set_defaults {
   logging = false,
   filetype = O.formatters.filetype,
 }
-if not require("lv-utils").check_lsp_client_active "bashls" then
+if not require("utils").check_lsp_client_active "bashls" then
   -- npm i -g bash-language-server
   require("lspconfig").bashls.setup {
     cmd = { DATA_PATH .. "/lsp_servers/bash/node_modules/.bin/bash-language-server", "start" },
@@ -35,7 +35,7 @@ if O.lang.sh.linter == "shellcheck" then
   table.insert(sh_arguments, shellcheck)
 end
 
-if not require("lv-utils").check_lsp_client_active "efm" then
+if not require("utils").check_lsp_client_active "efm" then
   require("lspconfig").efm.setup {
     -- init_options = {initializationOptions},
     cmd = { DATA_PATH .. "/lsp_servers/efm/efm-langserver" },

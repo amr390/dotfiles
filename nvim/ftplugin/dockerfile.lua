@@ -1,4 +1,4 @@
-if require("lv-utils").check_lsp_client_active "dockerls" then
+if require("utils").check_lsp_client_active "dockerls" then
   return
 end
 

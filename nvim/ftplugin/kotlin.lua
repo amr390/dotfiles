@@ -1,4 +1,4 @@
-if require("lv-utils").check_lsp_client_active "kotlin_language_server" then
+if require("utils").check_lsp_client_active "kotlin_language_server" then
   return
 end
 

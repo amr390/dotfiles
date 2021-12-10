@@ -35,7 +35,7 @@ if O.lang.python.isort then
   table.insert(python_arguments, isort)
 end
 
-if not require("lv-utils").check_lsp_client_active "efm" then
+if not require("utils").check_lsp_client_active "efm" then
   require("lspconfig").efm.setup {
     -- init_options = {initializationOptions},
     cmd = { DATA_PATH .. "/lsp_servers/efm/efm-langserver" },
@@ -51,7 +51,7 @@ if not require("lv-utils").check_lsp_client_active "efm" then
   }
 end
 
-if not require("lv-utils").check_lsp_client_active "pyright" then
+if not require("utils").check_lsp_client_active "pyright" then
   -- npm i -g pyright
   require("lspconfig").pyright.setup {
     cmd = {

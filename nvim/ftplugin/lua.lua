@@ -1,6 +1,5 @@
 O.formatters.filetype["lua"] = {
   function()
-    print("executing ftplugin/lua.lua formatters filetype", O.lang.lua)
     return {
       exe = O.lang.lua.formatter.exe,
       args = O.lang.lua.formatter.args,
@@ -14,7 +13,7 @@ require("formatter.config").set_defaults {
   filetype = O.formatters.filetype,
 }
 
-if not require("lv-utils").check_lsp_client_active "sumneko_lua" then
+if not require("utils").check_lsp_client_active "sumneko_lua" then
   -- https://github.com/sumneko/lua-language-server/wiki/Build-and-Run-(Standalone)
   local sumneko_root_path = DATA_PATH .. "/lsp_servers/sumneko_lua/extension/server/bin/Linux"
   local sumneko_binary = sumneko_root_path .. "/lua-language-server"

@@ -1,4 +1,4 @@
-if require("lv-utils").check_lsp_client_active "graphql" then
+if require("utils").check_lsp_client_active "graphql" then
   return
 end
 

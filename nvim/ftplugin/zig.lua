@@ -1,4 +1,4 @@
-if not require("lv-utils").check_lsp_client_active "zls" then
+if not require("utils").check_lsp_client_active "zls" then
   -- Because lsp_servers don't support zig yet,
   -- So we need zls preset in global lib
   -- Further custom install zls in
@@ -9,7 +9,7 @@ if not require("lv-utils").check_lsp_client_active "zls" then
   }
 end
 
-require("lv-utils").define_augroups {
+require("utils").define_augroups {
   _zig_autoformat = {
     { "BufEnter", "*.zig", ':lua vim.api.nvim_buf_set_option(0, "commentstring", "// %s")' },
   },

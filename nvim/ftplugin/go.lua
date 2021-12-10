@@ -13,7 +13,7 @@ require("formatter.config").set_defaults {
   filetype = O.formatters.filetype,
 }
 
-if not require("lv-utils").check_lsp_client_active "gopls" then
+if not require("utils").check_lsp_client_active "gopls" then
   require("lspconfig").gopls.setup {
     cmd = { DATA_PATH .. "/lsp_servers/go/gopls" },
     settings = { gopls = { analyses = { unusedparams = true }, staticcheck = true } },
