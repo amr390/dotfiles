@@ -1,21 +1,7 @@
 local M = {}
 M.config = function()
 	O.treesitter = {
-		ensure_installed = {
-			"bash",
-			"python",
-			"json",
-			"yaml",
-			"typescript",
-			"javascript",
-			"css",
-			"scss",
-			"html",
-			"java",
-			"lua",
-			"elm",
-			"vim",
-		}, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+		ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
 		ignore_install = {},
 		matchup = {
 			enable = false, -- mandatory, false will disable the whole extension
@@ -87,7 +73,6 @@ M.setup = function()
 	if not status_ok then
 		return
 	end
-  print ("Entering nvim-treesitter config function")
 
 	treesitter_configs.setup(O.treesitter)
 end

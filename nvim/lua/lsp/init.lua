@@ -152,6 +152,7 @@ function lsp_config.PeekDefinition()
 end
 
 function lsp_config.PeekTypeDefinition()
+  print("peek definition call")
 	if vim.tbl_contains(vim.api.nvim_list_wins(), lsp_config.floating_win) then
 		vim.api.nvim_set_current_win(lsp_config.floating_win)
 	else
@@ -161,6 +162,7 @@ function lsp_config.PeekTypeDefinition()
 end
 
 function lsp_config.PeekImplementation()
+  print("peek implementation call")
 	if vim.tbl_contains(vim.api.nvim_list_wins(), lsp_config.floating_win) then
 		vim.api.nvim_set_current_win(lsp_config.floating_win)
 	else
@@ -171,6 +173,7 @@ end
 
 if O.lsp.document_highlight then
 	function lsp_config.common_on_attach(client, bufnr)
+    print("lsp/init common_on_attach")
 		documentHighlight(client, bufnr)
 	end
 end

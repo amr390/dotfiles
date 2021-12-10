@@ -134,5 +134,5 @@ O.lang = {
 -- 	require("lsp.tailwindcss-ls")
 -- end
 -- if O.lang.tsserver.active then
--- 	require("lsp.tsserver-ls")
+-- require("lsp.tsserver-ls")
 -- end

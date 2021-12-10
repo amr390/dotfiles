@@ -1,5 +1,13 @@
 local M = {}
-M.tsserver_on_attach(client, bufnr)
+
+local buf_map = function(bufnr, mode, lhs, rhs, opts)
+	vim.api.nvim_buf_set_keymap(bufnr, mode, lhs, rhs, opts or {
+		silent = true,
+	})
+end
+
+M.tsserver_on_attach = function (client, bufnr)
+  print ("running tsserver_on_attache from lua/lsp/tsserver-ls")
 	-- lsp_config.common_on_attach(client, bufnr)
 	client.resolved_capabilities.document_formatting = false
 	client.resolved_capabilities.document_range_formatting = false
@@ -48,7 +56,7 @@ M.tsserver_on_attach(client, bufnr)
 end
 
 
-- vim.cmd("let proj = FindRootDirectory()")
+--- vim.cmd("let proj = FindRootDirectory()")
 -- local root_dir = vim.api.nvim_get_var("proj")
 --
 -- -- use the global prettier if you didn't find the local one
@@ -116,7 +124,7 @@ end
 -- end
 require("lspconfig").tsserver.setup({
 	cmd = {
-		DATA_PATH .. "/lsp_servers/typescript/node_modules/.bin/typescript-language-server",
+		DATA_PATH .. "/lsp_servers/tsserver/node_modules/.bin/typescript-language-server",
 		"--stdio",
 	},
 	filetypes = {
@@ -141,4 +149,4 @@ require("lspconfig").tsserver.setup({
 		}),
 	},
 })
--- require("lsp.ts-fmt-lint").setup()
+require("lsp.ts-fmt-lint").setup()

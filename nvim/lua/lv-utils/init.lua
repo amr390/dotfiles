@@ -4,7 +4,7 @@ function lv_utils.reload_lv_config()
 	vim.cmd("source ~/.config/nvim/lua/plugins.lua")
 	vim.cmd("source ~/.config/nvim/lua/options.lua")
 	vim.cmd("source ~/.config/nvim/lua/plugins/formatter.lua")
-	vim.cmd(":PackerSync")
+	vim.cmd(":PackerInstall")
 end
 
 function lv_utils.check_lsp_client_active(name)

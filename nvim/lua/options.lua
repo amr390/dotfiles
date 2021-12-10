@@ -2,7 +2,7 @@ CONFIG_PATH = vim.fn.stdpath("config")
 DATA_PATH = vim.fn.stdpath("data")
 CACHE_PATH = vim.fn.stdpath("cache")
 TERMINAL = vim.fn.expand("$TERMINAL")
-USER = vim.fn.expand("$USER")
+   USER = vim.fn.expand("$USER")
 
 O = {
 	leader_key = ",",
@@ -65,7 +65,6 @@ O = {
 		},
 	},
 
-	-- TODO: refactor for tree
 	auto_close_tree = 0,
 	nvim_tree_disable_netrw = 0,
 
@@ -95,6 +94,7 @@ require("plugins.floatterm").config()
 require("plugins.telescope").config()
 require("plugins.treesitter").config()
 require("plugins.which-key").config()
+
 
 ---  HELPERS  ---
 
