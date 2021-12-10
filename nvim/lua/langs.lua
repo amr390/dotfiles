@@ -35,7 +35,7 @@ O.lang = {
 	python = {
 		-- @usage can be flake8 or yapf
 		linter = "flake8",
-		isort = false,
+		isort = true,
 		diagnostics = {
 			virtual_text = { spacing = 0, prefix = "" },
 			signs = true,
