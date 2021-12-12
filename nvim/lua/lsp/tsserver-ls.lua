@@ -54,71 +54,10 @@ M.tsserver_on_attach = function(client, bufnr)
 	vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", ":TSLspImportAll<CR>", { silent = true })
 end
 
---- vim.cmd("let proj = FindRootDirectory()")
--- local root_dir = vim.api.nvim_get_var("proj")
---
--- -- use the global prettier if you didn't find the local one
--- local prettier_instance = root_dir .. "/node_modules/.bin/prettier"
--- if vim.fn.executable(prettier_instance) ~= 1 then
--- 	prettier_instance = O.lang.tsserver.formatter.exe
--- end
-
--- O.formatters.filetype["javascriptreact"] = {
--- 	function()
--- 		return {
--- 			exe = prettier_instance,
--- 			-- TODO: allow user to override this
--- 			args = { "--stdin-filepath", vim.api.nvim_buf_get_name(0), "--single-quote" },
--- 			stdin = true,
--- 		}
--- 	end,
--- }
-
--- TODO: AMR this tries but fails. Format ts with gF by now
--- O.formatters.filetype["javascript"] = {
---   function()
---     return O.formatters.filetype["tsserver"]
---   end
--- }
--- O.formatters.filetype["javascriptreact"] = {
---   function()
---     return O.formatters.filetype["tsserver"]
---   end
--- }
--- O.formatters.filetype["typescript"] = {
---   function()
---     return O.formatters.filetype["tsserver"]
---   end
--- }
---
--- O.formatters.filetype["typescriptreact"] = {
---   function()
---     return O.formatters.filetype["tsserver"]
---   end
--- }
-
--- require("formatter.config").set_defaults({
--- 	logging = false,
--- 	filetype = O.formatters.filetype,
--- })
---
--- require("formatter").setup({
--- 	filetype = O.formatters.filetype,
--- })
-
 if require("utils").check_lsp_client_active("tsserver") then
 	return
 end
 
--- npm install -g typescript typescript-language-server
--- require("snippets").use_suggested_mappings()
--- local capabilities = vim.lsp.protocol.make_client_capabilities()
--- capabilities.textDocument.completion.completionItem.snippetSupport = true
--- local on_attach_common = function(client)
--- 	print("LSP Initialized")
--- 	require("completion").on_attach(client)
--- 	require("illuminate").on_attach(client)
--- end
 require("lspconfig").tsserver.setup({
 	cmd = {
 		DATA_PATH .. "/lsp_servers/tsserver/node_modules/.bin/typescript-language-server",

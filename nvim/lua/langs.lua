@@ -1,3 +1,23 @@
+local prettier_args = {
+	"--config-precedence",
+	"prefer-file",
+	"--single-quote",
+	"--no-bracket-spacing",
+	"--prose-wrap",
+	"always",
+	"--arrow-parens",
+	"always",
+	"--trailing-comma",
+	"all",
+	"--no-semi",
+	"--end-of-line",
+	"lf",
+	"--print-width",
+	vim.bo.textwidth,
+	"--stdin-filepath",
+	vim.fn.shellescape(vim.api.nvim_buf_get_name(0)),
+}
+
 O.lang = {
 	java = {
 		java_tools = {
@@ -5,7 +25,8 @@ O.lang = {
 		},
 		formatter = {
 			exe = "prettier",
-			args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--single-quote" },
+			args = prettier_args,
+			stdin = true,
 		},
 	},
 	json = {
@@ -42,7 +63,7 @@ O.lang = {
 			underline = true,
 		},
 		analysis = {
-			type_checking = "basic",
+			type_checking = "strict", -- "basic", "strict"
 			auto_search_paths = true,
 			use_library_code_types = true,
 		},
@@ -89,14 +110,14 @@ O.lang = {
 		},
 		formatter = {
 			exe = "prettier",
-			args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--single-quote" },
-			stdin = false,
+			args = prettier_args,
+			stdin = true,
 		},
 	},
 	yaml = {
 		formatter = {
 			exe = "prettier",
-			args = { "--stdin-filepath", vim.fn.fnameescape(vim.api.nvim_buf_get_name(0)), "--single-quote" },
+			args = prettier_args,
 			stdin = true,
 		},
 	},

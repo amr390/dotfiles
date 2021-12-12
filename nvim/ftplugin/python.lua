@@ -31,22 +31,22 @@ if O.lang.python.isort then
 	table.insert(python_arguments, isort)
 end
 
-if not require("utils").check_lsp_client_active("efm") then
-	print("ftplugin/python.lua setting up efm")
-	require("lspconfig").efm.setup({
-		-- init_options = {initializationOptions},
-		cmd = { DATA_PATH .. "/lsp_servers/efm/efm-langserver" },
-		init_options = { documentFormatting = true, codeAction = false },
-		root_dir = require("lspconfig").util.root_pattern(".git/", "requirements.txt"),
-		filetypes = { "python" },
-		settings = {
-			rootMarkers = { ".git/", "requirements.txt" },
-			languages = {
-				python = python_arguments,
-			},
-		},
-	})
-end
+-- if not require("utils").check_lsp_client_active("efm") then
+-- 	print("ftplugin/python.lua setting up efm")
+-- 	require("lspconfig").efm.setup({
+-- 		-- init_options = {initializationOptions},
+-- 		cmd = { DATA_PATH .. "/lsp_servers/efm/efm-langserver" },
+-- 		init_options = { documentFormatting = true, codeAction = false },
+-- 		root_dir = require("lspconfig").util.root_pattern(".git/", "requirements.txt"),
+-- 		filetypes = { "python" },
+-- 		settings = {
+-- 			rootMarkers = { ".git/", "requirements.txt" },
+-- 			languages = {
+-- 				python = python_arguments,
+-- 			},
+-- 		},
+-- 	})
+-- end
 
 if not require("utils").check_lsp_client_active("pyright") then
 	-- npm i -g pyright
