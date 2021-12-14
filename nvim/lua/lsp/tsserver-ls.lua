@@ -19,7 +19,7 @@ M.tsserver_on_attach = function(client, bufnr)
 	ts_utils.setup({
 		debug = false,
 		disable_commands = false,
-		enable_import_on_completion = false,
+		enable_import_on_completion = true,
 		import_all_timeout = 5000, -- ms
 
 		-- eslint
@@ -35,12 +35,12 @@ M.tsserver_on_attach = function(client, bufnr)
 		formatter_config_fallback = nil,
 
 		-- parentheses completion
-		complete_parens = false,
-		signature_help_in_parens = false,
+		complete_parens = true,
+		signature_help_in_parens = true,
 
 		-- update imports on file move
-		update_imports_on_move = false,
-		require_confirmation_on_move = false,
+		update_imports_on_move = true,
+		require_confirmation_on_move = true,
 		watch_dir = nil,
 	})
 
