@@ -1,6 +1,4 @@
 #!/bin/sh
-export TERM=color_xterm
-export ZDOTDIR=$HOME/.config/zsh
 HISTFILE=~/.zsh_history
 setopt appendhistory
 
