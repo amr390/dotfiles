@@ -51,7 +51,7 @@ if O.format_on_save then
 			{
 				"BufWritePost",
 				"*",
-				":FormatWrite",
+				":silent FormatWrite",
 			},
 		},
 	})

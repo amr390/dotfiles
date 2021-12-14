@@ -63,7 +63,7 @@ O.lang = {
 			underline = true,
 		},
 		analysis = {
-			type_checking = "strict", -- "basic", "strict"
+			type_checking = "basic", -- "basic", "strict"
 			auto_search_paths = true,
 			use_library_code_types = true,
 		},
@@ -92,7 +92,7 @@ O.lang = {
 		-- @usage can be 'eslint' or 'eslint_d'
 		active = true,
 		linter = "eslint",
-		autoformat = true,
+		autoformat = false,
 		diagnostics = {
 			virtual_text = { spacing = 0, prefix = "" },
 			signs = true,
@@ -122,14 +122,3 @@ O.lang = {
 		},
 	},
 }
-
--- if O.lang.emmet.active then
---   require "lsp.emmet-ls"
--- end
-
--- if O.lang.tailwindcss.active then
--- 	require("lsp.tailwindcss-ls")
--- end
--- if O.lang.tsserver.active then
--- require("lsp.tsserver-ls")
--- end
