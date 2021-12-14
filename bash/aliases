@@ -36,16 +36,7 @@ alias aptunoff="sudo apt update && sudo apt dist-upgrade -y && sudo apt autoremo
 alias sb="source ~/.bashrc"
 alias myip="curl http://ipecho.net/plain; echo"
 
-alias a2d="python3 $DEV/scripts/a2dp.py"
-
 alias vimclean="rm -rf /home/amr/.vimbackup/*"
-
-alias startlemp="docker run -d --name=lemp \
-    -v $DEV/php/docker-lemp/www:/var/www \
-    -v $DEV/php/docker-lemp/mysql:/var/lib/mysql \
-    -v $DEV/php/docker-lemp/log:/var/log/php \
-    -p 9000:80 \
-    stenote/docker-lemp:latest"
 
 alias jdk8='sdk use java 8.0.265-open'
 alias jdk11='sdk use java 11.0.10-open'
@@ -56,26 +47,6 @@ wikii() {
 	v -c ":VimwikiIndex"
 }
 
-# Git
-alias gst='git status -s'
-alias gl='git pull -r --prune'
-alias gp='git push'
-alias gd='git diff | vim'
-alias gau='git add --update'
-alias gc='git commit -v -m'
-alias gca='git commit -v -a -m'
-alias gb='git branch'
-alias gba='git branch -a'
-alias gco='git checkout'
-alias gcob='git checkout -b'
-alias gcot='git checkout -t'
-alias gcotb='git checkout --track -b'
-alias glog='git log'
-alias glogp='git log --pretty=format:"%h %s" --graph'
-alias grp='git remote update -p'
-alias grv='git remote -v'
-alias gsts='git stash'
-alias gstsp='git stash pop'
 alias gpd='cd ~/Documents/dotfiles && gl && gca "new commit" && gp'
 
 # Git flow
@@ -90,34 +61,6 @@ function delete-branches() {
 	if [ -n "$branches_to_delete" ]; then
 		git branch --delete --force $branches_to_delete
 	fi
-}
-
-# TOMCAT
-alias t7w="cd /var/lib/tomcat7$1"
-alias t7l="sudo tail -f /var/log/tomcat7/catalina.out"
-alias t8w="cd /var/lib/tomcat8$1"
-alias t8l="sudo tail -f /var/log/tomcat8/catalina.out"
-alias t8s="sudo service tomcat8 $1"
-
-bookmark_pwd() {
-	path=$(pwd)
-	path=${path//\//\\/}
-	sed -e "/${path}/d" ${DOTFILES}/bash/aliases &>/dev/null
-	if [ $? -eq 0 ]; then
-		echo "alias $1='cd $(pwd)'" >>$DOTFILES/bash/aliases
-	else
-		echo "Bookmark already exists"
-	fi
-
-	source $HOME/.bashrc
-}
-
-delete_bookmark_pwd() {
-	pattern=$1
-	unalias $1
-	sed -e "/${pattern}/d" ${DOTFILES}/bash/aliases &>/dev/null
-
-	source $HOME/.bashrc
 }
 
 if [ -f $DOTFILES/bash/private-aliases ]; then

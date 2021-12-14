@@ -6,9 +6,9 @@ USER = vim.fn.expand("$USER")
 
 O = {
 	leader_key = ",",
-	colorscheme = "gruvbox",
+	colorscheme = "NeoSolarized",
 	line_wrap_cursor_movement = true,
-	transparent_window = false,
+	transparent_window = true,
 	format_on_save = true,
 	vsnip_dir = CONFIG_PATH .. "/snippets",
 	default_config = {
@@ -94,7 +94,6 @@ require("plugins.floatterm").config()
 require("plugins.telescope").config()
 require("plugins.treesitter").config()
 require("plugins.which-key").config()
-
 
 ---  HELPERS  ---
 

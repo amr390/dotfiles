@@ -1,6 +1,12 @@
 #!/bin/sh
+
+DOTFILES=$HOME/Documents/dotfiles
+DEV=$HOME/Documents/dev
+TODAY=$(date +%Y-%m-%d)
+
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
-alias nvimrc='nvim ~/.config/nvim/'
+
+alias myip="curl http://ipecho.net/plain; echo"
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
@@ -11,10 +17,12 @@ alias fgrep='fgrep --color=auto'
 alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
+alias ls='ls --color=auto'
 
 # easier to read disk
 alias df='df -h'     # human-readable sizes
 alias free='free -m' # show sizes in MB
+alias du='du -ch'
 
 # get top process eating memory
 alias psmem='ps auxf | sort -nr -k 4 | head -5'
@@ -33,4 +41,106 @@ alias mach_list_systemctl="systemctl list-unit-files --state=enabled"
 
 alias mach_java_mode="export SDKMAN_DIR="$HOME/.sdkman" && [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh""
 
-alias ls='ls --color=auto'
+if [ -f $DOTFILES/bash/private-aliases ]; then
+	source $DOTFILES/bash/private-aliases
+fi
+
+if [ -f $DOTFILES/bash/aliases-manning ]; then
+	source $DOTFILES/bash/aliases-manning
+fi
+alias vtmp='cd /home/amr/Documents/Manning/data/db_backups/tmp'
+alias mdbackups='cd /home/amr/Documents/Manning/data/db_backups'
+
+TC_HOME='/home/amr/dev/python/timecop'
+alias tc3="cd $TC_HOME && source timecop-be/env/bin/activate"
+
+VB_HOME="$DEV/python/django/vatbook"
+VB_DB_HOME="/home/amr/Documents/Dropbox/Aplicaciones/sat/"
+alias vb3="cd $VB_HOME && workon vb3"
+
+#DEVELOP
+alias vb-run="$VB_HOME/manage.py runserver --settings=vatbook.settings.develop"
+alias vb-mm="$VB_HOME/manage.py makemigrations --settings=vatbook.settings.develop"
+alias vb-m="$VB_HOME/manage.py migrate --settings=vatbook.settings.develop"
+alias vb-sh="$VB_HOME/manage.py shell --settings=vatbook.settings.develop"
+
+#STAGING
+alias vb-run-p="$VB_HOME/manage.py runserver --settings=vatbook.settings.staging"
+alias vb-mm-p="$VB_HOME/manage.py makemigrations --settings=vatbook.settings.staging"
+alias vb-m-p="$VB_HOME/manage.py migrate --settings=vatbook.settings.staging"
+alias vb-sh-p="$VB_HOME/manage.py shell --settings=vatbook.settings.staging"
+
+TC_HOME="$DEV/sandbox/timecop"
+TC_REST="$DEV/sandbox/timecop/timecop-rest/"
+TC_CLI="$DEV/sandbox/timecop/timecop-cli/"
+
+#DEVELOP
+alias tc-run="cd $TC_REST && source env/bin/activate && flask run"
+alias tc-serve="cd $TC_CLI && ionic serve"
+
+SAT_HOME="$DEV/python/django/sat8485"
+SAT_DB_HOME="/home/amr/Documents/Dropbox/Aplicaciones/sat/"
+alias sat="cd $SAT_HOME"
+#DEVELOP
+alias sat-run="$SAT_HOME/manage.py runserver --settings=sat8485.settings.develop"
+alias sat-mm="$SAT_HOME/manage.py makemigrations --settings=sat8485.settings.develop"
+alias sat-m="$SAT_HOME/manage.py migrate --settings=sat8485.settings.develop"
+alias sat-sh="$SAT_HOME/manage.py shell --settings=sat8485.settings.develop"
+alias sat-reset-db='rm -f /home/amr/Documents/Dropbox/Aplicaciones/sat/db.sqlite3'
+alias sat-dbbackup="cd $SAT_DB_HOME && \
+    sqlite3 db.sqlite3 .schema > schema.sql && \
+    sqlite3 db.sqlite3 .dump > dump.sql && \
+    grep -xv -f schema.sql dump.sql > sat.backup.$TODAY.sql && \
+    rm -f schema.sql dump.sql && cd -"
+
+#STAGING
+alias sat-run-p="$SAT_HOME/manage.py runserver --settings=sat8485.settings.staging"
+alias sat-mm-p="$SAT_HOME/manage.py makemigrations --settings=sat8485.settings.staging"
+alias sat-m-p="$SAT_HOME/manage.py migrate --settings=sat8485.settings.staging"
+alias sat-sh-p="$SAT_HOME/manage.py shell --settings=sat8485.settings.staging"
+
+alias rabbitstop="docker ps | grep some-rabbit && docker kill some-rabbit; docker rm some-rabbit"
+alias rabbitrun="rabbitstop; docker run -d \
+             --hostname my-rabbit \
+             --name some-rabbit \
+             -p 15672:15672 \
+             -p 4369:4369 \
+             -p 5671:5671 \
+             -p 5672:5672 \
+             -p 15671:15671 \
+             -p 25672:25672  \
+             -v /home/amr/Documents/tmp/docker/volumes/rabbitmq:/var/lib/rabbitmq/ \
+             rabbitmq:3-management"
+alias mongorun="docker run -d \
+             --hostname mongo  \
+             --name mongo \ 
+             -p 27017:27017 \
+             -v /home/amr/Documents/tmp/docker/volumes/mongo:/var/lib/mongo/ \
+             mongo"
+alias mongostop="docker kill mongo;  docker rm mongo"
+alias hostip="ip route show 0.0.0.0/0 | grep -Eo 'via \S+' | awk '{ print \$2 }'"
+
+alias wsdstat="watch -t -n1 'awk \"{ print \$9}\" /sys/block/sdd/stat'"
+alias wmm="watch grep -e Dirty: -e Writeback: /proc/meminfo"
+alias enc="gpg --output $TODAY.vg.gpg --symmetric " $1
+alias dec="gpg --output v.mkv -d " $1
+
+kill_process() {
+	pids=$(ps aux | grep $1 | awk '{ print $2 }')
+
+	for pid in "${pids[@]}"; do
+		kill $pid
+	done
+}
+
+reset_db() {
+	sudo su postgres -c "dropdb $1; createdb $1"
+}
+
+open_tunel() {
+	ssh -a -N -f -L $2:$1:$2 bastion
+}
+
+alias moNeptune="open_tunel smart-search.cluster-cttghrdpki6v.us-west-2.neptune.amazonaws.com 8182"
+
+alias epubChk="java -jar /home/amr/Documents/Apps/epubcheck-4.2.6/epubcheck.jar $1"
