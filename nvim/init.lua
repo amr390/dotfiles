@@ -1,20 +1,18 @@
-require("plugins")
 require("options")
-
-require("plugins.gitsigns")
-require("plugins.cmp").config()
-require("plugins.project").config()
-require("plugins.floatterm").config()
-require("plugins.telescope").config()
-require("plugins.treesitter").config()
-require("plugins.which-key").config()
-
-require("langs")
 require("keymappings")
 
-vim.g.colors_name = O.colorscheme -- Colorscheme must get called after plugins are loaded or it will break new installs.
-
+require("plugins")
+require("plugins.gitsigns")
+require("plugins.cmp")
+require("plugins.project")
+require("plugins.bufferline")
+require("plugins.floatterm")
+require("plugins.telescope")
+require("plugins.treesitter")
+require("plugins.which-key")
+require("plugins.nvimtree")
+require("plugins.null-ls")
 require("utils")
-require("plugins/null-ls")
-require("plugins/nvimtree")
 require("lsp")
+
+vim.g.colors_name = O.colorscheme -- Colorscheme must get called after plugins are loaded or it will break new installs.

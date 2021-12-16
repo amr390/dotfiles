@@ -36,24 +36,10 @@ return require("packer").startup(function(use)
 	-- Telescope
 	use("nvim-lua/popup.nvim")
 	use("nvim-lua/plenary.nvim")
-	use({
-		"nvim-telescope/telescope.nvim",
-    commit = "80cdb00b221f69348afc4fb4b701f51eb8dd3120",
-		config = [[require('plugins.telescope').setup()]],
-	})
+	use({ "nvim-telescope/telescope.nvim", commit = "80cdb00b221f69348afc4fb4b701f51eb8dd3120" })
 
 	-- Autocomplete and Snippets
-	use({
-		"hrsh7th/nvim-cmp",
-		-- event = "InsertEnter",
-		config = function()
-			require("plugins.cmp").setup()
-		end,
-		requires = {
-			"L3MON4D3/LuaSnip",
-			"rafamadriz/friendly-snippets",
-		},
-	})
+	use({ "hrsh7th/nvim-cmp", requires = { "L3MON4D3/LuaSnip", "rafamadriz/friendly-snippets", }, })
 	use("hrsh7th/cmp-nvim-lsp")
 	use("hrsh7th/cmp-buffer")
 	use("hrsh7th/cmp-path")
@@ -73,20 +59,10 @@ return require("packer").startup(function(use)
 
 	-- Snippets
 	use("rafamadriz/friendly-snippets")
-	use({
-		"L3MON4D3/LuaSnip",
-		config = function()
-			require("luasnip/loaders/from_vscode").lazy_load()
-		end,
-	})
+	use("L3MON4D3/LuaSnip")
 	use("saadparwaiz1/cmp_luasnip")
 
-	use({
-		"nvim-treesitter/nvim-treesitter",
-		config = function()
-			require("plugins.treesitter").setup()
-		end,
-	})
+	use("nvim-treesitter/nvim-treesitter")
 
 	-- -- Formatter.nvim
 	-- use({
@@ -97,25 +73,12 @@ return require("packer").startup(function(use)
 	-- })
 
 	use({ "kyazdani42/nvim-web-devicons" })
-	use( "kyazdani42/nvim-tree.lua" )
+	use("kyazdani42/nvim-tree.lua")
 
-	use({
-		"lewis6991/gitsigns.nvim",
-
-		config = function()
-			require("plugins.gitsigns").setup()
-		end,
-		event = "BufRead",
-	})
+	use("lewis6991/gitsigns.nvim")
 
 	-- whichkey
-	use({
-		"folke/which-key.nvim",
-		config = function()
-			require("plugins.which-key").setup()
-		end,
-		event = "BufWinEnter",
-	})
+	use({ "folke/which-key.nvim"})
 
 	-- Comments
 	use({
@@ -156,13 +119,7 @@ return require("packer").startup(function(use)
 	})
 
 	-- Floating terminal
-	use({
-		"numToStr/FTerm.nvim",
-		event = "BufWinEnter",
-		config = function()
-			require("plugins.floatterm").setup()
-		end,
-	})
+	use({ "numToStr/FTerm.nvim" })
 
 	-- GRUVBOX THEME
 	use({
@@ -187,5 +144,5 @@ return require("packer").startup(function(use)
 		},
 	})
 
-	use("mfussenegger/nvim-jdtls")
+	-- use("mfussenegger/nvim-jdtls")
 end)
