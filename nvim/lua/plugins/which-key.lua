@@ -65,12 +65,11 @@ M.config = function()
 			["q"] = { "<cmd>q!<CR>", "Quit" },
 			["/"] = { "<cmd>CommentToggle<CR>", "Comment" },
 			["c"] = { "<cmd>BufferClose<CR>", "Close Buffer" },
-			["e"] = { "<cmd>lua require'plugins.nvimtree'.toggle_tree()<CR>", "Explorer" },
+			["e"] = { "<cmd>NvimTreeToggle<CR>", "Explorer" },
 			["C"] = { "<cmd>e ~/.config/nvim/init.lua<CR>", "Config" },
 			["d"] = { "<cmd>lcd %:p:h<CR>", "CD" },
 			["f"] = { "<cmd>Telescope find_files<CR>", "Find File" },
 			["h"] = { '<cmd>let @/=""<CR>', "No Highlight" },
-			["W"] = { "<leader>ww<CR>", "Wiki" },
 			p = {
 				name = "Packer",
 				c = { "<cmd>PackerCompile<cr>", "Compile" },
@@ -120,7 +119,8 @@ M.config = function()
 					"<cmd>Telescope lsp_workspace_diagnostics<cr>",
 					"Workspace Diagnostics",
 				},
-				f = { "<cmd>silent FormatWrite<cr>", "Format" },
+        f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
+
 				i = { "<cmd>LspInfo<cr>", "Info" },
 				j = {
 					"<cmd>lua vim.lsp.diagnostic.goto_next({popup_opts = {border = O.lsp.popup_border}})<cr>",

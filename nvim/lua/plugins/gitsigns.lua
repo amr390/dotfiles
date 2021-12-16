@@ -1,6 +1,9 @@
-local M = {}
-M.config = function()
-  O.plugin.gitsigns = {
+local status_ok, gitsigns = pcall(require, "gitsigns")
+if not status_ok then
+  return
+end
+
+gitsigns.setup {
     signs = {
       add = {
         hl = "GitSignsAdd",
@@ -46,14 +49,5 @@ M.config = function()
     status_formatter = nil, -- Use default
     use_decoration_api = false,
   }
-end
 
-M.setup = function()
-  local status_ok, gitsigns = pcall(require, "gitsigns")
-  if not status_ok then
-    return
-  end
-  gitsigns.setup(O.plugin.gitsigns)
-end
 
-return M

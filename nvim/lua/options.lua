@@ -87,13 +87,6 @@ O = {
 	},
 }
 
-require("plugins.gitsigns").config()
-require("plugins.cmp").config()
-require("plugins.project").config()
-require("plugins.floatterm").config()
-require("plugins.telescope").config()
-require("plugins.treesitter").config()
-require("plugins.which-key").config()
 
 ---  HELPERS  ---
 

@@ -27,22 +27,22 @@ return require("packer").startup(function(use)
 	use("wbthomason/packer.nvim")
 
 	-- TODO: refactor all of this (for now it works, but yes I know it could be wrapped in a simpler function)
-	use({ "neovim/nvim-lspconfig" })
-	use({ "tamago324/nlsp-settings.nvim" })
-	use({ "jose-elias-alvarez/null-ls.nvim" })
-	use({ "antoinemadec/FixCursorHold.nvim" }) -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
+	use("neovim/nvim-lspconfig")
+	use("tamago324/nlsp-settings.nvim")
+	use("antoinemadec/FixCursorHold.nvim") -- Needed while issue https://github.com/neovim/neovim/issues/12587 is still open
 
-	use({ "williamboman/nvim-lsp-installer" })
+	use("williamboman/nvim-lsp-installer")
 
 	-- Telescope
-	use({ "nvim-lua/popup.nvim" })
-	use({ "nvim-lua/plenary.nvim" })
+	use("nvim-lua/popup.nvim")
+	use("nvim-lua/plenary.nvim")
 	use({
 		"nvim-telescope/telescope.nvim",
+    commit = "80cdb00b221f69348afc4fb4b701f51eb8dd3120",
 		config = [[require('plugins.telescope').setup()]],
 	})
 
-	-- Autocomplete and Snippets 
+	-- Autocomplete and Snippets
 	use({
 		"hrsh7th/nvim-cmp",
 		-- event = "InsertEnter",
@@ -54,11 +54,11 @@ return require("packer").startup(function(use)
 			"rafamadriz/friendly-snippets",
 		},
 	})
-	use({ "hrsh7th/cmp-nvim-lsp" })
-	use({ "hrsh7th/cmp-buffer" })
-	use({ "hrsh7th/cmp-path" })
-	use({ "hrsh7th/cmp-cmdline" })
-	use({ "hrsh7th/cmp-vsnip" })
+	use("hrsh7th/cmp-nvim-lsp")
+	use("hrsh7th/cmp-buffer")
+	use("hrsh7th/cmp-path")
+	use("hrsh7th/cmp-cmdline")
+	use("hrsh7th/cmp-vsnip")
 	-- use({ "hrsh7th/f3fora-spell" })
 
 	-- Autopairs
@@ -72,17 +72,15 @@ return require("packer").startup(function(use)
 	})
 
 	-- Snippets
-	use({ "rafamadriz/friendly-snippets" })
-	-- use({ "L3MON4D3/LuaSnip", event = "InsertEnter" })
+	use("rafamadriz/friendly-snippets")
 	use({
 		"L3MON4D3/LuaSnip",
 		config = function()
 			require("luasnip/loaders/from_vscode").lazy_load()
 		end,
 	})
-	use({ "saadparwaiz1/cmp_luasnip" })
+	use("saadparwaiz1/cmp_luasnip")
 
-	-- Treesitter
 	use({
 		"nvim-treesitter/nvim-treesitter",
 		config = function()
@@ -90,24 +88,16 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Formatter.nvim
-	use({
-		"mhartington/formatter.nvim",
-		config = function()
-			require("plugins.formatter")
-		end,
-	})
+	-- -- Formatter.nvim
+	-- use({
+	-- 	"mhartington/formatter.nvim",
+	-- 	config = function()
+	-- 		require("plugins.formatter")
+	-- 	end,
+	-- })
 
-	-- NvimTree
-	use({
-		"kyazdani42/nvim-tree.lua",
-		-- event = "BufWinOpen",
-		-- cmd = "NvimTreeToggle",
-		commit = "fd7f60e242205ea9efc9649101c81a07d5f458bb",
-		config = function()
-			require("plugins.nvimtree").setup()
-		end,
-	})
+	use({ "kyazdani42/nvim-web-devicons" })
+	use( "kyazdani42/nvim-tree.lua" )
 
 	use({
 		"lewis6991/gitsigns.nvim",
@@ -148,9 +138,6 @@ return require("packer").startup(function(use)
 		end,
 	})
 
-	-- Icons
-	use({ "kyazdani42/nvim-web-devicons" })
-
 	-- Status Line and Bufferline
 	use({
 		"glepnir/galaxyline.nvim",
@@ -168,9 +155,6 @@ return require("packer").startup(function(use)
 		event = "BufWinEnter",
 	})
 
-	-- Builtins, these do not load by default
-
-	-- TODO: remove in favor of akinsho/nvim-toggleterm.lua
 	-- Floating terminal
 	use({
 		"numToStr/FTerm.nvim",
@@ -190,6 +174,7 @@ return require("packer").startup(function(use)
 	---------------------------------------------------------------------------------
 
 	-- Javascript / Typescript
+	use("jose-elias-alvarez/null-ls.nvim")
 	use({
 		"jose-elias-alvarez/nvim-lsp-ts-utils",
 		ft = {
@@ -202,8 +187,5 @@ return require("packer").startup(function(use)
 		},
 	})
 
-	use({
-		"mfussenegger/nvim-jdtls",
-		-- ft = { "java" },
-	})
+	use("mfussenegger/nvim-jdtls")
 end)

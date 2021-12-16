@@ -82,13 +82,6 @@ local mappings = {
 	},
 }
 
--- TODO: fix this
-if vim.fn.has("mac") == 1 then
-	mappings["n"][5][1] = "<A-Up>"
-	mappings["n"][6][1] = "<A-Down>"
-	mappings["n"][7][1] = "<A-Left>"
-	mappings["n"][8][1] = "<A-Right>"
-end
 
 register_mappings(mappings, { silent = true, noremap = true })
 
