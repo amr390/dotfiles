@@ -57,5 +57,5 @@ null_ls.setup({
 	},
 })
 
-lspconig["null-ls"].setup({ on_attach = on_attach })
-lspconig.diagnosticls.setup({ on_attach = on_attach })
+lspconfig["null-ls"].setup({ on_attach = on_attach })
+lspconfig.diagnosticls.setup({ on_attach = on_attach })
