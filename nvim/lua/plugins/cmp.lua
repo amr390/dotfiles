@@ -74,7 +74,7 @@ cmp.setup({
 				vsnip = "(Snippet)",
 				luasnip = "(Snippet)",
 				buffer = "(Buffer)",
-			})[emtry.source.name]
+			})[entry.source.name]
 			return vim_item
 		end,
 	},
