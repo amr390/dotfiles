@@ -8,4 +8,5 @@ bkp/*
 bin/.ropeproject*
 
 **/node_modules/
-zsf/.zcompdump
+
+zsh/.zcompdump
