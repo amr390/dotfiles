@@ -1,18 +1,21 @@
-require("options")
-require("keymappings")
-
-require("plugins")
-require("plugins.gitsigns")
-require("plugins.cmp")
-require("plugins.project")
-require("plugins.bufferline")
-require("plugins.floatterm")
-require("plugins.telescope")
-require("plugins.treesitter")
-require("plugins.which-key")
-require("plugins.nvimtree")
-require("plugins.null-ls")
-require("utils")
-require("lsp")
-
-vim.g.colors_name = O.colorscheme -- Colorscheme must get called after plugins are loaded or it will break new installs.
+require "user.options"
+require "user.keymaps"
+require "user.plugins"
+require "user.colorscheme"
+require "user.cmp"
+require "user.lsp"
+require "user.telescope"
+require "user.treesitter"
+require "user.autopairs"
+require "user.comment"
+require "user.gitsigns"
+require "user.nvim-tree"
+require "user.bufferline"
+require "user.lualine"
+require "user.toggleterm"
+require "user.project"
+require "user.impatient"
+require "user.indentline"
+require "user.alpha"
+require "user.whichkey"
+require "user.autocommands"

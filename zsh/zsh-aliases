@@ -18,6 +18,7 @@ alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
 alias ls='ls --color=auto'
+alias ll='ls -lst --color=auto'
 
 # easier to read disk
 alias df='df -h'     # human-readable sizes
@@ -118,9 +119,15 @@ reset_db() {
 }
 
 open_tunel() {
-	ssh -a -N -f -L $2:$1:$2 bastion
+	if [ "$#" -eq 3 ]; then 
+    ssh -a -N -f -L $2:$1:$3 bastion
+  else
+	  ssh -a -N -f -L $2:$1:$2 bastion
+  fi
 }
 
 alias moNeptune="open_tunel smart-search.cluster-cttghrdpki6v.us-west-2.neptune.amazonaws.com 8182"
+alias moRabbit="open_tunel rabbitmq.int-m.com 3333 15672"
 
 alias epubChk="java -jar /home/amr/Documents/Apps/epubcheck-4.2.6/epubcheck.jar $1"
+alias eve="source /usr/share/virtualenvwrapper/virtualenvwrapper.sh"

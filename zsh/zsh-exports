@@ -25,9 +25,9 @@ export SDKMAN_DIR="/home/amr/.sdkman"
 # ####### PYTHON VIRTUALENV ###############
 export WORKON_HOME=$HOME/.local/share/virtualenv/virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 [[ -f /usr/local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 [[ -f ~/.local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
-export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 export DBX_ACCESS_TOKEN=xxx
 
 #echo "adding path folders"
