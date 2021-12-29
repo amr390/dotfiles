@@ -72,9 +72,18 @@
 " Vim UI {
 
     set t_Co=256
+    " https://github.com/mhartington/oceanic-next
     "color lucius                   " Load a colorscheme
     "color jellybeans               " Load a colorscheme
-    color gruvbox                   " Load a colorscheme
+    "color gruvbox                  " Load a colorscheme
+    color OceanicNext              " Load a colorscheme
+"    color NeoSolarized              " Load a colorscheme
+
+    " For transparent backgrouns https://github.com/mhartington/oceanic-next
+    hi Normal guibg=NONE ctermbg=NONE
+    hi LineNr guibg=NONE ctermbg=NONE
+    hi SignColumn guibg=NONE ctermbg=NONE
+    hi EndOfBuffer guibg=NONE ctermbg=NONE
 
     set tabpagemax=15               " Only show 15 tabs
     set showmode                    " Display the current mode

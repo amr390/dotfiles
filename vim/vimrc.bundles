@@ -19,6 +19,8 @@
             Plug 'vim-airline/vim-airline'
             Plug 'vim-airline/vim-airline-themes'
             Plug 'morhetz/gruvbox' " a vim theme
+            Plug 'mhartington/oceanic-next'
+            Plug 'overcache/NeoSolarized'
 
     " General Programming
         " Pick one of the checksyntax, jslint, or syntastic
