@@ -1,18 +1,22 @@
-local cmp_status_ok, cmp = pcall(require, "cmp")
-if not cmp_status_ok then
-  return
+local cmp_ok, cmp = pcall(require, "cmp")
+if not cmp_ok then
+	return
 end
 
-local snip_status_ok, luasnip = pcall(require, "luasnip")
-if not snip_status_ok then
-  return
+---
+
+local status_luasnip_ok, luasnip = pcall(require, "luasnip")
+if not status_luasnip_ok then
+	return
 end
 
 require("luasnip/loaders/from_vscode").lazy_load()
 
+---checks if the character preceding the cursor is a space character
+---@return boolean true if it is a space character, false otherwise
 local check_backspace = function()
-  local col = vim.fn.col "." - 1
-  return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
+	local col = vim.fn.col(".") - 1
+	return col == 0 or vim.fn.getline("."):sub(col, col):match("%s")
 end
 
 --   פּ ﯟ   some other good icons
@@ -44,6 +48,34 @@ local kind_icons = {
   TypeParameter = "",
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
+
+-- local kind_icons = {
+-- 	Class = " ",
+-- 	Color = " ",
+-- 	Constant = "ﲀ ",
+-- 	Constructor = " ",
+-- 	Enum = "練",
+-- 	EnumMember = " ",
+-- 	Event = " ",
+-- 	Field = " ",
+-- 	File = "",
+-- 	Folder = " ",
+-- 	Function = " ",
+-- 	Interface = "ﰮ ",
+-- 	Keyword = " ",
+-- 	Method = " ",
+-- 	Module = " ",
+-- 	Operator = "",
+-- 	Property = " ",
+-- 	Reference = " ",
+-- 	Snippet = " ",
+-- 	Struct = " ",
+-- 	Text = " ",
+-- 	TypeParameter = " ",
+-- 	Unit = "塞",
+-- 	Value = " ",
+-- 	Variable = " ",
+-- }
 
 cmp.setup {
   snippet = {

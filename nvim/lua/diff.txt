@@ -1,0 +1,2111 @@
+diff --git a/nvim/README.md b/nvim/README.md
+deleted file mode 100644
+index ec31378..0000000
+--- a/nvim/README.md
++++ /dev/null
+@@ -1,65 +0,0 @@
+-# Neovim from scratch
+-
+-Each video will be associated with a branch so checkout the one you are interested in, you can follow along with this [playlist](https://www.youtube.com/watch?v=ctH-a-1eUME&list=PLhoH5vyxr6Qq41NFL4GvhFp-WLd5xzIzZ).
+-
+-## Try out this config
+-
+-Make sure to remove or move your current `nvim` directory
+-
+-**IMPORTANT** Requires [Neovim v0.6.0](https://github.com/neovim/neovim/releases/tag/v0.6.0) or [Nightly](https://github.com/neovim/neovim/releases/tag/nightly). 
+-```
+-git clone https://github.com/LunarVim/Neovim-from-scratch.git ~/.config/nvim
+-```
+-
+-Run `nvim` and wait for the plugins to be installed 
+-
+-**NOTE** (You will notice treesitter pulling in a bunch of parsers the next time you open Neovim) 
+-
+-## Get healthy
+-
+-Open `nvim` and enter the following:
+-
+-```
+-:checkhealth
+-```
+-
+-You'll probably notice you don't have support for copy/paste also that python and node haven't been setup
+-
+-So let's fix that
+-
+-First we'll fix copy/paste
+-
+-- On mac `pbcopy` should be builtin
+-
+-- On Ubuntu
+-
+-  ```
+-  sudo apt install xsel
+-  ```
+-
+-- On Arch Linux
+-
+-  ```
+-  sudo pacman -S xsel
+-  ```
+-
+-Next we need to install python support (node is optional)
+-
+-- Neovim python support
+-
+-  ```
+-  pip install pynvim
+-  ```
+-
+-- Neovim node support
+-
+-  ```
+-  npm i -g neovim
+-  ```
+----
+-
+-**NOTE** make sure you have [node](https://nodejs.org/en/) installed, I recommend a node manager like [fnm](https://github.com/Schniz/fnm).
+-
+-> The computing scientist's main challenge is not to get confused by the complexities of his own making. 
+-
+-\- Edsger W. Dijkstra
+diff --git a/nvim/init.lua b/nvim/init.lua
+index 6b87573..886b562 100644
+--- a/nvim/init.lua
++++ b/nvim/init.lua
+@@ -1,21 +1,18 @@
+-require "user.options"
+-require "user.keymaps"
+-require "user.plugins"
+-require "user.colorscheme"
+-require "user.cmp"
+-require "user.lsp"
+-require "user.telescope"
+-require "user.treesitter"
+-require "user.autopairs"
+-require "user.comment"
+-require "user.gitsigns"
+-require "user.nvim-tree"
+-require "user.bufferline"
+-require "user.lualine"
+-require "user.toggleterm"
+-require "user.project"
+-require "user.impatient"
+-require "user.indentline"
+-require "user.alpha"
+-require "user.whichkey"
+-require "user.autocommands"
++require("options")
++require("keymappings")
++
++require("plugins")
++require("gitsigns")
++require("cmp")
++require("project")
++require("bufferline")
++require("floatterm")
++require("telescope")
++require("treesitter")
++require("which-key")
++require("nvimtree")
++require("null-ls")
++require("utils")
++require("lsp")
++
++vim.g.colors_name = O.colorscheme -- Colorscheme must get called after plugins are loaded or it will break new installs.
+diff --git a/nvim/lua/user/alpha.lua b/nvim/lua/user/alpha.lua
+deleted file mode 100644
+index 9b6baf9..0000000
+--- a/nvim/lua/user/alpha.lua
++++ /dev/null
+@@ -1,42 +0,0 @@
+-local status_ok, alpha = pcall(require, "alpha")
+-if not status_ok then
+-	return
+-end
+-
+-local dashboard = require("alpha.themes.dashboard")
+-dashboard.section.header.val = {
+-	[[                               __                ]],
+-	[[  ___     ___    ___   __  __ /\_\    ___ ___    ]],
+-	[[ / _ `\  / __`\ / __`\/\ \/\ \\/\ \  / __` __`\  ]],
+-	[[/\ \/\ \/\  __//\ \_\ \ \ \_/ |\ \ \/\ \/\ \/\ \ ]],
+-	[[\ \_\ \_\ \____\ \____/\ \___/  \ \_\ \_\ \_\ \_\]],
+-	[[ \/_/\/_/\/____/\/___/  \/__/    \/_/\/_/\/_/\/_/]],
+-}
+-dashboard.section.buttons.val = {
+-	dashboard.button("f", "  Find file", ":Telescope find_files <CR>"),
+-	dashboard.button("e", "  New file", ":ene <BAR> startinsert <CR>"),
+-	dashboard.button("p", "  Find project", ":Telescope projects <CR>"),
+-	dashboard.button("r", "  Recently used files", ":Telescope oldfiles <CR>"),
+-	dashboard.button("t", "  Find text", ":Telescope live_grep <CR>"),
+-	dashboard.button("c", "  Configuration", ":e ~/.config/nvim/init.lua <CR>"),
+-	dashboard.button("q", "  Quit Neovim", ":qa<CR>"),
+-}
+-
+-local function footer()
+--- NOTE: requires the fortune-mod package to work
+-	-- local handle = io.popen("fortune")
+-	-- local fortune = handle:read("*a")
+-	-- handle:close()
+-	-- return fortune
+-	return ""
+-end
+-
+-dashboard.section.footer.val = footer()
+-
+-dashboard.section.footer.opts.hl = "Type"
+-dashboard.section.header.opts.hl = "Include"
+-dashboard.section.buttons.opts.hl = "Keyword"
+-
+-dashboard.opts.opts.noautocmd = true
+--- vim.cmd([[autocmd User AlphaReady echo 'ready']])
+-alpha.setup(dashboard.opts)
+diff --git a/nvim/lua/user/autocommands.lua b/nvim/lua/user/autocommands.lua
+deleted file mode 100644
+index c438738..0000000
+--- a/nvim/lua/user/autocommands.lua
++++ /dev/null
+@@ -1,37 +0,0 @@
+-vim.cmd [[
+-  augroup _general_settings
+-    autocmd!
+-    autocmd FileType qf,help,man,lspinfo nnoremap <silent> <buffer> q :close<CR> 
+-    autocmd TextYankPost * silent!lua require('vim.highlight').on_yank({higroup = 'Visual', timeout = 200}) 
+-    autocmd BufWinEnter * :set formatoptions-=cro
+-    autocmd FileType qf set nobuflisted
+-  augroup end
+-
+-  augroup _git
+-    autocmd!
+-    autocmd FileType gitcommit setlocal wrap
+-    autocmd FileType gitcommit setlocal spell
+-  augroup end
+-
+-  augroup _markdown
+-    autocmd!
+-    autocmd FileType markdown setlocal wrap
+-    autocmd FileType markdown setlocal spell
+-  augroup end
+-
+-  augroup _auto_resize
+-    autocmd!
+-    autocmd VimResized * tabdo wincmd = 
+-  augroup end
+-
+-  augroup _alpha
+-    autocmd!
+-    autocmd User AlphaReady set showtabline=0 | autocmd BufUnload <buffer> set showtabline=2
+-  augroup end
+-]]
+-
+--- Autoformat
+--- augroup _lsp
+---   autocmd!
+---   autocmd BufWritePre * lua vim.lsp.buf.formatting()
+--- augroup end
+diff --git a/nvim/lua/user/autopairs.lua b/nvim/lua/user/autopairs.lua
+deleted file mode 100644
+index 577e571..0000000
+--- a/nvim/lua/user/autopairs.lua
++++ /dev/null
+@@ -1,33 +0,0 @@
+--- Setup nvim-cmp.
+-local status_ok, npairs = pcall(require, "nvim-autopairs")
+-if not status_ok then
+-  return
+-end
+-
+-npairs.setup {
+-  check_ts = true,
+-  ts_config = {
+-    lua = { "string", "source" },
+-    javascript = { "string", "template_string" },
+-    java = false,
+-  },
+-  disable_filetype = { "TelescopePrompt", "spectre_panel" },
+-  fast_wrap = {
+-    map = "<M-e>",
+-    chars = { "{", "[", "(", '"', "'" },
+-    pattern = string.gsub([[ [%'%"%)%>%]%)%}%,] ]], "%s+", ""),
+-    offset = 0, -- Offset from pattern match
+-    end_key = "$",
+-    keys = "qwertyuiopzxcvbnmasdfghjkl",
+-    check_comma = true,
+-    highlight = "PmenuSel",
+-    highlight_grey = "LineNr",
+-  },
+-}
+-
+-local cmp_autopairs = require "nvim-autopairs.completion.cmp"
+-local cmp_status_ok, cmp = pcall(require, "cmp")
+-if not cmp_status_ok then
+-  return
+-end
+-cmp.event:on("confirm_done", cmp_autopairs.on_confirm_done { map_char = { tex = "" } })
+diff --git a/nvim/lua/user/bufferline.lua b/nvim/lua/user/bufferline.lua
+deleted file mode 100644
+index 7d98cf0..0000000
+--- a/nvim/lua/user/bufferline.lua
++++ /dev/null
+@@ -1,167 +0,0 @@
+-local status_ok, bufferline = pcall(require, "bufferline")
+-if not status_ok then
+-  return
+-end
+-
+-bufferline.setup {
+-  options = {
+-    numbers = "none", -- | "ordinal" | "buffer_id" | "both" | function({ ordinal, id, lower, raise }): string,
+-    close_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
+-    right_mouse_command = "Bdelete! %d", -- can be a string | function, see "Mouse actions"
+-    left_mouse_command = "buffer %d", -- can be a string | function, see "Mouse actions"
+-    middle_mouse_command = nil, -- can be a string | function, see "Mouse actions"
+-    -- NOTE: this plugin is designed with this icon in mind,
+-    -- and so changing this is NOT recommended, this is intended
+-    -- as an escape hatch for people who cannot bear it for whatever reason
+-    indicator_icon = "▎",
+-    buffer_close_icon = "",
+-    -- buffer_close_icon = '',
+-    modified_icon = "●",
+-    close_icon = "",
+-    -- close_icon = '',
+-    left_trunc_marker = "",
+-    right_trunc_marker = "",
+-    --- name_formatter can be used to change the buffer's label in the bufferline.
+-    --- Please note some names can/will break the
+-    --- bufferline so use this at your discretion knowing that it has
+-    --- some limitations that will *NOT* be fixed.
+-    -- name_formatter = function(buf)  -- buf contains a "name", "path" and "bufnr"
+-    --   -- remove extension from markdown files for example
+-    --   if buf.name:match('%.md') then
+-    --     return vim.fn.fnamemodify(buf.name, ':t:r')
+-    --   end
+-    -- end,
+-    max_name_length = 30,
+-    max_prefix_length = 30, -- prefix used when a buffer is de-duplicated
+-    tab_size = 21,
+-    diagnostics = false, -- | "nvim_lsp" | "coc",
+-    diagnostics_update_in_insert = false,
+-    -- diagnostics_indicator = function(count, level, diagnostics_dict, context)
+-    --   return "("..count..")"
+-    -- end,
+-    -- NOTE: this will be called a lot so don't do any heavy processing here
+-    -- custom_filter = function(buf_number)
+-    --   -- filter out filetypes you don't want to see
+-    --   if vim.bo[buf_number].filetype ~= "<i-dont-want-to-see-this>" then
+-    --     return true
+-    --   end
+-    --   -- filter out by buffer name
+-    --   if vim.fn.bufname(buf_number) ~= "<buffer-name-I-dont-want>" then
+-    --     return true
+-    --   end
+-    --   -- filter out based on arbitrary rules
+-    --   -- e.g. filter out vim wiki buffer from tabline in your work repo
+-    --   if vim.fn.getcwd() == "<work-repo>" and vim.bo[buf_number].filetype ~= "wiki" then
+-    --     return true
+-    --   end
+-    -- end,
+-    offsets = { { filetype = "NvimTree", text = "", padding = 1 } },
+-    show_buffer_icons = true,
+-    show_buffer_close_icons = true,
+-    show_close_icon = true,
+-    show_tab_indicators = true,
+-    persist_buffer_sort = true, -- whether or not custom sorted buffers should persist
+-    -- can also be a table containing 2 custom separators
+-    -- [focused and unfocused]. eg: { '|', '|' }
+-    separator_style = "thin", -- | "thick" | "thin" | { 'any', 'any' },
+-    enforce_regular_tabs = true,
+-    always_show_bufferline = true,
+-    -- sort_by = 'id' | 'extension' | 'relative_directory' | 'directory' | 'tabs' | function(buffer_a, buffer_b)
+-    --   -- add custom logic
+-    --   return buffer_a.modified > buffer_b.modified
+-    -- end
+-  },
+-  highlights = {
+-    fill = {
+-      guifg = { attribute = "fg", highlight = "#ff0000" },
+-      guibg = { attribute = "bg", highlight = "TabLine" },
+-    },
+-    background = {
+-      guifg = { attribute = "fg", highlight = "TabLine" },
+-      guibg = { attribute = "bg", highlight = "TabLine" },
+-    },
+-
+-    -- buffer_selected = {
+-    --   guifg = {attribute='fg',highlight='#ff0000'},
+-    --   guibg = {attribute='bg',highlight='#0000ff'},
+-    --   gui = 'none'
+-    --   },
+-    buffer_visible = {
+-      guifg = { attribute = "fg", highlight = "TabLine" },
+-      guibg = { attribute = "bg", highlight = "TabLine" },
+-    },
+-
+-    close_button = {
+-      guifg = { attribute = "fg", highlight = "TabLine" },
+-      guibg = { attribute = "bg", highlight = "TabLine" },
+-    },
+-    close_button_visible = {
+-      guifg = { attribute = "fg", highlight = "TabLine" },
+-      guibg = { attribute = "bg", highlight = "TabLine" },
+-    },
+-    -- close_button_selected = {
+-    --   guifg = {attribute='fg',highlight='TabLineSel'},
+-    --   guibg ={attribute='bg',highlight='TabLineSel'}
+-    --   },
+-
+-    tab_selected = {
+-      guifg = { attribute = "fg", highlight = "Normal" },
+-      guibg = { attribute = "bg", highlight = "Normal" },
+-    },
+-    tab = {
+-      guifg = { attribute = "fg", highlight = "TabLine" },
+-      guibg = { attribute = "bg", highlight = "TabLine" },
+-    },
+-    tab_close = {
+-      -- guifg = {attribute='fg',highlight='LspDiagnosticsDefaultError'},
+-      guifg = { attribute = "fg", highlight = "TabLineSel" },
+-      guibg = { attribute = "bg", highlight = "Normal" },
+-    },
+-
+-    duplicate_selected = {
+-      guifg = { attribute = "fg", highlight = "TabLineSel" },
+-      guibg = { attribute = "bg", highlight = "TabLineSel" },
+-      gui = "italic",
+-    },
+-    duplicate_visible = {
+-      guifg = { attribute = "fg", highlight = "TabLine" },
+-      guibg = { attribute = "bg", highlight = "TabLine" },
+-      gui = "italic",
+-    },
+-    duplicate = {
+-      guifg = { attribute = "fg", highlight = "TabLine" },
+-      guibg = { attribute = "bg", highlight = "TabLine" },
+-      gui = "italic",
+-    },
+-
+-    modified = {
+-      guifg = { attribute = "fg", highlight = "TabLine" },
+-      guibg = { attribute = "bg", highlight = "TabLine" },
+-    },
+-    modified_selected = {
+-      guifg = { attribute = "fg", highlight = "Normal" },
+-      guibg = { attribute = "bg", highlight = "Normal" },
+-    },
+-    modified_visible = {
+-      guifg = { attribute = "fg", highlight = "TabLine" },
+-      guibg = { attribute = "bg", highlight = "TabLine" },
+-    },
+-
+-    separator = {
+-      guifg = { attribute = "bg", highlight = "TabLine" },
+-      guibg = { attribute = "bg", highlight = "TabLine" },
+-    },
+-    separator_selected = {
+-      guifg = { attribute = "bg", highlight = "Normal" },
+-      guibg = { attribute = "bg", highlight = "Normal" },
+-    },
+-    -- separator_visible = {
+-    --   guifg = {attribute='bg',highlight='TabLine'},
+-    --   guibg = {attribute='bg',highlight='TabLine'}
+-    --   },
+-    indicator_selected = {
+-      guifg = { attribute = "fg", highlight = "LspDiagnosticsDefaultHint" },
+-      guibg = { attribute = "bg", highlight = "Normal" },
+-    },
+-  },
+-}
+diff --git a/nvim/lua/user/cmp.lua b/nvim/lua/user/cmp.lua
+deleted file mode 100644
+index a151214..0000000
+--- a/nvim/lua/user/cmp.lua
++++ /dev/null
+@@ -1,129 +0,0 @@
+-local cmp_status_ok, cmp = pcall(require, "cmp")
+-if not cmp_status_ok then
+-  return
+-end
+-
+-local snip_status_ok, luasnip = pcall(require, "luasnip")
+-if not snip_status_ok then
+-  return
+-end
+-
+-require("luasnip/loaders/from_vscode").lazy_load()
+-
+-local check_backspace = function()
+-  local col = vim.fn.col "." - 1
+-  return col == 0 or vim.fn.getline("."):sub(col, col):match "%s"
+-end
+-
+---   פּ ﯟ   some other good icons
+-local kind_icons = {
+-  Text = "",
+-  Method = "m",
+-  Function = "",
+-  Constructor = "",
+-  Field = "",
+-  Variable = "",
+-  Class = "",
+-  Interface = "",
+-  Module = "",
+-  Property = "",
+-  Unit = "",
+-  Value = "",
+-  Enum = "",
+-  Keyword = "",
+-  Snippet = "",
+-  Color = "",
+-  File = "",
+-  Reference = "",
+-  Folder = "",
+-  EnumMember = "",
+-  Constant = "",
+-  Struct = "",
+-  Event = "",
+-  Operator = "",
+-  TypeParameter = "",
+-}
+--- find more here: https://www.nerdfonts.com/cheat-sheet
+-
+-cmp.setup {
+-  snippet = {
+-    expand = function(args)
+-      luasnip.lsp_expand(args.body) -- For `luasnip` users.
+-    end,
+-  },
+-  mapping = {
+-    ["<C-k>"] = cmp.mapping.select_prev_item(),
+-		["<C-j>"] = cmp.mapping.select_next_item(),
+-    ["<C-b>"] = cmp.mapping(cmp.mapping.scroll_docs(-1), { "i", "c" }),
+-    ["<C-f>"] = cmp.mapping(cmp.mapping.scroll_docs(1), { "i", "c" }),
+-    ["<C-Space>"] = cmp.mapping(cmp.mapping.complete(), { "i", "c" }),
+-    ["<C-y>"] = cmp.config.disable, -- Specify `cmp.config.disable` if you want to remove the default `<C-y>` mapping.
+-    ["<C-e>"] = cmp.mapping {
+-      i = cmp.mapping.abort(),
+-      c = cmp.mapping.close(),
+-    },
+-    -- Accept currently selected item. If none selected, `select` first item.
+-    -- Set `select` to `false` to only confirm explicitly selected items.
+-    ["<CR>"] = cmp.mapping.confirm { select = true },
+-    ["<Tab>"] = cmp.mapping(function(fallback)
+-      if cmp.visible() then
+-        cmp.select_next_item()
+-      elseif luasnip.expandable() then
+-        luasnip.expand()
+-      elseif luasnip.expand_or_jumpable() then
+-        luasnip.expand_or_jump()
+-      elseif check_backspace() then
+-        fallback()
+-      else
+-        fallback()
+-      end
+-    end, {
+-      "i",
+-      "s",
+-    }),
+-    ["<S-Tab>"] = cmp.mapping(function(fallback)
+-      if cmp.visible() then
+-        cmp.select_prev_item()
+-      elseif luasnip.jumpable(-1) then
+-        luasnip.jump(-1)
+-      else
+-        fallback()
+-      end
+-    end, {
+-      "i",
+-      "s",
+-    }),
+-  },
+-  formatting = {
+-    fields = { "kind", "abbr", "menu" },
+-    format = function(entry, vim_item)
+-      -- Kind icons
+-      vim_item.kind = string.format("%s", kind_icons[vim_item.kind])
+-      -- vim_item.kind = string.format('%s %s', kind_icons[vim_item.kind], vim_item.kind) -- This concatonates the icons with the name of the item kind
+-      vim_item.menu = ({
+-        nvim_lsp = "[LSP]",
+-        luasnip = "[Snippet]",
+-        buffer = "[Buffer]",
+-        path = "[Path]",
+-      })[entry.source.name]
+-      return vim_item
+-    end,
+-  },
+-  sources = {
+-    { name = "nvim_lsp" },
+-    { name = "luasnip" },
+-    { name = "buffer" },
+-    { name = "path" },
+-  },
+-  confirm_opts = {
+-    behavior = cmp.ConfirmBehavior.Replace,
+-    select = false,
+-  },
+-  documentation = {
+-    border = { "╭", "─", "╮", "│", "╯", "─", "╰", "│" },
+-  },
+-  experimental = {
+-    ghost_text = false,
+-    native_menu = false,
+-  },
+-}
+diff --git a/nvim/lua/user/colorscheme.lua b/nvim/lua/user/colorscheme.lua
+deleted file mode 100644
+index 4956f17..0000000
+--- a/nvim/lua/user/colorscheme.lua
++++ /dev/null
+@@ -1,65 +0,0 @@
+--- " Default value is "normal", Setting this option to "high" or "low" does use the
+--- " same Solarized palette but simply shifts some values up or down in order to
+--- " expand or compress the tonal range displayed.
+--- let g:neosolarized_contrast = "normal"
+--- 
+--- " Special characters such as trailing whitespace, tabs, newlines, when displayed
+--- " using ":set list" can be set to one of three levels depending on your needs.
+--- " Default value is "normal". Provide "high" and "low" options.
+--- let g:neosolarized_visibility = "normal"
+--- 
+--- " I make vertSplitBar a transparent background color. If you like the origin
+--- " solarized vertSplitBar style more, set this value to 0.
+--- let g:neosolarized_vertSplitBgTrans = 1
+--- 
+--- " If you wish to enable/disable NeoSolarized from displaying bold, underlined
+--- " or italicized" typefaces, simply assign 1 or 0 to the appropriate variable.
+--- " Default values:
+--- let g:neosolarized_bold = 1
+--- let g:neosolarized_underline = 1
+--- let g:neosolarized_italic = 0
+--- 
+--- " Used to enable/disable "bold as bright" in Neovim terminal. If colors of bold
+--- " text output by commands like `ls` aren't what you expect, you might want to
+--- " try disabling this option. Default value:
+--- let g:neosolarized_termBoldAsBright = 1
+-
+--- vim.cmd [[
+--- try
+---   syntax on
+---
+---   let g:neosolarized_termBoldAsBright = 1
+---   let g:neosolarized_contrast = "low"
+---   let g:neosolarized_visibility = "high"
+---   let g:neosolarized_vertSplitBgTrans = 1
+---   let g:neosolarized_bold = 1
+---   let g:neosolarized_underline = 1
+---   let g:neosolarized_italic = 0
+---   let g:neosolarized_termBoldAsBright = 0
+---
+---   colorscheme NeoSolarized
+---   hi Normal guibg=NONE ctermbg=NONE
+---   hi LineNr guibg=NONE ctermbg=NONE
+---   hi SignColumn guibg=NONE ctermbg=NONE
+---   hi EndOfBuffer guibg=NONE ctermbg=NONE
+--- catch /^Vim\%((\a\+)\)\=:E185/
+---   colorscheme default
+---   set background=dark
+--- endtry
+--- ]]
+-
+-vim.cmd [[
+-try
+-  syntax on
+-  let g:oceanic_next_terminal_bold = 1
+-  let g:oceanic_next_terminal_italic = 1
+-  colorscheme OceanicNext
+-  hi Normal guibg=NONE ctermbg=NONE
+-  hi LineNr guibg=NONE ctermbg=NONE
+-  hi SignColumn guibg=NONE ctermbg=NONE
+-  hi EndOfBuffer guibg=NONE ctermbg=NONE
+-catch /^Vim\%((\a\+)\)\=:E185/
+-  colorscheme default
+-  set background=dark
+-endtry
+-]]
+diff --git a/nvim/lua/user/comment.lua b/nvim/lua/user/comment.lua
+deleted file mode 100644
+index 2fa4a56..0000000
+--- a/nvim/lua/user/comment.lua
++++ /dev/null
+@@ -1,22 +0,0 @@
+-local status_ok, comment = pcall(require, "Comment")
+-if not status_ok then
+-  return
+-end
+-
+-comment.setup {
+-  pre_hook = function(ctx)
+-    local U = require "Comment.utils"
+-
+-    local location = nil
+-    if ctx.ctype == U.ctype.block then
+-      location = require("ts_context_commentstring.utils").get_cursor_location()
+-    elseif ctx.cmotion == U.cmotion.v or ctx.cmotion == U.cmotion.V then
+-      location = require("ts_context_commentstring.utils").get_visual_start_location()
+-    end
+-
+-    return require("ts_context_commentstring.internal").calculate_commentstring {
+-      key = ctx.ctype == U.ctype.line and "__default" or "__multiline",
+-      location = location,
+-    }
+-  end,
+-}
+diff --git a/nvim/lua/user/gitsigns.lua b/nvim/lua/user/gitsigns.lua
+deleted file mode 100644
+index ff72b93..0000000
+--- a/nvim/lua/user/gitsigns.lua
++++ /dev/null
+@@ -1,48 +0,0 @@
+-local status_ok, gitsigns = pcall(require, "gitsigns")
+-if not status_ok then
+-  return
+-end
+-
+-gitsigns.setup {
+-  signs = {
+-    add = { hl = "GitSignsAdd", text = "▎", numhl = "GitSignsAddNr", linehl = "GitSignsAddLn" },
+-    change = { hl = "GitSignsChange", text = "▎", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+-    delete = { hl = "GitSignsDelete", text = "契", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+-    topdelete = { hl = "GitSignsDelete", text = "契", numhl = "GitSignsDeleteNr", linehl = "GitSignsDeleteLn" },
+-    changedelete = { hl = "GitSignsChange", text = "▎", numhl = "GitSignsChangeNr", linehl = "GitSignsChangeLn" },
+-  },
+-  signcolumn = true, -- Toggle with `:Gitsigns toggle_signs`
+-  numhl = false, -- Toggle with `:Gitsigns toggle_numhl`
+-  linehl = false, -- Toggle with `:Gitsigns toggle_linehl`
+-  word_diff = false, -- Toggle with `:Gitsigns toggle_word_diff`
+-  watch_gitdir = {
+-    interval = 1000,
+-    follow_files = true,
+-  },
+-  attach_to_untracked = true,
+-  current_line_blame = false, -- Toggle with `:Gitsigns toggle_current_line_blame`
+-  current_line_blame_opts = {
+-    virt_text = true,
+-    virt_text_pos = "eol", -- 'eol' | 'overlay' | 'right_align'
+-    delay = 1000,
+-    ignore_whitespace = false,
+-  },
+-  current_line_blame_formatter_opts = {
+-    relative_time = false,
+-  },
+-  sign_priority = 6,
+-  update_debounce = 100,
+-  status_formatter = nil, -- Use default
+-  max_file_length = 40000,
+-  preview_config = {
+-    -- Options passed to nvim_open_win
+-    border = "single",
+-    style = "minimal",
+-    relative = "cursor",
+-    row = 0,
+-    col = 1,
+-  },
+-  yadm = {
+-    enable = false,
+-  },
+-}
+diff --git a/nvim/lua/user/impatient.lua b/nvim/lua/user/impatient.lua
+deleted file mode 100644
+index 84419e0..0000000
+--- a/nvim/lua/user/impatient.lua
++++ /dev/null
+@@ -1,6 +0,0 @@
+-local status_ok, impatient = pcall(require, "impatient")
+-if not status_ok then
+-  return
+-end
+-
+-impatient.enable_profile()
+diff --git a/nvim/lua/user/indentline.lua b/nvim/lua/user/indentline.lua
+deleted file mode 100644
+index fdf5870..0000000
+--- a/nvim/lua/user/indentline.lua
++++ /dev/null
+@@ -1,70 +0,0 @@
+-local status_ok, indent_blankline = pcall(require, "indent_blankline")
+-if not status_ok then
+-	return
+-end
+-
+-vim.g.indent_blankline_buftype_exclude = { "terminal", "nofile" }
+-vim.g.indent_blankline_filetype_exclude = {
+-	"help",
+-	"startify",
+-	"dashboard",
+-	"packer",
+-	"neogitstatus",
+-	"NvimTree",
+-	"Trouble",
+-}
+-vim.g.indentLine_enabled = 1
+--- vim.g.indent_blankline_char = "│"
+-vim.g.indent_blankline_char = "▏"
+--- vim.g.indent_blankline_char = "▎"
+-vim.g.indent_blankline_show_trailing_blankline_indent = false
+-vim.g.indent_blankline_show_first_indent_level = true
+-vim.g.indent_blankline_use_treesitter = true
+-vim.g.indent_blankline_show_current_context = true
+-vim.g.indent_blankline_context_patterns = {
+-	"class",
+-	"return",
+-	"function",
+-	"method",
+-	"^if",
+-	"^while",
+-	"jsx_element",
+-	"^for",
+-	"^object",
+-	"^table",
+-	"block",
+-	"arguments",
+-	"if_statement",
+-	"else_clause",
+-	"jsx_element",
+-	"jsx_self_closing_element",
+-	"try_statement",
+-	"catch_clause",
+-	"import_statement",
+-	"operation_type",
+-}
+--- HACK: work-around for https://github.com/lukas-reineke/indent-blankline.nvim/issues/59
+-vim.wo.colorcolumn = "99999"
+-
+--- vim.cmd [[highlight IndentBlanklineIndent1 guifg=#E06C75 gui=nocombine]]
+--- vim.cmd [[highlight IndentBlanklineIndent2 guifg=#E5C07B gui=nocombine]]
+--- vim.cmd [[highlight IndentBlanklineIndent3 guifg=#98C379 gui=nocombine]]
+--- vim.cmd [[highlight IndentBlanklineIndent4 guifg=#56B6C2 gui=nocombine]]
+--- vim.cmd [[highlight IndentBlanklineIndent5 guifg=#61AFEF gui=nocombine]]
+--- vim.cmd [[highlight IndentBlanklineIndent6 guifg=#C678DD gui=nocombine]]
+--- vim.opt.list = true
+--- vim.opt.listchars:append "space:⋅"
+--- vim.opt.listchars:append "space:"
+--- vim.opt.listchars:append "eol:↴"
+-
+-indent_blankline.setup({
+-	-- show_end_of_line = true,
+-	-- space_char_blankline = " ",
+-	show_current_context = true,
+-	-- show_current_context_start = true,
+-	-- char_highlight_list = {
+-	--   "IndentBlanklineIndent1",
+-	--   "IndentBlanklineIndent2",
+-	--   "IndentBlanklineIndent3",
+-	-- },
+-})
+diff --git a/nvim/lua/user/keymaps.lua b/nvim/lua/user/keymaps.lua
+deleted file mode 100644
+index de1bc97..0000000
+--- a/nvim/lua/user/keymaps.lua
++++ /dev/null
+@@ -1,69 +0,0 @@
+-local opts = { noremap = true, silent = true }
+-
+-local term_opts = { silent = true }
+-
+--- Shorten function name
+-local keymap = vim.api.nvim_set_keymap
+-
+---Remap space as leader key
+-keymap("", ",", "<Nop>", opts)
+-vim.g.mapleader = ","
+-vim.g.maplocalleader = ","
+-
+--- Modes
+---   normal_mode = "n",
+---   insert_mode = "i",
+---   visual_mode = "v",
+---   visual_block_mode = "x",
+---   term_mode = "t",
+---   command_mode = "c",
+-
+--- Normal --
+--- Better window navigation
+-keymap("n", "<C-h>", "<C-w>h", opts)
+-keymap("n", "<C-j>", "<C-w>j", opts)
+-keymap("n", "<C-k>", "<C-w>k", opts)
+-keymap("n", "<C-l>", "<C-w>l", opts)
+-
+--- Resize with arrows
+-keymap("n", "<C-Up>", ":resize -2<CR>", opts)
+-keymap("n", "<C-Down>", ":resize +2<CR>", opts)
+-keymap("n", "<C-Left>", ":vertical resize -2<CR>", opts)
+-keymap("n", "<C-Right>", ":vertical resize +2<CR>", opts)
+-
+--- Navigate buffers
+-keymap("n", "<S-l>", ":bnext<CR>", opts)
+-keymap("n", "<S-h>", ":bprevious<CR>", opts)
+-
+--- Move text up and down
+-keymap("n", "<A-j>", "<Esc>:m .+1<CR>==gi", opts)
+-keymap("n", "<A-k>", "<Esc>:m .-2<CR>==gi", opts)
+-
+--- Insert --
+--- Press jk fast to enter
+-keymap("i", "jk", "<ESC>", opts)
+-
+--- Visual --
+--- Stay in indent mode
+-keymap("v", "<", "<gv", opts)
+-keymap("v", ">", ">gv", opts)
+-
+--- Move text up and down
+-keymap("v", "<A-j>", ":m .+1<CR>==", opts)
+-keymap("v", "<A-k>", ":m .-2<CR>==", opts)
+-keymap("v", "p", '"_dP', opts)
+-
+--- Visual Block --
+--- Move text up and down
+-keymap("x", "J", ":move '>+1<CR>gv-gv", opts)
+-keymap("x", "K", ":move '<-2<CR>gv-gv", opts)
+-keymap("x", "<A-j>", ":move '>+1<CR>gv-gv", opts)
+-keymap("x", "<A-k>", ":move '<-2<CR>gv-gv", opts)
+-
+--- Terminal --
+--- Better terminal navigation
+--- keymap("t", "<C-h>", "<C-\\><C-N><C-w>h", term_opts)
+--- keymap("t", "<C-j>", "<C-\\><C-N><C-w>j", term_opts)
+--- keymap("t", "<C-k>", "<C-\\><C-N><C-w>k", term_opts)
+--- keymap("t", "<C-l>", "<C-\\><C-N><C-w>l", term_opts)
+-
+diff --git a/nvim/lua/user/lsp/handlers.lua b/nvim/lua/user/lsp/handlers.lua
+deleted file mode 100644
+index fb8b7f8..0000000
+--- a/nvim/lua/user/lsp/handlers.lua
++++ /dev/null
+@@ -1,104 +0,0 @@
+-local M = {}
+-
+--- TODO: backfill this to template
+-M.setup = function()
+-  local signs = {
+-    { name = "DiagnosticSignError", text = "" },
+-    { name = "DiagnosticSignWarn", text = "" },
+-    { name = "DiagnosticSignHint", text = "" },
+-    { name = "DiagnosticSignInfo", text = "" },
+-  }
+-
+-  for _, sign in ipairs(signs) do
+-    vim.fn.sign_define(sign.name, { texthl = sign.name, text = sign.text, numhl = "" })
+-  end
+-
+-  local config = {
+-    -- disable virtual text
+-    virtual_text = false,
+-    -- show signs
+-    signs = {
+-      active = signs,
+-    },
+-    update_in_insert = true,
+-    underline = true,
+-    severity_sort = true,
+-    float = {
+-      focusable = false,
+-      style = "minimal",
+-      border = "rounded",
+-      source = "always",
+-      header = "",
+-      prefix = "",
+-    },
+-  }
+-
+-  vim.diagnostic.config(config)
+-
+-  vim.lsp.handlers["textDocument/hover"] = vim.lsp.with(vim.lsp.handlers.hover, {
+-    border = "rounded",
+-  })
+-
+-  vim.lsp.handlers["textDocument/signatureHelp"] = vim.lsp.with(vim.lsp.handlers.signature_help, {
+-    border = "rounded",
+-  })
+-end
+-
+-local function lsp_highlight_document(client)
+-  -- Set autocommands conditional on server_capabilities
+-  if client.resolved_capabilities.document_highlight then
+-    vim.api.nvim_exec(
+-      [[
+-      augroup lsp_document_highlight
+-        autocmd! * <buffer>
+-        autocmd CursorHold <buffer> lua vim.lsp.buf.document_highlight()
+-        autocmd CursorMoved <buffer> lua vim.lsp.buf.clear_references()
+-      augroup END
+-    ]],
+-      false
+-    )
+-  end
+-end
+-
+-local function lsp_keymaps(bufnr)
+-  local opts = { noremap = true, silent = true }
+-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gD", "<cmd>lua vim.lsp.buf.declaration()<CR>", opts)
+-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gd", "<cmd>lua vim.lsp.buf.definition()<CR>", opts)
+-  vim.api.nvim_buf_set_keymap(bufnr, "n", "K", "<cmd>lua vim.lsp.buf.hover()<CR>", opts)
+-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gi", "<cmd>lua vim.lsp.buf.implementation()<CR>", opts)
+-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<C-k>", "<cmd>lua vim.lsp.buf.signature_help()<CR>", opts)
+-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>rn", "<cmd>lua vim.lsp.buf.rename()<CR>", opts)
+-  vim.api.nvim_buf_set_keymap(bufnr, "n", "gr", "<cmd>lua vim.lsp.buf.references()<CR>", opts)
+-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>ca", "<cmd>lua vim.lsp.buf.code_action()<CR>", opts)
+-  -- vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>f", "<cmd>lua vim.diagnostic.open_float()<CR>", opts)
+-  vim.api.nvim_buf_set_keymap(bufnr, "n", "[d", '<cmd>lua vim.diagnostic.goto_prev({ border = "rounded" })<CR>', opts)
+-  vim.api.nvim_buf_set_keymap(
+-    bufnr,
+-    "n",
+-    "gl",
+-    '<cmd>lua vim.lsp.diagnostic.show_line_diagnostics({ border = "rounded" })<CR>',
+-    opts
+-  )
+-  vim.api.nvim_buf_set_keymap(bufnr, "n", "]d", '<cmd>lua vim.diagnostic.goto_next({ border = "rounded" })<CR>', opts)
+-  vim.api.nvim_buf_set_keymap(bufnr, "n", "<leader>q", "<cmd>lua vim.diagnostic.setloclist()<CR>", opts)
+-  vim.cmd [[ command! Format execute 'lua vim.lsp.buf.formatting()' ]]
+-end
+-
+-M.on_attach = function(client, bufnr)
+-  if client.name == "tsserver" then
+-    client.resolved_capabilities.document_formatting = false
+-  end
+-  lsp_keymaps(bufnr)
+-  lsp_highlight_document(client)
+-end
+-
+-local capabilities = vim.lsp.protocol.make_client_capabilities()
+-
+-local status_ok, cmp_nvim_lsp = pcall(require, "cmp_nvim_lsp")
+-if not status_ok then
+-  return
+-end
+-
+-M.capabilities = cmp_nvim_lsp.update_capabilities(capabilities)
+-
+-return M
+diff --git a/nvim/lua/user/lsp/init.lua b/nvim/lua/user/lsp/init.lua
+deleted file mode 100644
+index 8158cf3..0000000
+--- a/nvim/lua/user/lsp/init.lua
++++ /dev/null
+@@ -1,8 +0,0 @@
+-local status_ok, _ = pcall(require, "lspconfig")
+-if not status_ok then
+-  return
+-end
+-
+-require "user.lsp.lsp-installer"
+-require("user.lsp.handlers").setup()
+-require "user.lsp.null-ls"
+diff --git a/nvim/lua/user/lsp/lsp-installer.lua b/nvim/lua/user/lsp/lsp-installer.lua
+deleted file mode 100644
+index 2fe4af2..0000000
+--- a/nvim/lua/user/lsp/lsp-installer.lua
++++ /dev/null
+@@ -1,28 +0,0 @@
+-local status_ok, lsp_installer = pcall(require, "nvim-lsp-installer")
+-if not status_ok then
+-	return
+-end
+-
+--- Register a handler that will be called for all installed servers.
+--- Alternatively, you may also register handlers on specific server instances instead (see example below).
+-lsp_installer.on_server_ready(function(server)
+-	local opts = {
+-		on_attach = require("user.lsp.handlers").on_attach,
+-		capabilities = require("user.lsp.handlers").capabilities,
+-	}
+-
+-	 if server.name == "jsonls" then
+-	 	local jsonls_opts = require("user.lsp.settings.jsonls")
+-	 	opts = vim.tbl_deep_extend("force", jsonls_opts, opts)
+-	 end
+-
+-	 if server.name == "sumneko_lua" then
+-	 	local sumneko_opts = require("user.lsp.settings.sumneko_lua")
+-	 	opts = vim.tbl_deep_extend("force", sumneko_opts, opts)
+-	 end
+-
+-	-- This setup() function is exactly the same as lspconfig's setup function.
+-	-- Refer to https://github.com/neovim/nvim-lspconfig/blob/master/doc/server_configurations.md
+-	server:setup(opts)
+-end)
+-
+diff --git a/nvim/lua/user/lsp/null-ls.lua b/nvim/lua/user/lsp/null-ls.lua
+deleted file mode 100644
+index 71fbca5..0000000
+--- a/nvim/lua/user/lsp/null-ls.lua
++++ /dev/null
+@@ -1,20 +0,0 @@
+-local null_ls_status_ok, null_ls = pcall(require, "null-ls")
+-if not null_ls_status_ok then
+-	return
+-end
+-
+--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/formatting
+-local formatting = null_ls.builtins.formatting
+--- https://github.com/jose-elias-alvarez/null-ls.nvim/tree/main/lua/null-ls/builtins/diagnostics
+-local diagnostics = null_ls.builtins.diagnostics
+-
+-null_ls.setup({
+-	debug = false,
+-	sources = {
+-		formatting.prettier.with({ extra_args = { "--no-semi", "--single-quote", "--jsx-single-quote" } }),
+-		formatting.black.with({ extra_args = { "--fast" } }),
+-		formatting.stylua,
+-    diagnostics.tsc,
+-    diagnostics.flake8
+-	},
+-})
+diff --git a/nvim/lua/user/lsp/settings/jsonls.lua b/nvim/lua/user/lsp/settings/jsonls.lua
+deleted file mode 100644
+index 1fffa68..0000000
+--- a/nvim/lua/user/lsp/settings/jsonls.lua
++++ /dev/null
+@@ -1,197 +0,0 @@
+-local default_schemas = nil
+-local status_ok, jsonls_settings = pcall(require, "nlspsettings.jsonls")
+-if status_ok then
+-  default_schemas = jsonls_settings.get_default_schemas()
+-end
+-
+-local schemas = {
+-  {
+-    description = "TypeScript compiler configuration file",
+-    fileMatch = {
+-      "tsconfig.json",
+-      "tsconfig.*.json",
+-    },
+-    url = "https://json.schemastore.org/tsconfig.json",
+-  },
+-  {
+-    description = "Lerna config",
+-    fileMatch = { "lerna.json" },
+-    url = "https://json.schemastore.org/lerna.json",
+-  },
+-  {
+-    description = "Babel configuration",
+-    fileMatch = {
+-      ".babelrc.json",
+-      ".babelrc",
+-      "babel.config.json",
+-    },
+-    url = "https://json.schemastore.org/babelrc.json",
+-  },
+-  {
+-    description = "ESLint config",
+-    fileMatch = {
+-      ".eslintrc.json",
+-      ".eslintrc",
+-    },
+-    url = "https://json.schemastore.org/eslintrc.json",
+-  },
+-  {
+-    description = "Bucklescript config",
+-    fileMatch = { "bsconfig.json" },
+-    url = "https://raw.githubusercontent.com/rescript-lang/rescript-compiler/8.2.0/docs/docson/build-schema.json",
+-  },
+-  {
+-    description = "Prettier config",
+-    fileMatch = {
+-      ".prettierrc",
+-      ".prettierrc.json",
+-      "prettier.config.json",
+-    },
+-    url = "https://json.schemastore.org/prettierrc",
+-  },
+-  {
+-    description = "Vercel Now config",
+-    fileMatch = { "now.json" },
+-    url = "https://json.schemastore.org/now",
+-  },
+-  {
+-    description = "Stylelint config",
+-    fileMatch = {
+-      ".stylelintrc",
+-      ".stylelintrc.json",
+-      "stylelint.config.json",
+-    },
+-    url = "https://json.schemastore.org/stylelintrc",
+-  },
+-  {
+-    description = "A JSON schema for the ASP.NET LaunchSettings.json files",
+-    fileMatch = { "launchsettings.json" },
+-    url = "https://json.schemastore.org/launchsettings.json",
+-  },
+-  {
+-    description = "Schema for CMake Presets",
+-    fileMatch = {
+-      "CMakePresets.json",
+-      "CMakeUserPresets.json",
+-    },
+-    url = "https://raw.githubusercontent.com/Kitware/CMake/master/Help/manual/presets/schema.json",
+-  },
+-  {
+-    description = "Configuration file as an alternative for configuring your repository in the settings page.",
+-    fileMatch = {
+-      ".codeclimate.json",
+-    },
+-    url = "https://json.schemastore.org/codeclimate.json",
+-  },
+-  {
+-    description = "LLVM compilation database",
+-    fileMatch = {
+-      "compile_commands.json",
+-    },
+-    url = "https://json.schemastore.org/compile-commands.json",
+-  },
+-  {
+-    description = "Config file for Command Task Runner",
+-    fileMatch = {
+-      "commands.json",
+-    },
+-    url = "https://json.schemastore.org/commands.json",
+-  },
+-  {
+-    description = "AWS CloudFormation provides a common language for you to describe and provision all the infrastructure resources in your cloud environment.",
+-    fileMatch = {
+-      "*.cf.json",
+-      "cloudformation.json",
+-    },
+-    url = "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/cloudformation.schema.json",
+-  },
+-  {
+-    description = "The AWS Serverless Application Model (AWS SAM, previously known as Project Flourish) extends AWS CloudFormation to provide a simplified way of defining the Amazon API Gateway APIs, AWS Lambda functions, and Amazon DynamoDB tables needed by your serverless application.",
+-    fileMatch = {
+-      "serverless.template",
+-      "*.sam.json",
+-      "sam.json",
+-    },
+-    url = "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/sam.schema.json",
+-  },
+-  {
+-    description = "Json schema for properties json file for a GitHub Workflow template",
+-    fileMatch = {
+-      ".github/workflow-templates/**.properties.json",
+-    },
+-    url = "https://json.schemastore.org/github-workflow-template-properties.json",
+-  },
+-  {
+-    description = "golangci-lint configuration file",
+-    fileMatch = {
+-      ".golangci.toml",
+-      ".golangci.json",
+-    },
+-    url = "https://json.schemastore.org/golangci-lint.json",
+-  },
+-  {
+-    description = "JSON schema for the JSON Feed format",
+-    fileMatch = {
+-      "feed.json",
+-    },
+-    url = "https://json.schemastore.org/feed.json",
+-    versions = {
+-      ["1"] = "https://json.schemastore.org/feed-1.json",
+-      ["1.1"] = "https://json.schemastore.org/feed.json",
+-    },
+-  },
+-  {
+-    description = "Packer template JSON configuration",
+-    fileMatch = {
+-      "packer.json",
+-    },
+-    url = "https://json.schemastore.org/packer.json",
+-  },
+-  {
+-    description = "NPM configuration file",
+-    fileMatch = {
+-      "package.json",
+-    },
+-    url = "https://json.schemastore.org/package.json",
+-  },
+-  {
+-    description = "JSON schema for Visual Studio component configuration files",
+-    fileMatch = {
+-      "*.vsconfig",
+-    },
+-    url = "https://json.schemastore.org/vsconfig.json",
+-  },
+-  {
+-    description = "Resume json",
+-    fileMatch = { "resume.json" },
+-    url = "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+-  },
+-}
+-
+-local function extend(tab1, tab2)
+-  for _, value in ipairs(tab2) do
+-    table.insert(tab1, value)
+-  end
+-  return tab1
+-end
+-
+-local extended_schemas = extend(schemas, default_schemas)
+-
+-local opts = {
+-  settings = {
+-    json = {
+-      schemas = extended_schemas,
+-    },
+-  },
+-  setup = {
+-    commands = {
+-      Format = {
+-        function()
+-          vim.lsp.buf.range_formatting({}, { 0, 0 }, { vim.fn.line "$", 0 })
+-        end,
+-      },
+-    },
+-  },
+-}
+-
+-return opts
+diff --git a/nvim/lua/user/lsp/settings/sumneko_lua.lua b/nvim/lua/user/lsp/settings/sumneko_lua.lua
+deleted file mode 100644
+index 0ac454a..0000000
+--- a/nvim/lua/user/lsp/settings/sumneko_lua.lua
++++ /dev/null
+@@ -1,16 +0,0 @@
+-return {
+-	settings = {
+-
+-		Lua = {
+-			diagnostics = {
+-				globals = { "vim" },
+-			},
+-			workspace = {
+-				library = {
+-					[vim.fn.expand("$VIMRUNTIME/lua")] = true,
+-					[vim.fn.stdpath("config") .. "/lua"] = true,
+-				},
+-			},
+-		},
+-	},
+-}
+diff --git a/nvim/lua/user/lualine.lua b/nvim/lua/user/lualine.lua
+deleted file mode 100644
+index 3318ecd..0000000
+--- a/nvim/lua/user/lualine.lua
++++ /dev/null
+@@ -1,93 +0,0 @@
+-local status_ok, lualine = pcall(require, "lualine")
+-if not status_ok then
+-	return
+-end
+-
+-local hide_in_width = function()
+-	return vim.fn.winwidth(0) > 80
+-end
+-
+-local diagnostics = {
+-	"diagnostics",
+-	sources = { "nvim_diagnostic" },
+-	sections = { "error", "warn" },
+-	symbols = { error = " ", warn = " " },
+-	colored = false,
+-	update_in_insert = false,
+-	always_visible = true,
+-}
+-
+-local diff = {
+-	"diff",
+-	colored = false,
+-	symbols = { added = " ", modified = " ", removed = " " }, -- changes diff symbols
+-  cond = hide_in_width
+-}
+-
+-local mode = {
+-	"mode",
+-	fmt = function(str)
+-		return "-- " .. str .. " --"
+-	end,
+-}
+-
+-local filetype = {
+-	"filetype",
+-	icons_enabled = false,
+-	icon = nil,
+-}
+-
+-local branch = {
+-	"branch",
+-	icons_enabled = true,
+-	icon = "",
+-}
+-
+-local location = {
+-	"location",
+-	padding = 0,
+-}
+-
+--- cool function for progress
+-local progress = function()
+-	local current_line = vim.fn.line(".")
+-	local total_lines = vim.fn.line("$")
+-	local chars = { "__", "▁▁", "▂▂", "▃▃", "▄▄", "▅▅", "▆▆", "▇▇", "██" }
+-	local line_ratio = current_line / total_lines
+-	local index = math.ceil(line_ratio * #chars)
+-	return chars[index]
+-end
+-
+-local spaces = function()
+-	return "spaces: " .. vim.api.nvim_buf_get_option(0, "shiftwidth")
+-end
+-
+-lualine.setup({
+-	options = {
+-		icons_enabled = true,
+-		theme = "auto",
+-		component_separators = { left = "", right = "" },
+-		section_separators = { left = "", right = "" },
+-		disabled_filetypes = { "alpha", "dashboard", "NvimTree", "Outline" },
+-		always_divide_middle = true,
+-	},
+-	sections = {
+-		lualine_a = { branch, diagnostics },
+-		lualine_b = { mode },
+-		lualine_c = {},
+-		-- lualine_x = { "encoding", "fileformat", "filetype" },
+-		lualine_x = { diff, spaces, "encoding", filetype },
+-		lualine_y = { location },
+-		lualine_z = { progress },
+-	},
+-	inactive_sections = {
+-		lualine_a = {},
+-		lualine_b = {},
+-		lualine_c = { "filename" },
+-		lualine_x = { "location" },
+-		lualine_y = {},
+-		lualine_z = {},
+-	},
+-	tabline = {},
+-	extensions = {},
+-})
+diff --git a/nvim/lua/user/nvim-tree.lua b/nvim/lua/user/nvim-tree.lua
+deleted file mode 100644
+index 9c5170c..0000000
+--- a/nvim/lua/user/nvim-tree.lua
++++ /dev/null
+@@ -1,112 +0,0 @@
+--- following options are the default
+--- each of these are documented in `:help nvim-tree.OPTION_NAME`
+-vim.g.nvim_tree_icons = {
+-  default = "",
+-  symlink = "",
+-  git = {
+-    unstaged = "",
+-    staged = "S",
+-    unmerged = "",
+-    renamed = "➜",
+-    deleted = "",
+-    untracked = "U",
+-    ignored = "◌",
+-  },
+-  folder = {
+-    default = "",
+-    open = "",
+-    empty = "",
+-    empty_open = "",
+-    symlink = "",
+-  },
+-}
+-
+-local status_ok, nvim_tree = pcall(require, "nvim-tree")
+-if not status_ok then
+-  return
+-end
+-
+-local config_status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
+-if not config_status_ok then
+-  return
+-end
+-
+-local tree_cb = nvim_tree_config.nvim_tree_callback
+-
+-nvim_tree.setup {
+-  disable_netrw = true,
+-  hijack_netrw = true,
+-  open_on_setup = false,
+-  ignore_ft_on_setup = {
+-    "startify",
+-    "dashboard",
+-    "alpha",
+-  },
+-  auto_close = true,
+-  open_on_tab = false,
+-  hijack_cursor = false,
+-  update_cwd = true,
+-  update_to_buf_dir = {
+-    enable = true,
+-    auto_open = true,
+-  },
+-  diagnostics = {
+-    enable = true,
+-    icons = {
+-      hint = "",
+-      info = "",
+-      warning = "",
+-      error = "",
+-    },
+-  },
+-  update_focused_file = {
+-    enable = true,
+-    update_cwd = true,
+-    ignore_list = {},
+-  },
+-  system_open = {
+-    cmd = nil,
+-    args = {},
+-  },
+-  filters = {
+-    dotfiles = false,
+-    custom = {},
+-  },
+-  git = {
+-    enable = true,
+-    ignore = true,
+-    timeout = 500,
+-  },
+-  view = {
+-    width = 30,
+-    height = 30,
+-    hide_root_folder = false,
+-    side = "left",
+-    auto_resize = true,
+-    mappings = {
+-      custom_only = false,
+-      list = {
+-        { key = { "l", "<CR>", "o" }, cb = tree_cb "edit" },
+-        { key = "h", cb = tree_cb "close_node" },
+-        { key = "v", cb = tree_cb "vsplit" },
+-      },
+-    },
+-    number = false,
+-    relativenumber = false,
+-  },
+-  trash = {
+-    cmd = "trash",
+-    require_confirm = true,
+-  },
+-  quit_on_open = 0,
+-  git_hl = 1,
+-  disable_window_picker = 0,
+-  root_folder_modifier = ":t",
+-  show_icons = {
+-    git = 1,
+-    folders = 1,
+-    files = 1,
+-    folder_arrows = 1,
+-    tree_width = 30,
+-  },
+-}
+diff --git a/nvim/lua/user/options.lua b/nvim/lua/user/options.lua
+deleted file mode 100644
+index 4ca6757..0000000
+--- a/nvim/lua/user/options.lua
++++ /dev/null
+@@ -1,46 +0,0 @@
+-local options = {
+-  backup = false,                          -- creates a backup file
+-  clipboard = "unnamedplus",               -- allows neovim to access the system clipboard
+-  cmdheight = 2,                           -- more space in the neovim command line for displaying messages
+-  completeopt = { "menuone", "noselect" }, -- mostly just for cmp
+-  conceallevel = 0,                        -- so that `` is visible in markdown files
+-  fileencoding = "utf-8",                  -- the encoding written to a file
+-  hlsearch = true,                         -- highlight all matches on previous search pattern
+-  ignorecase = true,                       -- ignore case in search patterns
+-  mouse = "a",                             -- allow the mouse to be used in neovim
+-  pumheight = 10,                          -- pop up menu height
+-  showmode = false,                        -- we don't need to see things like -- INSERT -- anymore
+-  showtabline = 2,                         -- always show tabs
+-  smartcase = true,                        -- smart case
+-  smartindent = true,                      -- make indenting smarter again
+-  splitbelow = true,                       -- force all horizontal splits to go below current window
+-  splitright = true,                       -- force all vertical splits to go to the right of current window
+-  swapfile = false,                        -- creates a swapfile
+-  termguicolors = true,                    -- set term gui colors (most terminals support this)
+-  timeoutlen = 100,                        -- time to wait for a mapped sequence to complete (in milliseconds)
+-  undofile = true,                         -- enable persistent undo
+-  updatetime = 300,                        -- faster completion (4000ms default)
+-  writebackup = false,                     -- if a file is being edited by another program (or was written to file while editing with another program), it is not allowed to be edited
+-  expandtab = true,                        -- convert tabs to spaces
+-  shiftwidth = 2,                          -- the number of spaces inserted for each indentation
+-  tabstop = 2,                             -- insert 2 spaces for a tab
+-  cursorline = true,                       -- highlight the current line
+-  number = true,                           -- set numbered lines
+-  relativenumber = false,                  -- set relative numbered lines
+-  numberwidth = 4,                         -- set number column width to 2 {default 4}
+-  signcolumn = "yes",                      -- always show the sign column, otherwise it would shift the text each time
+-  wrap = false,                            -- display lines as one long line
+-  scrolloff = 8,                           -- is one of my fav
+-  sidescrolloff = 8,
+-  guifont = "monospace:h17",               -- the font used in graphical neovim applications
+-}
+-
+-vim.opt.shortmess:append "c"
+-
+-for k, v in pairs(options) do
+-  vim.opt[k] = v
+-end
+-
+-vim.cmd "set whichwrap+=<,>,[,],h,l"
+-vim.cmd [[set iskeyword+=-]]
+-vim.cmd [[set formatoptions-=cro]] -- TODO: this doesn't seem to work
+diff --git a/nvim/lua/user/plugins.lua b/nvim/lua/user/plugins.lua
+deleted file mode 100644
+index 8fcb708..0000000
+--- a/nvim/lua/user/plugins.lua
++++ /dev/null
+@@ -1,104 +0,0 @@
+-local fn = vim.fn
+-
+--- Automatically install packer
+-local install_path = fn.stdpath "data" .. "/site/pack/packer/start/packer.nvim"
+-if fn.empty(fn.glob(install_path)) > 0 then
+-  PACKER_BOOTSTRAP = fn.system {
+-    "git",
+-    "clone",
+-    "--depth",
+-    "1",
+-    "https://github.com/wbthomason/packer.nvim",
+-    install_path,
+-  }
+-  print "Installing packer close and reopen Neovim..."
+-  vim.cmd [[packadd packer.nvim]]
+-end
+-
+--- Autocommand that reloads neovim whenever you save the plugins.lua file
+-vim.cmd [[
+-  augroup packer_user_config
+-    autocmd!
+-    autocmd BufWritePost plugins.lua source <afile> | PackerSync
+-  augroup end
+-]]
+-
+--- Use a protected call so we don't error out on first use
+-local status_ok, packer = pcall(require, "packer")
+-if not status_ok then
+-  return
+-end
+-
+--- Have packer use a popup window
+-packer.init {
+-  display = {
+-    open_fn = function()
+-      return require("packer.util").float { border = "rounded" }
+-    end,
+-  },
+-}
+-
+--- Install your plugins here
+-return packer.startup(function(use)
+-  -- My plugins here
+-  use "wbthomason/packer.nvim" -- Have packer manage itself
+-  use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
+-  use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
+-  use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
+-  use "numToStr/Comment.nvim" -- Easily comment stuff
+-  use "kyazdani42/nvim-web-devicons"
+-  use "kyazdani42/nvim-tree.lua"
+-  use "akinsho/bufferline.nvim"
+-  use "moll/vim-bbye"
+-  use "nvim-lualine/lualine.nvim"
+-  use "akinsho/toggleterm.nvim"
+-  use "ahmedkhalf/project.nvim"
+-  use "lewis6991/impatient.nvim"
+-  use "lukas-reineke/indent-blankline.nvim"
+-  use "goolord/alpha-nvim"
+-  use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
+-  use "folke/which-key.nvim"
+-
+-  -- Colorschemes
+-  -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
+-  use "lunarvim/darkplus.nvim"
+-  use "mhartington/oceanic-next"
+-  use "overcache/NeoSolarized"
+-
+-  -- cmp plugins
+-  use "hrsh7th/nvim-cmp" -- The completion plugin
+-  use "hrsh7th/cmp-buffer" -- buffer completions
+-  use "hrsh7th/cmp-path" -- path completions
+-  use "hrsh7th/cmp-cmdline" -- cmdline completions
+-  use "saadparwaiz1/cmp_luasnip" -- snippet completions
+-  use "hrsh7th/cmp-nvim-lsp"
+-
+-  -- snippets
+-  use "L3MON4D3/LuaSnip" --snippet engine
+-  use "rafamadriz/friendly-snippets" -- a bunch of snippets to use
+-
+-  -- LSP
+-  use "neovim/nvim-lspconfig" -- enable LSP
+-  use "williamboman/nvim-lsp-installer" -- simple to use language server installer
+-  use "tamago324/nlsp-settings.nvim" -- language server settings defined in json for
+-  use "jose-elias-alvarez/null-ls.nvim" -- for formatters and linters
+-
+-  -- Telescope
+-  use "nvim-telescope/telescope.nvim"
+-
+-  -- Treesitter
+-  use {
+-    "nvim-treesitter/nvim-treesitter",
+-    run = ":TSUpdate",
+-  }
+-  use "JoosepAlviste/nvim-ts-context-commentstring"
+-
+-  -- Git
+-  use "lewis6991/gitsigns.nvim"
+-
+-  -- Automatically set up your configuration after cloning packer.nvim
+-  -- Put this at the end after all plugins
+-  if PACKER_BOOTSTRAP then
+-    require("packer").sync()
+-  end
+-end)
+diff --git a/nvim/lua/user/project.lua b/nvim/lua/user/project.lua
+deleted file mode 100644
+index 27a1329..0000000
+--- a/nvim/lua/user/project.lua
++++ /dev/null
+@@ -1,48 +0,0 @@
+-local status_ok, project = pcall(require, "project_nvim")
+-if not status_ok then
+-	return
+-end
+-project.setup({
+-	---@usage set to false to disable project.nvim.
+-	--- This is on by default since it's currently the expected behavior.
+-	active = true,
+-
+-	on_config_done = nil,
+-
+-	---@usage set to true to disable setting the current-woriking directory
+-	--- Manual mode doesn't automatically change your root directory, so you have
+-	--- the option to manually do so using `:ProjectRoot` command.
+-	manual_mode = false,
+-
+-	---@usage Methods of detecting the root directory
+-	--- Allowed values: **"lsp"** uses the native neovim lsp
+-	--- **"pattern"** uses vim-rooter like glob pattern matching. Here
+-	--- order matters: if one is not detected, the other is used as fallback. You
+-	--- can also delete or rearangne the detection methods.
+-	-- detection_methods = { "lsp", "pattern" }, -- NOTE: lsp detection will get annoying with multiple langs in one project
+-	detection_methods = { "pattern" },
+-
+-	---@usage patterns used to detect root dir, when **"pattern"** is in detection_methods
+-	patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
+-
+-	---@ Show hidden files in telescope when searching for files in a project
+-	show_hidden = false,
+-
+-	---@usage When set to false, you will get a message when project.nvim changes your directory.
+-	-- When set to false, you will get a message when project.nvim changes your directory.
+-	silent_chdir = true,
+-
+-	---@usage list of lsp client names to ignore when using **lsp** detection. eg: { "efm", ... }
+-	ignore_lsp = {},
+-
+-	---@type string
+-	---@usage path to store the project history for use in telescope
+-  datapath = vim.fn.stdpath("data"),
+-})
+-
+-local tele_status_ok, telescope = pcall(require, "telescope")
+-if not tele_status_ok then
+-	return
+-end
+-
+-telescope.load_extension('projects')
+diff --git a/nvim/lua/user/telescope.lua b/nvim/lua/user/telescope.lua
+deleted file mode 100644
+index 0706b51..0000000
+--- a/nvim/lua/user/telescope.lua
++++ /dev/null
+@@ -1,96 +0,0 @@
+-local status_ok, telescope = pcall(require, "telescope")
+-if not status_ok then
+-  return
+-end
+-
+-local actions = require "telescope.actions"
+-
+-telescope.setup {
+-  defaults = {
+-
+-    prompt_prefix = " ",
+-    selection_caret = " ",
+-    path_display = { "smart" },
+-
+-    mappings = {
+-      i = {
+-        ["<C-n>"] = actions.cycle_history_next,
+-        ["<C-p>"] = actions.cycle_history_prev,
+-
+-        ["<C-j>"] = actions.move_selection_next,
+-        ["<C-k>"] = actions.move_selection_previous,
+-
+-        ["<C-c>"] = actions.close,
+-
+-        ["<Down>"] = actions.move_selection_next,
+-        ["<Up>"] = actions.move_selection_previous,
+-
+-        ["<CR>"] = actions.select_default,
+-        ["<C-x>"] = actions.select_horizontal,
+-        ["<C-v>"] = actions.select_vertical,
+-        ["<C-t>"] = actions.select_tab,
+-
+-        ["<C-u>"] = actions.preview_scrolling_up,
+-        ["<C-d>"] = actions.preview_scrolling_down,
+-
+-        ["<PageUp>"] = actions.results_scrolling_up,
+-        ["<PageDown>"] = actions.results_scrolling_down,
+-
+-        ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+-        ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+-        ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+-        ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+-        ["<C-l>"] = actions.complete_tag,
+-        ["<C-_>"] = actions.which_key, -- keys from pressing <C-/>
+-      },
+-
+-      n = {
+-        ["<esc>"] = actions.close,
+-        ["<CR>"] = actions.select_default,
+-        ["<C-x>"] = actions.select_horizontal,
+-        ["<C-v>"] = actions.select_vertical,
+-        ["<C-t>"] = actions.select_tab,
+-
+-        ["<Tab>"] = actions.toggle_selection + actions.move_selection_worse,
+-        ["<S-Tab>"] = actions.toggle_selection + actions.move_selection_better,
+-        ["<C-q>"] = actions.send_to_qflist + actions.open_qflist,
+-        ["<M-q>"] = actions.send_selected_to_qflist + actions.open_qflist,
+-
+-        ["j"] = actions.move_selection_next,
+-        ["k"] = actions.move_selection_previous,
+-        ["H"] = actions.move_to_top,
+-        ["M"] = actions.move_to_middle,
+-        ["L"] = actions.move_to_bottom,
+-
+-        ["<Down>"] = actions.move_selection_next,
+-        ["<Up>"] = actions.move_selection_previous,
+-        ["gg"] = actions.move_to_top,
+-        ["G"] = actions.move_to_bottom,
+-
+-        ["<C-u>"] = actions.preview_scrolling_up,
+-        ["<C-d>"] = actions.preview_scrolling_down,
+-
+-        ["<PageUp>"] = actions.results_scrolling_up,
+-        ["<PageDown>"] = actions.results_scrolling_down,
+-
+-        ["?"] = actions.which_key,
+-      },
+-    },
+-  },
+-  pickers = {
+-    -- Default configuration for builtin pickers goes here:
+-    -- picker_name = {
+-    --   picker_config_key = value,
+-    --   ...
+-    -- }
+-    -- Now the picker_config_key will be applied every time you call this
+-    -- builtin picker
+-  },
+-  extensions = {
+-    -- Your extension configuration goes here:
+-    -- extension_name = {
+-    --   extension_config_key = value,
+-    -- }
+-    -- please take a look at the readme of the extension you want to configure
+-  },
+-}
+diff --git a/nvim/lua/user/toggleterm.lua b/nvim/lua/user/toggleterm.lua
+deleted file mode 100644
+index cecbd99..0000000
+--- a/nvim/lua/user/toggleterm.lua
++++ /dev/null
+@@ -1,70 +0,0 @@
+-local status_ok, toggleterm = pcall(require, "toggleterm")
+-if not status_ok then
+-	return
+-end
+-
+-toggleterm.setup({
+-	size = 20,
+-	open_mapping = [[<c-\>]],
+-	hide_numbers = true,
+-	shade_filetypes = {},
+-	shade_terminals = true,
+-	shading_factor = 2,
+-	start_in_insert = true,
+-	insert_mappings = true,
+-	persist_size = true,
+-	direction = "float",
+-	close_on_exit = true,
+-	shell = vim.o.shell,
+-	float_opts = {
+-		border = "curved",
+-		winblend = 0,
+-		highlights = {
+-			border = "Normal",
+-			background = "Normal",
+-		},
+-	},
+-})
+-
+-function _G.set_terminal_keymaps()
+-  local opts = {noremap = true}
+-  vim.api.nvim_buf_set_keymap(0, 't', '<esc>', [[<C-\><C-n>]], opts)
+-  vim.api.nvim_buf_set_keymap(0, 't', 'jk', [[<C-\><C-n>]], opts)
+-  vim.api.nvim_buf_set_keymap(0, 't', '<C-h>', [[<C-\><C-n><C-W>h]], opts)
+-  vim.api.nvim_buf_set_keymap(0, 't', '<C-j>', [[<C-\><C-n><C-W>j]], opts)
+-  vim.api.nvim_buf_set_keymap(0, 't', '<C-k>', [[<C-\><C-n><C-W>k]], opts)
+-  vim.api.nvim_buf_set_keymap(0, 't', '<C-l>', [[<C-\><C-n><C-W>l]], opts)
+-end
+-
+-vim.cmd('autocmd! TermOpen term://* lua set_terminal_keymaps()')
+-
+-local Terminal = require("toggleterm.terminal").Terminal
+-local lazygit = Terminal:new({ cmd = "lazygit", hidden = true })
+-
+-function _LAZYGIT_TOGGLE()
+-	lazygit:toggle()
+-end
+-
+-local node = Terminal:new({ cmd = "node", hidden = true })
+-
+-function _NODE_TOGGLE()
+-	node:toggle()
+-end
+-
+-local ncdu = Terminal:new({ cmd = "ncdu", hidden = true })
+-
+-function _NCDU_TOGGLE()
+-	ncdu:toggle()
+-end
+-
+-local htop = Terminal:new({ cmd = "htop", hidden = true })
+-
+-function _HTOP_TOGGLE()
+-	htop:toggle()
+-end
+-
+-local python = Terminal:new({ cmd = "python", hidden = true })
+-
+-function _PYTHON_TOGGLE()
+-	python:toggle()
+-end
+diff --git a/nvim/lua/user/treesitter.lua b/nvim/lua/user/treesitter.lua
+deleted file mode 100644
+index 6f14cfc..0000000
+--- a/nvim/lua/user/treesitter.lua
++++ /dev/null
+@@ -1,23 +0,0 @@
+-local status_ok, configs = pcall(require, "nvim-treesitter.configs")
+-if not status_ok then
+-  return
+-end
+-
+-configs.setup {
+-  ensure_installed = "maintained", -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+-  sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
+-  ignore_install = { "" }, -- List of parsers to ignore installing
+-  autopairs = {
+-    enable = true,
+-  },
+-  highlight = {
+-    enable = true, -- false will disable the whole extension
+-    disable = { "" }, -- list of language that will be disabled
+-    additional_vim_regex_highlighting = true,
+-  },
+-  indent = { enable = true, disable = { "yaml" } },
+-  context_commentstring = {
+-    enable = true,
+-    enable_autocmd = false,
+-  },
+-}
+diff --git a/nvim/lua/user/whichkey.lua b/nvim/lua/user/whichkey.lua
+deleted file mode 100644
+index 11b6a7e..0000000
+--- a/nvim/lua/user/whichkey.lua
++++ /dev/null
+@@ -1,187 +0,0 @@
+-local status_ok, which_key = pcall(require, "which-key")
+-if not status_ok then
+-  return
+-end
+-
+-local setup = {
+-  plugins = {
+-    marks = true, -- shows a list of your marks on ' and `
+-    registers = true, -- shows your registers on " in NORMAL or <C-r> in INSERT mode
+-    spelling = {
+-      enabled = true, -- enabling this will show WhichKey when pressing z= to select spelling suggestions
+-      suggestions = 20, -- how many suggestions should be shown in the list?
+-    },
+-    -- the presets plugin, adds help for a bunch of default keybindings in Neovim
+-    -- No actual key bindings are created
+-    presets = {
+-      operators = false, -- adds help for operators like d, y, ... and registers them for motion / text object completion
+-      motions = true, -- adds help for motions
+-      text_objects = true, -- help for text objects triggered after entering an operator
+-      windows = true, -- default bindings on <c-w>
+-      nav = true, -- misc bindings to work with windows
+-      z = true, -- bindings for folds, spelling and others prefixed with z
+-      g = true, -- bindings for prefixed with g
+-    },
+-  },
+-  -- add operators that will trigger motion and text object completion
+-  -- to enable all native operators, set the preset / operators plugin above
+-  -- operators = { gc = "Comments" },
+-  key_labels = {
+-    -- override the label used to display some keys. It doesn't effect WK in any other way.
+-    -- For example:
+-    -- ["<space>"] = "SPC",
+-    -- ["<cr>"] = "RET",
+-    -- ["<tab>"] = "TAB",
+-  },
+-  icons = {
+-    breadcrumb = "»", -- symbol used in the command line area that shows your active key combo
+-    separator = "➜", -- symbol used between a key and it's label
+-    group = "+", -- symbol prepended to a group
+-  },
+-  popup_mappings = {
+-    scroll_down = "<c-d>", -- binding to scroll down inside the popup
+-    scroll_up = "<c-u>", -- binding to scroll up inside the popup
+-  },
+-  window = {
+-    border = "rounded", -- none, single, double, shadow
+-    position = "bottom", -- bottom, top
+-    margin = { 1, 0, 1, 0 }, -- extra window margin [top, right, bottom, left]
+-    padding = { 2, 2, 2, 2 }, -- extra window padding [top, right, bottom, left]
+-    winblend = 0,
+-  },
+-  layout = {
+-    height = { min = 4, max = 25 }, -- min and max height of the columns
+-    width = { min = 20, max = 50 }, -- min and max width of the columns
+-    spacing = 3, -- spacing between columns
+-    align = "left", -- align columns left, center or right
+-  },
+-  ignore_missing = true, -- enable this to hide mappings for which you didn't specify a label
+-  hidden = { "<silent>", "<cmd>", "<Cmd>", "<CR>", "call", "lua", "^:", "^ " }, -- hide mapping boilerplate
+-  show_help = true, -- show help message on the command line when the popup is visible
+-  triggers = "auto", -- automatically setup triggers
+-  -- triggers = {"<leader>"} -- or specify a list manually
+-  triggers_blacklist = {
+-    -- list of mode / prefixes that should never be hooked by WhichKey
+-    -- this is mostly relevant for key maps that start with a native binding
+-    -- most people should not need to change this
+-    i = { "j", "k" },
+-    v = { "j", "k" },
+-  },
+-}
+-
+-local opts = {
+-  mode = "n", -- NORMAL mode
+-  prefix = "<leader>",
+-  buffer = nil, -- Global mappings. Specify a buffer number for buffer local mappings
+-  silent = true, -- use `silent` when creating keymaps
+-  noremap = true, -- use `noremap` when creating keymaps
+-  nowait = true, -- use `nowait` when creating keymaps
+-}
+-
+-local mappings = {
+-  ["a"] = { "<cmd>Alpha<cr>", "Alpha" },
+-  ["b"] = {
+-    "<cmd>lua require('telescope.builtin').buffers(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+-    "Buffers",
+-  },
+-  ["e"] = { "<cmd>NvimTreeToggle<cr>", "Explorer" },
+-  ["w"] = { "<cmd>w!<CR>", "Save" },
+-  ["q"] = { "<cmd>q!<CR>", "Quit" },
+-  ["c"] = { "<cmd>Bdelete!<CR>", "Close Buffer" },
+-  ["h"] = { "<cmd>nohlsearch<CR>", "No Highlight" },
+-  ["f"] = {
+-    "<cmd>lua require('telescope.builtin').find_files(require('telescope.themes').get_dropdown{previewer = false})<cr>",
+-    "Find files",
+-  },
+-  ["F"] = { "<cmd>Telescope live_grep theme=ivy<cr>", "Find Text" },
+-  ["P"] = { "<cmd>lua require('telescope').extensions.projects.projects()<cr>", "Projects" },
+-
+-  p = {
+-    name = "Packer",
+-    c = { "<cmd>PackerCompile<cr>", "Compile" },
+-    i = { "<cmd>PackerInstall<cr>", "Install" },
+-    s = { "<cmd>PackerSync<cr>", "Sync" },
+-    S = { "<cmd>PackerStatus<cr>", "Status" },
+-    u = { "<cmd>PackerUpdate<cr>", "Update" },
+-  },
+-
+-  g = {
+-    name = "Git",
+-    g = { "<cmd>lua _LAZYGIT_TOGGLE()<CR>", "Lazygit" },
+-    j = { "<cmd>lua require 'gitsigns'.next_hunk()<cr>", "Next Hunk" },
+-    k = { "<cmd>lua require 'gitsigns'.prev_hunk()<cr>", "Prev Hunk" },
+-    l = { "<cmd>lua require 'gitsigns'.blame_line()<cr>", "Blame" },
+-    p = { "<cmd>lua require 'gitsigns'.preview_hunk()<cr>", "Preview Hunk" },
+-    r = { "<cmd>lua require 'gitsigns'.reset_hunk()<cr>", "Reset Hunk" },
+-    R = { "<cmd>lua require 'gitsigns'.reset_buffer()<cr>", "Reset Buffer" },
+-    s = { "<cmd>lua require 'gitsigns'.stage_hunk()<cr>", "Stage Hunk" },
+-    u = {
+-      "<cmd>lua require 'gitsigns'.undo_stage_hunk()<cr>",
+-      "Undo Stage Hunk",
+-    },
+-    o = { "<cmd>Telescope git_status<cr>", "Open changed file" },
+-    b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+-    c = { "<cmd>Telescope git_commits<cr>", "Checkout commit" },
+-    d = {
+-      "<cmd>Gitsigns diffthis HEAD<cr>",
+-      "Diff",
+-    },
+-  },
+-
+-  l = {
+-    name = "LSP",
+-    a = { "<cmd>lua vim.lsp.buf.code_action()<cr>", "Code Action" },
+-    d = {
+-      "<cmd>Telescope lsp_document_diagnostics<cr>",
+-      "Document Diagnostics",
+-    },
+-    w = {
+-      "<cmd>Telescope lsp_workspace_diagnostics<cr>",
+-      "Workspace Diagnostics",
+-    },
+-    f = { "<cmd>lua vim.lsp.buf.formatting()<cr>", "Format" },
+-    i = { "<cmd>LspInfo<cr>", "Info" },
+-    I = { "<cmd>LspInstallInfo<cr>", "Installer Info" },
+-    j = {
+-      "<cmd>lua vim.lsp.diagnostic.goto_next()<CR>",
+-      "Next Diagnostic",
+-    },
+-    k = {
+-      "<cmd>lua vim.lsp.diagnostic.goto_prev()<cr>",
+-      "Prev Diagnostic",
+-    },
+-    l = { "<cmd>lua vim.lsp.codelens.run()<cr>", "CodeLens Action" },
+-    q = { "<cmd>lua vim.lsp.diagnostic.set_loclist()<cr>", "Quickfix" },
+-    r = { "<cmd>lua vim.lsp.buf.rename()<cr>", "Rename" },
+-    s = { "<cmd>Telescope lsp_document_symbols<cr>", "Document Symbols" },
+-    S = {
+-      "<cmd>Telescope lsp_dynamic_workspace_symbols<cr>",
+-      "Workspace Symbols",
+-    },
+-  },
+-  s = {
+-    name = "Search",
+-    b = { "<cmd>Telescope git_branches<cr>", "Checkout branch" },
+-    c = { "<cmd>Telescope colorscheme<cr>", "Colorscheme" },
+-    h = { "<cmd>Telescope help_tags<cr>", "Find Help" },
+-    M = { "<cmd>Telescope man_pages<cr>", "Man Pages" },
+-    r = { "<cmd>Telescope oldfiles<cr>", "Open Recent File" },
+-    R = { "<cmd>Telescope registers<cr>", "Registers" },
+-    k = { "<cmd>Telescope keymaps<cr>", "Keymaps" },
+-    C = { "<cmd>Telescope commands<cr>", "Commands" },
+-  },
+-
+-  t = {
+-    name = "Terminal",
+-    n = { "<cmd>lua _NODE_TOGGLE()<cr>", "Node" },
+-    u = { "<cmd>lua _NCDU_TOGGLE()<cr>", "NCDU" },
+-    t = { "<cmd>lua _HTOP_TOGGLE()<cr>", "Htop" },
+-    p = { "<cmd>lua _PYTHON_TOGGLE()<cr>", "Python" },
+-    f = { "<cmd>ToggleTerm direction=float<cr>", "Float" },
+-    h = { "<cmd>ToggleTerm size=10 direction=horizontal<cr>", "Horizontal" },
+-    v = { "<cmd>ToggleTerm size=80 direction=vertical<cr>", "Vertical" },
+-  },
+-}
+-
+-which_key.setup(setup)
+-which_key.register(mappings, opts)
