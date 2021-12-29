@@ -1,8 +1,8 @@
-vim.api.nvim_command([[
-    augroup ChangeBackgroudColour
-        autocmd colorscheme * :hi normal guibg=None
-        autocmd colorscheme * :hi normal ctermbg=None
-    augroup END
-]])
-vim.o.termguicolors = true
-vim.cmd [[silent! colorscheme NeoSolarized]]
+vim.cmd [[
+try
+  colorscheme OceanicNext
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme default
+  set background=dark
+endtry
+]]
