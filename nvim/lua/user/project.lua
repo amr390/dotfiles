@@ -1,8 +1,7 @@
-local project_ok, project = pcall(require, "project_nvim")
-if not project_ok then
+local status_ok, project = pcall(require, "project_nvim")
+if not status_ok then
 	return
 end
-
 project.setup({
 	---@usage set to false to disable project.nvim.
 	--- This is on by default since it's currently the expected behavior.
@@ -20,7 +19,8 @@ project.setup({
 	--- **"pattern"** uses vim-rooter like glob pattern matching. Here
 	--- order matters: if one is not detected, the other is used as fallback. You
 	--- can also delete or rearangne the detection methods.
-	detection_methods = { "lsp", "pattern" },
+	-- detection_methods = { "lsp", "pattern" }, -- NOTE: lsp detection will get annoying with multiple langs in one project
+	detection_methods = { "pattern" },
 
 	---@usage patterns used to detect root dir, when **"pattern"** is in detection_methods
 	patterns = { ".git", "_darcs", ".hg", ".bzr", ".svn", "Makefile", "package.json" },
@@ -37,5 +37,12 @@ project.setup({
 
 	---@type string
 	---@usage path to store the project history for use in telescope
-	datapath = "~/.vimswap", -- get_cache_dir(),
+  datapath = vim.fn.stdpath("data"),
 })
+
+local tele_status_ok, telescope = pcall(require, "telescope")
+if not tele_status_ok then
+	return
+end
+
+telescope.load_extension('projects')

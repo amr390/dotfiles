@@ -1,3 +1,12 @@
+vim.cmd [[
+try
+  colorscheme darkplus
+catch /^Vim\%((\a\+)\)\=:E185/
+  colorscheme default
+  set background=dark
+endtry
+]]
+
 --- " Default value is "normal", Setting this option to "high" or "low" does use the
 --- " same Solarized palette but simply shifts some values up or down in order to
 --- " expand or compress the tonal range displayed.
@@ -24,6 +33,7 @@
 --- " try disabling this option. Default value:
 --- let g:neosolarized_termBoldAsBright = 1
 
+-- ************************** NeoSolarized ****************************
 --- vim.cmd [[
 --- try
 ---   syntax on
@@ -47,20 +57,20 @@
 ---   set background=dark
 --- endtry
 --- ]]
-
-vim.cmd [[
-try
-  syntax on
-  let g:oceanic_next_terminal_bold = 1
-  let g:oceanic_next_terminal_italic = 1
-  colorscheme OceanicNext
-  hi Normal guibg=NONE ctermbg=NONE
-  hi LineNr guibg=NONE ctermbg=NONE
-  hi SignColumn guibg=NONE ctermbg=NONE
-  hi EndOfBuffer guibg=NONE ctermbg=NONE
-catch /^Vim\%((\a\+)\)\=:E185/
-  colorscheme default
-  set background=dark
-endtry
-]]
-
+-- ************************** OceanicNext ****************************
+-- vim.cmd [[
+-- try
+--   syntax on
+--   let g:oceanic_next_terminal_bold = 1
+--   let g:oceanic_next_terminal_italic = 1
+--   colorscheme OceanicNext
+--   hi Normal guibg=NONE ctermbg=NONE
+--   hi LineNr guibg=NONE ctermbg=NONE
+--   hi SignColumn guibg=NONE ctermbg=NONE
+--   hi EndOfBuffer guibg=NONE ctermbg=NONE
+-- catch /^Vim\%((\a\+)\)\=:E185/
+--   colorscheme default
+--   set background=dark
+-- endtry
+-- ]]
+--

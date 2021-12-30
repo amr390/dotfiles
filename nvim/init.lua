@@ -1,17 +1,21 @@
-require("options")
-require("keymappings")
-
-require("plugins")
-require("colorscheme")
-require("gitsigns")
-require("cmp")
-require("project")
-require("bufferline")
-require("floatterm")
-require("telescope")
-require("treesitter")
-require("which-key")
-require("nvimtree")
-require("utils")
-require("null-ls")
-require("lsp")
+require "user.options"
+require "user.keymaps"
+require "user.plugins"
+require "user.colorscheme"
+require "user.cmp"
+require "user.lsp"
+require "user.telescope"
+require "user.treesitter"
+require "user.autopairs"
+require "user.comment"
+require "user.gitsigns"
+require "user.nvim-tree"
+require "user.bufferline"
+require "user.lualine"
+require "user.toggleterm"
+require "user.project"
+require "user.impatient"
+require "user.indentline"
+require "user.alpha"
+require "user.whichkey"
+require "user.autocommands"
