@@ -10,3 +10,4 @@ bin/.ropeproject*
 **/node_modules/
 
 zsh/.zcompdump
+zsh/.zsh_history
