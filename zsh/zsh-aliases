@@ -131,6 +131,6 @@ alias moNeptune="open_tunel smart-search.cluster-cttghrdpki6v.us-west-2.neptune.
 alias moRabbit="open_tunel rabbitmq.int-m.com 3333 15672"
 
 alias epubChk="java -jar /home/amr/Documents/Apps/epubcheck-4.2.6/epubcheck.jar $1"
-alias eve="source /usr/share/virtualenvwrapper/virtualenvwrapper.sh"
+alias eve="source ~/.local/bin/virtualenvwrapper.sh"
 alias zcfg="cd $DOTFILES/zsh/ && vim zshrc"
 alias cfg="cd $DOTFILES"
