@@ -6,7 +6,7 @@ SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
 
 # Only create a tmux session if it doesn't already exist
 if [ "$SESSIONEXISTS" = "" ]; then
-  ACTIVATE_SAT="source ~/.local/share/virtualenv/virtualenvs/sat/bin/activate"
+  ACTIVATE_SAT="eve && workon sat"
 	# start new session with our name
 	tmux new-session -d -s $SESSION
 

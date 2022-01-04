@@ -1,0 +1,5 @@
+#!/bin/bash
+
+rm ~/.config/JetBrains/IntelliJIdea2021.2/options/other.xml
+rm ~/.config/JetBrains/IntelliJIdea2021.2/eval/*
+rm -rf .java/.userPrefs
