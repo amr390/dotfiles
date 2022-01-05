@@ -30,6 +30,7 @@ export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 [[ -f ~/.local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
 export DBX_ACCESS_TOKEN=xxx
 
+export GOPATH=/home/amr/.local/share/go
 #echo "adding path folders"
 # ####### Configure PATH ###############
 #  - These are line by line so that you can kill one without affecting the others.
@@ -39,6 +40,7 @@ PATH="$MONGO_HOME/bin:$PATH" # MongoDB home
 PATH=$APPS_HOME/tinkerpop/bin:$PATH
 PATH=$WORK_DIR/bin:$PATH
 PATH=$NODE_MODULES/bin:$PATH # node modules bin
+PATH=$GOPATH/bin:$PATH # go
 export PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
 # eval "$(fnm env)"
 # eval "$(zoxide init zsh)"
