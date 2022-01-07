@@ -8,7 +8,7 @@
 #   Function `venvconnect`:
 #       Connect the currently activated virtualenv to the current directory.
 #
-VENV_HOME=$HOME/.virtualenvs
+VENV_HOME=$HOME/.local/share/virtualenv/virtualenvs/
 
 function _virtualenv_auto_activate() {
     if [[ -f ".venv" ]]; then

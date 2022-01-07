@@ -21,6 +21,7 @@ export JAVA_OPTS="$JAVA_OPTS -Xmx2G -Xms1500M"
 #echo "initializing sdkman"
 #THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
 export SDKMAN_DIR="/home/amr/.sdkman"
+source $SDKMAN_DIR/bin/sdkman-init.sh
 
 # ####### PYTHON VIRTUALENV ###############
 export WORKON_HOME=$HOME/.local/share/virtualenv/virtualenvs
