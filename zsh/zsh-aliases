@@ -114,6 +114,7 @@ kill_process() {
         kill $pid
     done
 }
+alias kcas='kill $(lsof -t -i:9443)'
 
 reset_db() {
     sudo su postgres -c "dropdb $1; createdb $1"
