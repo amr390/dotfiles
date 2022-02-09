@@ -131,6 +131,9 @@ open_tunel() {
 alias moNeptune="open_tunel smart-search.cluster-cttghrdpki6v.us-west-2.neptune.amazonaws.com 8182"
 alias moRabbit="open_tunel rabbitmq.int-m.com 3333 15672"
 alias kcas='kill $(lsof -t -i:9443)'
+alias moMws="open_tunnel marketplacews-qa 5005"
+alias moMkt="open_tunnel marketplace-qa 5005"
+alias moMam="open_tunnel marketplaceadmin-qa 5005"
 
 alias epubChk="java -jar /home/amr/Documents/Apps/epubcheck-4.2.6/epubcheck.jar $1"
 alias eve="source ~/.local/bin/virtualenvwrapper.sh"
