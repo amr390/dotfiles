@@ -80,6 +80,16 @@ alias sat-mm-p="$SAT_HOME/manage.py makemigrations --settings=sat8485.settings.s
 alias sat-m-p="$SAT_HOME/manage.py migrate --settings=sat8485.settings.staging"
 alias sat-sh-p="$SAT_HOME/manage.py shell --settings=sat8485.settings.staging"
 
+alias opensearchstop="docker ps | grep some-opensearch && docker kill some-opensearch; docker rm some-opensearch"
+alias opensearchrun="opensearchstop; docker run -d \
+  --hostname my-opensearch \
+  --name some-opensearch \
+  -p 9000:9000 \
+  -p 9600:9600 \
+  -v /home/amr/Documents/tmp/docker/volumes/opensearch:/var/lib/opensearchserver/ \
+  -e \"discovery.type=single-node\" \
+  opensearchproject/opensearch:latest"
+
 alias rabbitstop="docker ps | grep some-rabbit && docker kill some-rabbit; docker rm some-rabbit"
 alias rabbitrun="rabbitstop; docker run -d \
     --hostname my-rabbit \
