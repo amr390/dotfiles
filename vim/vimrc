@@ -28,6 +28,7 @@
 " General {
 
     set background=dark         " Assume a dark background
+    set termguicolors
     set colorcolumn=80          " Sets the vertical column to warn the 80 columns being reached.
     " set tw=80                 " Sets the text width to 80 characters and
     " auto linebreaks
@@ -76,8 +77,8 @@
     "color lucius                   " Load a colorscheme
     "color jellybeans               " Load a colorscheme
     "color gruvbox                  " Load a colorscheme
-    color OceanicNext              " Load a colorscheme
-"    color NeoSolarized              " Load a colorscheme
+    "color OceanicNext              " Load a colorscheme
+    color NeoSolarized              " Load a colorscheme
 
     " For transparent backgrouns https://github.com/mhartington/oceanic-next
     hi Normal guibg=NONE ctermbg=NONE
