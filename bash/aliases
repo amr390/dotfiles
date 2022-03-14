@@ -38,8 +38,6 @@ alias myip="curl http://ipecho.net/plain; echo"
 
 alias vimclean="rm -rf /home/amr/.vimbackup/*"
 
-alias jdk8='sdk use java 8.0.265-open'
-alias jdk11='sdk use java 11.0.10-open'
 alias kcas='kill $(lsof -t -i:9443)'
 
 # vim wiki
@@ -70,8 +68,8 @@ fi
 if [ -f $DOTFILES/bash/aliases-manning ]; then
 	source $DOTFILES/bash/aliases-manning
 fi
-alias vtmp='cd /home/amr/Documents/Manning/data/db_backups/tmp'
 alias mdbackups='cd /home/amr/Documents/Manning/data/db_backups'
+alias vtmp="cd $mdbackups/db_backups/tmp"
 
 TC_HOME='/home/amr/dev/python/timecop'
 alias tc3="cd $TC_HOME && source timecop-be/env/bin/activate"
