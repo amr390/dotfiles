@@ -8,6 +8,8 @@ if not snip_status_ok then
   return
 end
 
+luasnip.filetype_extend('javascript', {'html'})
+luasnip.filetype_extend('javascript', {'javascriptreact'})
 require("luasnip/loaders/from_vscode").lazy_load()
 
 local check_backspace = function()
@@ -44,7 +46,6 @@ local kind_icons = {
   TypeParameter = "",
 }
 -- find more here: https://www.nerdfonts.com/cheat-sheet
-
 cmp.setup {
   snippet = {
     expand = function(args)
