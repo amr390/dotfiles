@@ -1,4 +1,6 @@
 #!/bin/bash
+DEV_FOLDER="/home/amr/Documents/dev"
+MANNING_FOLDER="$DEV_FOLDER/manning/"
 
 alias lv="cd $DEV/manning/livevideo/ivc/"
 alias lb="cd $DEV/manning/livebook/vBook/"
@@ -17,6 +19,8 @@ alias vqdeploy="vbuild && eb deploy livebook-qa"
 alias aws-ecr-login="aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 441712016571.dkr.ecr.us-west-2.amazonaws.com"
 alias myuserid="psql -Uroot marketplace -c \"select id from users where username = 'dquijote22@gmail.com'\""
 alias s3-ls=s3_ls_summary
+OPENSEARCH_COMPOSER_FILE="$MANNING_FOLDER/otherProjects/smart-search-neptune/manning-smart-search-microservice/opensearch-docker-compose.yaml"
+alias dcomp-opensearch="docker-compose -f $OPENSEARCH_COMPOSER_FILE"
 
 s3_ls_summary() {
     aws s3 ls --summarize --human-readable --recursive s3://$1
