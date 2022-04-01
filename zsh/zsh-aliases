@@ -1,7 +1,7 @@
 #!/bin/sh
 
 DOTFILES=$HOME/Documents/dotfiles
-DEV=$HOME/Documents/dev
+PROJECTS=$HOME/Projects
 TODAY=$(date +%Y-%m-%d)
 
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
@@ -52,7 +52,7 @@ alias mach_java_mode="export SDKMAN_DIR="$HOME/.sdkman" && [[ -s "$HOME/.sdkman/
 
 alias mdbackups='cd /home/amr/Documents/Manning/data/db_backups'
 
-VB_HOME="$DEV/python/django/vatbook"
+VB_HOME="$PROJECTS/python/django/vatbook"
 VB_DB_HOME="/home/amr/Documents/Dropbox/Aplicaciones/sat/"
 alias vb3="cd $VB_HOME && workon vb3"
 
@@ -62,15 +62,15 @@ alias vb-mm-p="$VB_HOME/manage.py makemigrations --settings=vatbook.settings.sta
 alias vb-m-p="$VB_HOME/manage.py migrate --settings=vatbook.settings.staging"
 alias vb-sh-p="$VB_HOME/manage.py shell --settings=vatbook.settings.staging"
 
-TC_HOME="$DEV/sandbox/timecop"
-TC_REST="$DEV/sandbox/timecop/timecop-rest/"
-TC_CLI="$DEV/sandbox/timecop/timecop-cli/"
+TC_HOME="$PROJECTS/sandbox/timecop"
+TC_REST="$PROJECTS/sandbox/timecop/timecop-rest/"
+TC_CLI="$PROJECTS/sandbox/timecop/timecop-cli/"
 
 #DEVELOP
 alias tc-run="cd $TC_REST && source env/bin/activate && flask run"
 alias tc-serve="cd $TC_CLI && ionic serve"
 
-SAT_HOME="$DEV/python/django/sat8485"
+SAT_HOME="$PROJECTS/python/django/sat8485"
 SAT_DB_HOME="/home/amr/Documents/Dropbox/Aplicaciones/sat/"
 alias sat="cd $SAT_HOME"
 
