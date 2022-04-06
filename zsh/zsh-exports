@@ -33,6 +33,8 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 [[ -f /usr/local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 [[ -f ~/.local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
+[[ -f ~/.local/bin/virtualenvwrapper.sh ]] && source ~/.local/bin/virtualenvwrapper.sh 
+
 export DBX_ACCESS_TOKEN=xxx
 
 [[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
