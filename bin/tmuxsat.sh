@@ -6,7 +6,7 @@ SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
 
 # Only create a tmux session if it doesn't already exist
 if [ "$SESSIONEXISTS" = "" ]; then
-  ACTIVATE_SAT="eve && workon sat"
+  ACTIVATE_SAT="workon sat"
 	# start new session with our name
 	tmux new-session -d -s $SESSION
 
@@ -16,7 +16,7 @@ if [ "$SESSIONEXISTS" = "" ]; then
 	tmux split-window -h
 	tmux send-keys -t 'Console' 'sat && cd sat8485/static && npm run start' 'C-m'
 
-	# Create and setup pane for Hugo server
+	# Create and setup pane for NVIM
 	tmux new-window -t $SESSION:2 -n 'IDE'
 	tmux send-keys -t 'IDE' "sat && $ACTIVATE_SAT && sat && nvim" 'C-m'
 fi
