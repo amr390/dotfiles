@@ -1,8 +1,8 @@
-local default_schemas = nil
 local status_ok, jsonls_settings = pcall(require, "nlspsettings.jsonls")
-if status_ok then
-  default_schemas = jsonls_settings.get_default_schemas()
+if not status_ok then
+  return 1
 end
+local default_schemas = jsonls_settings.get_default_schemas()
 
 local schemas = {
   {
