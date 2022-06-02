@@ -6,9 +6,9 @@ SAVEHIST=1000000
 
 #echo "setting node modules variable"
 APPS_HOME="/home/amr/Documents/Apps"
-NODE_MODULES="~/Documents/Apps/node_modules"
-MONGO_HOME="~/Documents/Apps/mongodb"
-WORK_DIR="~/Documents/dotfiles"
+NODE_MODULES="/home/amr/Documents/Apps/node_modules"
+MONGO_HOME="/home/amr/Documents/Apps/mongodb"
+WORK_DIR="/home/amr/Documents/dotfiles"
 ANDROID_SDK_ROOT=/home/amr/Documents/Apps/android-sdk-tools/
 
 #echo "setting gradle OPTS"
