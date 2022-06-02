@@ -11,4 +11,4 @@ bin/.ropeproject*
 
 zsh/.zcompdump
 zsh/.zsh_history
-zsh/plugins/**
+**/zsh/plugins/**
