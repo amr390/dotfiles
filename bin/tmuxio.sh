@@ -14,7 +14,7 @@ if [ "$SESSIONEXISTS" = "" ]; then
 	tmux rename-window -t 1 'Console'
 	tmux send-keys -t 'Console' "cd $WORKDIR && npm run dev" 'C-m'
 	tmux split-window -h
-	# tmux send-keys -t 'Console' 'sat && cd sat8485/static && npm run start' 'C-m'
+	tmux send-keys -t 'Console' "cd $WORKDIR"
 
 	# Create and setup pane for NVIM
 	tmux new-window -t $SESSION:2 -n 'IDE'
