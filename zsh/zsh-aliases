@@ -144,6 +144,7 @@ alias kcas='kill $(lsof -t -i:9443)'
 alias moMws="open_tunel marketplacews-qa 5005"
 alias moMkt="open_tunel marketplace-qa 5005"
 alias moMam="open_tunel marketplaceadmin-qa 5005"
+alias moAccessLogs="open_tunel access-logs-db.int-m.com 5555 5432"
 
 alias epubChk="java -jar /home/amr/Documents/Apps/epubcheck-4.2.6/epubcheck.jar $1"
 alias eve="source ~/.local/bin/virtualenvwrapper.sh"
