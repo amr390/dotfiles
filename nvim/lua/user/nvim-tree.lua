@@ -21,6 +21,7 @@ nvim_tree.setup({
 	},
 	open_on_tab = false,
 	hijack_cursor = false,
+	-- hijack_directories = true,
 	update_cwd = true,
 	diagnostics = {
 		enable = true,
@@ -66,6 +67,11 @@ nvim_tree.setup({
 		number = false,
 		relativenumber = false,
 	},
+  actions = {
+    open_file = {
+      resize_window = true,
+    }
+  },
 	trash = {
 		cmd = "trash",
 		require_confirm = true,
