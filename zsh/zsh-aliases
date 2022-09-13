@@ -142,10 +142,11 @@ open_tunel() {
 
 alias moNeptune="open_tunel smart-search.cluster-cttghrdpki6v.us-west-2.neptune.amazonaws.com 8182"
 alias moRabbit="open_tunel rabbitmq-prod.int-m.com 3333 15672"
+alias moMws="open_tunel marketplacews-qa.int-m.com 8090 8080"
 alias kcas='kill $(lsof -t -i:9443)'
-alias moMws="open_tunel marketplacews-qa 5005"
-alias moMkt="open_tunel marketplace-qa 5005"
-alias moMam="open_tunel marketplaceadmin-qa 5005"
+alias modMws="open_tunel marketplacews-qa 5005"
+alias modMkt="open_tunel marketplace-qa 5005"
+alias modMam="open_tunel marketplaceadmin-qa 5005"
 alias moAccessLogs="open_tunel access-logs-db.int-m.com 5555 5432"
 
 alias epubChk="java -jar /home/amr/Documents/Apps/epubcheck-4.2.6/epubcheck.jar $1"
