@@ -1,9 +1,9 @@
 #!/bin/bash
 
 # Set session name
-SESSION="nxt"
+SESSION="fastapi"
 SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
-WORKDIR=~/Projects/sandbox/full-stack-fastapi-posrgresql-reactjs/frontendr/
+WORKDIR=~/Projects/sandbox/ioCtl
 
 # Only create a tmux session if it doesn't already exist
 if [ "$SESSIONEXISTS" = "" ]; then
@@ -12,9 +12,9 @@ if [ "$SESSIONEXISTS" = "" ]; then
 
 	# Name first Pane and start ssh
 	tmux rename-window -t 1 'Console'
-	tmux send-keys -t 'Console' "cd $WORKDIR && npm run dev" 'C-m'
+	tmux send-keys -t 'Console' "cd $WORKDIR/server/ioctl && poetry shell && uvicorn app.main:app --reload" 'C-m'
 	tmux split-window -h
-	tmux send-keys -t 'Console' "cd $WORKDIR"
+	tmux send-keys -t 'Console' "cd $WORKDIR/frontendr && npm run dev" 'C-m'
 
 	# Create and setup pane for NVIM
 	tmux new-window -t $SESSION:2 -n 'IDE'

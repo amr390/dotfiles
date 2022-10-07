@@ -3,7 +3,7 @@
 TODAY=$(date +%Y-%m-%d)
 BKP_PATH=/home/amr/Documents/net/Dropbox/backups/
 BKP_NAME="leger.$TODAY.backup"
-PG_COMMAND="/usr/lib/postgresql/13/bin/pg_dump"
+PG_COMMAND="pg_dump"
 export PGPASSWORD="dc09c7f545c365401db7b36590ec14c8677f23d2207506ccddc8835a424ff419"
 $PG_COMMAND -Uqftrgxlyrmywix \
 	-hec2-52-48-137-75.eu-west-1.compute.amazonaws.com \
