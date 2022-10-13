@@ -1,1 +1,1 @@
-../../dotfiles/bin/tmuxsat.sh
+../bin/tmuxsat.sh
