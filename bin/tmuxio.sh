@@ -12,7 +12,7 @@ if [ "$SESSIONEXISTS" = "" ]; then
 
 	# Name first Pane and start ssh
 	tmux rename-window -t 1 'Console'
-	tmux send-keys -t 'Console' "cd $WORKDIR/server/ioctl && poetry shell && uvicorn app.main:app --reload" 'C-m'
+	tmux send-keys -t 'Console' "cd $WORKDIR/server/ioctl && poetry shell;  uvicorn app.main:app --reload" 'C-m'
 	tmux split-window -h
 	tmux send-keys -t 'Console' "cd $WORKDIR/frontendr && npm run dev" 'C-m'
 
