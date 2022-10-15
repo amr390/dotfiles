@@ -7,6 +7,7 @@ TODAY=$(date +%Y-%m-%d)
 alias ..="cd ../"
 alias ...="cd ../.."
 alias ....="cd ../../.."
+
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 
 alias myip="curl http://ipecho.net/plain; echo"
@@ -57,8 +58,7 @@ alias mach_java_mode="export SDKMAN_DIR="$HOME/.sdkman" && [[ -s "$HOME/.sdkman/
 
 alias mdbackups='cd /home/amr/Documents/Manning/data/db_backups'
 
-VB_HOME="$PROJECTS/python/django/vatbook"
-VB_DB_HOME="/home/amr/Documents/Dropbox/Aplicaciones/sat/"
+VB_HOME="$PROJECTS/spoonsdevs/vatbook"
 alias vb3="cd $VB_HOME && workon vb3"
 
 #STAGING
@@ -75,8 +75,7 @@ TC_CLI="$PROJECTS/sandbox/timecop/timecop-cli/"
 alias tc-run="cd $TC_REST && source env/bin/activate && flask run"
 alias tc-serve="cd $TC_CLI && ionic serve"
 
-SAT_HOME="$PROJECTS/sat8485"
-SAT_DB_HOME="/home/amr/Documents/Dropbox/Aplicaciones/sat/"
+SAT_HOME="$PROJECTS/spoonsdevs/sat8485"
 alias sat="cd $SAT_HOME"
 
 #STAGING
