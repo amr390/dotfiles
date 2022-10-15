@@ -4,6 +4,9 @@ DOTFILES=$HOME/Documents/dotfiles
 PROJECTS=$HOME/Projects
 TODAY=$(date +%Y-%m-%d)
 
+alias ..="cd ../"
+alias ...="cd ../.."
+alias ....="cd ../../.."
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 
 alias myip="curl http://ipecho.net/plain; echo"
