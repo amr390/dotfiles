@@ -18,7 +18,7 @@ if [ "$SESSIONEXISTS" = "" ]; then
 
 	# Create and setup pane for NVIM
 	tmux new-window -t $SESSION:2 -n 'IDE'
-	tmux send-keys -t 'IDE' "cd $WORKDIR/server/ioctl && poetry shell && sleep 3 &&  nvim" 'C-m'
+	tmux send-keys -t 'IDE' "cd $WORKDIR/server/ioctl && poetry shell && sleep 3 && ... &&  nvim" 'C-m'
 fi
 
 # Attach session, on Main Window
