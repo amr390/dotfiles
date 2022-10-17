@@ -3,11 +3,16 @@ if not status_ok then
 	return
 end
 
-local status_ok, lspconfig = pcall(require, "mason-lspconfig")
+local status_ok, m_lspconfig = pcall(require, "mason-lspconfig")
 if not status_ok then
 	return
 end
 
+
+local status_ok, handlers = pcall(require, "user.lsp.handlers")
+if not status_ok then
+	return
+end
 
 mason.setup({
 	ui = {
@@ -20,7 +25,7 @@ mason.setup({
 })
 
 
-lspconfig.setup({
+m_lspconfig.setup({
   ensure_installed = {
     "eslint", 
     "tsserver",
@@ -31,6 +36,38 @@ lspconfig.setup({
     "tailwindcss"
   }
 })
+
+local lsp_defaults = {
+  flags = {
+    debounce_text_changes = 150,
+  },
+  capabilities = handlers.capabilities,
+  on_attach = handlers.on_attach,
+}
+
+local lspconfig = require('lspconfig')
+
+lspconfig.util.default_config = vim.tbl_deep_extend(
+  'force',
+  lspconfig.util.default_config,
+  lsp_defaults
+)
+
+lspconfig.tsserver.setup({})
+lspconfig.eslint.setup({})
+
+-- the above is enough, but if you want to replicate the "on_server_ready" behaviour
+-- where your installed servers are setup "automatically" you can do the following
+--[[ require("mason-lspconfig").setup_handlers { ]]
+--[[     -- default handler - setup with default settings ]]
+--[[     function (server_name) ]]
+--[[         lspconfig[server_name].setup {} ]]
+--[[     end, ]]
+--[[    -- you can override the default handler by providing custom handlers per server ]]
+--[[    ["jdtls"] = function () ]]
+--[[        // do something with the nvim-jdtls plugin instead ]]
+--[[    end ]]
+--[[ } ]]
 
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
