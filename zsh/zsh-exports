@@ -13,20 +13,18 @@ WORK_DIR="/home/amr/Documents/dotfiles"
 ANDROID_SDK_ROOT=/home/amr/Documents/Apps/android-sdk-tools/
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
-log "zsh-exports: adding fzf"
 
+# lazy loading sdkman
+lazysdk() {
+  export SDKMAN_DIR="/home/amr/.sdkman"
+  source $SDKMAN_DIR/bin/sdkman-init.sh
+}
 
-#echo "setting gradle OPTS"
-# This causes grails to fail
-export GRADLE_OPTS="$GRADLE_OPTS -Dorg.gradle.daemon=true"
-# User specific environment and startup programs
-export JAVA_OPTS="$JAVA_OPTS -Xmx2G -Xms1500M"
-#export ANDROID_HOME=/home/amr/Apps/android-sdk-tools/
+sdk() {
+  lazysdk
+  sdk $@
+}
 
-#echo "initializing sdkman"
-#THIS MUST BE AT THE END OF THE FILE FOR SDKMAN TO WORK!!!
-export SDKMAN_DIR="/home/amr/.sdkman"
-source $SDKMAN_DIR/bin/sdkman-init.sh
 
 zsh_add_file "zsh-nvm"
 
@@ -39,9 +37,6 @@ export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 [[ -f ~/.local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
 [[ -f ~/.local/bin/virtualenvwrapper.sh ]] && source ~/.local/bin/virtualenvwrapper.sh 
 
-export DBX_ACCESS_TOKEN=xxx
-
-[[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
 
 # $DEBUG && echo "zsh-exports: adding gopath"
 # export GOPATH=/home/amr/.local/share/go
@@ -55,5 +50,5 @@ PATH="$MONGO_HOME/bin:$PATH" # MongoDB home
 PATH=$APPS_HOME/tinkerpop/bin:$PATH
 PATH=$WORK_DIR/bin:$PATH
 PATH=$NODE_MODULES/bin:$PATH # node modules bin
-PATH=$GOPATH/bin:$PATH # go
+# PATH=$GOPATH/bin:$PATH # go
 export PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH

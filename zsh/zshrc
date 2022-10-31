@@ -45,13 +45,13 @@ source "$ZDOTDIR/zsh-functions"
 
 # Normal files to source
 zsh_add_file "zsh-exports"
-log "adding exports"
+# log "adding exports"
 zsh_add_file "zsh-vim-mode"
-log "adding vim mode"
+# log "adding vim mode"
 zsh_add_file "zsh-aliases"
-log "adding aliases"
+# log "adding aliases"
 zsh_add_file "zsh-prompt"
-log "adding prompt"
+# log "adding prompt"
 
 
 # Plugins
