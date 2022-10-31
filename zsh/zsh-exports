@@ -1,4 +1,5 @@
 #!/bin/sh
+log "zsh-exports: starting exports"
 export TERM=xterm-256color
 # HISTFILE="$XDG_DATA_HOME"/zsh/history
 HISTSIZE=1000000
@@ -10,6 +11,10 @@ NODE_MODULES="/home/amr/Documents/Apps/node_modules"
 MONGO_HOME="/home/amr/Documents/Apps/mongodb"
 WORK_DIR="/home/amr/Documents/dotfiles"
 ANDROID_SDK_ROOT=/home/amr/Documents/Apps/android-sdk-tools/
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+log "zsh-exports: adding fzf"
+
 
 #echo "setting gradle OPTS"
 # This causes grails to fail
@@ -23,10 +28,9 @@ export JAVA_OPTS="$JAVA_OPTS -Xmx2G -Xms1500M"
 export SDKMAN_DIR="/home/amr/.sdkman"
 source $SDKMAN_DIR/bin/sdkman-init.sh
 
-export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+zsh_add_file "zsh-nvm"
 
+# log "zsh-exports: adding virtualenv"
 # ####### PYTHON VIRTUALENV ###############
 export WORKON_HOME=$HOME/.local/share/virtualenv/virtualenvs
 export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
@@ -39,7 +43,9 @@ export DBX_ACCESS_TOKEN=xxx
 
 [[ /usr/local/bin/kubectl ]] && source <(kubectl completion zsh)
 
-export GOPATH=/home/amr/.local/share/go
+# $DEBUG && echo "zsh-exports: adding gopath"
+# export GOPATH=/home/amr/.local/share/go
+
 #echo "adding path folders"
 # ####### Configure PATH ###############
 #  - These are line by line so that you can kill one without affecting the others.
@@ -51,6 +57,3 @@ PATH=$WORK_DIR/bin:$PATH
 PATH=$NODE_MODULES/bin:$PATH # node modules bin
 PATH=$GOPATH/bin:$PATH # go
 export PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
-# eval "$(fnm env)"
-# eval "$(zoxide init zsh)"
-# eval "`pip completion --zsh`"

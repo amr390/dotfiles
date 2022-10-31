@@ -1,5 +1,5 @@
 #!/bin/sh
-
+$DEBUG &&  echo "zsh-prompt: init prompt"
 ## autoload vcs and colors
 autoload -Uz vcs_info
 autoload -U colors && colors
@@ -12,6 +12,7 @@ precmd_vcs_info() { vcs_info }
 precmd_functions+=( precmd_vcs_info )
 setopt prompt_subst
 
+$DEBUG &&  echo "zsh-prompt: init git"
 # add a function to check for untracked files in the directory.
 # from https://github.com/zsh-users/zsh/blob/master/Misc/vcs_info-examples
 zstyle ':vcs_info:git*+set-message:*' hooks git-untracked
@@ -31,6 +32,7 @@ zstyle ':vcs_info:*' check-for-changes true
 # zstyle ':vcs_info:git:*' formats " %r/%S %b %m%u%c "
 zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%})"
 
+$DEBUG &&  echo "zsh-prompt: setting prompt"
 # LIGHT_GRAY="\[\033[0;37m\]"
 # format our main prompt for hostname current folder, and permissions.
 # PROMPT="%B%{$fg[white]%}⟪%{$fg[blue]%}%n%{$fg[white]%}⟫%{$fg[white]%} %(?:%{$fg_bold[green]%}〽️ :%{$fg_bold[red]%}➜ )%{$fg[cyan]%}%c%{$reset_color%}"
