@@ -72,6 +72,9 @@ TC_REST="$PROJECTS/sandbox/timecop/timecop-rest/"
 TC_CLI="$PROJECTS/sandbox/timecop/timecop-cli/"
 
 #DEVELOP
+IO_HOME="$PROJECTS/sandbox/ioCtl"
+alias ioctl="cd $IO_HOME"
+
 alias tc-run="cd $TC_REST && source env/bin/activate && flask run"
 alias tc-serve="cd $TC_CLI && ionic serve"
 
