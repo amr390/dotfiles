@@ -55,19 +55,20 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
 
 lspconfig.tsserver.setup({})
 lspconfig.eslint.setup({})
+lspconfig.pyright.setup({})
 
 -- the above is enough, but if you want to replicate the "on_server_ready" behaviour
 -- where your installed servers are setup "automatically" you can do the following
---[[ require("mason-lspconfig").setup_handlers { ]]
---[[     -- default handler - setup with default settings ]]
---[[     function (server_name) ]]
---[[         lspconfig[server_name].setup {} ]]
---[[     end, ]]
---[[    -- you can override the default handler by providing custom handlers per server ]]
---[[    ["jdtls"] = function () ]]
---[[        // do something with the nvim-jdtls plugin instead ]]
---[[    end ]]
---[[ } ]]
+require("mason-lspconfig").setup_handlers {
+    -- default handler - setup with default settings
+    function (server_name)
+        lspconfig[server_name].setup {}
+    end,
+   -- you can override the default handler by providing custom handlers per server
+   --[[ ["jdtls"] = function () ]]
+   --[[     do something with the nvim-jdtls plugin instead ]]
+   --[[ end ]]
+}
 
 -- Register a handler that will be called for all installed servers.
 -- Alternatively, you may also register handlers on specific server instances instead (see example below).
