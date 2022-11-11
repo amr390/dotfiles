@@ -22,6 +22,6 @@ if [ "$SESSIONEXISTS" = "" ]; then
 fi
 
 # Attach session, on Main Window
-tmux attach-session -t $SESSION:2
+tmux attach-session -t $SESSION
 
 gnome-terminal 
