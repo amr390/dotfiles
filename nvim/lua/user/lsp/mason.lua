@@ -55,7 +55,7 @@ lspconfig.util.default_config = vim.tbl_deep_extend(
 
 lspconfig.tsserver.setup({})
 lspconfig.eslint.setup({})
-lspconfig.pyright.setup({})
+-- lspconfig.pyright.setup({})
 
 -- the above is enough, but if you want to replicate the "on_server_ready" behaviour
 -- where your installed servers are setup "automatically" you can do the following
