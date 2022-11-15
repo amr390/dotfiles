@@ -6,11 +6,11 @@ HISTSIZE=1000000
 SAVEHIST=1000000
 
 #echo "setting node modules variable"
-APPS_HOME="/home/amr/Documents/Apps"
-NODE_MODULES="/home/amr/Documents/Apps/node_modules"
-MONGO_HOME="/home/amr/Documents/Apps/mongodb"
+APPS_HOME="/home/amr/Apps"
+NODE_MODULES="$APPS_HOME/node_modules"
+MONGO_HOME="$APPS_HOME/mongodb"
 WORK_DIR="/home/amr/Documents/dotfiles"
-ANDROID_SDK_ROOT=/home/amr/Documents/Apps/android-sdk-tools/
+ANDROID_SDK_ROOT=$APPS_HOME/android-sdk-tools/
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
@@ -49,6 +49,7 @@ PATH="$HOME/.local/bin":$PATH
 PATH="$MONGO_HOME/bin:$PATH" # MongoDB home
 PATH=$APPS_HOME/tinkerpop/bin:$PATH
 PATH=$WORK_DIR/bin:$PATH
+PATH="$HOME/.nvm/versions/node/v17.8.0/bin":$PATH
 PATH=$NODE_MODULES/bin:$PATH # node modules bin
 # PATH=$GOPATH/bin:$PATH # go
 export PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
