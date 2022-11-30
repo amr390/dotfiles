@@ -32,7 +32,6 @@ m_lspconfig.setup({
     "jsonls",
     "html",
     "sumneko_lua",
-    "pyright",
     "tailwindcss"
   }
 })

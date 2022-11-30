@@ -38,16 +38,16 @@ vim.cmd [[
 try
   syntax on
   set termguicolors
-  " set background=dark
   " let g:neosolarized_termBoldAsBright = 0
-  let g:neosolarized_contrast = "high"
-  " let g:neosolarized_visibility = "low"
+  " let g:neosolarized_contrast = "normal"
+  " let g:neosolarized_visibility = "normal"
   " let g:neosolarized_vertSplitBgTrans = 0
   " let g:neosolarized_bold = 1
   " let g:neosolarized_underline = 1
   " let g:neosolarized_italic = 1
   
   colorscheme NeoSolarized
+  hi Delimiter guifg=#839496
   hi Normal guibg=NONE ctermbg=NONE
   hi LineNr guibg=NONE ctermbg=NONE
   hi SignColumn guibg=NONE ctermbg=NONE

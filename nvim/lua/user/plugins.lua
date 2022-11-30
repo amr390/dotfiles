@@ -64,7 +64,8 @@ return packer.startup(function(use)
   -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
   use "lunarvim/darkplus.nvim"
   use "mhartington/oceanic-next"
-  use "overcache/NeoSolarized"
+  --[[ use "overcache/NeoSolarized" ]]
+  use "icymind/NeoSolarized"
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
