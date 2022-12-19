@@ -44,19 +44,20 @@ return packer.startup(function(use)
   use "nvim-lua/popup.nvim" -- An implementation of the Popup API from vim in Neovim
   use "nvim-lua/plenary.nvim" -- Useful lua functions used ny lots of plugins
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
+  use "windwp/nvim-ts-autotag" -- create closing tags for ts elements
   use "numToStr/Comment.nvim" -- Easily comment stuff
-  use "kyazdani42/nvim-web-devicons"
-  use "kyazdani42/nvim-tree.lua"
-  use "akinsho/bufferline.nvim"
-  use "ahmedkhalf/project.nvim"
+  use "kyazdani42/nvim-web-devicons" -- icons in the side tree pane
+  use "kyazdani42/nvim-tree.lua" -- side tree pane
+  use "akinsho/bufferline.nvim" -- bottom line with information
+  use "ahmedkhalf/project.nvim" -- easily find projects used with nvim
   use "moll/vim-bbye"
-  use "nvim-lualine/lualine.nvim"
-  use "akinsho/toggleterm.nvim"
+  use "nvim-lualine/lualine.nvim" -- customizer for bottom line
+  use "akinsho/toggleterm.nvim" -- terminal within nvim
   use "lewis6991/impatient.nvim"
   use "lukas-reineke/indent-blankline.nvim"
-  use "goolord/alpha-nvim"
-  use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp doc highlight
-  use "folke/which-key.nvim"
+  use "goolord/alpha-nvim" -- dashboard or splash with options on start
+  use "antoinemadec/FixCursorHold.nvim" -- This is needed to fix lsp do c highlight
+  use "folke/which-key.nvim" -- show help menu for command keys
 
   use "wesleimp/stylua.nvim"
 
@@ -64,8 +65,8 @@ return packer.startup(function(use)
   -- use "lunarvim/colorschemes" -- A bunch of colorschemes you can try out
   use "lunarvim/darkplus.nvim"
   use "mhartington/oceanic-next"
-  --[[ use "overcache/NeoSolarized" ]]
-  use "icymind/NeoSolarized"
+  use "overcache/NeoSolarized"
+  --[[ use "icymind/NeoSolarized" ]]
 
   -- cmp plugins
   use "hrsh7th/nvim-cmp" -- The completion plugin
@@ -73,7 +74,7 @@ return packer.startup(function(use)
   use "hrsh7th/cmp-path" -- path completions
   use "hrsh7th/cmp-cmdline" -- cmdline completions
   use "saadparwaiz1/cmp_luasnip" -- snippet completions
-  use "hrsh7th/cmp-nvim-lsp"
+  use "hrsh7th/cmp-nvim-lsp" -- completions for lsp language server packages (treesitter)
 
   -- snippets
   use "L3MON4D3/LuaSnip" --snippet engine
