@@ -38,7 +38,7 @@ local schemas = {
   {
     description = "Bucklescript config",
     fileMatch = { "bsconfig.json" },
-    url = "https://raw.githubusercontent.com/rescript-lang/rescript-compiler/8.2.0/docs/docson/build-schema.json",
+    url = "https://raw.githubspooniescontent.com/rescript-lang/rescript-compiler/8.2.0/docs/docson/build-schema.json",
   },
   {
     description = "Prettier config",
@@ -74,7 +74,7 @@ local schemas = {
       "CMakePresets.json",
       "CMakeUserPresets.json",
     },
-    url = "https://raw.githubusercontent.com/Kitware/CMake/master/Help/manual/presets/schema.json",
+    url = "https://raw.githubspooniescontent.com/Kitware/CMake/master/Help/manual/presets/schema.json",
   },
   {
     description = "Configuration file as an alternative for configuring your repository in the settings page.",
@@ -103,7 +103,7 @@ local schemas = {
       "*.cf.json",
       "cloudformation.json",
     },
-    url = "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/cloudformation.schema.json",
+    url = "https://raw.githubspooniescontent.com/awslabs/goformation/v5.2.9/schema/cloudformation.schema.json",
   },
   {
     description = "The AWS Serverless Application Model (AWS SAM, previously known as Project Flourish) extends AWS CloudFormation to provide a simplified way of defining the Amazon API Gateway APIs, AWS Lambda functions, and Amazon DynamoDB tables needed by your serverless application.",
@@ -112,7 +112,7 @@ local schemas = {
       "*.sam.json",
       "sam.json",
     },
-    url = "https://raw.githubusercontent.com/awslabs/goformation/v5.2.9/schema/sam.schema.json",
+    url = "https://raw.githubspooniescontent.com/awslabs/goformation/v5.2.9/schema/sam.schema.json",
   },
   {
     description = "Json schema for properties json file for a GitHub Workflow template",
@@ -164,7 +164,7 @@ local schemas = {
   {
     description = "Resume json",
     fileMatch = { "resume.json" },
-    url = "https://raw.githubusercontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
+    url = "https://raw.githubspooniescontent.com/jsonresume/resume-schema/v1.0.0/schema.json",
   },
 }
 
