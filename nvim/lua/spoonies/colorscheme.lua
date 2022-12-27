@@ -47,7 +47,11 @@ try
   " let g:neosolarized_italic = 1
   
   colorscheme NeoSolarized
-  hi Delimiter guifg=#839496 
+  " Overriding colors
+  " hi Special guifg=#268bd2 " gui_blue fg_blue
+  hi Special guifg=#b58900 " yellow 
+  hi Delimiter guifg=#cb4b16 " orange"
+  hi Identifier guifg=#a2a2a2
   hi Normal guibg=NONE ctermbg=NONE
   hi LineNr guibg=NONE ctermbg=NONE
   hi SignColumn guibg=NONE ctermbg=NONE
