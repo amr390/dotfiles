@@ -14,6 +14,7 @@ alias myip="curl http://ipecho.net/plain; echo"
 
 alias nvim="2>/dev/null 1>&2 nvm && clear && nvim"
 alias vim="nvim"
+alias v="nvim"
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
