@@ -95,8 +95,9 @@ return packer.startup(function(use)
     "nvim-treesitter/nvim-treesitter",
     run = ":TSUpdate",
   }
+  -- choose the right comment syntax within buffers (nested languages)
   use "JoosepAlviste/nvim-ts-context-commentstring"
-
+  
   -- Git
   use "lewis6991/gitsigns.nvim"
 
