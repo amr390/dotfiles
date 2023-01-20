@@ -3,7 +3,9 @@
 # Set session name
 SESSION="Console"
 SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
-WORKDIR=/home/amr/Projects/sandbox/ioCtl
+if [[ $# -eq 1 ]]; then
+  WORKDIR=$1
+fi 
 
 # Only create a tmux session if it doesn't already exist
 if [ "$SESSIONEXISTS" = "" ]; then
@@ -12,8 +14,11 @@ if [ "$SESSIONEXISTS" = "" ]; then
 
 	# Name first Pane and start ssh
 	tmux rename-window -t 1 'Console'
+	[[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
 	tmux split-window -v
+	[[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
 	tmux split-window -h
+	[[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
   tmux resize-pane -D 5
 
 	# Create and setup pane for NVIM
