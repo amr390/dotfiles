@@ -35,7 +35,7 @@ local options = {
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
 }
 
-vim.g['python3_host_prog'] = "/usr/bin/python3"  -- python3 custom virtualenv
+vim.g['python3_host_prog'] = "/usr/local/bin/python"  -- python3 custom virtualenv
 
 vim.opt.shortmess:append "c"
 
