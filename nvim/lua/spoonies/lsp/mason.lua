@@ -31,7 +31,7 @@ m_lspconfig.setup({
     "tsserver",
     "jsonls",
     "html",
-    "tailwindcss"
+    "tailwindcss",
     "jedi_language_server",
   }
 })
