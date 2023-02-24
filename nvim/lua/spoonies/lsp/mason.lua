@@ -32,6 +32,7 @@ m_lspconfig.setup({
     "jsonls",
     "html",
     "tailwindcss"
+    "jedi_language_server",
   }
 })
 
