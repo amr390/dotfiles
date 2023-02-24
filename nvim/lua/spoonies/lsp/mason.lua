@@ -31,7 +31,6 @@ m_lspconfig.setup({
     "tsserver",
     "jsonls",
     "html",
-    "sumneko_lua",
     "tailwindcss"
   }
 })
