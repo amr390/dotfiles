@@ -19,9 +19,9 @@ nvim_tree.setup({
 	--[[ 	"dashboard", ]]
 	--[[ 	"alpha", ]]
 	--[[ }, ]]
-	--[[ open_on_tab = false, ]]
+	open_on_tab = false,
 	hijack_cursor = false,
-	-- hijack_directories = true,
+	hijack_directories = true,
 	update_cwd = true,
 	diagnostics = {
 		enable = true,
