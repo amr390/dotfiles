@@ -15,11 +15,8 @@ ANDROID_SDK_ROOT=$APPS_HOME/android-sdk-tools/
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Lazy load nvm and sdk
-# zsh_add_file "zsh-nvm"
+zsh_add_file "zsh-nvm"
 zsh_add_file "zsh-sdk"
-
-# not that lazy after all
-lazysdk
 
 # log "zsh-exports: adding virtualenv"
 # ####### PYTHON VIRTUALENV ###############
@@ -45,6 +42,8 @@ PATH=$WORK_DIR/bin:$PATH
 PATH="$HOME/.nvm/versions/node/v17.8.0/bin":$PATH
 PATH=$NODE_MODULES/bin:$PATH # node modules bin
 PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
+
+# MAC
 PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
 PATH=$HOME/.local/share/virtualenv/virtualenvs/neovim/bin:$PATH
 PATH=$HOME/Library/Python/3.11/bin:$PATH
