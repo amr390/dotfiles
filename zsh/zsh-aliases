@@ -12,7 +12,7 @@ alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git
 
 alias myip="curl http://ipecho.net/plain; echo"
 
-alias nvim="2>/dev/null 1>&2 nvm && clear && nvim"
+# alias nvim="2>/dev/null 1>&2 nvm && clear && nvim"
 alias vim="nvim"
 alias v="nvim"
 
@@ -26,8 +26,8 @@ alias cp="cp -i"
 alias mv='mv -i'
 alias rm='rm -i'
 # Colorize the ls output ##
-alias ls='LC_COLLATE=C ls -h --group-directories-first --color=auto'
-alias ll='ls -lrtS'
+# alias ls='LC_COLLATE=C ls -h --group-directories-first --color=auto'
+alias ll='ls -lrtS --color=auto'
 
 # easier to read disk
 alias df='df -h'     # human-readable sizes

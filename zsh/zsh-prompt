@@ -33,6 +33,9 @@ zstyle ':vcs_info:*' check-for-changes true
 # zstyle ':vcs_info:git:*' formats " %r/%S %b %m%u%c "
 zstyle ':vcs_info:git:*' formats " %{$fg[blue]%}(%{$fg[red]%}%m%u%c%{$fg[yellow]%}%{$fg[magenta]%} %b%{$fg[blue]%})"
 
+export LSCOLORS="Hxfxcxdxbxegedabagacad" 
+
+
 log "zsh-prompt: setting prompt"
 # LIGHT_GRAY="\[\033[0;37m\]"
 # format our main prompt for hostname current folder, and permissions.
