@@ -18,6 +18,9 @@ ANDROID_SDK_ROOT=$APPS_HOME/android-sdk-tools/
 # zsh_add_file "zsh-nvm"
 zsh_add_file "zsh-sdk"
 
+# not that lazy after all
+lazysdk
+
 # log "zsh-exports: adding virtualenv"
 # ####### PYTHON VIRTUALENV ###############
 export WORKON_HOME=$HOME/.local/share/virtualenv/virtualenvs
