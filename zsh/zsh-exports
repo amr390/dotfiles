@@ -14,6 +14,9 @@ android_sdk_root=$apps_home/android-sdk-tools/
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
+export SDKMAN_DIR="$HOME/.sdkman"
+source $SDKMAN_DIR/bin/sdkman-init.sh
+
 # lazy loading sdkman
 # lazysdk() {
 #   export SDKMAN_DIR=".sdkman"
