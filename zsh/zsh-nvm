@@ -30,3 +30,6 @@ npx() {
   lazynvm
   npx $@
 }
+
+# Disabling lazy load
+lazynvm
