@@ -58,7 +58,7 @@ alias mach_java_mode="export SDKMAN_DIR="$HOME/.sdkman" && [[ -s "$HOME/.sdkman/
 [[ -f $DOTFILES/bash/private-aliases ]] && source $DOTFILES/bash/private-aliases
 [[ -f $DOTFILES/bash/aliases-manning ]] && source $DOTFILES/bash/aliases-manning
 
-alias mdbackups='cd /home/amr/Documents/Manning/data/db_backups'
+alias mdbackups='cd $HOME/Documents/Manning/data/db_backups'
 
 VB_HOME="$PROJECTS/spoonsdevs/vatbook"
 alias vb3="cd $VB_HOME && workon vb3"
@@ -95,7 +95,7 @@ alias opensearchrun="opensearchstop; docker run -d \
   --name some-opensearch \
   -p 9000:9000 \
   -p 9600:9600 \
-  -v /home/amr/Documents/tmp/docker/volumes/opensearch:/var/lib/opensearchserver/ \
+  -v $HOME/Documents/tmp/docker/volumes/opensearch:/var/lib/opensearchserver/ \
   -e \"discovery.type=single-node\" \
   opensearchproject/opensearch:latest"
 
@@ -109,14 +109,14 @@ alias rabbitrun="rabbitstop; docker run -d \
     -p 5672:5672 \
     -p 15671:15671 \
     -p 25672:25672  \
-    -v /home/amr/Documents/tmp/docker/volumes/rabbitmq:/var/lib/rabbitmq/ \
+    -v $HOME/Documents/tmp/docker/volumes/rabbitmq:/var/lib/rabbitmq/ \
     rabbitmq:3-management"
 
 alias mongorun="docker run -d \
     --hostname mongo  \
     --name mongo \ 
     -p 27017:27017 \
-    -v /home/amr/Documents/tmp/docker/volumes/mongo:/var/lib/mongo/ \
+    -v $HOME/Documents/tmp/docker/volumes/mongo:/var/lib/mongo/ \
     mongo"
 
 alias mongostop="docker kill mongo;  docker rm mongo"
@@ -156,7 +156,9 @@ alias modMkt="open_tunel marketplace-qa 5005"
 alias modMam="open_tunel marketplaceadmin-qa 5005"
 alias moAccessLogs="open_tunel access-logs-db.int-m.com 5555 5432"
 
-alias epubChk="java -jar /home/amr/Documents/Apps/epubcheck-4.2.6/epubcheck.jar $1"
+alias epubChk="java -jar $HOME/Documents/Apps/epubcheck-4.2.6/epubcheck.jar $1"
 alias eve="source ~/.local/bin/virtualenvwrapper.sh"
 alias zcfg="cd $DOTFILES/zsh/ && vim zshrc"
 alias cfg="cd $DOTFILES"
+
+alias sshcmd="sed -E -i '' 's/(precomposeunicode = true)/\1\n\tsshCommand = ssh -i ~\/\.ssh\/id_mac_manning/g' .git/config"
