@@ -6,30 +6,17 @@ histsize=1000000
 savehist=1000000
 
 #echo "setting node modules variable"
-apps_home="$home/apps"
-node_modules="$apps_home/node_modules"
-mongo_home="$apps_home/mongodb"
-work_dir="$home/documents/dotfiles"
-android_sdk_root=$apps_home/android-sdk-tools/
+APPS_HOME="$HOME/Apps"
+NODE_MODULES="$APPS_HOME/node_modules"
+MONGO_HOME="$APPS_HOME/mongodb"
+WORK_DIR="$HOME/Documents/dotfiles"
+ANDROID_SDK_ROOT=$APPS_HOME/android-sdk-tools/
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-export SDKMAN_DIR="$HOME/.sdkman"
-source $SDKMAN_DIR/bin/sdkman-init.sh
-
-# lazy loading sdkman
-# lazysdk() {
-#   export SDKMAN_DIR=".sdkman"
-#   source $SDKMAN_DIR/bin/sdkman-init.sh
-# }
-#
-# sdk() {
-#   lazysdk
-#   sdk $@
-# }
-
-
-# zsh_add_file "zsh-nvm"
+# Lazy load nvm and sdk
+zsh_add_file "zsh-nvm"
+zsh_add_file "zsh-sdk"
 
 # log "zsh-exports: adding virtualenv"
 # ####### PYTHON VIRTUALENV ###############
@@ -55,6 +42,8 @@ PATH=$WORK_DIR/bin:$PATH
 PATH="$HOME/.nvm/versions/node/v17.8.0/bin":$PATH
 PATH=$NODE_MODULES/bin:$PATH # node modules bin
 PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
+
+# MAC
 PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
 PATH=$HOME/.local/share/virtualenv/virtualenvs/neovim/bin:$PATH
 PATH=$HOME/Library/Python/3.11/bin:$PATH
