@@ -2,7 +2,8 @@ vim/vimundo*
 vim/vimswap*
 vim/vimviews*
 **/aliases-manning
-**/*private
+**/*private*
+
 bkp/*
 bin/.ropeproject*
 
