@@ -85,7 +85,6 @@ bindkey -r "^d"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -d $ZDOTDIR/.zfunc/completion/ ] && fpath+="$ZDOTDIR/.zfunc/completion/"
 # export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
-compinit
 
 # Environment variables set everywhere
 export EDITOR="nvim"
