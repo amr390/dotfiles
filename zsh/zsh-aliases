@@ -17,7 +17,7 @@ alias v="nvim"
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
-alias egrep='egrep --color=auto'
+alias egrep='grep -E --color=auto'
 alias fgrep='fgrep --color=auto'
 
 # confirm before overwriting something
@@ -153,6 +153,8 @@ alias kcas='kill $(lsof -t -i:9443)'
 alias modMws="open_tunel marketplacews-qa 5005"
 alias modMkt="open_tunel marketplace-qa 5005"
 alias modMam="open_tunel marketplaceadmin-qa 5005"
+alias modMktdbq="open_tunel marketplace-db-qa.int-m.com 5433 5432"
+alias modMktdb="open_tunel marketplace-db-prod.int-m.com 5434 5432"
 alias moAccessLogs="open_tunel access-logs-db.int-m.com 5555 5432"
 
 alias epubChk="java -jar $HOME/Documents/Apps/epubcheck-4.2.6/epubcheck.jar $1"
