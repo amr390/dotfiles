@@ -161,3 +161,5 @@ alias zcfg="cd $DOTFILES/zsh/ && vim zshrc"
 alias cfg="cd $DOTFILES"
 
 alias sshcmd="sed -E -i '' 's/(precomposeunicode = true)/\1\n\tsshCommand = ssh -i ~\/\.ssh\/id_mac_manning/g' .git/config"
+
+[[ -f $DOTFILES/zsh/zsh-private ]] && source $DOTFILES/zsh/zsh-private

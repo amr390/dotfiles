@@ -14,9 +14,11 @@ ANDROID_SDK_ROOT=$APPS_HOME/android-sdk-tools/
 
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
-# Lazy load nvm and sdk
+# Lazy load nvm and sdk. do not make them lazy here
 zsh_add_file "zsh-nvm"
+lazynvm
 zsh_add_file "zsh-sdk"
+lazysdk
 
 # log "zsh-exports: adding virtualenv"
 # ####### PYTHON VIRTUALENV ###############
