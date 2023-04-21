@@ -146,17 +146,6 @@ open_tunel() {
     fi
 }
 
-alias moNeptune="open_tunel smart-search.cluster-cttghrdpki6v.us-west-2.neptune.amazonaws.com 8182"
-alias moRabbit="open_tunel rabbitmq-prod.int-m.com 3333 15672"
-alias moMws="open_tunel marketplacews-qa.int-m.com 8090 8080"
-alias kcas='kill $(lsof -t -i:9443)'
-alias modMws="open_tunel marketplacews-qa 5005"
-alias modMkt="open_tunel marketplace-qa 5005"
-alias modMam="open_tunel marketplaceadmin-qa 5005"
-alias modMktdbq="open_tunel marketplace-db-qa.int-m.com 5433 5432"
-alias modMktdb="open_tunel marketplace-db-prod.int-m.com 5434 5432"
-alias moAccessLogs="open_tunel access-logs-db.int-m.com 5555 5432"
-
 alias epubChk="java -jar $HOME/Documents/Apps/epubcheck-4.2.6/epubcheck.jar $1"
 alias eve="source ~/.local/bin/virtualenvwrapper.sh"
 alias zcfg="cd $DOTFILES/zsh/ && vim zshrc"
