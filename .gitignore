@@ -12,3 +12,5 @@ bin/.ropeproject*
 zsh/.zcompdump
 zsh/.zsh_history
 **/zsh/plugins/**
+
+.DS_Store
