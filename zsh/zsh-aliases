@@ -120,12 +120,11 @@ alias mongorun="docker run -d \
 
 alias mysqlstop="docker ps | grep some-mysql && docker kill some-mysql; docker rm some-mysql"
 alias mysqlrun="mysqlstop; docker run -d \
-    --hostname mysql \
     --name some-mysql \
-    -e MYSQL_ROOT_PASSWORD=secret
+    -e MYSQL_ROOT_PASSWORD=secret \
     -p 3306:3306 \
     -v $HOME/Documents/tmp/docker/volumes/mysql:/var/lib/mysql/ \
-    -d mysql:8.0"
+    mysql:8.0"
 
 
 alias mongostop="docker kill mongo;  docker rm mongo"
