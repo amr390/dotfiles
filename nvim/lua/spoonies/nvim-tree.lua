@@ -57,15 +57,15 @@ nvim_tree.setup({
 		width = 30,
 		hide_root_folder = false,
 		side = "left",
-		mappings = {
-			custom_only = false,
-			list = {
-				{ key = { "l", "<CR>", "o" }, cb = tree_cb("edit") },
-				{ key = "h", cb = tree_cb("close_node") },
-				{ key = "v", cb = tree_cb("vsplit") },
-				{ key = "C", cb = tree_cb("cd") },
-			},
-		},
+		--[[ mappings = { ]]
+		--[[ 	custom_only = false, ]]
+		--[[ 	list = { ]]
+		--[[ 		{ key = { "l", "<CR>", "o" }, cb = tree_cb("edit") }, ]]
+		--[[ 		{ key = "h", cb = tree_cb("close_node") }, ]]
+		--[[ 		{ key = "v", cb = tree_cb("vsplit") }, ]]
+		--[[ 		{ key = "C", cb = tree_cb("cd") }, ]]
+		--[[ 	}, ]]
+		--[[ }, ]]
 		number = false,
 		relativenumber = false,
 	},
