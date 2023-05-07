@@ -4,7 +4,7 @@ if not status_ok then
 end
 
 configs.setup {
-  ensure_installed = { }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
+  ensure_installed = { "typescript", "python", "sql", "dockerfile", "yaml", "html", "htmldjango", "javascript", "json" }, -- one of "all", "maintained" (parsers with maintainers), or a list of languages
   sync_install = false, -- install languages synchronously (only applied to `ensure_installed`)
   ignore_install = { "wgsl" }, -- List of parsers to ignore installing
   autopairs = {
