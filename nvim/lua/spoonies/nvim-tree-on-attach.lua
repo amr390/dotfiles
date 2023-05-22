@@ -14,8 +14,9 @@
 --
 -- Please see https://github.com/nvim-tree/nvim-tree.lua/wiki/Migrating-To-on_attach for assistance in migrating.
 --
+local M = {}
 
-local function on_attach(bufnr)
+M.on_attach = function(bufnr)
   local api = require('nvim-tree.api')
 
   local function opts(desc)
@@ -84,10 +85,12 @@ local function on_attach(bufnr)
   -- Mappings migrated from view.mappings.list
   --
   -- You will need to insert "your code goes here" for any mappings with a custom action_cb
-  vim.keymap.set('n', 'l', api.node.open.edit, opts('Open'))
-  vim.keymap.set('n', '<CR>', api.node.open.edit, opts('Open'))
-  vim.keymap.set('n', 'h', api.node.navigate.parent_close, opts('Close Directory'))
-  vim.keymap.set('n', 'v', api.node.open.vertical, opts('Open: Vertical Split'))
-  vim.keymap.set('n', 'C', api.tree.change_root_to_node, opts('CD'))
+  vim.keymap.set('n', 'l',      api.node.open.edit,                   opts('Open'))
+  vim.keymap.set('n', '<CR>',   api.node.open.edit,                   opts('Open'))
+  vim.keymap.set('n', 'h',      api.node.navigate.parent_close,       opts('Close Directory'))
+  vim.keymap.set('n', 'v',      api.node.open.vertical,               opts('Open: Vertical Split'))
+  vim.keymap.set('n', 'C',      api.tree.change_root_to_node,         opts('CD'))
 
 end
+
+return M
