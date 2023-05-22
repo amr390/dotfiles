@@ -118,6 +118,14 @@ alias mongorun="docker run -d \
     -v $HOME/Documents/tmp/docker/volumes/mongo:/var/lib/mongo/ \
     mongo"
 
+alias hzstop="docker ps | grep hz && docker kill hz; docker rm hz"
+alias hzrun="hzstop; docker run -d \
+    --hostname hz \
+    --name hz \
+    -p 5701:5701 \
+    -v $HOME/Documents/tmp/docker/volumes/hz:/var/lib/hz/ \
+    hazelcast/hazelcast:latest"
+
 alias mysqlstop="docker ps | grep some-mysql && docker kill some-mysql; docker rm some-mysql"
 alias mysqlrun="mysqlstop; docker run -d \
     --name some-mysql \
