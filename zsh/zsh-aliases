@@ -60,13 +60,20 @@ alias mach_java_mode="export SDKMAN_DIR="$HOME/.sdkman" && [[ -s "$HOME/.sdkman/
 alias mdbackups='cd $HOME/Documents/Manning/data/db_backups'
 
 VB_HOME="$PROJECTS/spoonsdevs/vatbook"
-alias vb3="cd $VB_HOME && workon vb3"
+# alias vb3="cd $VB_HOME && workon vb3"
+alias vb3="cd $VB_HOME && source .venv/bin/activate"
 
 #STAGING
 alias vb-run-p="$VB_HOME/manage.py runserver --settings=vatbook.settings.staging"
 alias vb-mm-p="$VB_HOME/manage.py makemigrations --settings=vatbook.settings.staging"
 alias vb-m-p="$VB_HOME/manage.py migrate --settings=vatbook.settings.staging"
 alias vb-sh-p="$VB_HOME/manage.py shell --settings=vatbook.settings.staging"
+# DEVELOP
+alias vb-run-d="$VB_HOME/manage.py runserver --settings=vatbook.settings.develop"
+alias vb-mm-d="$VB_HOME/manage.py makemigrations --settings=vatbook.settings.develop"
+alias vb-m-d="$VB_HOME/manage.py migrate --settings=vatbook.settings.develop"
+alias vb-sh-d="$VB_HOME/manage.py shell --settings=vatbook.settings.develop"
+
 
 TC_HOME="$PROJECTS/sandbox/timecop"
 TC_REST="$PROJECTS/sandbox/timecop/timecop-rest/"
