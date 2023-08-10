@@ -12,8 +12,7 @@ alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git
 
 alias myip="curl http://ipecho.net/plain; echo"
 
-alias vim="nvim"
-alias v="nvim"
+alias v="npm &> /dev/null; nvim"
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'

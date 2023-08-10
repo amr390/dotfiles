@@ -2,6 +2,7 @@
 bindkey -v
 export KEYTIMEOUT=1
 
+log "config binding keys"
 # Use vim keys in tab complete menu:
 bindkey -M menuselect '^h' vi-backward-char
 bindkey -M menuselect '^k' vi-up-line-or-history
@@ -17,11 +18,12 @@ function zle-keymap-select () {
         viins|main) echo -ne '\e[5 q';; # beam
     esac
 }
-zle -N zle-keymap-select
-zle-line-init() {
+function zle-line-init() {
     zle -K viins # initiate `vi insert` as keymap (can be removed if `bindkey -V` has been set elsewhere)
     echo -ne "\e[5 q"
 }
+
+zle -N zle-keymap-select
 zle -N zle-line-init
 echo -ne '\e[5 q' # Use beam shape cursor on startup.
 preexec() { echo -ne '\e[5 q' ;} # Use beam shape cursor for each new prompt.

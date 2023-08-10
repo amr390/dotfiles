@@ -44,14 +44,14 @@ autoload -Uz colors && colors
 source "$ZDOTDIR/zsh-functions"
 
 # Normal files to source
+log "loading exports"
 zsh_add_file "zsh-exports"
-# log "adding exports"
+log "loading vim mode"
 zsh_add_file "zsh-vim-mode"
-# log "adding vim mode"
+log "loading aliases"
 zsh_add_file "zsh-aliases"
-# log "adding aliases"
+log "loading prompt"
 zsh_add_file "zsh-prompt"
-# log "adding prompt"
 
 
 # Plugins
@@ -59,6 +59,7 @@ zsh_add_plugin "zsh-users/zsh-autosuggestions"
 zsh_add_plugin "zsh-users/zsh-syntax-highlighting"
 zsh_add_plugin "hlissner/zsh-autopair"
 zsh_add_completion "esc/conda-zsh-completion" false
+log "added plugins"
 # For more plugins: https://github.com/unixorn/awesome-zsh-plugins
 # More completions https://github.com/zsh-users/zsh-completions
 
