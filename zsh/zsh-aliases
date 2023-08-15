@@ -120,10 +120,20 @@ alias rabbitrun="rabbitstop; docker run -d \
 
 alias mongorun="docker run -d \
     --hostname mongo  \
-    --name mongo \ 
+    --name mongo \
     -p 27017:27017 \
     -v $HOME/Documents/tmp/docker/volumes/mongo:/var/lib/mongo/ \
     mongo"
+
+
+alias tomcatrun="docker run -d \
+    --name tomcat \
+    --network=host \
+    -e JAVA_OPTS=-Dgrails.env=development \
+    -v $HOME/Documents/tmp/docker/volumes/tomcat/webapps:/usr/local/tomcat/webapps \
+    -v $HOME/Documents/tmp/docker/volumes/tomcat/logs:/usr/local/tomcat/logs \
+    tomcat:8.5-jdk11-corretto"
+alias tomcatstop="docker kill tomcat; docker rm tomcat"
 
 alias hzstop="docker ps | grep hz && docker kill hz; docker rm hz"
 alias hzrun="hzstop; docker run -d \
