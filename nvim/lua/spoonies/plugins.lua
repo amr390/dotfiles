@@ -46,8 +46,8 @@ return packer.startup(function(use)
   use "windwp/nvim-autopairs" -- Autopairs, integrates with both cmp and treesitter
   use "windwp/nvim-ts-autotag" -- create closing tags for ts elements
   use "numToStr/Comment.nvim" -- Easily comment stuff
-  use "kyazdani42/nvim-web-devicons" -- icons in the side tree pane
-  use "kyazdani42/nvim-tree.lua" -- side tree pane
+  use "nvim-tree/nvim-web-devicons" -- icons in the side tree pane
+  use "nvim-tree/nvim-tree.lua" -- side tree pane
   use "akinsho/bufferline.nvim" -- bottom line with information
   use "ahmedkhalf/project.nvim" -- easily find projects used with nvim
   use "moll/vim-bbye"
