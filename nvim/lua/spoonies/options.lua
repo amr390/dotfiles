@@ -35,6 +35,10 @@ local options = {
   guifont = "monospace:h17",               -- the font used in graphical neovim applications
 }
 
+vim.g.loaded_netrw = 1
+vim.g.loaded_netrwPlugin = 1
+
+
 vim.g['python3_host_prog'] = "$HOME/.local/share/virtualenv/virtualenvs/neovim/bin/python"  -- python3 custom virtualenv
 
 vim.opt.shortmess:append "c"

@@ -1,19 +1,23 @@
-local status_ok, nvim_tree = pcall(require, "nvim-tree")
+local status_ok, tree = pcall(require, "nvim-tree")
 if not status_ok then
 	return
 end
 
-local config_status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
-if not config_status_ok then
-	return
-end
 
-local tree_cb = nvim_tree_config.nvim_tree_callback
+-- local config_status_ok, nvim_tree_config = pcall(require, "nvim-tree.config")
+-- if not config_status_ok then
+-- 	return
+-- end
+--
+-- vim.print("loaded tree setup")
+--
+-- local tree_cb = nvim_tree_config.nvim_tree_callback
 
-local mappings = require('spoonies/nvim-tree-on-attach')
+local mappings = require('spoonies/cfg-nvim-tree-on-attach')
 
 
-nvim_tree.setup({
+
+tree.setup({
 	disable_netrw = true,
 	hijack_netrw = true,
 	open_on_tab = false,
