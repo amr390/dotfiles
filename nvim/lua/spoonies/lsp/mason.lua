@@ -33,6 +33,7 @@ m_lspconfig.setup({
     "html",
     "tailwindcss",
     "jedi_language_server",
+    "pyright",
   }
 })
 
