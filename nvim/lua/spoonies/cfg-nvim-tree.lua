@@ -57,7 +57,6 @@ tree.setup({
 	},
 	view = {
 		width = 30,
-		hide_root_folder = false,
 		side = "left",
 		number = false,
 		relativenumber = false,
@@ -72,6 +71,7 @@ tree.setup({
 		require_confirm = true,
 	},
 	renderer = {
+    root_folder_label = false,
 		icons = {
 			glyphs = {
 				default = "",
