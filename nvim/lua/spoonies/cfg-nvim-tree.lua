@@ -71,7 +71,7 @@ tree.setup({
 		require_confirm = true,
 	},
 	renderer = {
-    root_folder_label = false,
+    root_folder_label = "..",
 		icons = {
 			glyphs = {
 				default = "",
