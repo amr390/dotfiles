@@ -21,6 +21,8 @@ if [ "$SESSIONEXISTS" = "" ]; then
 	tmux split-window -h
 	[[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR/frontend/react; npm run dev" 'C-m'
   tmux resize-pane -D 5
+  tmux select-pane -U
+
 fi
 
 # Attach session, on Main Window
