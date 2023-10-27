@@ -44,12 +44,12 @@ autoload -Uz colors && colors
 source "$ZDOTDIR/zsh-functions"
 
 # Normal files to source
+log "loading aliases"
+zsh_add_file "zsh-aliases"
 log "loading exports"
 zsh_add_file "zsh-exports"
 log "loading vim mode"
 zsh_add_file "zsh-vim-mode"
-log "loading aliases"
-zsh_add_file "zsh-aliases"
 log "loading prompt"
 zsh_add_file "zsh-prompt"
 

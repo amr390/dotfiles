@@ -29,7 +29,6 @@ export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 [[ -f ~/.local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
 [[ -f ~/.local/bin/virtualenvwrapper.sh ]] && source ~/.local/bin/virtualenvwrapper.sh 
 
-
 # $DEBUG && echo "zsh-exports: adding gopath"
 # export GOPATH=/home/amr/.local/share/go
 
