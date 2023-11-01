@@ -27,6 +27,7 @@ export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
 export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 [[ -f /usr/local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 [[ -f ~/.local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
+
 # [[ -f ~/.local/bin/virtualenvwrapper.sh ]] && source ~/.local/bin/virtualenvwrapper.sh 
 
 # $DEBUG && echo "zsh-exports: adding gopath"
@@ -43,6 +44,7 @@ PATH=$WORK_DIR/bin:$PATH
 # PATH="$HOME/.nvm/versions/node/v17.8.0/bin":$PATH
 # PATH=$NODE_MODULES/bin:$PATH # node modules bin
 # PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
+PATH=$HOME/.ebcli-virtual-env/bin/:$PATH
 
 # MAC
 PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
