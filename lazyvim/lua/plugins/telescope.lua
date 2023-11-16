@@ -45,6 +45,12 @@ return {
     },
     opts = {
       defaults = {
+        mappings = {
+          i = {
+            ["<C-k"] = "move_selection_next",
+            ["<C-j"] = "move_selection_previous",
+          },
+        },
         layout_strategy = "horizontal",
         layout_config = {
           horizontal = {
