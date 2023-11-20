@@ -1,2 +1,12 @@
-[submodules "zsh-syntax-highlighting"]
+[submodule "zsh-autosuggestions"]
+  path = zsh/plugins/zsh-autosuggestions
+	ignore = all
+[submodule "zsh-autopair"]
+  path = zsh/plugins/zsh-autopair
+	ignore = all
+[submodule "zsh-syntax-highlighting"]
+  path = zsh/plugins/zsh-syntax-highlighting
+	ignore = all
+[submodule "vim/vim-grails-snippets"]
+	path= vim/vim-grails-snippets
 	ignore = all
