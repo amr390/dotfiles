@@ -125,6 +125,11 @@ alias mongorun="docker run -d \
     -v $HOME/Documents/tmp/docker/volumes/mongo:/var/lib/mongo/ \
     mongo"
 
+alias memcachedstop="docker ps | grep some-memcached && docker kill some-memcached; docker rm some-memcached"
+alias memcachedrun="memcachedstop; docker run -d --name some-memcached -p 11211:11211 memcached"
+
+alias redisstop="docker ps | grep some-redis && docker kill some-redis; docker rm some-redis"
+alias redisrun="redisstop; docker run -d --name some-redis -p 6379:6379 redis"
 
 alias tomcatrun="docker run -d \
     --name tomcat \
