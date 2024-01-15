@@ -26,4 +26,12 @@ return {
     end,
     ft = { "markdown" },
   },
+  {
+    "folke/which-key.nvim",
+    opts = {
+      defaults = {
+        ["<leader>mt"] = { name = "Toggle Markdown" },
+      },
+    },
+  },
 }
