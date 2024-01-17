@@ -135,9 +135,12 @@ alias tomcatrun="docker run -d \
     --name tomcat \
     --network=host \
     -e JAVA_OPTS=-Dgrails.env=development \
+    -p 8443:8443 \
     -v $HOME/Documents/tmp/docker/volumes/tomcat/webapps:/usr/local/tomcat/webapps \
     -v $HOME/Documents/tmp/docker/volumes/tomcat/logs:/usr/local/tomcat/logs \
-    tomcat:8.5-jdk11-corretto"
+    tomcat:8.5.77-jdk11"
+#   --network=host \
+#     tomcat:10.1.18-jdk11"
 alias tomcatstop="docker kill tomcat; docker rm tomcat"
 
 alias hzstop="docker ps | grep hz && docker kill hz; docker rm hz"
