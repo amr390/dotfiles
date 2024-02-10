@@ -12,11 +12,11 @@ return {
     opts = {},
     keys = { { "<leader>gd", "<cmd>DiffviewOpen<cr>", desc = "DiffView" } },
   },
-  {
-    "jackMort/ChatGPT.nvim",
-    cmd = { "ChatGPTActAs", "ChatGPT" },
-    opts = {},
-  },
+  -- {
+  --   "jackMort/ChatGPT.nvim",
+  --   cmd = { "ChatGPTActAs", "ChatGPT" },
+  --   opts = {},
+  -- },
   {
     "iamcco/markdown-preview.nvim",
     cmd = { "MarkdownPreviewToggle", "MarkdownPreview", "MarkdownPreviewStop" },
