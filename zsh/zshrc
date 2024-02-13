@@ -9,12 +9,16 @@ log() {
   $DEBUG && echo "$1" && print_time
 }
 
-log "zshrc starting from $ZDOTDIR"
-
-
-HISTFILE="$ZDOTDIR/.zsh_history"
-setopt INC_APPEND_HISTORY 
-setopt -o sharehistory
+export HISTFILESIZE=10000
+export HISTSIZE=1000
+export SAVEHIST=1000
+export HISTFILE="$ZDOTDIR/.zsh_history"
+# export HISTTIMEFORMAT="[%F %T] "
+# setopt EXTENDED_HISTORY
+# setopt HIST_FIND_NO_DUPS
+# One of the following 2 lines.
+# setopt -o sharehistory
+# setopt INC_APPEND_HISTORY
 
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
