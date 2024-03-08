@@ -194,7 +194,10 @@ alias eve="source ~/.local/bin/virtualenvwrapper.sh"
 alias zcfg="cd $DOTFILES/zsh/ && vim zshrc"
 alias cfg="cd $DOTFILES"
 
-alias sshcmd="sed -E -i '' 's/(precomposeunicode = true)/\1\n\tsshCommand = ssh -i ~\/\.ssh\/id_mac_manning/g' .git/config"
+alias sshcmd="sed -E -i '' \
+  's/(precomposeunicode = true)/\1\n\tsshCommand = ssh -i ~\/\.ssh\/id_mac_manning/g'\
+  .git/config"
+
 use_git_manning() {
   export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_desktop_manning_rsa' 
 }
