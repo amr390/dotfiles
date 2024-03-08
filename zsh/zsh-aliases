@@ -200,3 +200,5 @@ use_git_manning() {
 }
 
 [[ -f $DOTFILES/zsh/zsh-private ]] && source $DOTFILES/zsh/zsh-private
+[[ -f $DOTFILES/zsh/zsh-tmp ]] && source $DOTFILES/zsh/zsh-tmp
+
