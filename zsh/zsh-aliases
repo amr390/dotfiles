@@ -14,6 +14,7 @@ alias myip="curl http://ipecho.net/plain; echo"
 
 alias v="npm &> /dev/null; nvim"
 alias groovyConsole="GTK_THEME=light groovyConsole"
+alias idea="nohup idea $1 &>/dev/null"
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
@@ -195,9 +196,14 @@ alias eve="source ~/.local/bin/virtualenvwrapper.sh"
 alias zcfg="cd $DOTFILES/zsh/ && vim zshrc"
 alias cfg="cd $DOTFILES"
 
-alias sshcmd="sed -E -i '' 's/(precomposeunicode = true)/\1\n\tsshCommand = ssh -i ~\/\.ssh\/id_mac_manning/g' .git/config"
+alias sshcmd="sed -E -i '' \
+  's/(precomposeunicode = true)/\1\n\tsshCommand = ssh -i ~\/\.ssh\/id_mac_manning/g'\
+  .git/config"
+
 use_git_manning() {
   export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_desktop_manning_rsa' 
 }
 
 [[ -f $DOTFILES/zsh/zsh-private ]] && source $DOTFILES/zsh/zsh-private
+[[ -f $DOTFILES/zsh/zsh-tmp ]] && source $DOTFILES/zsh/zsh-tmp
+
