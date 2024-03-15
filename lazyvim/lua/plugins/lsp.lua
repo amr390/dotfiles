@@ -7,7 +7,7 @@ return {
         "tailwindcss-language-server",
         "typescript-language-server",
         "css-lsp",
-        -- npm i -g vscode-langserver-extracted
+        -- npm i -g vscode-langservers-extracted
       })
     end,
   },
