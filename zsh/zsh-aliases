@@ -132,14 +132,17 @@ alias memcachedrun="memcachedstop; docker run -d --name some-memcached -p 11211:
 alias redisstop="docker ps | grep some-redis && docker kill some-redis; docker rm some-redis"
 alias redisrun="redisstop; docker run -d --name some-redis -p 6379:6379 redis"
 
+    # -p 8443:8443 \
+    # -p 8080:8080 \
+
 alias tomcatrun="docker run -d \
     --name tomcat \
     --network=host \
     -e JAVA_OPTS=-Dgrails.env=development \
-    -p 8443:8443 \
     -v $HOME/Documents/tmp/docker/volumes/tomcat/webapps:/usr/local/tomcat/webapps \
     -v $HOME/Documents/tmp/docker/volumes/tomcat/logs:/usr/local/tomcat/logs \
-    tomcat:8.5.77-jdk11"
+    -v $HOME/Documents/tmp/docker/volumes/tomcat/conf:/usr/local/tomcat/conf \
+    tomcat:9.0.86-jdk11"
 #   --network=host \
 #     tomcat:10.1.18-jdk11"
 alias tomcatstop="docker kill tomcat; docker rm tomcat"
