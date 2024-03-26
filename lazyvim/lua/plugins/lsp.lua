@@ -16,7 +16,13 @@ return {
     opts = {
       inline_hints = { enabled = true },
       servers = {
-        cssls = {},
+        cssls = {
+          settings = {
+            css = { validate = true, lint = { unknownAtRules = "ignore" } },
+            scss = { validate = true, lint = { unknownAtRules = "ignore" } },
+            less = { validate = true, lint = { unknownAtRules = "ignore" } },
+          },
+        },
         tailwindcss = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
