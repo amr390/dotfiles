@@ -13,7 +13,7 @@ alias m="cd $PROJECTS/manning/"
 alias mk="cd $PROJECTS/manning/e-commerce/Marketplace"
 alias mws="cd $PROJECTS/manning/e-commerce/MarketplaceWS"
 alias ma="cd $PROJECTS/manning/e-commerce/MarketplaceAdmin"
-alias cas="cd $PROJECTS/manning/otherProjects/cas.6.3/cas-server"
+alias cas="cd $PROJECTS/manning/otherProjects/cas-override/cas-server"
 alias vbuild="sdk use gradle 5.6.4 && lb && gradle clean build -x test -x integrationTest"
 alias vqdeploy="vbuild && eb deploy livebook-qa"
 alias aws-ecr-login="aws ecr get-login-password --region us-west-2 | docker login --username AWS --password-stdin 441712016571.dkr.ecr.us-west-2.amazonaws.com"
@@ -23,41 +23,40 @@ OPENSEARCH_COMPOSER_FILE="$MANNING_FOLDER/otherProjects/smart-search-neptune/man
 alias dcomp-opensearch="docker-compose -f $OPENSEARCH_COMPOSER_FILE"
 
 s3_ls_summary() {
-    aws s3 ls --summarize --human-readable --recursive s3://$1
+	aws s3 ls --summarize --human-readable --recursive s3://$1
 }
 
 pull_m() {
-    CWD=`pwd`
-    echo "***************************************"
-    echo "*        PULLING MARKETPLACEWS        *"
-    echo "***************************************"
-    mws
-    pull_n_back
+	CWD=$(pwd)
+	echo "***************************************"
+	echo "*        PULLING MARKETPLACEWS        *"
+	echo "***************************************"
+	mws
+	pull_n_back
 
-    echo "***************************************"
-    echo "*         PULLING MARKETPLACE         *"
-    echo "***************************************"
-    mk 
-    pull_n_back
+	echo "***************************************"
+	echo "*         PULLING MARKETPLACE         *"
+	echo "***************************************"
+	mk
+	pull_n_back
 
-    echo "***************************************"
-    echo "*     PULLING MARKETPLACEADMIN        *"
-    echo "***************************************"
-    ma
-    pull_n_back
+	echo "***************************************"
+	echo "*     PULLING MARKETPLACEADMIN        *"
+	echo "***************************************"
+	ma
+	pull_n_back
 
-    cd $CWD
+	cd $CWD
 }
 
 pull_n_back() {
-    CURRENT_VERSION=`git rev-parse --abbrev-ref HEAD`
-    git stash 
-    gco master && gl
-    gco $CURRENT_VERSION
-    git stash pop
+	CURRENT_VERSION=$(git rev-parse --abbrev-ref HEAD)
+	git stash
+	gco master && gl
+	gco $CURRENT_VERSION
+	git stash pop
 }
 
-
 if [ -f ~/Documents/dotfiles/bash/private-manning-aliases ]; then
-    source ~/Documents/dotfiles/bash/private-manning-aliases
+	source ~/Documents/dotfiles/bash/private-manning-aliases
 fi
