@@ -95,7 +95,7 @@ local options = {
 -- }
 
 vim.g.mapleader = ","
-vim.g.maplocalleader = " "
+vim.g.maplocalleader = "."
 
 vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
 for k, v in pairs(options) do
