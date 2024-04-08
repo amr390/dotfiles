@@ -8,7 +8,7 @@ return {
   -- add vimtex a laTex vim plugin
   {
     "lervag/vimtex",
-    event = "VeryLazy",
+    -- event = "VeryLazy",
     init = function()
       vim.g.vimtex_view_method = "zathura"
       vim.o.foldmethod = "expr"
