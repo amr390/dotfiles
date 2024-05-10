@@ -4,7 +4,7 @@ return {
     enabled = false,
     init = function()
       require("gpt").setup({
-        api_key = os.getenv("OPENAI_API_KEY"),
+        api_key_cmd = "pass show neovim/chatgpt",
       })
     end,
     opts = function(_, opts)
