@@ -28,6 +28,8 @@ export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 [[ -f /usr/local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
 [[ -f ~/.local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
 
+export OPENAI_API_KEY=$(pass show neovim/chatgpt.nvim)
+
 # [[ -f ~/.local/bin/virtualenvwrapper.sh ]] && source ~/.local/bin/virtualenvwrapper.sh 
 
 # $DEBUG && echo "zsh-exports: adding gopath"
