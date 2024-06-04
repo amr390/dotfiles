@@ -60,7 +60,11 @@ return {
         },
         html = {},
         yamlls = {},
-        eslint = {},
+        eslint = {
+          root_dir = function(...)
+            return require("lspconfig.util").root_pattern(".git")(...)
+          end,
+        },
       },
       setup = {
         eslint = function()
