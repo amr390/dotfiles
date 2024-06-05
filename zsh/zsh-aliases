@@ -15,7 +15,11 @@ alias myip="curl http://ipecho.net/plain; echo"
 alias v="npm &> /dev/null; nvim"
 alias groovyConsole="GTK_THEME=light groovyConsole"
 
-alias o="gnome-open"
+if [[ $(uname) == "Darwin" ]]; then
+  alias o="open"
+else
+  alias o="gnome-open"
+fi
 
 # Colorize grep output (good for log files)
 alias grep='grep --color=auto'
