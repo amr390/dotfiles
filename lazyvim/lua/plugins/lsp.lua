@@ -61,9 +61,9 @@ return {
         html = {},
         yamlls = {},
         eslint = {
-          root_dir = function(...)
-            return require("lspconfig.util").root_pattern(".git")(...)
-          end,
+          -- root_dir = function(...)
+          --   return require("lspconfig.util").root_pattern(".git", "node_modules")(...)
+          -- end,
         },
       },
       setup = {
