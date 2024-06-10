@@ -124,6 +124,14 @@ alias rabbitrun="rabbitstop; docker run -d \
     -v $HOME/Documents/tmp/docker/volumes/rabbitmq:/var/lib/rabbitmq/ \
     rabbitmq:3-management"
 
+alias postgreststop="docker ps | grep some-pgrest && docker kill some-pgrest; docker rm some-pgrest"
+alias postgrestrun="postgreststop; docker run -d \
+    -p 8095:3000 \
+    --net=host \
+    --name some-pgrest \
+    -e PGRST_DB_URI="postgres://root:@localhost/marketplace" \
+    postgrest/postgrest"
+
 alias mongorun="docker run -d \
     --hostname mongo  \
     --name mongo \
