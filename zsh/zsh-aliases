@@ -129,7 +129,9 @@ alias postgrestrun="postgreststop; docker run -d \
     -p 8095:3000 \
     --net=host \
     --name some-pgrest \
-    -e PGRST_DB_URI="postgres://root:@localhost/marketplace" \
+    -e PGRST_DB_URI=\"postgres://root:@localhost/marketplace\" \
+    -e PGRST_DB_SCHEMAS=\"public\" \
+    -e PGRST_DB_ANON_ROLE=\"root\" \
     postgrest/postgrest"
 
 alias mongorun="docker run -d \
