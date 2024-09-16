@@ -1,6 +1,20 @@
 -- Options are automatically loaded before lazy.nvim startup
 -- Default options that are always set: https://github.com/LazyVim/LazyVim/blob/main/lua/lazyvim/config/options.lua
 -- Add any additional options here
+
+vim.g.mapleader = ","
+vim.g.maplocalleader = "."
+
+vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
+for k, v in pairs(options) do
+  vim.opt[k] = v
+end
+
+-- vim.g.loaded_netrw = 1
+-- vim.g.loaded_netrwPlugin = 1
+
+vim.g["python3_host_prog"] = "$HOME/.local/share/virtualenv/virtualenvs/neovim/bin/python" -- python3 custom virtualenv
+
 local options = {
   autowrite = true, -- Enable auto write
   clipboard = "unnamedplus", -- Sync with system clipboard
@@ -91,21 +105,6 @@ local options = {
 --   scrolloff = 8, -- is one of my fav
 --   sidescrolloff = 8,
 -- }
-
-vim.g.mapleader = ","
-vim.g.maplocalleader = "."
-
-vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
-for k, v in pairs(options) do
-  vim.opt[k] = v
-end
-
-vim.g.loaded_netrw = 1
-vim.g.loaded_netrwPlugin = 1
-
-vim.g["python3_host_prog"] = "$HOME/.local/share/virtualenv/virtualenvs/neovim/bin/python" -- python3 custom virtualenv
-
-vim.opt.shortmess:append("c")
 
 vim.cmd("set whichwrap+=<,>,[,],h,l")
 vim.cmd([[set iskeyword+=-]])
