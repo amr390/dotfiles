@@ -44,7 +44,6 @@ PATH=$WORK_DIR/bin:$PATH
 # PATH="$HOME/.nvm/versions/node/v17.8.0/bin":$PATH
 # PATH=$NODE_MODULES/bin:$PATH # node modules bin
 # PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
-PATH=$HOME/.ebcli-virtual-env/bin/:$PATH
 
 # MAC
 PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH

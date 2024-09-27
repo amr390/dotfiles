@@ -68,7 +68,7 @@ alias mdbackups='cd $HOME/Documents/Manning/data/db_backups'
 
 VB_HOME="$PROJECTS/spoonsdevs/vatbook"
 # alias vb3="cd $VB_HOME && workon vb3"
-alias vb3="cd $VB_HOME && source .venv/bin/activate"
+alias vb3="cd $VB_HOME && poetry shell"
 
 #STAGING
 alias vb-run-p="$VB_HOME/manage.py runserver --settings=vatbook.settings.staging"
