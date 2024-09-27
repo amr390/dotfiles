@@ -23,6 +23,29 @@ return {
             less = { validate = true, lint = { unknownAtRules = "ignore" } },
           },
         },
+
+        eslint = {
+          -- root_dir = function(...)
+          --   return require("lspconfig.util").root_pattern(".git", "node_modules")(...)
+          -- end,
+        },
+
+        html = {},
+
+        -- pyright will be automatically installed with mason and loaded with lspconfig
+        pyright = {
+          settings = {
+            python = {
+              analysis = {
+                autoSearchPaths = true,
+                diagnosticMode = "openFilesOnly",
+                useLibraryCodeForTypes = true,
+                typeCheckingMode = "off",
+              },
+            },
+          },
+        },
+
         tailwindcss = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
@@ -58,13 +81,7 @@ return {
             },
           },
         },
-        html = {},
         yamlls = {},
-        eslint = {
-          -- root_dir = function(...)
-          --   return require("lspconfig.util").root_pattern(".git", "node_modules")(...)
-          -- end,
-        },
       },
       setup = {
         eslint = function()
