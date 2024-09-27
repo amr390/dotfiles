@@ -3,6 +3,7 @@ return {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
+        "pyright",
         "stylua",
         "tailwindcss-language-server",
         "typescript-language-server",
@@ -82,6 +83,20 @@ return {
         -- LSP Server Settings
         ---@type lspconfig.options
         servers = {
+          -- pyright will be automatically installed with mason and loaded with lspconfig
+          pyright = {
+            settings = {
+              python = {
+                analysis = {
+                  autoSearchPaths = true,
+                  diagnosticMode = "openFilesOnly",
+                  useLibraryCodeForTypes = true,
+                  typeCheckingMode = "off",
+                },
+              },
+            },
+          },
+
           lua_ls = {
             -- mason = false, -- set to false if you don't want this server to be installed with mason
             -- Use this to add any additional keymaps
@@ -117,15 +132,15 @@ return {
         -- you can do any additional lsp server setup here
         -- return true if you don't want this server to be setup with lspconfig
         ---@type table<string, fun(server:string, opts:_.lspconfig.options):boolean?>
-        setup = {
-          -- example to setup with typescript.nvim
-          -- tsserver = function(_, opts)
-          --   require("typescript").setup({ server = opts })
-          --   return true
-          -- end,
-          -- Specify * to use this function as a fallback for any server
-          -- ["*"] = function(server, opts) end,
-        },
+        -- setup = {
+        --   -- example to setup with typescript.nvim
+        --   tsserver = function(_, opts)
+        --     require("typescript").setup({ server = opts })
+        --     return true
+        --   end,
+        -- Specify * to use this function as a fallback for any server
+        -- ["*"] = function(server, opts) end,
+        -- },
       }
       return ret
     end,
