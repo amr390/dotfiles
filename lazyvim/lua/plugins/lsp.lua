@@ -3,6 +3,7 @@ return {
     "williamboman/mason.nvim",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
+        "pyright",
         "stylua",
         "tailwindcss-language-server",
         "typescript-language-server",
@@ -24,11 +25,11 @@ return {
           },
         },
 
-        eslint = {
-          -- root_dir = function(...)
-          --   return require("lspconfig.util").root_pattern(".git", "node_modules")(...)
-          -- end,
-        },
+        -- eslint = {
+        --   -- root_dir = function(...)
+        --   --   return require("lspconfig.util").root_pattern(".git", "node_modules")(...)
+        --   -- end,
+        -- },
 
         html = {},
 
@@ -50,16 +51,16 @@ return {
             return require("lspconfig.util").root_pattern(".git")(...)
           end,
         },
-        tsserver = {
-          root_dir = function(...)
-            return require("lspconfig.util").root_pattern(".git")(...)
-          end,
-          single_file_support = false,
-          settings = {
-            typescript = {},
-            javascript = {},
-          },
-        },
+        -- tsserver = {
+        --   root_dir = function(...)
+        --     return require("lspconfig.util").root_pattern(".git")(...)
+        --   end,
+        --   single_file_support = false,
+        --   settings = {
+        --     typescript = {},
+        --     javascript = {},
+        --   },
+        -- },
         yamlls = {},
       },
       setup = {
