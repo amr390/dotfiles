@@ -45,40 +45,19 @@ return {
             },
           },
         },
-
         tailwindcss = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
           end,
         },
         tsserver = {
-          -- root_dir = function(...)
-          --   return require("lspconfig.util").root_pattern(".git")(...)
-          -- end,
+          root_dir = function(...)
+            return require("lspconfig.util").root_pattern(".git")(...)
+          end,
           single_file_support = false,
           settings = {
-            typescript = {
-              inlayhints = {
-                includeInlayParamterNameHints = "literal",
-                includeInlayParamterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParameterTypeHints = true,
-                includeVariableTypeHints = false,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                includeInlayEnumMemberValueHints = true,
-              },
-            },
-            javascript = {
-              inlayHints = {
-                includeInlayParamterNameHints = "all",
-                includeInlayParamterNameHintsWhenArgumentMatchesName = false,
-                includeInlayFunctionParamterTypeHints = true,
-                includeInlayVariableTypeHints = true,
-                includeInlayPropertyDeclarationTypeHints = true,
-                includeInlayFunctionLikeReturnTypeHints = true,
-                inlcudeInlayEnumMemberValueHints = true,
-              },
-            },
+            typescript = {},
+            javascript = {},
           },
         },
         yamlls = {},
