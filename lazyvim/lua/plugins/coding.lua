@@ -79,8 +79,13 @@ return {
     end,
     main = "lazyvim.util.cmp",
   },
-
+  {
+    "hrsh7th/cmp-nvim-lsp",
+    "hrsh7th/cmp-buffer",
+    "hrsh7th/cmp-path",
+  },
   -- snippets
+  { "rafamadriz/friendly-snippets" },
   {
     "nvim-cmp",
     dependencies = {
@@ -130,7 +135,6 @@ return {
     },
     dependencies = { "rafamadriz/friendly_snippets" },
   },
-  { "rafamadriz/friendly_snippets" },
 
   -- auto pairs
   {
