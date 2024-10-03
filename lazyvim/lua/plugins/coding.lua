@@ -123,6 +123,14 @@ return {
       },
     },
   },
+  {
+    "garymjr/nvim-snippets",
+    opts = {
+      friendly_snippets = true,
+    },
+    dependencies = { "rafamadriz/friendly_snippets" },
+  },
+  { "rafamadriz/friendly_snippets" },
 
   -- auto pairs
   {
