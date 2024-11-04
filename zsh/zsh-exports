@@ -46,8 +46,10 @@ PATH=$WORK_DIR/bin:$PATH
 # PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
 
 # MAC
-PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
-PATH=$HOME/.local/share/virtualenv/virtualenvs/neovim/bin:$PATH
-PATH=$HOME/Library/Python/3.11/bin:$PATH
-# PATH=$GOPATH/bin:$PATH # go
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+  PATH=$HOME/.local/share/virtualenv/virtualenvs/neovim/bin:$PATH
+  PATH=$HOME/Library/Python/3.11/bin:$PATH
+  PATH=$GOPATH/bin:$PATH # go
+fi
 export PATH
