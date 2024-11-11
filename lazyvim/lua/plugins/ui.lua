@@ -15,6 +15,7 @@ return {
   },
   {
     "echasnovski/mini.animate",
+    enabled = false,
     recommended = true,
     event = "VeryLazy",
     opts = function()
@@ -35,15 +36,15 @@ return {
         end,
       })
 
-      LazyVim.toggle.map("<leader>ua", {
-        name = "Mini Animate",
-        get = function()
-          return not vim.g.minianimate_disable
-        end,
-        set = function(state)
-          vim.g.minianimate_disable = not state
-        end,
-      })
+      -- LazyVim.toggle.map("<leader>ua", {
+      --   name = "Mini Animate",
+      --   get = function()
+      --     return not vim.g.minianimate_disable
+      --   end,
+      --   set = function(state)
+      --     vim.g.minianimate_disable = not state
+      --   end,
+      -- })
 
       local animate = require("mini.animate")
       return {
@@ -68,6 +69,7 @@ return {
   {
     "echasnovski/mini.indentscope",
     version = false, -- wait till new 0.7.0 release to put it back on semver
+    enabled = false,
     event = "LazyFile",
     opts = {
       -- symbol = "▏",
