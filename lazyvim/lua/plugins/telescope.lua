@@ -2,6 +2,7 @@ local actions = require("telescope.actions")
 return {
   {
     "telescope.nvim",
+    enabled = false,
     dependencies = {
       {
         "debugloop/telescope-undo.nvim",
