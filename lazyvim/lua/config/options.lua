@@ -50,6 +50,7 @@ vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
 -- vim.g.loaded_netrwPlugin = 1
 
 vim.g["python3_host_prog"] = "$HOME/.local/share/virtualenv/virtualenvs/neovim/bin/python" -- python3 custom virtualenv
+vim.g.lazyvim_no_inlay_hints = true
 
 local options = {
   autowrite = true, -- Enable auto write
