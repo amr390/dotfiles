@@ -69,6 +69,7 @@ alias mdbackups='cd $HOME/Documents/Manning/data/db_backups'
 VB_HOME="$PROJECTS/spoonsdevs/vatbook"
 # alias vb3="cd $VB_HOME && workon vb3"
 alias vb3="cd $VB_HOME && source .venv/bin/activate"
+alias vbackup="scp sd:/mnt/spoons_bkps/db_backups/ledger_$(date +\%Y\%m\%d)10.backup.sql ."
 
 #STAGING
 alias vb-run-p="$VB_HOME/manage.py runserver --settings=vatbook.settings.staging"
