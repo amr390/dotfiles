@@ -83,6 +83,12 @@ alias vb-m-d="$VB_HOME/manage.py migrate --settings=vatbook.settings.develop"
 alias vb-sh-d="$VB_HOME/manage.py shell --settings=vatbook.settings.develop"
 
 
+# RCLONE mounts
+alias mountgdq="rclone mount gd_quijote: ~/Documents/net/gd_quijote"
+alias mountgdam="rclone mount gd_a.mas.rodriguez: ~/Documents/net/gd_a.mas.rodriguez/"
+alias mountgdan="rclone mount gd_anma: ~/Documents/net/gd_anma"
+
+
 TC_HOME="$PROJECTS/sandbox/timecop"
 TC_REST="$PROJECTS/sandbox/timecop/timecop-rest/"
 TC_CLI="$PROJECTS/sandbox/timecop/timecop-cli/"
