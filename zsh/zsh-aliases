@@ -68,8 +68,8 @@ alias mdbackups='cd $HOME/Documents/Manning/data/db_backups'
 
 VB_HOME="$PROJECTS/spoonsdevs/vatbook"
 # alias vb3="cd $VB_HOME && workon vb3"
-alias vb="cd $VB_HOME"
-alias vb3="cd $VB_HOME && source .venv/bin/activate"
+alias vb3="cd $VB_HOME"
+alias vb3a="cd $VB_HOME && source .venv/bin/activate"
 alias vbackup="scp sd:/mnt/spoons_bkps/db_backups/ledger_$(date +\%Y\%m\%d)10.backup.sql ."
 
 #STAGING
