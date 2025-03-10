@@ -223,6 +223,8 @@ alias eve="source ~/.local/bin/virtualenvwrapper.sh"
 alias zcfg="cd $DOTFILES/zsh/ && vim zshrc"
 alias cfg="cd $DOTFILES"
 
+alias gv8="sdk use gradle 8.13; sdk use java 21.0.2-amzn"
+
 alias sshcmd="sed -E -i '' \
   's/(precomposeunicode = true)/\1\n\tsshCommand = ssh -i ~\/\.ssh\/id_mac_manning/g'\
   .git/config"
