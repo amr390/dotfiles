@@ -1,6 +1,7 @@
 return {
   {
     "linux-cultist/venv-selector.nvim",
+    enabled = true,
     dependencies = { "neovim/nvim-lspconfig", "mfussenegger/nvim-dap", "mfussenegger/nvim-dap-python" },
     -- dependencies = { "neovim/nvim-lspconfig", "mfussenegger/nvim-dap-python" },
     opts = {
