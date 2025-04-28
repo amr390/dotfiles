@@ -57,7 +57,8 @@ log "loading vim mode"
 zsh_add_file "zsh-vim-mode"
 log "loading prompt"
 zsh_add_file "zsh-prompt"
-
+log "loading private keys"
+zsh_add_file "zsh-private-keys"
 
 # Plugins
 zsh_add_plugin "zsh-users/zsh-autosuggestions"
@@ -92,6 +93,7 @@ bindkey -r "^d"
 [ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 [ -d $ZDOTDIR/.zfunc/completion/ ] && fpath+="$ZDOTDIR/.zfunc/completion/"
 # export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
+
 
 # Environment variables set everywhere
 export EDITOR="nvim"
