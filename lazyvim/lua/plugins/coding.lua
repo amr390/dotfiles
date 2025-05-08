@@ -76,4 +76,25 @@ return {
       },
     },
   },
+  {
+    "mhartington/formatter.nvim",
+    config = function()
+      require("formatter").setup({
+        logging = false,
+        filetype = {
+          python = {
+            -- Add formatters for Python files
+          },
+          html = {
+            -- Add formatters for HTML files
+            require("formatter.filetypes.html").prettier(),
+          },
+          django = {
+            -- Add formatters for Django templates
+            require("formatter.filetypes.html").prettier(),
+          },
+        },
+      })
+    end,
+  },
 }
