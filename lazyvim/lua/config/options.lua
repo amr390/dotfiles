@@ -49,7 +49,25 @@ vim.opt.shortmess:append({ W = true, I = true, c = true, C = true })
 -- vim.g.loaded_netrw = 1
 -- vim.g.loaded_netrwPlugin = 1
 
-vim.g["python3_host_prog"] = "$HOME/.local/share/virtualenv/virtualenvs/neovim/bin/python" -- python3 custom virtualenv
+-- Dynamically set python3_host_prog based on environment
+local home = os.getenv("HOME") or os.getenv("USERPROFILE")
+local python_path = home .. "/.local/share/virtualenv/virtualenvs/neovim/bin/python"
+if vim.fn.filereadable(python_path) == 1 then
+  vim.g["python3_host_prog"] = python_path
+else
+  -- Try to find python in standard locations
+  local possible_paths = {
+    home .. "/.pyenv/versions/neovim/bin/python",
+    home .. "/.virtualenvs/neovim/bin/python",
+    "/usr/bin/python3",
+  }
+  for _, path in ipairs(possible_paths) do
+    if vim.fn.filereadable(path) == 1 then
+      vim.g["python3_host_prog"] = path
+      break
+    end
+  end
+end
 -- vim.g.lazyvim_no_inlay_hints = true
 
 local options = {
