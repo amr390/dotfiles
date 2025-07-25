@@ -9,8 +9,12 @@ if [[ $# -eq 1 ]]; then
 fi
 
 # activate the virtual environment
-cd $WORKDIR
-$(poetry env activate)
+# cd $WORKDIR
+# if [[ "$OSTYPE" == "darwin"* ]]; then
+# 	$(poetry env activate)
+# else
+# 	poetry shell
+# fi
 
 # Only create a tmux session if it doesn't already exist
 if [ "$SESSIONEXISTS" = "" ]; then

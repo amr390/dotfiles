@@ -1,6 +1,6 @@
 return {
   {
-    "williamboman/mason.nvim",
+    "mason-org/mason.nvim",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         "pyright",
@@ -8,9 +8,16 @@ return {
         "tailwindcss-language-server",
         "typescript-language-server",
         "css-lsp",
-        -- npm i -g vscode-langservers-extracted
+        "eslint-lsp",
+        "json-lsp",
+        "yaml-language-server",
+        "black", -- Python formatter
+        "prettier", -- JavaScript/TypeScript formatter
       })
     end,
+  },
+  {
+    "mason-org/mason-lspconfig.nvim",
   },
   {
     "neovim/nvim-lspconfig",
@@ -24,12 +31,12 @@ return {
             less = { validate = true, lint = { unknownAtRules = "ignore" } },
           },
         },
-
-        -- eslint = {
-        --   -- root_dir = function(...)
-        --   --   return require("lspconfig.util").root_pattern(".git", "node_modules")(...)
-        --   -- end,
-        -- },
+        
+        eslint = {
+          root_dir = function(...)
+            return require("lspconfig.util").root_pattern(".git", "node_modules", ".eslintrc", ".eslintrc.js", ".eslintrc.json")(...)
+          end,
+        },
 
         html = {},
 
@@ -41,27 +48,60 @@ return {
                 autoSearchPaths = true,
                 diagnosticMode = "openFilesOnly",
                 useLibraryCodeForTypes = true,
-                typeCheckingMode = "off",
+                typeCheckingMode = "basic", -- Changed from "off" to "basic" for better type hints
               },
             },
           },
         },
+        
         tailwindcss = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
           end,
         },
-        -- tsserver = {
-        --   root_dir = function(...)
-        --     return require("lspconfig.util").root_pattern(".git")(...)
-        --   end,
-        --   single_file_support = false,
-        --   settings = {
-        --     typescript = {},
-        --     javascript = {},
-        --   },
-        -- },
-        yamlls = {},
+        
+        tsserver = {
+          root_dir = function(...)
+            return require("lspconfig.util").root_pattern(".git")(...)
+          end,
+          single_file_support = false,
+          settings = {
+            typescript = {
+              inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+            javascript = {
+              inlayHints = {
+                includeInlayParameterNameHints = "all",
+                includeInlayParameterNameHintsWhenArgumentMatchesName = false,
+                includeInlayFunctionParameterTypeHints = true,
+                includeInlayVariableTypeHints = true,
+                includeInlayPropertyDeclarationTypeHints = true,
+                includeInlayFunctionLikeReturnTypeHints = true,
+                includeInlayEnumMemberValueHints = true,
+              },
+            },
+          },
+        },
+        
+        yamlls = {
+          settings = {
+            yaml = {
+              keyOrdering = false,
+              schemaStore = {
+                enable = true,
+                url = "https://www.schemastore.org/api/json/catalog.json",
+              },
+            },
+          },
+        },
       },
       setup = {
         eslint = function()

@@ -1,8 +1,6 @@
-if true then
-  return {}
-end
 return {
   "folke/noice.nvim",
+  event = "VeryLazy",
   opts = function(_, opts)
     opts.presets.lsp_doc_border = true
     table.insert(opts.routes, {
@@ -40,7 +38,6 @@ return {
         filter = {},
       },
     }
-    -- opts.status = { lsp_progress = { event = "lsp", kind = "progress"}}
 
     vim.api.nvim_create_autocmd("FileType", {
       pattern = "markdown",
