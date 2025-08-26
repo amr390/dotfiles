@@ -1,5 +1,10 @@
 #!/bin/sh
 
+# Initialize locale and support true color in terminal and tmux
+export LANG=en_US.UTF-8
+export LC_ALL=en_US.UTF-8
+export COLORTERM=truecolor
+
 print_time() {
   # echo $(date +%d.%m.%y-%H:%M:%S)
   echo $(date +%H:%M:%S)
