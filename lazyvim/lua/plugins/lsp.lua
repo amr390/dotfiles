@@ -1,6 +1,7 @@
 return {
   {
     "mason-org/mason.nvim",
+    version = "*",
     opts = function(_, opts)
       vim.list_extend(opts.ensure_installed, {
         "pyright",
@@ -18,6 +19,7 @@ return {
   },
   {
     "mason-org/mason-lspconfig.nvim",
+    version = "*",
   },
   {
     "neovim/nvim-lspconfig",
@@ -31,10 +33,16 @@ return {
             less = { validate = true, lint = { unknownAtRules = "ignore" } },
           },
         },
-        
+
         eslint = {
           root_dir = function(...)
-            return require("lspconfig.util").root_pattern(".git", "node_modules", ".eslintrc", ".eslintrc.js", ".eslintrc.json")(...)
+            return require("lspconfig.util").root_pattern(
+              ".git",
+              "node_modules",
+              ".eslintrc",
+              ".eslintrc.js",
+              ".eslintrc.json"
+            )(...)
           end,
         },
 
@@ -53,13 +61,13 @@ return {
             },
           },
         },
-        
+
         tailwindcss = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
           end,
         },
-        
+
         tsserver = {
           root_dir = function(...)
             return require("lspconfig.util").root_pattern(".git")(...)
@@ -90,7 +98,7 @@ return {
             },
           },
         },
-        
+
         yamlls = {
           settings = {
             yaml = {

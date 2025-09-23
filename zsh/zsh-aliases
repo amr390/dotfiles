@@ -8,6 +8,10 @@ alias ..="cd ../"
 alias ...="cd ../.."
 alias ....="cd ../../.."
 alias duc="du -hc --max-depth=1 2>/dev/null | sort -n"
+alias fdp="fd --type f --hidden --follow --exclude .git --exclude node_modules --exclude .venv --exclude .idea --exclude .vscode"
+alias fdpp="ps aux | grep $1 | aws '{print $2}' | xargs kill -9"
+alias lbjstatq="eb ssh livebook-qa-env --command \"sudo jstat -gcutil \\\$(ps aux | grep tomcat | head -1 | awk '{print \\\$2}') 5s\""
+alias lbjstat="eb ssh livebook-prod-env --command \"sudo jstat -gcutil \\\$(ps aux | grep tomcat | head -1 | awk '{print \\\$2}') 5s\""
 
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 
