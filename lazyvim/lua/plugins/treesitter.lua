@@ -1,9 +1,14 @@
 return {
   {
     "nvim-treesitter/nvim-treesitter",
-    opts = function(_, opts)
-      -- Add languages to be installed
-      vim.list_extend(opts.ensure_installed, {
+    version = false,
+    build = ":TSUpdate",
+    event = { "BufReadPost", "BufNewFile" },
+    dependencies = {
+      "nvim-treesitter/nvim-treesitter-textobjects",
+    },
+    opts = {
+      ensure_installed = {
         "css",
         "gitcommit",
         "gitignore",
@@ -11,6 +16,7 @@ return {
         "groovy",
         "html",
         "htmldjango",
+        "java",
         "javascript",
         "json",
         "lua",
@@ -21,16 +27,14 @@ return {
         "sql",
         "typescript",
         "yaml",
-      })
-      
-      -- Enable additional features
-      opts.highlight = {
+      },
+      sync_install = false,
+      highlight = {
         enable = true,
         additional_vim_regex_highlighting = false,
-      }
-      
-      -- Enable incremental selection
-      opts.incremental_selection = {
+      },
+      indent = { enable = true },
+      incremental_selection = {
         enable = true,
         keymaps = {
           init_selection = "<CR>",
@@ -38,56 +42,41 @@ return {
           scope_incremental = "<S-CR>",
           node_decremental = "<BS>",
         },
-      }
-      
-      -- Enable code folding based on treesitter
-      opts.fold = {
-        enable = true,
-      }
-    end,
-  },
-  
-  -- Add textobjects for better code navigation
-  {
-    "nvim-treesitter/nvim-treesitter-textobjects",
-    lazy = true,
-    config = function()
-      require("nvim-treesitter.configs").setup({
-        textobjects = {
-          select = {
-            enable = true,
-            lookahead = true,
-            keymaps = {
-              ["af"] = "@function.outer",
-              ["if"] = "@function.inner",
-              ["ac"] = "@class.outer",
-              ["ic"] = "@class.inner",
-              ["aa"] = "@parameter.outer",
-              ["ia"] = "@parameter.inner",
-            },
-          },
-          move = {
-            enable = true,
-            set_jumps = true,
-            goto_next_start = {
-              ["]f"] = "@function.outer",
-              ["]c"] = "@class.outer",
-            },
-            goto_next_end = {
-              ["]F"] = "@function.outer",
-              ["]C"] = "@class.outer",
-            },
-            goto_previous_start = {
-              ["[f"] = "@function.outer",
-              ["[c"] = "@class.outer",
-            },
-            goto_previous_end = {
-              ["[F"] = "@function.outer",
-              ["[C"] = "@class.outer",
-            },
+      },
+      textobjects = {
+        select = {
+          enable = true,
+          lookahead = true,
+          keymaps = {
+            ["af"] = "@function.outer",
+            ["if"] = "@function.inner",
+            ["ac"] = "@class.outer",
+            ["ic"] = "@class.inner",
+            ["aa"] = "@parameter.outer",
+            ["ia"] = "@parameter.inner",
           },
         },
-      })
-    end,
+        move = {
+          enable = true,
+          set_jumps = true,
+          goto_next_start = {
+            ["]f"] = "@function.outer",
+            ["]c"] = "@class.outer",
+          },
+          goto_next_end = {
+            ["]F"] = "@function.outer",
+            ["]C"] = "@class.outer",
+          },
+          goto_previous_start = {
+            ["[f"] = "@function.outer",
+            ["[c"] = "@class.outer",
+          },
+          goto_previous_end = {
+            ["[F"] = "@function.outer",
+            ["[C"] = "@class.outer",
+          },
+        },
+      },
+    },
   },
 }
