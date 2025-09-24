@@ -1,7 +1,6 @@
 return {
   {
     "linux-cultist/venv-selector.nvim",
-    enabled = true,
     dependencies = { "neovim/nvim-lspconfig", "mfussenegger/nvim-dap", "mfussenegger/nvim-dap-python" },
     opts = {
       -- Auto refresh when changing directories
@@ -56,7 +55,16 @@ return {
     },
   },
   {
+    "stevearc/conform.nvim",
+    opts = {
+      formatters_by_ft = {
+        html = { "prettier" },
+      },
+    },
+  },
+  {
     "mhartington/formatter.nvim",
+    enabled = false,
     event = "BufWritePre", -- Load on buffer write pre-event
     cmd = { "Format", "FormatWrite" }, -- Load when these commands are used
     config = function()
