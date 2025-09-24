@@ -67,6 +67,7 @@ return {
     enabled = false,
     event = "BufWritePre", -- Load on buffer write pre-event
     cmd = { "Format", "FormatWrite" }, -- Load when these commands are used
+    enabled = false,
     config = function()
       require("formatter").setup({
         logging = false,
