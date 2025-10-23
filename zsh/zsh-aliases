@@ -38,7 +38,7 @@ alias mv='mv -i'
 alias rm='rm -i'
 # Colorize the ls output ##
 # alias ls='LC_COLLATE=C ls -h --group-directories-first --color=auto'
-alias ll='ls -lrtS --color=auto'
+alias ll='ls -lrS --color=auto'
 
 # easier to read disk
 alias df='df -h'     # human-readable sizes

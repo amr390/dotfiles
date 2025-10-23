@@ -7,6 +7,7 @@
 DEBUG=false
 export ZDOTDIR=$HOME/.config/zsh
 source "$HOME/.config/zsh/zshrc"
+[[ -f "$HOME/.zshrc_custom" ]] && source "$HOME/.zshrc_custom"
 
 
 # Amazon Q post block. Keep at the bottom of this file.
