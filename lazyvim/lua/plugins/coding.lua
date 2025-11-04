@@ -48,7 +48,7 @@ return {
               uriFormat = "%s",
               webRoot = "${workspaceFolder}",
             },
-            cwd = "${workspaceFolder}",
+            cwd = "${workspaceFolder}/packages/web",
           },
           {
             name = "Next.js: debug client-side",
