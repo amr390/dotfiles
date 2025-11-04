@@ -1,7 +1,6 @@
 return {
   {
     "craftzdog/solarized-osaka.nvim",
-    disable = true,
     lazy = true,
     opts = {
       transparent = false,
