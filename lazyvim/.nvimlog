@@ -1,0 +1,7 @@
+ERR 2025-11-03T20:25:46.319 ?.5262     vim_mktempdir:3307: tempdir root not owned by current user (501): /var/folders/zt/2trkfvfj62b1pbj0pwnd7xw80000gn/T/nvim.501
+ERR 2025-11-03T20:25:46.319 ?.5262     vim_mktempdir:3313: tempdir root has invalid permissions (37777777776): /var/folders/zt/2trkfvfj62b1pbj0pwnd7xw80000gn/T/nvim.501
+WRN 2025-11-03T20:25:46.319 ?.5262     vim_mktempdir:3325: tempdir create failed: operation not permitted: /var/folders/zt/2trkfvfj62b1pbj0pwnd7xw80000gn/T/nvim.XXXXXX
+ERR 2025-11-03T20:25:46.319 ?.5262     vim_mktempdir:3307: tempdir root not owned by current user (501): /tmp/nvim.501
+ERR 2025-11-03T20:25:46.319 ?.5262     vim_mktempdir:3313: tempdir root has invalid permissions (37777777776): /tmp/nvim.501
+WRN 2025-11-03T20:25:46.320 ?.5262     vim_mktempdir:3325: tempdir create failed: operation not permitted: /tmp/nvim.XXXXXX
+WRN 2025-11-03T20:25:46.320 ?.5262     server_start:193: Failed to start server: operation not permitted: /Users/amr/.dotfiles/lazyvim/nvim.501/U8yjOV/nvim.5262.0
