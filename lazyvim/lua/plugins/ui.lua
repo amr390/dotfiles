@@ -1,23 +1,7 @@
-local picker = require("snacks.picker")
-local dap     = require("dap")
-
--- Register a Snacks picker to debug via DAP configurations
-picker.register("snacks_picker_list", {
-  name = "🛠 DAP Configurations",
-  items = function()
-    return dap.configurations.javascript or {}
-  end,
-  display = function(item)
-    return item.name
-  end,
-  on_select = function(item)
-    dap.run(item)
-  end,
-})
-
 return {
   {
     "craftzdog/solarized-osaka.nvim",
+    disable = true,
     lazy = true,
     opts = {
       transparent = false,

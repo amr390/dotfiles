@@ -1,5 +1,66 @@
 return {
   {
+    "mfussenegger/nvim-dap",
+    lazy = true,
+    event = "VeryLazy",
+    dependencies = {
+      { "theHamsta/nvim-dap-virtual-text", config = true },
+      { "rcarriga/nvim-dap-ui", dependencies = { "nvim-neotest/nvim-nio" }, config = true },
+    },
+    config = function()
+      require("dap").adapters["pwa-node"] = {
+        type = "server",
+        host = "localhost",
+        port = 8123,
+        executable = {
+          command = os.getenv("HOME") .. "/.local/share/nvim/mason/bin/js-debug-adapter",
+        },
+      }
+
+      require("dap").adapters["chrome"] = {
+        type = "executable",
+        command = "node",
+        args = {
+          os.getenv("HOME") .. "/.local/share/nvim/mason/packages/chrome-debug-adapter/out/src/chromeDebug.js",
+        },
+      }
+
+      local dap = require("dap")
+      local js_based_languages = { "typescript", "javascript", "typescriptreact", "javascriptreact" }
+      for _, language in ipairs(js_based_languages) do
+        dap.configurations[language] = {
+          {
+            name = "Next.js: debug server",
+            type = "pwa-node",
+            request = "launch",
+            program = "${workspaceFolder}/node_modules/next/dist/bin/next",
+            runtimeArgs = { "--inspect" },
+            skipFiles = { "<node_internals>/**" },
+            serverReadyAction = {
+              action = "debugWithChrome",
+              killOnServerStop = true,
+              pattern = "- Local:.+(https?://.+)",
+              uriFormat = "%s",
+              webRoot = "${workspaceFolder}",
+            },
+            cwd = "${workspaceFolder}",
+          },
+          {
+            name = "Next.js: debug client-side",
+            type = "chrome",
+            request = "launch",
+            url = "http://localhost:3000",
+            webRoot = "${workspaceFolder}",
+            sourceMaps = true,
+            sourceMapPathOverrides = {
+              ["webpack://_N_E/*"] = "${webRoot}/*",
+            },
+          },
+        }
+      end
+    end,
+  },
+  {
     "linux-cultist/venv-selector.nvim",
     dependencies = { "neovim/nvim-lspconfig", "mfussenegger/nvim-dap", "mfussenegger/nvim-dap-python" },
     opts = {
