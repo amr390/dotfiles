@@ -1,18 +1,5 @@
 return {
-  {
-    "craftzdog/solarized-osaka.nvim",
-    lazy = true,
-    opts = {
-      transparent = false,
-    },
-  },
   -- Configure LazyVim to load solarized
-  {
-    "LazyVim/LazyVim",
-    opts = {
-      colorscheme = "solarized-osaka",
-    },
-  },
   {
     "snacks.nvim",
     opts = {
