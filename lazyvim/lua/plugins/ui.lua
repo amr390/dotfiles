@@ -1,3 +1,20 @@
+local picker = require("snacks.picker")
+local dap     = require("dap")
+
+-- Register a Snacks picker to debug via DAP configurations
+picker.register("snacks_picker_list", {
+  name = "🛠 DAP Configurations",
+  items = function()
+    return dap.configurations.javascript or {}
+  end,
+  display = function(item)
+    return item.name
+  end,
+  on_select = function(item)
+    dap.run(item)
+  end,
+})
+
 return {
   {
     "craftzdog/solarized-osaka.nvim",
@@ -35,6 +52,7 @@ return {
             { icon = " ", key = "r", desc = "Recent Files", action = ":lua Snacks.dashboard.pick('oldfiles')" },
             { icon = " ", key = "c", desc = "Config", action = ":lua Snacks.dashboard.pick('files', {cwd = vim.fn.stdpath('config')})" },
             { icon = " ", key = "s", desc = "Restore Session", section = "session" },
+            { icon = " ", key = "d", desc = "Debug Picker", action = ":lua Snacks.dashboard.pick('snacks_picker_list')" },
             { icon = " ", key = "x", desc = "Lazy Extras", action = ":LazyExtras" },
             { icon = "󰒲 ", key = "l", desc = "Lazy", action = ":Lazy" },
             { icon = " ", key = "q", desc = "Quit", action = ":qa" },

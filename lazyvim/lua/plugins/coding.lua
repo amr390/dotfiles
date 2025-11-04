@@ -115,4 +115,49 @@ return {
       })
     end,
   },
+  -- Debug support for JavaScript and TypeScript (including Next.js)
+  {
+    "mxsdev/nvim-dap-vscode-js",
+    dependencies = { "mfussenegger/nvim-dap" },
+    event = "VeryLazy",
+    config = function()
+      require("dap-vscode-js").setup({
+        -- Path to vscode-js-debug install, adjust if needed
+        debugger_path = vim.fn.stdpath("data") .. "/dapinstall/js-debug",
+        adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
+      })
+      for _, lang in ipairs({ "typescript", "javascript" }) do
+        require("dap").configurations[lang] = {
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Launch Current File",
+            program = "${file}",
+            cwd = "${workspaceFolder}",
+          },
+          {
+            type = "pwa-node",
+            request = "launch",
+            name = "Debug Next.js (npm run dev)",
+            runtimeExecutable = "npm",
+            runtimeArgs = { "run", "dev" },
+            cwd = "${workspaceFolder}",
+            console = "integratedTerminal",
+          },
+          {
+            type = "pwa-chrome",
+            request = "launch",
+            name = "Launch Chrome",
+            url = "http://localhost:3000",
+            webRoot = "${workspaceFolder}",
+          },
+        }
+      end
+      -- Allow debugging from Snacks picker list buffers (fallback to JavaScript configs)
+      do
+        local dap = require("dap")
+        dap.configurations.snacks_picker_list = vim.deepcopy(dap.configurations.javascript)
+      end
+    end,
+  },
 }

@@ -28,6 +28,16 @@
 -- })
 --
 -- vim.api.nvim_del_augroup_by_name("lazyvim_wrap_spell")
+
+-- DAP fallback for Snacks picker list buffers
+vim.api.nvim_create_autocmd("FileType", {
+  pattern = "snacks_picker_list",
+  callback = function()
+    local dap = require("dap")
+    -- Use JS configurations when debugging from a Snacks picker list
+    dap.configurations.snacks_picker_list = vim.deepcopy(dap.configurations.javascript or {})
+  end,
+})
 --
 -- vim.filetype.add({
 --   extension = {
