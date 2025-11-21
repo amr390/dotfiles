@@ -18,7 +18,7 @@ dotfiles/
 ## Quick Start
 
 ```bash
-# Install all dotfiles
+# First time setup
 ./scripts/setup.sh
 
 # Or manually
@@ -27,6 +27,52 @@ dotfiles/
 # Uninstall
 ./scripts/uninstall.sh
 ```
+
+## Handling Conflicts
+
+If you have existing configs, choose one:
+
+**Option 1: Adopt existing configs**
+```bash
+./scripts/adopt.sh
+```
+This merges your current configs into packages/ and creates symlinks.
+
+**Option 2: Manual merge (recommended for multi-system)**
+```bash
+# Backup existing
+mkdir -p ~/dotfiles-backup
+mv ~/.zshrc ~/.bashrc ~/.config/nvim ~/dotfiles-backup/
+
+# Install
+./scripts/install.sh
+
+# Manually merge machine-specific settings from backup
+```
+
+**Option 3: Per-package adopt**
+```bash
+cd packages
+stow --adopt -t ~ zsh  # Just zsh
+git diff               # Review changes
+```
+
+## Multi-System Setup
+
+For different configs across systems (macOS, Debian, Arch), use OS-specific files:
+
+```bash
+# In your .zshrc
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    source ~/.config/zsh/macos.zsh
+elif [[ -f /etc/debian_version ]]; then
+    source ~/.config/zsh/debian.zsh
+elif [[ -f /etc/arch-release ]]; then
+    source ~/.config/zsh/arch.zsh
+fi
+```
+
+See `MULTI_SYSTEM.md` for details.
 
 ## Install Specific Packages
 
