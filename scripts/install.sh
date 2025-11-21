@@ -1,27 +1,67 @@
 #!/bin/bash
+
 set -e
-cd "$(dirname "$0")/../packages"
 
-echo "Installing dotfiles..."
-echo ""
-echo "If conflicts occur, backup your existing configs first:"
-echo "  mkdir -p ~/dotfiles-backup"
-echo "  mv ~/.zshrc ~/.bashrc ~/.config/nvim ~/dotfiles-backup/"
-echo ""
+DOTFILES_DIR="$(cd "$(dirname "${BASH_SOURCE[0]}")/.." && pwd)"
+PACKAGES_DIR="$DOTFILES_DIR/packages"
 
-# Remove problematic symlinks
-[ -L ../bin/pyenv ] && rm ../bin/pyenv
+# Detect OS
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    OS="macos"
+elif [[ -f /etc/debian_version ]]; then
+    OS="debian"
+elif [[ -f /etc/arch-release ]]; then
+    OS="arch"
+else
+    OS="unknown"
+fi
 
-for pkg in zsh bash vim nvim tmux git misc; do
-    if [ -d "$pkg" ]; then
-        if stow -n -t ~ "$pkg" 2>&1 | grep -q "conflict"; then
-            echo "⚠ $pkg - conflicts detected, skipping"
-        else
-            stow -t ~ "$pkg"
-            echo "✓ $pkg"
-        fi
+echo "Installing dotfiles for $OS..."
+
+# Install stow if not present
+if ! command -v stow &> /dev/null; then
+    echo "Installing GNU Stow..."
+    case $OS in
+        macos)
+            if ! command -v brew &> /dev/null; then
+                echo "Homebrew required. Install: /bin/bash -c \"\$(curl -fsSL https://raw.githubusercontent.com/Homebrew/install/HEAD/install.sh)\""
+                exit 1
+            fi
+            brew install stow
+            ;;
+        debian)
+            sudo apt update && sudo apt install -y stow
+            ;;
+        arch)
+            sudo pacman -S --noconfirm stow
+            ;;
+        *)
+            echo "Unknown OS. Please install stow manually."
+            exit 1
+            ;;
+    esac
+fi
+
+# Clean up old conflicting symlinks
+[[ -L ~/.tmux.conf && "$(readlink ~/.tmux.conf)" == ".dotfiles/tmux.conf" ]] && rm ~/.tmux.conf
+[[ -L ~/.config/zsh && "$(readlink ~/.config/zsh)" == "../.dotfiles/zsh" ]] && rm ~/.config/zsh
+
+cd "$PACKAGES_DIR"
+
+packages=("tmux" "git" "misc" "bin" "vim" "nvim" "zsh" "bash")
+
+for package in "${packages[@]}"; do
+    if [[ -d "$package" ]]; then
+        echo "Installing $package..."
+        stow -v "$package"
     fi
 done
 
-echo ""
-echo "Done! Use --adopt flag manually if you want to merge existing configs."
+# Fix config links
+[[ ! -L ~/.config/zsh ]] && ln -sf ../.dotfiles/packages/zsh/.config/zsh ~/.config/zsh
+[[ ! -L ~/.config/bash ]] && ln -sf ../.dotfiles/packages/bash/.config/bash ~/.config/bash
+[[ ! -L ~/.config/nvim ]] && ln -sf ../.dotfiles/packages/nvim/.config/nvim ~/.config/nvim
+[[ ! -L ~/.zshrc ]] && ln -sf .dotfiles/packages/zsh/.zshrc ~/.zshrc
+
+echo "✅ Dotfiles installation complete for $OS!"
+echo "Run: exec zsh"

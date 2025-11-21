@@ -17,6 +17,21 @@ dotfiles/
 
 ## Quick Start
 
+### Universal Installation (Auto-detects OS)
+```bash
+./scripts/install.sh
+```
+
+### OS-Specific Scripts (Optional)
+```bash
+./scripts/install-macos.sh     # macOS only
+./scripts/install-debian.sh    # Debian/Ubuntu only  
+./scripts/install-arch.sh      # Arch Linux only
+```
+
+See [MACOS_SETUP.md](MACOS_SETUP.md) for detailed macOS instructions.
+
+### General Setup
 ```bash
 # First time setup
 ./scripts/setup.sh

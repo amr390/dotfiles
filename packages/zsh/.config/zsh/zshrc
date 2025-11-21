@@ -1,4 +1,5 @@
 #!/bin/sh
+DEBUG=false
 
 # Initialize locale and support true color in terminal and tmux
 export LANG=en_US.UTF-8
@@ -103,5 +104,14 @@ bindkey -r "^d"
 # Environment variables set everywhere
 export EDITOR="nvim"
 
-# swap escape and caps
+# OS-specific configurations
+if [[ "$OSTYPE" == "darwin"* ]]; then
+    zsh_add_file "macos"
+elif [[ -f /etc/debian_version ]]; then
+    zsh_add_file "debian"
+elif [[ -f /etc/arch-release ]]; then
+    zsh_add_file "arch"
+fi
+
+# swap escape and caps (Linux only)
 # setxkbmap -option caps:swapescape
