@@ -1,0 +1,249 @@
+#!/bin/sh
+
+DOTFILES=$HOME/Documents/dotfiles
+PROJECTS=$HOME/Projects
+TODAY=$(date +%Y-%m-%d)
+
+alias ..="cd ../"
+alias ...="cd ../.."
+alias ....="cd ../../.."
+alias duc="du -hc --max-depth=1 2>/dev/null | sort -n"
+alias fdp="fd --type f --hidden --follow --exclude .git --exclude node_modules --exclude .venv --exclude .idea --exclude .vscode"
+alias fdpp="ps aux | grep $1 | aws '{print $2}' | xargs kill -9"
+alias lbjstatq="eb ssh livebook-qa-env --command \"sudo jstat -gcutil \\\$(ps aux | grep tomcat | head -1 | awk '{print \\\$2}') 5s\""
+alias lbjstat="eb ssh livebook-prod-env --command \"sudo jstat -gcutil \\\$(ps aux | grep tomcat | head -1 | awk '{print \\\$2}') 5s\""
+
+alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
+
+alias myip="curl http://ipecho.net/plain; echo"
+
+alias vi="npm &> /dev/null; nvim"
+alias v="npm &> /dev/null; nvim"
+alias groovyConsole="GTK_THEME=light groovyConsole"
+
+if [[ $(uname) == "Darwin" ]]; then
+  alias o="open"
+else
+  alias o="gnome-open"
+fi
+
+# Colorize grep output (good for log files)
+alias grep='grep --color=auto'
+alias egrep='grep -E --color=auto'
+alias fgrep='fgrep --color=auto'
+
+# confirm before overwriting something
+# alias cp="cp -i"
+alias mv='mv -i'
+alias rm='rm -i'
+# Colorize the ls output ##
+# alias ls='LC_COLLATE=C ls -h --group-directories-first --color=auto'
+alias ll='ls -lrS --color=auto'
+
+# easier to read disk
+alias df='df -h'     # human-readable sizes
+alias free='free -m' # show sizes in MB
+alias du='du -ch'
+
+# get top process eating memory
+alias psmem='ps auxf | sort -nr -k 4 | head -5'
+
+# get top process eating cpu ##
+alias pscpu='ps auxf | sort -nr -k 3 | head -5'
+
+# gpg encryption
+# verify signature for isos
+alias gpg-check="gpg2 --keyserver-options auto-key-retrieve --verify"
+# receive the key of a developer
+alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
+
+alias enc="gpg --output $TODAY.vg.gpg --symmetric " $1
+alias dec="gpg --output v.mkv -d " $1
+
+
+# systemd
+alias mach_list_systemctl="systemctl list-unit-files --state=enabled"
+
+alias mach_java_mode="export SDKMAN_DIR="$HOME/.sdkman" && [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh""
+
+[[ -f $DOTFILES/bash/private-aliases ]] && source $DOTFILES/bash/private-aliases
+[[ -f $DOTFILES/bash/aliases-manning ]] && source $DOTFILES/bash/aliases-manning
+
+alias mdbackups='cd $HOME/Documents/Manning/data/db_backups'
+
+VB_HOME="$PROJECTS/spoonsdevs/vatbook"
+# alias vb3="cd $VB_HOME && workon vb3"
+alias vb3="cd $VB_HOME"
+alias vb3a="cd $VB_HOME && source .venv/bin/activate"
+alias vbackup="scp sd:/mnt/spoons_bkps/db_backups/ledger_$(date +\%Y\%m\%d)10.backup.sql ."
+
+#STAGING
+alias vb-run-p="$VB_HOME/manage.py runserver --settings=vatbook.env.staging"
+alias vb-mm-p="$VB_HOME/manage.py makemigrations --settings=vatbook.env.staging"
+alias vb-m-p="$VB_HOME/manage.py migrate --settings=vatbook.env.staging"
+alias vb-sh-p="$VB_HOME/manage.py shell --settings=vatbook.env.staging"
+# DEVELOP
+alias vb-run-d="$VB_HOME/manage.py runserver --settings=vatbook.env.develop"
+alias vb-mm-d="$VB_HOME/manage.py makemigrations --settings=vatbook.env.develop"
+alias vb-m-d="$VB_HOME/manage.py migrate --settings=vatbook.env.develop"
+alias vb-sh-d="$VB_HOME/manage.py shell --settings=vatbook.env.develop"
+
+
+# RCLONE mounts
+alias mountgdq="rclone mount gd_quijote: ~/Documents/net/gd_quijote"
+alias mountgdam="rclone mount gd_a.mas.rodriguez: ~/Documents/net/gd_a.mas.rodriguez/"
+alias mountgdan="rclone mount gd_anma: ~/Documents/net/gd_anma"
+
+
+TC_HOME="$PROJECTS/sandbox/timecop"
+TC_REST="$PROJECTS/sandbox/timecop/timecop-rest/"
+TC_CLI="$PROJECTS/sandbox/timecop/timecop-cli/"
+
+#DEVELOP
+IO_HOME="$PROJECTS/sandbox/ioCtl"
+alias ioctl="cd $IO_HOME"
+
+alias tc-run="cd $TC_REST && source env/bin/activate && flask run"
+alias tc-serve="cd $TC_CLI && ionic serve"
+
+SAT_HOME="$PROJECTS/spoonsdevs/sat8485"
+alias sat="cd $SAT_HOME"
+
+#STAGING
+alias sat-run-p="$SAT_HOME/manage.py runserver --settings=sat8485.settings.staging"
+alias sat-mm-p="$SAT_HOME/manage.py makemigrations --settings=sat8485.settings.staging"
+alias sat-m-p="$SAT_HOME/manage.py migrate --settings=sat8485.settings.staging"
+alias sat-sh-p="$SAT_HOME/manage.py shell --settings=sat8485.settings.staging"
+
+alias opensearchstop="docker ps | grep some-opensearch && docker kill some-opensearch; docker rm some-opensearch"
+alias opensearchrun="opensearchstop; docker run -d \
+  --hostname my-opensearch \
+  --name some-opensearch \
+  -p 9000:9000 \
+  -p 9600:9600 \
+  -v $HOME/Documents/tmp/docker/volumes/opensearch:/var/lib/opensearchserver/ \
+  -e \"discovery.type=single-node\" \
+  opensearchproject/opensearch:latest"
+
+alias rabbitstop="docker ps | grep some-rabbit && docker kill some-rabbit; docker rm some-rabbit"
+alias rabbitrun="rabbitstop; docker run -d \
+    --hostname my-rabbit \
+    --name some-rabbit \
+    -p 15672:15672 \
+    -p 4369:4369 \
+    -p 5671:5671 \
+    -p 5672:5672 \
+    -p 15671:15671 \
+    -p 25672:25672  \
+    -v $HOME/Documents/tmp/docker/volumes/rabbitmq:/var/lib/rabbitmq/ \
+    rabbitmq:3-management"
+
+alias postgreststop="docker ps | grep some-pgrest && docker kill some-pgrest; docker rm some-pgrest"
+alias postgrestrun="postgreststop; docker run -d \
+    -p 8095:3000 \
+    --net=host \
+    --name some-pgrest \
+    -e PGRST_DB_URI=\"postgres://root:@localhost/marketplace\" \
+    -e PGRST_DB_SCHEMAS=\"public\" \
+    -e PGRST_DB_ANON_ROLE=\"root\" \
+    postgrest/postgrest"
+
+alias mongorun="docker run -d \
+    --hostname mongo  \
+    --name mongo \
+    -p 27017:27017 \
+    -v $HOME/Documents/tmp/docker/volumes/mongo:/var/lib/mongo/ \
+    mongo"
+
+alias memcachedstop="docker ps | grep some-memcached && docker kill some-memcached; docker rm some-memcached"
+alias memcachedrun="memcachedstop; docker run -d --name some-memcached -p 11211:11211 memcached"
+
+alias redisstop="docker ps | grep some-redis && docker kill some-redis; docker rm some-redis"
+alias redisrun="redisstop; docker run -d --name some-redis -p 6379:6379 redis"
+
+    # -p 8443:8443 \
+    # -p 8080:8080 \
+
+alias tomcatrun="docker run -d \
+    --name tomcat \
+    --network=host \
+    -e JAVA_OPTS=-Dgrails.env=development \
+    -v $HOME/Documents/tmp/docker/volumes/tomcat/webapps:/usr/local/tomcat/webapps \
+    -v $HOME/Documents/tmp/docker/volumes/tomcat/logs:/usr/local/tomcat/logs \
+    -v $HOME/Documents/tmp/docker/volumes/tomcat/conf:/usr/local/tomcat/conf \
+    tomcat:9.0.86-jdk11"
+#   --network=host \
+#     tomcat:10.1.18-jdk11"
+alias tomcatstop="docker kill tomcat; docker rm tomcat"
+
+alias hzstop="docker ps | grep hz && docker kill hz; docker rm hz"
+alias hzrun="hzstop; docker run -d \
+    --hostname hz \
+    --name hz \
+    -p 5701:5701 \
+    -v $HOME/Documents/tmp/docker/volumes/hz:/var/lib/hz/ \
+    hazelcast/hazelcast:latest"
+
+alias mysqlstop="docker ps | grep some-mysql && docker kill some-mysql; docker rm some-mysql"
+alias mysqlrun="mysqlstop; docker run -d \
+    --name some-mysql \
+    -e MYSQL_ROOT_PASSWORD=secret\
+    -e MYSQL_USER=app_user\
+    -e MYSQL_PASSWORD=P@ssw0rd!\
+    -p 3306:3306 \
+    -v $HOME/Documents/tmp/docker/volumes/mysql:/var/lib/mysql/ \
+    mysql:8.0"
+
+
+alias mongostop="docker kill mongo;  docker rm mongo"
+
+alias hostip="ip route show 0.0.0.0/0 | grep -Eo 'via \S+' | awk '{ print \$2 }'"
+
+alias wsdstat="watch -t -n1 'awk \"{ print \$9}\" /sys/block/sdd/stat'"
+alias wmm="watch grep -e Dirty: -e Writeback: /proc/meminfo"
+
+kill_process() {
+    pids=$(ps aux | grep $1 | awk '{ print $2 }')
+
+    for pid in "${pids[@]}"; do
+        kill $pid
+    done
+}
+alias kcas='kill $(lsof -t -i:9443)'
+
+reset_db() {
+    sudo su postgres -c "dropdb $1; createdb $1"
+}
+
+open_tunel() {
+    if [ "$#" -eq 3 ]; then 
+        ssh -a -N -f -L $2:$1:$3 bastion
+    else
+        ssh -a -N -f -L $2:$1:$2 bastion
+    fi
+}
+
+alias epubChk="java -jar $HOME/Documents/Apps/epubcheck-4.2.6/epubcheck.jar $1"
+alias eve="source ~/.local/bin/virtualenvwrapper.sh"
+alias zcfg="cd $DOTFILES/zsh/ && vim zshrc"
+alias cfg="cd $DOTFILES"
+
+alias gv8="sdk use gradle 8.13; sdk use java 21.0.2-amzn"
+
+alias sshcmd="sed -E -i '' \
+  's/(precomposeunicode = true)/\1\n\tsshCommand = ssh -i ~\/\.ssh\/id_mac_manning/g'\
+  .git/config"
+
+alias sshcmd1="sed -E -i \
+  's/(\[core\])/\1\n\tsshCommand = ssh -i ~\/\.ssh\/id_desktop_manning_rsa/g'\
+  .git/config"
+
+
+use_git_manning() {
+  export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_desktop_manning_rsa' 
+}
+
+[[ -f $DOTFILES/zsh/private-manning-aliases ]] && source $DOTFILES/zsh/private-manning-aliases
+[[ -f $DOTFILES/zsh/zsh-private ]] && source $DOTFILES/zsh/zsh-private
+[[ -f $DOTFILES/zsh/zsh-tmp ]] && source $DOTFILES/zsh/zsh-tmp
+

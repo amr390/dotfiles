@@ -1,0 +1,54 @@
+#!/bin/sh
+log "zsh-exports: starting exports"
+export term=xterm-256color
+# histfile="$xdg_data_home"/zsh/history
+histsize=1000000
+savehist=1000000
+
+#echo "setting node modules variable"
+APPS_HOME="$HOME/Apps"
+NODE_MODULES="$APPS_HOME/node_modules"
+MONGO_HOME="$APPS_HOME/mongodb"
+WORK_DIR="$HOME/Documents/dotfiles"
+ANDROID_SDK_ROOT=$APPS_HOME/android-sdk-tools/
+
+[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+
+# Lazy load nvm and sdk. do not make them lazy here
+zsh_add_file "zsh-nvm"
+# lazynvm
+zsh_add_file "zsh-sdk"
+lazysdk
+
+log "zsh-exports: adding virtualenv"
+# ####### PYTHON VIRTUALENV ###############
+export WORKON_HOME=$HOME/.local/share/virtualenv/virtualenvs
+export VIRTUALENVWRAPPER_PYTHON=/usr/bin/python3
+export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
+[[ -f /usr/local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=/usr/local/bin/virtualenv
+[[ -f ~/.local/bin/virtualenv ]] && export VIRTUALENVWRAPPER_VIRTUALENV=~/.local/bin/virtualenv
+
+# [[ -f ~/.local/bin/virtualenvwrapper.sh ]] && source ~/.local/bin/virtualenvwrapper.sh 
+
+# $DEBUG && echo "zsh-exports: adding gopath"
+# export GOPATH=/home/amr/.local/share/go
+
+#echo "adding path folders"
+# ####### Configure PATH ###############
+#  - These are line by line so that you can kill one without affecting the others.
+#  - Lowest priority first, highest priority last.
+PATH="$HOME/.local/bin":$PATH
+# PATH="$MONGO_HOME/bin:$PATH" # MongoDB home
+# PATH=$APPS_HOME/tinkerpop/bin:$PATH
+PATH=$WORK_DIR/bin:$PATH
+PATH="$HOME/.nvm/versions/node/v23.9.0/bin":$PATH
+# PATH=$NODE_MODULES/bin:$PATH # node modules bin
+# PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
+
+# MAC
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+  # PATH=$HOME/.local/share/virtualenv/virtualenvs/neovim/bin:$PATH
+  PATH=$GOPATH/bin:$PATH # go
+fi
+export PATH
