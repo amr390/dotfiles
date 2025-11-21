@@ -1,0 +1,7 @@
+# AUR packages to install
+# One package per line, comments allowed
+
+# Kubernetes tools
+stern-bin
+
+# Add AUR packages here

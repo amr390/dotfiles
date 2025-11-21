@@ -1,0 +1,7 @@
+# Arch Linux packages to remove
+# One package per line, comments allowed
+
+1password
+hey
+
+# Add more packages to remove here

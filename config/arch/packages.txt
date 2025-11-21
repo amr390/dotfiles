@@ -1,0 +1,20 @@
+# Arch Linux packages to install
+# One package per line, comments allowed
+
+# Terminal & Shell
+zsh
+tmux
+starship
+
+# Development
+git
+neovim
+fzf
+
+# Kubernetes
+kubectl
+
+# Tools
+ghostty
+
+# Add more packages here

@@ -11,27 +11,14 @@ dotfiles/
 ├── packages/      # Stow packages (configs to symlink)
 ├── bin/           # User scripts and executables
 ├── scripts/       # Setup and maintenance scripts
+│   └── arch/      # Arch Linux specific scripts
 ├── config/        # System configs and package lists
+│   └── arch/      # Arch Linux package lists
 └── archive/       # Old/unused configurations
 ```
 
 ## Quick Start
 
-### Universal Installation (Auto-detects OS)
-```bash
-./scripts/install.sh
-```
-
-### OS-Specific Scripts (Optional)
-```bash
-./scripts/install-macos.sh     # macOS only
-./scripts/install-debian.sh    # Debian/Ubuntu only  
-./scripts/install-arch.sh      # Arch Linux only
-```
-
-See [MACOS_SETUP.md](MACOS_SETUP.md) for detailed macOS instructions.
-
-### General Setup
 ```bash
 # First time setup
 ./scripts/setup.sh
@@ -42,6 +29,22 @@ See [MACOS_SETUP.md](MACOS_SETUP.md) for detailed macOS instructions.
 # Uninstall
 ./scripts/uninstall.sh
 ```
+
+## OS-Specific Setup
+
+### Arch Linux
+
+Manage system packages:
+
+```bash
+# Install/remove official packages
+./scripts/arch/setup.sh
+
+# Install/remove AUR packages
+./scripts/arch/aur-setup.sh
+```
+
+Edit package lists in `config/arch/`. See [config/arch/README.md](config/arch/README.md) for details.
 
 ## Handling Conflicts
 

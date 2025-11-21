@@ -1,0 +1,4 @@
+# AUR packages to remove
+# One package per line, comments allowed
+
+# Add AUR packages to remove here
