@@ -1,6 +1,6 @@
 # macOS-specific configurations
 
-# Homebrew
+# Homebrew - must be first to set PATH correctly
 if [[ -f "/opt/homebrew/bin/brew" ]]; then
     eval "$(/opt/homebrew/bin/brew shellenv)"
 elif [[ -f "/usr/local/bin/brew" ]]; then
@@ -30,11 +30,8 @@ function trash() {
 alias pbcopy='pbcopy'
 alias pbpaste='pbpaste'
 
-# macOS-specific PATH additions
-PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
-# PATH=$HOME/.local/share/virtualenv/virtualenvs/neovim/bin:$PATH
-PATH=$GOPATH/bin:$PATH # go
-export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
+# Add Go to PATH if GOPATH is set
+[[ -n "$GOPATH" ]] && PATH=$GOPATH/bin:$PATH
 
 # macOS Terminal.app integration
 if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
@@ -49,3 +46,13 @@ fi
 
 
 
+
+# macOS Terminal.app integration
+if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
+    update_terminal_cwd() {
+        printf '\e]7;%s\a' "file://$HOSTNAME${PWD// /%20}"
+    }
+    autoload add-zsh-hook
+    add-zsh-hook chpwd update_terminal_cwd
+    update_terminal_cwd
+fi

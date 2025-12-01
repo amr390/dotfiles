@@ -106,11 +106,11 @@ export EDITOR="nvim"
 
 # OS-specific configurations
 if [[ "$OSTYPE" == "darwin"* ]]; then
-    zsh_add_file "macos"
+    zsh_add_file "macos.zsh"
 elif [[ -f /etc/debian_version ]]; then
-    zsh_add_file "debian"
+    zsh_add_file "debian.zsh"
 elif [[ -f /etc/arch-release ]]; then
-    zsh_add_file "arch"
+    zsh_add_file "arch.zsh"
 fi
 
 # swap escape and caps (Linux only)

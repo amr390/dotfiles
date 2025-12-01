@@ -34,11 +34,6 @@ export VIRTUALENVWRAPPER_HOOK_DIR=$WORKON_HOME/hooks
 #  - These are line by line so that you can kill one without affecting the others.
 #  - Lowest priority first, highest priority last.
 PATH="$HOME/.local/bin":$PATH
-# PATH="$MONGO_HOME/bin:$PATH" # MongoDB home
-# PATH=$APPS_HOME/tinkerpop/bin:$PATH
 PATH=$WORK_DIR/bin:$PATH
-PATH="$HOME/.nvm/versions/node/v23.9.0/bin":$PATH
-# PATH=$NODE_MODULES/bin:$PATH # node modules bin
-# PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
 
 export PATH
