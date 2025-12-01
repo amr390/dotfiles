@@ -1,7 +1,0 @@
-init.author.name=Hiro Protagonist
-init.author.email=hiro@showcrash.io
-init.author.url=http://hiro.snowcrash.io/
-init.license=MIT
-init.version=0.0.1
-loglevel=silent
-prefix=/home/amr/Documents/Apps/node_modules
