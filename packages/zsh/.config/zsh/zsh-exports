@@ -2,8 +2,6 @@
 log "zsh-exports: starting exports"
 export term=xterm-256color
 # histfile="$xdg_data_home"/zsh/history
-histsize=1000000
-savehist=1000000
 
 #echo "setting node modules variable"
 APPS_HOME="$HOME/Apps"
@@ -11,8 +9,6 @@ NODE_MODULES="$APPS_HOME/node_modules"
 MONGO_HOME="$APPS_HOME/mongodb"
 WORK_DIR="$HOME/Documents/dotfiles"
 ANDROID_SDK_ROOT=$APPS_HOME/android-sdk-tools/
-
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
 
 # Lazy load nvm and sdk. do not make them lazy here
 zsh_add_file "zsh-nvm"
@@ -45,10 +41,4 @@ PATH="$HOME/.nvm/versions/node/v23.9.0/bin":$PATH
 # PATH=$NODE_MODULES/bin:$PATH # node modules bin
 # PATH=$ANDROID_SDK_ROOT/tools/bin/:$ANDROID_SDK_ROOT/emulator/:$ANDROID_SDK_ROOT/tools/bin/:$PATH
 
-# MAC
-if [[ "$OSTYPE" == "darwin"* ]]; then
-  PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
-  # PATH=$HOME/.local/share/virtualenv/virtualenvs/neovim/bin:$PATH
-  PATH=$GOPATH/bin:$PATH # go
-fi
 export PATH

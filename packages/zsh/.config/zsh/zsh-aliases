@@ -243,7 +243,6 @@ use_git_manning() {
   export GIT_SSH_COMMAND='ssh -i ~/.ssh/id_desktop_manning_rsa' 
 }
 
-[[ -f $DOTFILES/zsh/private-manning-aliases ]] && source $DOTFILES/zsh/private-manning-aliases
-[[ -f $DOTFILES/zsh/zsh-private ]] && source $DOTFILES/zsh/zsh-private
-[[ -f $DOTFILES/zsh/zsh-tmp ]] && source $DOTFILES/zsh/zsh-tmp
-
+[[ -f $ZDOTDIR/zsh-private ]] && source $ZDOTDIR/zsh-private
+[[ -f $ZDOTDIR/zsh-tmp ]] && source $ZDOTDIR/zsh-tmp
+[[ -f $ZDOTDIR/zsh-private-keys ]] && source $ZDOTDIR/zsh-private-keys

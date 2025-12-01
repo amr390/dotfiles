@@ -31,6 +31,9 @@ alias pbcopy='pbcopy'
 alias pbpaste='pbpaste'
 
 # macOS-specific PATH additions
+PATH=/opt/homebrew/bin:/opt/homebrew/sbin:$PATH
+# PATH=$HOME/.local/share/virtualenv/virtualenvs/neovim/bin:$PATH
+PATH=$GOPATH/bin:$PATH # go
 export PATH="/usr/local/bin:/usr/local/sbin:$PATH"
 
 # macOS Terminal.app integration
@@ -43,3 +46,6 @@ if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
     add-zsh-hook chpwd update_terminal_cwd
     update_terminal_cwd
 fi
+
+
+
