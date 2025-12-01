@@ -57,6 +57,8 @@ for package in "${packages[@]}"; do
     fi
 done
 
+stow -v -t ~ tmux
+
 # Fix config links
 [[ ! -L ~/.config/zsh ]] && ln -sf ../.dotfiles/packages/zsh/.config/zsh ~/.config/zsh
 [[ ! -L ~/.config/bash ]] && ln -sf ../.dotfiles/packages/bash/.config/bash ~/.config/bash
