@@ -1,1 +1,1 @@
-config.arch
+config.mac
