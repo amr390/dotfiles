@@ -48,7 +48,7 @@ fi
 
 cd "$PACKAGES_DIR"
 
-packages=("tmux" "git" "misc" "bin" "vim" "nvim" "zsh" "bash")
+packages=("tmux" "git" "misc" "bin" "vim" "nvim" "zsh" "bash" "ghostty")
 
 for package in "${packages[@]}"; do
     if [[ -d "$package" ]]; then
@@ -64,6 +64,11 @@ stow -v -t ~ tmux
 [[ ! -L ~/.config/bash ]] && ln -sf ../.dotfiles/packages/bash/.config/bash ~/.config/bash
 [[ ! -L ~/.config/nvim ]] && ln -sf ../.dotfiles/packages/nvim/.config/nvim ~/.config/nvim
 [[ ! -L ~/.zshrc ]] && ln -sf .dotfiles/packages/zsh/.zshrc ~/.zshrc
+
+# Setup OS-specific Ghostty config
+if [[ -d ~/.config/ghostty ]]; then
+    "$DOTFILES_DIR/scripts/ghostty-setup.sh"
+fi
 
 echo "✅ Dotfiles installation complete for $OS!"
 echo "Run: exec zsh"
