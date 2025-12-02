@@ -1,0 +1,7 @@
+# macOS specific settings
+# Enable P3 colorspace for Mac's wide-gamut display
+window-colorspace = display-p3
+# Enable the Command (Cmd) key for Alt/Meta functions
+macos-option-as-alt = true
+# Optional: Mac specific titlebar style
+macos-titlebar-style = transparent

@@ -1,0 +1,5 @@
+# Load common settings
+config-file = config.base
+
+# Load OS-specific settings (symlinked by scripts/ghostty-setup.sh)
+config-file = config.os
