@@ -70,6 +70,11 @@ else
 end
 -- vim.g.lazyvim_no_inlay_hints = true
 
+-- Fix LSP hanging in tmux
+if vim.env.TMUX then
+  vim.g.lsp_timeout_ms = 3000
+end
+
 local options = {
   autowrite = true, -- Enable auto write
   clipboard = "unnamedplus", -- Sync with system clipboard
