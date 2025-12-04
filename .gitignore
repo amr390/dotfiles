@@ -14,4 +14,6 @@ zsh/.zsh_history
 **/zsh/.config/zsh/.zsh_history
 **/zsh/plugins
 
+packages/ghostty/.config/ghostty/config.os
+
 .DS_Store
