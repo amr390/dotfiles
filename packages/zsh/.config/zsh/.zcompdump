@@ -1,4 +1,4 @@
-#files: 858	version: 5.9
+#files: 860	version: 5.9
 
 _comps=(
 '-' '_precommand'
@@ -197,6 +197,7 @@ _comps=(
 'composite' '_imagemagick'
 'compress' '_compress'
 'conch' '_twisted'
+'conda' '_conda'
 '-condition-' '_condition'
 'config.status' '_configure'
 'configure' '_configure'
@@ -748,6 +749,7 @@ _comps=(
 'makepkg' '_pacman'
 'mako' '_mako'
 'makoctl' '_makoctl'
+'mamba' '_conda'
 'man' '_man'
 'manage.py' '_django'
 'manila' '_openstack'
@@ -1130,6 +1132,7 @@ _comps=(
 'screen' '_screen'
 'script' '_script'
 'scriptreplay' '_script'
+'sdk' '_bash_complete -o default -F _sdk'
 'seaf-cli' '_seafile'
 'sed' '_sed'
 'senlin' '_openstack'
@@ -1878,7 +1881,7 @@ autoload -Uz _alacritty _bat _bootctl _busctl _bw \
             _widgets _zargs _zattr _zcalc _zcalc_line \
             _zcompile _zed _zftp _zle _zmodload \
             _zmv _zparseopts _zpty _zsh-mime-handler _zsocket \
-            _zstyle _ztodo
+            _zstyle _ztodo _conda _conda
 autoload -Uz +X _call_program
 
 typeset -gUa _comp_assocs
