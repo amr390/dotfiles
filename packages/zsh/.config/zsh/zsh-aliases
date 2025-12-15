@@ -244,5 +244,6 @@ use_git_manning() {
 }
 
 [[ -f $ZDOTDIR/zsh-private ]] && source $ZDOTDIR/zsh-private
+[[ -f $ZDOTDIR/private-manning-aliases ]] && source $ZDOTDIR/manning-private-aliases
 [[ -f $ZDOTDIR/zsh-tmp ]] && source $ZDOTDIR/zsh-tmp
 [[ -f $ZDOTDIR/zsh-private-keys ]] && source $ZDOTDIR/zsh-private-keys
