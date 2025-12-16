@@ -1,3 +1,15 @@
+# Homebrew setup (same as zsh)
+if [[ -f "/opt/homebrew/bin/brew" ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+elif [[ -f "/usr/local/bin/brew" ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+fi
+
+# PATH setup (same as zsh)
+PATH="$HOME/.local/bin":$PATH
+PATH="$HOME/Documents/dotfiles/bin":$PATH
+export PATH
+
 eval "$(starship init bash)"
 
 source ~/Documents/dotfiles/bash/config

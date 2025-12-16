@@ -44,15 +44,3 @@ if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
     update_terminal_cwd
 fi
 
-
-
-
-# macOS Terminal.app integration
-if [[ "$TERM_PROGRAM" == "Apple_Terminal" ]]; then
-    update_terminal_cwd() {
-        printf '\e]7;%s\a' "file://$HOSTNAME${PWD// /%20}"
-    }
-    autoload add-zsh-hook
-    add-zsh-hook chpwd update_terminal_cwd
-    update_terminal_cwd
-fi
