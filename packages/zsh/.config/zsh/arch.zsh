@@ -21,6 +21,8 @@ if command -v yay &> /dev/null; then
     alias yayu='yay -Syu'
 fi
 
+eval $(keychain --eval --quiet ~/.ssh/id_desktop_amasr ~/.ssh/id_desktop_manning)
+
 # Arch-specific exports
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
