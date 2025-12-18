@@ -85,7 +85,9 @@ return {
     event = "VeryLazy",
     version = false, -- Never set this value to "*"! Never!
     opts = {
-      provider = "gemini",
+      -- provider = "gemini",
+      -- provider = "copilot",
+      provider = "openai",
     },
     build = "make",
     dependencies = {
@@ -118,6 +120,15 @@ return {
         },
         ft = { "markdown", "Avante" },
       },
+    },
+  },
+  {
+    "olimorris/codecompanion.nvim",
+    version = "^18.0.0",
+    opts = {},
+    dependencies = {
+      "nvim-lua/plenary.nvim",
+      "nvim-treesitter/nvim-treesitter",
     },
   },
   {
