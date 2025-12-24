@@ -85,9 +85,9 @@ return {
     event = "VeryLazy",
     version = false, -- Never set this value to "*"! Never!
     opts = {
-      -- provider = "gemini",
+      provider = "gemini",
       -- provider = "copilot",
-      provider = "openai",
+      -- provider = "openai",
     },
     build = "make",
     dependencies = {
@@ -144,7 +144,6 @@ return {
     enabled = false,
     event = "BufWritePre", -- Load on buffer write pre-event
     cmd = { "Format", "FormatWrite" }, -- Load when these commands are used
-    enabled = false,
     config = function()
       require("formatter").setup({
         logging = false,
