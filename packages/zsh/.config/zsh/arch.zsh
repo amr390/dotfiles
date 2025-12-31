@@ -1,9 +1,10 @@
 # Arch Linux-specific configurations
+source ~/.local/share/omarchy/default/bash/aliases
+source ~/.local/share/omarchy/default/bash/functions
+source ~/.local/share/omarchy/default/bash/envs
 
 # Arch-specific aliases
-alias ls='ls --color=auto'
-alias ll='ls -alF'
-alias la='ls -A'
+alias la='ll -A'
 alias l='ls -CF'
 alias grep='grep --color=auto'
 
@@ -20,6 +21,10 @@ if command -v yay &> /dev/null; then
     alias yayi='yay -S'
     alias yayu='yay -Syu'
 fi
+
+alias rcdq="rclone mount drive.dq: ~/Documents/net/gd_quijote/ --daemon"
+alias rcam="rclone mount drive.dq: ~/Documents/net/gd_a.mas.rodriguez/ --daemon"
+alias rcma="rclone mount drive.dq: ~/Documents/net/gd_anma/ --daemon"
 
 eval $(keychain --eval --quiet ~/.ssh/id_desktop_amasr ~/.ssh/id_desktop_manning)
 
