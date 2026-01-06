@@ -1,0 +1,29 @@
+#!/bin/bash
+
+# Set session name
+SESSION="Console"
+SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
+WORKDIR=~/Projects/manning/livebook/livebook-ui/
+if [[ $# -eq 1 ]]; then
+  WORKDIR=$1
+fi
+
+# Only create a tmux session if it doesn't already exist
+if [ "$SESSIONEXISTS" = "" ]; then
+  # start new session with our name
+  tmux new-session -d -s $SESSION
+
+  # Name first Pane and start ssh
+  tmux rename-window -t 1 'Console'
+  [[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR; v" 'C-m'
+  tmux split-window -v
+  [[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
+  tmux split-window -h
+  [[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR; npm run dev" 'C-m'
+  tmux resize-pane -D 5
+  tmux select-pane -U
+
+fi
+
+# Attach session, on Main Window
+tmux attach-session -t $SESSION
