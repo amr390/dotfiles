@@ -1,11 +1,11 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Set session name
 SESSION="Console"
 SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
 WORKDIR=~/Projects/spoonsdevs/vatbook
 if [[ $# -eq 1 ]]; then
-	WORKDIR=$1
+  WORKDIR=$1
 fi
 
 # activate the virtual environment
@@ -18,18 +18,18 @@ fi
 
 # Only create a tmux session if it doesn't already exist
 if [ "$SESSIONEXISTS" = "" ]; then
-	# start new session with our name
-	tmux new-session -d -s $SESSION
+  # start new session with our name
+  tmux new-session -d -s $SESSION
 
-	# Name first Pane and start ssh
-	tmux rename-window -t 1 'Console'
-	[[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR; vb3; v" 'C-m'
-	tmux split-window -v
-	[[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR; vb3; vb-run-d" 'C-m'
-	tmux split-window -h
-	[[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR/frontend/react; npm run dev" 'C-m'
-	tmux resize-pane -D 5
-	tmux select-pane -U
+  # Name first Pane and start ssh
+  tmux rename-window -t 1 'Console'
+  [[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR; vb3; v" 'C-m'
+  tmux split-window -v
+  [[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR; vb3; vb-run-d" 'C-m'
+  tmux split-window -h
+  [[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR/frontend/react; npm run dev" 'C-m'
+  tmux resize-pane -D 5
+  tmux select-pane -U
 
 fi
 

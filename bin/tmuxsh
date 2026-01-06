@@ -1,33 +1,32 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Set session name
 SESSION="Console"
 SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
 if [[ $# -eq 1 ]]; then
   WORKDIR=$1
-fi 
+fi
 
 # Only create a tmux session if it doesn't already exist
 if [ "$SESSIONEXISTS" = "" ]; then
-	# start new session with our name
-	tmux new-session -d -s $SESSION
+  # start new session with our name
+  tmux new-session -d -s $SESSION
 
-	# Name first Pane and start ssh
-	tmux rename-window -t 1 'Console'
-	[[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
-	tmux split-window -v
-	[[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
-	tmux split-window -h
-	[[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
+  # Name first Pane and start ssh
+  tmux rename-window -t 1 'Console'
+  [[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
+  tmux split-window -v
+  [[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
+  tmux split-window -h
+  [[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
   tmux resize-pane -D 5
 
-	# Create and setup pane for NVIM
-	# tmux new-window -t $SESSION:2 -n 'IDE'
-	# tmux send-keys -t 'IDE' "cd $WORKDIR/server/ioctl && poetry shell" 'C-m'
+  # Create and setup pane for NVIM
+  # tmux new-window -t $SESSION:2 -n 'IDE'
+  # tmux send-keys -t 'IDE' "cd $WORKDIR/server/ioctl && poetry shell" 'C-m'
 fi
 
 # gnome-terminal --working-directory=$WORKDIR/server/ioctl
 
 # Attach session, on Main Window
-tmux attach-session -t $SESSION 
-
+tmux attach-session -t $SESSION

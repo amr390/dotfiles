@@ -1,4 +1,4 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Set session name
 SESSION="Console"
