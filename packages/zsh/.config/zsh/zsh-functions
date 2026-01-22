@@ -57,3 +57,13 @@ function set-title() {
   TITLE="\[\e]2;$*\a\]"
   PS1=${ORIG}${TITLE}
 }
+
+function override_logo()
+{
+  cp -f ~/Pictures/themes/icons/activities.svg ~/.local/share/gnome-shell/extensions/logomenu@aryan_k/Resources/void-logo.svg
+  cp -f ~/Pictures/themes/icons/activities.svg ~/.local/share/gnome-shell/extensions/logomenu@aryan_k/Resources/void-logo-symbolic.svg
+  cp -f ~/Pictures/themes/icons/activities.svg ~/.local/share/gnome-shell/extensions/logomenu@aryan_k/Resources/hicolor/16x16/actions/void-logo.svg
+  cp -f ~/Pictures/themes/icons/activities.svg ~/.local/share/gnome-shell/extensions/logomenu@aryan_k/Resources/hicolor/16x16/actions/void-logo-symbolic.svg
+  
+  alias cp='cp -i'
+}
