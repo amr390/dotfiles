@@ -60,10 +60,10 @@ done
 stow -v -t ~ tmux
 
 # Fix config links
-[[ ! -L ~/.config/zsh ]] && ln -sf ../.dotfiles/packages/zsh/.config/zsh ~/.config/zsh
-[[ ! -L ~/.config/bash ]] && ln -sf ../.dotfiles/packages/bash/.config/bash ~/.config/bash
-[[ ! -L ~/.config/nvim ]] && ln -sf ../.dotfiles/packages/nvim/.config/nvim ~/.config/nvim
-[[ ! -L ~/.zshrc ]] && ln -sf .dotfiles/packages/zsh/.zshrc ~/.zshrc
+[[ ! -L ~/.config/zsh ]] && ln -sf $PACKAGES_DIR/zsh/.config/zsh ~/.config/zsh
+[[ ! -L ~/.config/bash ]] && ln -sf $PACKAGES_DIR/bash/.config/bash ~/.config/bash
+[[ ! -L ~/.config/nvim ]] && ln -sf $PACKAGES_DIR/nvim/.config/nvim ~/.config/nvim
+[[ ! -L ~/.zshrc ]] && ln -sf $PACKAGES_DIR/zsh/.zshrc ~/.zshrc
 
 # Setup OS-specific Ghostty config
 if [[ -d ~/.config/ghostty ]]; then
