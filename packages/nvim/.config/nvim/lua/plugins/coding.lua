@@ -40,7 +40,7 @@ return {
             request = "launch",
             program = "${workspaceFolder}/node_modules/next/dist/bin/next",
             runtimeArgs = { "--inspect" },
-            skipFiles = { "<node_internals>/**" },
+            skipFiles = { "<node_internals>/**", "**/node_modules/**" },
             serverReadyAction = {
               action = "debugWithChrome",
               killOnServerStop = true,
