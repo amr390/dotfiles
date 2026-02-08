@@ -9,8 +9,8 @@ bin/.ropeproject*
 
 **/node_modules/
 
-**zsh/.zcompdump
-**zsh/.zsh_history
+**/zsh/.zcompdump
+**/zsh/.zsh_history
 **/zsh/.config/zsh/.zsh_history
 **/zsh/plugins
 
