@@ -44,7 +44,7 @@ if vim.env.TMUX then
   vim.api.nvim_create_autocmd("LspAttach", {
     callback = function(args)
       local client = vim.lsp.get_client_by_id(args.data.client_id)
-      if client and client.name == "tsserver" then
+      if client and (client.name == "tsserver" or client.name == "ts_ls" or client.name == "vtsls") then
         client.config.flags = client.config.flags or {}
         client.config.flags.debounce_text_changes = 500
       end

@@ -16,6 +16,11 @@ return {
         focused = true
       end,
     })
+    vim.api.nvim_create_autocmd("FocusLost", {
+      callback = function()
+        focused = false
+      end,
+    })
     table.insert(opts.routes, 1, {
       filter = {
         ["not"] = {

@@ -5,3 +5,8 @@ ERR 2025-11-03T20:25:46.319 ?.5262     vim_mktempdir:3307: tempdir root not owne
 ERR 2025-11-03T20:25:46.319 ?.5262     vim_mktempdir:3313: tempdir root has invalid permissions (37777777776): /tmp/nvim.501
 WRN 2025-11-03T20:25:46.320 ?.5262     vim_mktempdir:3325: tempdir create failed: operation not permitted: /tmp/nvim.XXXXXX
 WRN 2025-11-03T20:25:46.320 ?.5262     server_start:193: Failed to start server: operation not permitted: /Users/amr/.dotfiles/lazyvim/nvim.501/U8yjOV/nvim.5262.0
+WRN 2026-03-05T06:58:22.749 ?.3730     server_start:199: Failed to start server: operation not permitted: /var/folders/zt/2trkfvfj62b1pbj0pwnd7xw80000gn/T/nvim.amr/qzRpdq/nvim.3730.0
+WRN 2026-03-05T06:58:25.532 ?.3732     server_start:199: Failed to start server: operation not permitted: /var/folders/zt/2trkfvfj62b1pbj0pwnd7xw80000gn/T/nvim.amr/Cjjln0/nvim.3732.0
+WRN 2026-03-05T06:58:36.997 ?.3800     server_start:199: Failed to start server: operation not permitted: /var/folders/zt/2trkfvfj62b1pbj0pwnd7xw80000gn/T/nvim.amr/TolfXu/nvim.3800.0
+WRN 2026-03-05T06:59:04.913 ?.3845     server_start:199: Failed to start server: operation not permitted: /var/folders/zt/2trkfvfj62b1pbj0pwnd7xw80000gn/T/nvim.amr/S4rrPT/nvim.3845.0
+WRN 2026-03-05T07:01:45.130 ?.4975     server_start:199: Failed to start server: operation not permitted: /var/folders/zt/2trkfvfj62b1pbj0pwnd7xw80000gn/T/nvim.amr/J843CK/nvim.4975.0
