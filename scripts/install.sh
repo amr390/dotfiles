@@ -10,6 +10,8 @@ if [[ "$OSTYPE" == "darwin"* ]]; then
     OS="macos"
 elif [[ -f /etc/debian_version ]]; then
     OS="debian"
+elif [[ -f /etc/fedora-release ]]; then
+    OS="fedora"
 elif [[ -f /etc/arch-release ]]; then
     OS="arch"
 else
@@ -32,6 +34,10 @@ if ! command -v stow &> /dev/null; then
         debian)
             sudo apt update && sudo apt install -y stow
             ;;
+        fedora)
+            sudo dnf install stow -y
+            ;;
+
         arch)
             sudo pacman -S --noconfirm stow
             ;;
