@@ -60,6 +60,18 @@ alias gpg-retrieve="gpg2 --keyserver-options auto-key-retrieve --receive-keys"
 alias enc="gpg --output $TODAY.vg.gpg --symmetric " $1
 alias dec="gpg --output v.mkv -d " $1
 
+function gm() {
+  current="$(git branch --show-current)"
+  git checkout master
+  git pull
+  git checkout develop
+  git pull
+  git rebase master
+  git checkout $current
+  git merge develop
+  git push
+}
+
 
 # systemd
 alias mach_list_systemctl="systemctl list-unit-files --state=enabled"
