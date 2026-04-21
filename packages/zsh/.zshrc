@@ -12,3 +12,6 @@ source "$ZDOTDIR/zshrc"
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/.config/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.config/kiro-cli/shell/zshrc.post.zsh"
 [[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
+
+# Generated for envman. Do not edit.
+[ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
