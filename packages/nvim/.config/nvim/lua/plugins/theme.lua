@@ -1,15 +1,16 @@
 return {
   {
-    "catppuccin/nvim",
-    name = "catppuccin",
+    "craftzdog/solarized-osaka.nvim",
     lazy = true,
     priority = 1000,
+    -- opts = {
+    --   transparent = false,
+    -- },
   },
-
   {
     "LazyVim/LazyVim",
     opts = {
-      colorscheme = "catppuccin",
+      colorscheme = "solarized-osaka",
     },
   },
 }
