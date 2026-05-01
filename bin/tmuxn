@@ -1,116 +1,38 @@
-#!/bin/bash
+#!/bin/zsh
 
 # Set session name
-# cut to first character of uuid
-uuid=$(uuidgen | cut -c 1-2)
-SESSION="S-$uuid"
-WORKDIR=~/Projects/
-COMMAND_ARGS=()
-
-while [[ $# -gt 0 ]]; do
-  case "$1" in
-    -s|--session)
-      if [[ -z "$2" ]]; then
-        echo "tmuxn: missing session name after $1" >&2
-        exit 1
-      fi
-      SESSION="$2"
-      shift 2
-      ;;
-    --)
-      shift
-      break
-      ;;
-    -*)
-      echo "tmuxn: unknown option: $1" >&2
-      exit 1
-      ;;
-    *)
-      break
-      ;;
-  esac
-done
-
-if [[ $# -ge 1 ]]; then
-  WORKDIR="$1"
-  shift
+SESSION="Console"
+SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
+WORKDIR=~/Projects
+if [[ $# -eq 1 ]]; then
+  WORKDIR=$1
 fi
 
-if [[ $# -gt 0 ]]; then
-  COMMAND_ARGS=("$@")
-fi
-
-build_pane_command() {
-  local workdir="$1"
-  shift
-  local pane_command=""
-  local quoted_part
-
-  if [[ -n "$workdir" ]]; then
-    printf -v pane_command 'cd %q' "$workdir"
-  fi
-
-  if [[ $# -gt 0 ]]; then
-    local command_string=""
-    for arg in "$@"; do
-      printf -v quoted_part '%q' "$arg"
-      if [[ -n "$command_string" ]]; then
-        command_string+=" "
-      fi
-      command_string+="$quoted_part"
-    done
-
-    if [[ -n "$pane_command" ]]; then
-      pane_command+=" && $command_string"
-    else
-      pane_command="$command_string"
-    fi
-  fi
-
-  printf '%s' "$pane_command"
-}
-
-send_command_to_pane() {
-  local target="$1"
-  local command="$2"
-
-  [[ -z "$command" ]] && return 0
-
-  tmux send-keys -t "$target" "$command"
-  tmux send-keys -t "$target" Enter
-}
-
-FIRST_PANE_COMMAND="$(build_pane_command "" "${COMMAND_ARGS[@]}")"
-if [[ -z "$FIRST_PANE_COMMAND" ]]; then
-  FIRST_PANE_COMMAND="$(build_pane_command "" v)"
-fi
-DEV_COMMAND="$(build_pane_command "" npm run dev)"
-SESSION_CREATED=0
+# activate the virtual environment
+# cd $WORKDIR
+# if [[ "$OSTYPE" == "darwin"* ]]; then
+# 	$(poetry env activate)
+# else
+# 	poetry shell
+# fi
 
 # Only create a tmux session if it doesn't already exist
-if ! tmux has-session -t "$SESSION" 2>/dev/null; then
-  SESSION_CREATED=1
+if [ "$SESSIONEXISTS" = "" ]; then
+  cd $WORKDIR
+
   # start new session with our name
-  WINDOW="IDE"
-  tmux new-session -d -s "$SESSION" -n "$WINDOW" -c "$WORKDIR"
-  FIRST_PANE="$SESSION:$WINDOW.0"
-  SECOND_PANE="$SESSION:$WINDOW.1"
-  THIRD_PANE="$SESSION:$WINDOW.2"
+  tmux new-session -d -s $SESSION
 
   # Name first Pane and start ssh
-  send_command_to_pane "$FIRST_PANE" "$FIRST_PANE_COMMAND"
-  tmux split-window -v -t "$FIRST_PANE" -c "$WORKDIR"
-  tmux split-window -h -t "$SECOND_PANE" -c "$WORKDIR"
-  send_command_to_pane "$THIRD_PANE" "$DEV_COMMAND"
+  tmux rename-window -t 1 'IDE'
+  tmux send-keys -t $SESSION -c $WORKDIR "v" 'C-m'
+  tmux split-window -v
+  tmux send-keys -t $SESSION -c $WORKDIR 'C-m'
   tmux resize-pane -D 5
   tmux select-pane -U
-
-  tmux new-window -t "$SESSION:2" -n "AI"
-fi
-
-if [[ $SESSION_CREATED -eq 0 && ${#COMMAND_ARGS[@]} -gt 0 ]]; then
-  send_command_to_pane "$SESSION:IDE.0" "$FIRST_PANE_COMMAND"
+  tmux new-window -t $SESSION:2 -n 'AI'
+  tmux send-keys -t $SESSION "cd $WORKDIR;" 'C-m'
 fi
 
 # Attach session, on Main Window
-tmux attach-session -t "$SESSION"
+tmux attach-session -t $SESSION
