@@ -3,9 +3,9 @@ return {
     "craftzdog/solarized-osaka.nvim",
     lazy = true,
     priority = 1000,
-    -- opts = {
-    --   transparent = false,
-    -- },
+    opts = {
+      transparent = false,
+    },
   },
   {
     "LazyVim/LazyVim",
