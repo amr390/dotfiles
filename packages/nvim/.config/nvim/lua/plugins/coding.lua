@@ -81,51 +81,10 @@ return {
     },
   },
   {
-    "yetone/avante.nvim",
-    event = "VeryLazy",
-    version = false, -- Never set this value to "*"! Never!
-    opts = {
-      provider = "gemini",
-      -- provider = "copilot",
-      -- provider = "openai",
-    },
-    build = "make",
-    dependencies = {
-      "nvim-treesitter/nvim-treesitter",
-      "stevearc/dressing.nvim",
-      "nvim-lua/plenary.nvim",
-      "MunifTanjim/nui.nvim",
-      "nvim-mini/mini.pick", -- for file_selector provider mini.pick
-      "ibhagwan/fzf-lua", -- for file_selector provider fzf
-      "nvim-tree/nvim-web-devicons",
-      {
-        -- support for image pasting
-        "HakonHarnes/img-clip.nvim",
-        event = "VeryLazy",
-        opts = {
-          default = {
-            embed_image_as_base64 = false,
-            prompt_for_file_name = false,
-            drag_and_drop = {
-              insert_mode = true,
-            },
-            use_absolute_path = true,
-          },
-        },
-      },
-      {
-        "MeanderingProgrammer/render-markdown.nvim",
-        opts = {
-          file_types = { "markdown", "Avante" },
-        },
-        ft = { "markdown", "Avante" },
-      },
-    },
-  },
-  {
     "olimorris/codecompanion.nvim",
-    version = "^18.0.0",
     opts = {},
+    lazy = true,
+    enabled = true,
     dependencies = {
       "nvim-lua/plenary.nvim",
       "nvim-treesitter/nvim-treesitter",
@@ -191,49 +150,4 @@ return {
       })
     end,
   },
-  -- Debug support for JavaScript and TypeScript (including Next.js)
-  -- {
-  --   "mxsdev/nvim-dap-vscode-js",
-  --   dependencies = { "mfussenegger/nvim-dap" },
-  --   event = "VeryLazy",
-  --   config = function()
-  --     require("dap-vscode-js").setup({
-  --       -- Path to vscode-js-debug install, adjust if needed
-  --       debugger_path = vim.fn.stdpath("data") .. "/dapinstall/js-debug",
-  --       adapters = { "pwa-node", "pwa-chrome", "pwa-msedge", "node-terminal", "pwa-extensionHost" },
-  --     })
-  --     for _, lang in ipairs({ "typescript", "javascript" }) do
-  --       require("dap").configurations[lang] = {
-  --         {
-  --           type = "pwa-node",
-  --           request = "launch",
-  --           name = "Launch Current File",
-  --           program = "${file}",
-  --           cwd = "${workspaceFolder}",
-  --         },
-  --         {
-  --           type = "pwa-node",
-  --           request = "launch",
-  --           name = "Debug Next.js (npm run dev)",
-  --           runtimeExecutable = "npm",
-  --           runtimeArgs = { "run", "dev" },
-  --           cwd = "${workspaceFolder}",
-  --           console = "integratedTerminal",
-  --         },
-  --         {
-  --           type = "pwa-chrome",
-  --           request = "launch",
-  --           name = "Launch Chrome",
-  --           url = "http://localhost:3000",
-  --           webRoot = "${workspaceFolder}",
-  --         },
-  --       }
-  --     end
-  --     -- Allow debugging from Snacks picker list buffers (fallback to JavaScript configs)
-  --     do
-  --       local dap = require("dap")
-  --       dap.configurations.snacks_picker_list = vim.deepcopy(dap.configurations.javascript)
-  --     end
-  --   end,
-  -- },
 }
