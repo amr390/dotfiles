@@ -11,6 +11,11 @@ return {
     "LazyVim/LazyVim",
     opts = {
       colorscheme = "solarized-osaka",
+      news = {
+        lazyvim = false,
+        neovim = false,
+      },
     },
   },
 }
+

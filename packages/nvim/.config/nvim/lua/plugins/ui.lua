@@ -1,8 +1,11 @@
 return {
-  -- Configure LazyVim to load solarized
+  -- Consolidate Snacks.nvim configuration
   {
-    "snacks.nvim",
+    "folke/snacks.nvim",
     opts = {
+      scroll = {
+        enabled = false, -- Disable scrolling animations (User Preference)
+      },
       dashboard = {
         preset = {
           header = [[                               
@@ -32,3 +35,4 @@ return {
     },
   },
 }
+
