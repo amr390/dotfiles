@@ -2,23 +2,56 @@
 
 # Set session name
 SESSION="Console"
-SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
-if [[ $# -eq 1 ]]; then
-  WORKDIR=$1
+typeset -a COMMAND_ARGS
+
+if [[ $# -ge 1 ]]; then
+  WORKDIR="$1"
+  shift
 fi
 
+if [[ $# -gt 0 ]]; then
+  COMMAND_ARGS=("$@")
+fi
+
+build_pane_command() {
+  local workdir="$1"
+  shift
+  local -a command_args=("$@")
+  local pane_command=""
+
+  if [[ -n "$workdir" ]]; then
+    pane_command="cd ${(q)workdir}"
+  fi
+
+  if (( ${#command_args[@]} > 0 )); then
+    local command_string="${(j: :)${(q)command_args[@]}}"
+    if [[ -n "$pane_command" ]]; then
+      pane_command="$pane_command && $command_string"
+    else
+      pane_command="$command_string"
+    fi
+  fi
+
+  printf '%s' "$pane_command"
+}
+
+FIRST_PANE_COMMAND="$(build_pane_command "$WORKDIR" "${COMMAND_ARGS[@]}")"
+WORKDIR_COMMAND="$(build_pane_command "$WORKDIR")"
+SESSION_CREATED=0
+
 # Only create a tmux session if it doesn't already exist
-if [ "$SESSIONEXISTS" = "" ]; then
+if ! tmux has-session -t "$SESSION" 2>/dev/null; then
+  SESSION_CREATED=1
   # start new session with our name
-  tmux new-session -d -s $SESSION
+  tmux new-session -d -s "$SESSION"
 
   # Name first Pane and start ssh
-  tmux rename-window -t 1 'Console'
-  [[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
+  tmux rename-window -t "$SESSION:1" 'Console'
+  [[ -n "$FIRST_PANE_COMMAND" ]] && tmux send-keys -t 'Console' "$FIRST_PANE_COMMAND" 'C-m'
   tmux split-window -v
-  [[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
+  [[ -n "$WORKDIR_COMMAND" ]] && tmux send-keys -t 'Console' "$WORKDIR_COMMAND" 'C-m'
   tmux split-window -h
-  [[ $WORKDIR ]] && tmux send-keys -t 'Console' "cd $WORKDIR" 'C-m'
+  [[ -n "$WORKDIR_COMMAND" ]] && tmux send-keys -t 'Console' "$WORKDIR_COMMAND" 'C-m'
   tmux resize-pane -D 5
 
   # Create and setup pane for NVIM
@@ -26,7 +59,11 @@ if [ "$SESSIONEXISTS" = "" ]; then
   # tmux send-keys -t 'IDE' "cd $WORKDIR/server/ioctl && poetry shell" 'C-m'
 fi
 
+if [[ $SESSION_CREATED -eq 0 && -n "$FIRST_PANE_COMMAND" ]]; then
+  tmux send-keys -t "$SESSION:Console.0" "$FIRST_PANE_COMMAND" 'C-m'
+fi
+
 # gnome-terminal --working-directory=$WORKDIR/server/ioctl
 
 # Attach session, on Main Window
-tmux attach-session -t $SESSION
+tmux attach-session -t "$SESSION"
