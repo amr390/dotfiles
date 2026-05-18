@@ -83,11 +83,11 @@ alias mach_java_mode="export SDKMAN_DIR="$HOME/.sdkman" && [[ -s "$HOME/.sdkman/
 
 alias mdbackups='cd $HOME/Documents/Manning/data/db_backups'
 
-DC_HOME="$PROJECTS/sandbox/dcara"
+DC_HOME="$PROJECTS/Labs/Sandbox/dcara"
 # alias vb3="cd $VB_HOME && workon vb3"
 alias dc="cd $DC_HOME"
 
-VB_HOME="$PROJECTS/spoonsdevs/vatbook"
+VB_HOME="$PROJECTS/Work/Spoonsdevs/vatbook"
 # alias vb3="cd $VB_HOME && workon vb3"
 alias vb3="cd $VB_HOME"
 alias vb3a="cd $VB_HOME && source .venv/bin/activate"
@@ -111,18 +111,18 @@ alias mountgdam="rclone mount gd_a.mas.rodriguez: ~/Documents/net/gd_a.mas.rodri
 alias mountgdan="rclone mount gd_anma: ~/Documents/net/gd_anma"
 
 
-TC_HOME="$PROJECTS/sandbox/timecop"
-TC_REST="$PROJECTS/sandbox/timecop/timecop-rest/"
-TC_CLI="$PROJECTS/sandbox/timecop/timecop-cli/"
+TC_HOME="$PROJECTS/Labs/Sandbox/timecop"
+TC_REST="$PROJECTS/Labs/Sandbox/timecop/timecop-rest/"
+TC_CLI="$PROJECTS/Labs/Sandbox/timecop/timecop-cli/"
 
 #DEVELOP
-IO_HOME="$PROJECTS/sandbox/ioCtl"
+IO_HOME="$PROJECTS/Labs/Sandbox/ioCtl"
 alias ioctl="cd $IO_HOME"
 
 alias tc-run="cd $TC_REST && source env/bin/activate && flask run"
 alias tc-serve="cd $TC_CLI && ionic serve"
 
-SAT_HOME="$PROJECTS/spoonsdevs/sat8485"
+SAT_HOME="$PROJECTS/Work/Spoonsdevs/sat8485"
 alias sat="cd $SAT_HOME"
 
 #STAGING

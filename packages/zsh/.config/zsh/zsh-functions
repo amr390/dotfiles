@@ -4,16 +4,7 @@ function zsh_add_file() {
 }
 
 function zsh_add_plugin() {
-    # PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
-    # if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then 
-    #     # For plugins
-    #     zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh" || \
-    #     zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.zsh"
-    # else
-    #     git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
-    # fi
-
-  # pretty output
+    # pretty output
     local c_reset="\033[0m" c_red="\033[1;31m" c_green="\033[1;32m"
 
     local PLUGIN_NAME="${1##*\/}"
@@ -35,19 +26,33 @@ function zsh_add_plugin() {
 }
 
 function zsh_add_completion() {
-    PLUGIN_NAME=$(echo $1 | cut -d "/" -f 2)
-    if [ -d "$ZDOTDIR/plugins/$PLUGIN_NAME" ]; then 
-        # For completions
-		completion_file_path=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
-		fpath+="$(dirname "${completion_file_path}")"
-        zsh_add_file "plugins/$PLUGIN_NAME/$PLUGIN_NAME.plugin.zsh"
-    else
-        git clone "https://github.com/$1.git" "$ZDOTDIR/plugins/$PLUGIN_NAME"
-		fpath+=$(ls $ZDOTDIR/plugins/$PLUGIN_NAME/_*)
-        [ -f $ZDOTDIR/.zccompdump ] && $ZDOTDIR/.zccompdump
+    local plugin_repo=$1
+    local init_compinit=$2
+    local plugin_name="${plugin_repo##*/}"
+    local plugin_dir="${ZDOTDIR:-$HOME/.config/zsh}/plugins/$plugin_name"
+
+    # Ensure plugin is cloned and sourced
+    zsh_add_plugin "$plugin_repo"
+
+    # Add to fpath if there are any completion files (starting with _)
+    if [[ -d "$plugin_dir" ]]; then
+        local completions=($plugin_dir/_*)
+        if [[ -e ${completions[1]} ]]; then
+            # Add the directory to fpath if not already present
+            if [[ ${fpath[(ie)$plugin_dir]} != 0 ]]; then
+                fpath=($plugin_dir $fpath)
+            fi
+        fi
     fi
-	completion_file="$(basename "${completion_file_path}")"
-	if [ "$2" = true ] && compinit "${completion_file:1}"
+
+    # If requested, run compinit on the first completion file found
+    if [[ "$init_compinit" == "true" ]]; then
+        local completions=($plugin_dir/_*)
+        if [[ -e ${completions[1]} ]]; then
+            local filename=${completions[1]:t}
+            compinit "${filename:1}"
+        fi
+    fi
 }
 
 function set-title() {
@@ -56,14 +61,4 @@ function set-title() {
   fi
   TITLE="\[\e]2;$*\a\]"
   PS1=${ORIG}${TITLE}
-}
-
-function override_logo()
-{
-  cp -f ~/Pictures/themes/icons/activities.svg ~/.local/share/gnome-shell/extensions/logomenu@aryan_k/Resources/void-logo.svg
-  cp -f ~/Pictures/themes/icons/activities.svg ~/.local/share/gnome-shell/extensions/logomenu@aryan_k/Resources/void-logo-symbolic.svg
-  cp -f ~/Pictures/themes/icons/activities.svg ~/.local/share/gnome-shell/extensions/logomenu@aryan_k/Resources/hicolor/16x16/actions/void-logo.svg
-  cp -f ~/Pictures/themes/icons/activities.svg ~/.local/share/gnome-shell/extensions/logomenu@aryan_k/Resources/hicolor/16x16/actions/void-logo-symbolic.svg
-  
-  alias cp='cp -i'
 }

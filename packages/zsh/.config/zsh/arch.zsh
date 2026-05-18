@@ -26,10 +26,25 @@ alias rcdq="rclone mount drive.dq: ~/Documents/net/gd_quijote/ --daemon"
 alias rcam="rclone mount drive.dq: ~/Documents/net/gd_a.mas.rodriguez/ --daemon"
 alias rcma="rclone mount drive.dq: ~/Documents/net/gd_anma/ --daemon"
 
-eval $(keychain --eval --quiet ~/.ssh/id_desktop_amasr ~/.ssh/id_desktop_manning)
-
 # Arch-specific exports
 export LS_COLORS='di=34:ln=35:so=32:pi=33:ex=31:bd=46;34:cd=43;34:su=41;30:sg=46;30:tw=42;30:ow=43;30'
 
 # Arch-specific PATH
 export PATH="/usr/local/bin:/usr/bin:/bin:/usr/local/sbin:/usr/sbin:/sbin:$PATH"
+
+function override_logo() {
+    local src="$HOME/Pictures/themes/icons/activities.svg"
+    if [[ -f "$src" ]]; then
+        cp -f "$src" ~/.local/share/gnome-shell/extensions/logomenu@aryan_k/Resources/void-logo.svg
+        cp -f "$src" ~/.local/share/gnome-shell/extensions/logomenu@aryan_k/Resources/void-logo-symbolic.svg
+        cp -f "$src" ~/.local/share/gnome-shell/extensions/logomenu@aryan_k/Resources/hicolor/16x16/actions/void-logo.svg
+        cp -f "$src" ~/.local/share/gnome-shell/extensions/logomenu@aryan_k/Resources/hicolor/16x16/actions/void-logo-symbolic.svg
+    fi
+    alias cp='cp -i'
+}
+
+# Optimized keychain startup
+if [[ -z "$SSH_AUTH_SOCK" ]]; then
+    eval $(keychain --eval --quiet --no-ask ~/.ssh/id_desktop_amasr ~/.ssh/id_desktop_manning)
+fi
+
