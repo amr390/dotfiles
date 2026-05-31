@@ -1,38 +1,24 @@
 #!/bin/zsh
 
-# Set session name
-SESSION="Console"
-SESSIONEXISTS=$(tmux list-sessions | grep $SESSION)
-WORKDIR=~/Projects
-if [[ $# -eq 1 ]]; then
-  WORKDIR=$1
-fi
+# Generate a unique session name
+SESSION="dev-$(date +%s)"
 
-# activate the virtual environment
-# cd $WORKDIR
-# if [[ "$OSTYPE" == "darwin"* ]]; then
-# 	$(poetry env activate)
-# else
-# 	poetry shell
-# fi
+# Create a new detached session with a window named 'IDE'
+tmux new-session -d -s "$SESSION" -n 'IDE'
 
-# Only create a tmux session if it doesn't already exist
-if [ "$SESSIONEXISTS" = "" ]; then
-  cd $WORKDIR
+# Split the window horizontally: 70% Left, 30% Right
+tmux split-window -h -p 30
 
-  # start new session with our name
-  tmux new-session -d -s $SESSION
+# Move back to the left pane and split it vertically: 70% Top, 30% Bottom
+tmux select-pane -L
+tmux split-window -v -p 30
 
-  # Name first Pane and start ssh
-  tmux rename-window -t 1 'IDE'
-  tmux send-keys -t $SESSION -c $WORKDIR "v" 'C-m'
-  tmux split-window -v
-  tmux send-keys -t $SESSION -c $WORKDIR 'C-m'
-  tmux resize-pane -D 5
-  tmux select-pane -U
-  tmux new-window -t $SESSION:2 -n 'AI'
-  tmux send-keys -t $SESSION "cd $WORKDIR;" 'C-m'
-fi
+# Move focus back to the top-left pane
+tmux select-pane -U
 
-# Attach session, on Main Window
-tmux attach-session -t $SESSION
+sleep 0.1
+# Start nvim in the top-left pane
+tmux send-keys "nvim" C-m
+
+# Attach to the session
+tmux attach-session -t "$SESSION"
