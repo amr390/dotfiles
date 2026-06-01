@@ -24,7 +24,7 @@ alias groovyConsole="GTK_THEME=light groovyConsole"
 if [[ $(uname) == "Darwin" ]]; then
   alias o="open"
 else
-  alias o="gnome-open"
+  alias o="xdg-open"
 fi
 
 # Colorize grep output (good for log files)
