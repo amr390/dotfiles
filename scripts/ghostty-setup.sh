@@ -12,6 +12,9 @@ elif [[ -f /etc/arch-release ]]; then
 elif [[ -f /etc/debian_version ]]; then
     ln -sf config.arch "$GHOSTTY_DIR/config.os"
     echo "Ghostty: Linked Debian config (using Arch settings)"
+elif [[ -f /etc/fedora-release ]]; then
+    ln -sf config.arch "$GHOSTTY_DIR/config.os"
+    echo "Ghostty: Linked Fedora config (using Arch settings)"
 else
     ln -sf config.arch "$GHOSTTY_DIR/config.os"
     echo "Ghostty: Linked generic Linux config"

@@ -107,6 +107,8 @@ elif [[ -f /etc/debian_version ]]; then
     zsh_add_file "debian.zsh"
 elif [[ -f /etc/arch-release ]]; then
     zsh_add_file "arch.zsh"
+elif [[ -f /etc/fedora-release ]]; then
+    zsh_add_file "fedora.zsh"
 fi
 
 # Plugins

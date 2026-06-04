@@ -11,6 +11,8 @@ elif [[ -f /etc/debian_version ]]; then
     source ~/.config/zsh/debian.zsh
 elif [[ -f /etc/arch-release ]]; then
     source ~/.config/zsh/arch.zsh
+elif [[ -f /etc/fedora-release ]]; then
+    source ~/.config/zsh/fedora.zsh
 fi
 ```
 
@@ -20,7 +22,8 @@ packages/zsh/.config/zsh/
 ├── common.zsh      # Shared across all systems
 ├── macos.zsh       # macOS-specific
 ├── debian.zsh      # Debian-specific
-└── arch.zsh        # Arch-specific
+├── arch.zsh        # Arch-specific
+└── fedora.zsh      # Fedora-specific
 ```
 
 ## Alternative: Separate branches per system
