@@ -1,6 +1,6 @@
 #!/bin/sh
 
-DOTFILES=$HOME/Documents/dotfiles
+DOTFILES=$HOME/.dotfiles
 PROJECTS=$HOME/Projects
 TODAY=$(date +%Y-%m-%d)
 
@@ -74,7 +74,9 @@ function gm() {
 
 
 # systemd
-alias mach_list_systemctl="systemctl list-unit-files --state=enabled"
+if command -v systemctl >/dev/null 2>&1; then
+  alias mach_list_systemctl="systemctl list-unit-files --state=enabled"
+fi
 
 alias mach_java_mode="export SDKMAN_DIR="$HOME/.sdkman" && [[ -s "$HOME/.sdkman/bin/sdkman-init.sh" ]] && source "$HOME/.sdkman/bin/sdkman-init.sh""
 

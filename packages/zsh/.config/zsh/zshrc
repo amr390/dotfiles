@@ -1,4 +1,4 @@
-#!/bin/sh
+#!/bin/zsh
 DEBUG=false
 
 # Initialize locale and support true color in terminal and tmux
