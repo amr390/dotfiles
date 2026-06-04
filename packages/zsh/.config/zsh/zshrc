@@ -91,7 +91,8 @@ bindkey -r "^d"
 # [ -f /usr/share/doc/fzf/examples/completion.zsh ] && source /usr/share/doc/fzf/examples/completion.zsh
 # [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 
-[ -f ~/.fzf.zsh ] && source ~/.fzf.zsh
+zsh_add_file "fzf.sh"
+zsh_add_file "completion.zsh"
 [ -d $ZDOTDIR/.zfunc/completion/ ] && fpath+="$ZDOTDIR/.zfunc/completion/"
 # export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
 
