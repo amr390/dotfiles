@@ -41,7 +41,7 @@ zstyle ':completion:*' menu select
 zmodload zsh/complist
 
 # Cache compinit to speed up shell startup
-if [[ -f "$ZDOTDIR/.zcompdump" ]]; then
+if [[ -n "$ZDOTDIR/.zcompdump(#qN.m-1)" ]]; then
   compinit -C
 else
   compinit

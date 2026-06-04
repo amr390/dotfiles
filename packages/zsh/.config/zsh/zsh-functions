@@ -62,3 +62,21 @@ function set-title() {
   TITLE="\[\e]2;$*\a\]"
   PS1=${ORIG}${TITLE}
 }
+
+# Project Jump function using fzf
+function p() {
+  local project_dirs=(
+    "$HOME/Projects"
+    "$HOME/Documents"
+  )
+  
+  # Find directories up to 2 levels deep, excluding common junk
+  local selected=$(find "${project_dirs[@]}" -maxdepth 3 -mindepth 1 -type d \
+    \( -name ".git" -o -name "node_modules" -o -name ".venv" -o -name "target" -o -name "build" \) -prune \
+    -o -print 2>/dev/null | fzf --height 40% --reverse --border --prompt="Jump to project > ")
+
+  if [[ -n "$selected" ]]; then
+    cd "$selected"
+  fi
+}
+
