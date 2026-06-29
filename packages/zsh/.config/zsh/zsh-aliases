@@ -83,7 +83,7 @@ alias mach_java_mode="export SDKMAN_DIR="$HOME/.sdkman" && [[ -s "$HOME/.sdkman/
 [[ -f $DOTFILES/bash/private-aliases ]] && source $DOTFILES/bash/private-aliases
 [[ -f $DOTFILES/bash/aliases-manning ]] && source $DOTFILES/bash/aliases-manning
 
-alias mdbackups='cd $HOME/Documents/Manning/data/db_backups'
+alias mdbackups='cd $HOME/Documents/Professional/Manning/data/db_backups'
 
 DC_HOME="$PROJECTS/Labs/Sandbox/dcara"
 # alias vb3="cd $VB_HOME && workon vb3"
