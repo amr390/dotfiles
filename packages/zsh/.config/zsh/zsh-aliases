@@ -25,6 +25,7 @@ if [[ $(uname) == "Darwin" ]]; then
   alias o="open"
 else
   alias o="xdg-open"
+  alias open="xdg-open"
 fi
 
 # Colorize grep output (good for log files)
