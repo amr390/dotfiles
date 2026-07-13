@@ -3,6 +3,7 @@
 DOTFILES=$HOME/.dotfiles
 PROJECTS=$HOME/Projects
 TODAY=$(date +%Y-%m-%d)
+UUID="${$(uuidgen):0:4}"
 
 alias ..="cd ../"
 alias ...="cd ../.."
@@ -12,7 +13,7 @@ alias fdp="fd --type f --hidden --follow --exclude .git --exclude node_modules -
 alias fdpp="ps aux | grep $1 | aws '{print $2}' | xargs kill -9"
 alias lbjstatq="eb ssh livebook-qa-env --command \"sudo jstat -gcutil \\\$(ps aux | grep tomcat | head -1 | awk '{print \\\$2}') 5s\""
 alias lbjstat="eb ssh livebook-prod-env --command \"sudo jstat -gcutil \\\$(ps aux | grep tomcat | head -1 | awk '{print \\\$2}') 5s\""
-
+alias pasteimg="wl-paste -t image/png > img-$UUID.png && o img-$UUID.png"
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 
 alias myip="curl http://ipecho.net/plain; echo"
@@ -25,6 +26,7 @@ if [[ $(uname) == "Darwin" ]]; then
   alias o="open"
 else
   alias o="xdg-open"
+  alias open="xdg-open"
 fi
 
 # Colorize grep output (good for log files)
