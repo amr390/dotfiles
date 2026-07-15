@@ -1,0 +1,52 @@
+" IdeaVim configuration
+
+set ideajoin
+set ignorecase
+set smartcase
+set incsearch
+set hlsearch
+set scrolloff=3
+
+let mapleader = ","
+let maplocalleader = ";"
+
+" Match terminal Vim navigation habits.
+noremap j gj
+noremap k gk
+nnoremap Y y$
+
+" Keep selection active when shifting indentation.
+vnoremap < <gv
+vnoremap > >gv
+
+" Toggle search highlighting.
+nnoremap <silent> <leader>/ :set invhlsearch<CR>
+
+" System clipboard helpers.
+nmap <leader>c "+y
+vmap <leader>c "+y
+nmap <leader>x "+x
+vmap <leader>x "+x
+nmap <leader>v "+gP
+
+" IntelliJ IDEA actions.
+nnoremap <C-e> :action ActivateProjectToolWindow<CR>
+nnoremap <leader>e :action SelectInProjectView<CR>
+nnoremap <C-p> :action GotoFile<CR>
+nnoremap <leader>ff :action FindUsages<CR>
+nnoremap <leader>r :action RenameElement<CR>
+nnoremap <localleader>gg :action GotoDeclaration<CR>
+nnoremap <localleader>gt :action GotoTypeDeclaration<CR>
+nnoremap <localleader>u :action ShowUsages<CR>
+
+
+Plug 'kana/vim-textobj-user'
+
+" a spec maps a name to a pattern and the keys that select it
+call textobj#user#plugin('datetime', {
+\   'date': {
+\     'pattern': '\<\d\d\d\d-\d\d-\d\d\>',
+\     'select': ['ad', 'id'],
+\   },
+\ })
+" now 'dad' deletes a date like 2013-03-16, and 'cid' changes it
