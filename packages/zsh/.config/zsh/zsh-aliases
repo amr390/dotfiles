@@ -64,13 +64,12 @@ alias dec="gpg --output v.mkv -d " $1
 
 function gm() {
   current="$(git branch --show-current)"
-  git checkout master
+  branch="master"
+  [[ $# -eq 1 ]] && [[ "$1" -eq "develop" ]] && branch="develop" && echo "$1"
+  git checkout $branch
   git pull
-  git checkout develop
-  git pull
-  git rebase master
   git checkout $current
-  git merge develop
+  git merge $branch
   git push
 }
 
