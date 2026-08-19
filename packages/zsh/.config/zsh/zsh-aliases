@@ -34,6 +34,8 @@ alias grep='grep --color=auto'
 alias egrep='grep -E --color=auto'
 alias fgrep='fgrep --color=auto'
 
+alias efbhp="cd ~/Documents/net/dq.drive/EfbHellPro"
+
 # confirm before overwriting something
 # alias cp="cp -i"
 alias mv='mv -i'
