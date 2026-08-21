@@ -79,12 +79,6 @@ return {
     },
   },
 
-  -- AI Companion
-  {
-    "olimorris/codecompanion.nvim",
-    opts = {},
-  },
-
   -- Conform formatting
   {
     "stevearc/conform.nvim",
@@ -95,4 +89,3 @@ return {
     },
   },
 }
-
