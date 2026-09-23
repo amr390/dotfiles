@@ -9,7 +9,6 @@ fi
 
 # macOS-specific aliases
 alias ls='ls -G'
-alias ll='ls -alF'
 alias la='ls -A'
 alias l='ls -CF'
 
