@@ -1,11 +1,6 @@
 # macOS-specific configurations
 
-# Homebrew - must be first to set PATH correctly
-if [[ -f "/opt/homebrew/bin/brew" ]]; then
-    eval "$(/opt/homebrew/bin/brew shellenv)"
-elif [[ -f "/usr/local/bin/brew" ]]; then
-    eval "$(/usr/local/bin/brew shellenv)"
-fi
+# Homebrew's shellenv is evaluated early in zshrc (before nvm/compinit)
 
 # macOS-specific aliases
 alias ls='ls -G'

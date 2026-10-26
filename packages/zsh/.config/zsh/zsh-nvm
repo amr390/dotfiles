@@ -1,6 +1,44 @@
 export NVM_DIR="$HOME/.nvm"
-[ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh"  # This loads nvm
-[ -s "$NVM_DIR/bash_completion" ] && \. "$NVM_DIR/bash_completion"  # This loads nvm bash_completion
+
+# nvm breaks under `setopt extendedglob` (nvm_alias fails with "bad pattern: #*"),
+# so the default alias never resolves and no nvm node lands on PATH. Run nvm with
+# extendedglob off, both while loading it and on every later `nvm` call.
+#
+# `nvm use default` at load time costs ~400ms per shell, so nvm is loaded with
+# --no-use and the default version's bin dir is put on PATH directly (see below).
+() {
+  setopt local_options no_extended_glob
+  [ -s "$NVM_DIR/nvm.sh" ] && \. "$NVM_DIR/nvm.sh" --no-use  # This loads nvm
+  # nvm's completion is a bash script; bashcompinit lets zsh run it (needs compinit to have run)
+  autoload -U +X bashcompinit && bashcompinit
+  # A git/curl install keeps it in $NVM_DIR; Homebrew's nvm ships it under its prefix
+  local _nvm_comp
+  for _nvm_comp in "$NVM_DIR/bash_completion" \
+      /opt/homebrew/opt/nvm/etc/bash_completion.d/nvm \
+      /usr/local/opt/nvm/etc/bash_completion.d/nvm; do
+    [ -s "$_nvm_comp" ] && { \. "$_nvm_comp"; break; }  # This loads nvm bash_completion
+  done
+}
+if (( $+functions[nvm] )); then
+  functions -c nvm _nvm_unwrapped
+  nvm() {
+    setopt local_options no_extended_glob
+    _nvm_unwrapped "$@"
+  }
+
+  # Fast equivalent of `nvm use default` for numeric aliases (e.g. `25` or `25.2.1`);
+  # anything else (lts/*, node, ...) falls back to the real thing.
+  () {
+    setopt local_options numeric_glob_sort
+    local v dirs
+    [[ -r $NVM_DIR/alias/default ]] && v=${$(<$NVM_DIR/alias/default)#v}
+    if [[ $v =~ ^[0-9.]+$ ]]; then
+      dirs=($NVM_DIR/versions/node/v$v(N/) $NVM_DIR/versions/node/v$v.*(N/on))
+      (( $#dirs )) && path=($dirs[-1]/bin $path) && return
+    fi
+    [[ -n $v ]] && nvm use --silent default >/dev/null 2>&1
+  }
+fi
 
 # lazynvm() {
 #   unset -f nvm node npm npx

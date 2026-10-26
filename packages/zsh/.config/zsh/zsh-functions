@@ -39,7 +39,7 @@ function zsh_add_completion() {
         local completions=($plugin_dir/_*)
         if [[ -e ${completions[1]} ]]; then
             # Add the directory to fpath if not already present
-            if [[ ${fpath[(ie)$plugin_dir]} != 0 ]]; then
+            if (( ! ${fpath[(Ie)$plugin_dir]} )); then
                 fpath=($plugin_dir $fpath)
             fi
         fi

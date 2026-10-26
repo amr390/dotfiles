@@ -15,16 +15,23 @@ log() {
   $DEBUG && echo "$1" && print_time
 }
 
-export HISTFILESIZE=10000
-export HISTSIZE=1000
-export SAVEHIST=1000
+# Homebrew must come before nvm/sdkman (loaded from zsh-exports) so that
+# /opt/homebrew/bin does not shadow the nvm-managed node, and before compinit
+# so its site-functions are on fpath.
+if [[ "$OSTYPE" == "darwin"* ]]; then
+  if [[ -x /opt/homebrew/bin/brew ]]; then
+    eval "$(/opt/homebrew/bin/brew shellenv)"
+  elif [[ -x /usr/local/bin/brew ]]; then
+    eval "$(/usr/local/bin/brew shellenv)"
+  fi
+fi
+
+export HISTSIZE=50000
+export SAVEHIST=50000
 export HISTFILE="$ZDOTDIR/.zsh_history"
 # export HISTTIMEFORMAT="[%F %T] "
 # setopt EXTENDED_HISTORY
-# setopt HIST_FIND_NO_DUPS
-# One of the following 2 lines.
-# setopt -o sharehistory
-# setopt INC_APPEND_HISTORY
+setopt share_history hist_ignore_dups hist_ignore_space
 
 # some useful options (man zshoptions)
 setopt autocd extendedglob nomatch menucomplete
@@ -35,13 +42,22 @@ zle_highlight=('paste:none')
 # beeping is annoying
 unsetopt BEEP
 
+# Useful Functions (zsh_add_completion is needed before compinit)
+source "$ZDOTDIR/zsh-functions"
+
 # completions
+# Every fpath addition must happen before compinit, otherwise its completions
+# are never registered.
+[ -d "$ZDOTDIR/.zfunc/completion" ] && fpath+="$ZDOTDIR/.zfunc/completion"
+zsh_add_completion "esc/conda-zsh-completion" false
+
 autoload -Uz compinit
 zstyle ':completion:*' menu select
 zmodload zsh/complist
 
-# Cache compinit to speed up shell startup
-if [[ -n "$ZDOTDIR/.zcompdump(#qN.m-1)" ]]; then
+# Reuse the cached dump for up to 24h (fast), then rebuild it so newly
+# installed completions show up
+if [[ -n $ZDOTDIR/.zcompdump(#qN.mh-24) ]]; then
   compinit -C
 else
   compinit
@@ -55,9 +71,6 @@ zle -N down-line-or-beginning-search
 
 # Colors
 autoload -Uz colors && colors
-
-# Useful Functions
-source "$ZDOTDIR/zsh-functions"
 
 # Normal files to source
 log "loading aliases"
@@ -92,8 +105,13 @@ bindkey -r "^d"
 # [ -f /usr/share/doc/fzf/examples/key-bindings.zsh ] && source /usr/share/doc/fzf/examples/key-bindings.zsh
 
 zsh_add_file "fzf.sh"
-zsh_add_file "completion.zsh"
-[ -d $ZDOTDIR/.zfunc/completion/ ] && fpath+="$ZDOTDIR/.zfunc/completion/"
+# fzf >= 0.48 ships its own shell integration; older installs fall back to the
+# per-OS lookup in fzf.zsh
+if (( $+commands[fzf] )) && fzf --zsh &>/dev/null; then
+  source <(fzf --zsh)
+else
+  zsh_add_file "fzf.zsh"
+fi
 # export FZF_DEFAULT_COMMAND='rg --hidden -l ""'
 
 
@@ -111,9 +129,19 @@ elif [[ -f /etc/fedora-release ]]; then
     zsh_add_file "fedora.zsh"
 fi
 
+# codex ships its own completion script. Running it costs ~100ms (node), so
+# cache it and regenerate when the codex install changes.
+if (( $+commands[codex] )); then
+  _codex_comp="${XDG_CACHE_HOME:-$HOME/.cache}/zsh/_codex"
+  if [[ ! -s $_codex_comp || ${commands[codex]:A} -nt $_codex_comp ]]; then
+    mkdir -p ${_codex_comp:h} && codex completion zsh >| $_codex_comp 2>/dev/null
+  fi
+  [[ -s $_codex_comp ]] && source $_codex_comp
+  unset _codex_comp
+fi
+
 # Plugins
 zsh_add_plugin "hlissner/zsh-autopair"
-zsh_add_completion "esc/conda-zsh-completion" false
 
 # These two MUST be sourced last
 zsh_add_plugin "zsh-users/zsh-autosuggestions"

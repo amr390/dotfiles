@@ -19,3 +19,4 @@ bin/.ropeproject*
 packages/ghostty/.config/ghostty/config.os
 
 .DS_Store
+**/zsh/.config/zsh/.zcompcache
