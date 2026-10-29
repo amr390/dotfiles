@@ -6,7 +6,7 @@ vim.g.mapleader = ","
 vim.g.maplocalleader = "."
 
 -- LazyVim root dir detection
-vim.g.root_spec = { "lsp", { ".git", "lua" }, "cwd" }
+vim.g.root_spec = { "lsp", { ".git", "lua", "build.gradle", "build.gradle.kts", "settings.gradle", "settings.gradle.kts", "gradlew" }, "cwd" }
 
 -- Set LSP servers to be ignored for root detection
 vim.g.root_lsp_ignore = { "copilot" }

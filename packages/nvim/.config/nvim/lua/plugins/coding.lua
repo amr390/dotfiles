@@ -63,6 +63,21 @@ return {
           },
         })
       end
+
+      -- Groovy/Grails: attach to remote JVM debug session
+      -- Start the app with: ./gradlew bootRun --debug-jvm  (or: grails -debug run-app)
+      -- Then use this to attach on port 5005
+      if not dap.configurations.groovy then
+        dap.configurations.groovy = {
+          {
+            type = "java",
+            request = "attach",
+            name = "Debug (Attach) - Remote",
+            hostName = "127.0.0.1",
+            port = 5005,
+          },
+        }
+      end
     end,
   },
 
@@ -85,7 +100,25 @@ return {
     opts = {
       formatters_by_ft = {
         html = { "prettier" },
+        groovy = { "npm-groovy-lint" },
       },
     },
+  },
+
+  -- Groovy linting via npm-groovy-lint
+  {
+    "mfussenegger/nvim-lint",
+    optional = true,
+    opts = {
+      linters_by_ft = {
+        groovy = { "npm-groovy-lint" },
+      },
+    },
+  },
+
+  -- Ensure Groovy/Gradle tooling is installed via Mason
+  {
+    "mason-org/mason.nvim",
+    opts = { ensure_installed = { "npm-groovy-lint" } },
   },
 }

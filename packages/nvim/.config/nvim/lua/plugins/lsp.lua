@@ -52,6 +52,26 @@ return {
             },
           },
         },
+
+        -- Groovy LSP for Grails/Groovy development
+        -- Auto-installed via Mason (groovy-language-server)
+        groovyls = {
+          -- Extend root markers beyond the default { "Jenkinsfile", ".git" }
+          -- so Grails/Gradle projects are detected even without a .git dir
+          root_markers = {
+            ".git",
+            "build.gradle",
+            "build.gradle.kts",
+            "settings.gradle",
+            "settings.gradle.kts",
+            "gradlew",
+            "Jenkinsfile",
+          },
+        },
+
+        -- Gradle LSP for build.gradle / settings.gradle intelligence
+        -- Auto-installed via Mason (gradle-language-server)
+        gradle_ls = {},
       },
     },
   },
