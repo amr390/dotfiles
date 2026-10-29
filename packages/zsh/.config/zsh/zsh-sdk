@@ -10,5 +10,3 @@ sdk() {
   sdk $@
 }
 
-# disabling lazy load
-lazysdk

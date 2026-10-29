@@ -31,7 +31,7 @@ alias vi="npm &> /dev/null; nvim"
 alias v="npm &> /dev/null; nvim"
 alias groovyConsole="GTK_THEME=light groovyConsole"
 
-if [[ $(uname) == "Darwin" ]]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
   alias o="open"
 else
   alias o="xdg-open"
@@ -86,7 +86,7 @@ function gm() {
 
 
 # systemd
-if command -v systemctl >/dev/null 2>&1; then
+if (( $+commands[systemctl] )); then
   alias mach_list_systemctl="systemctl list-unit-files --state=enabled"
 fi
 
@@ -276,4 +276,3 @@ use_git_manning() {
 [[ -f $ZDOTDIR/zsh-private ]] && source $ZDOTDIR/zsh-private
 [[ -f $ZDOTDIR/private-manning-aliases ]] && source $ZDOTDIR/private-manning-aliases
 [[ -f $ZDOTDIR/zsh-tmp ]] && source $ZDOTDIR/zsh-tmp
-[[ -f $ZDOTDIR/zsh-private-keys ]] && source $ZDOTDIR/zsh-private-keys

@@ -17,4 +17,5 @@ source "$ZDOTDIR/zshrc"
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
 
 # Hermes Agent — ensure ~/.local/bin is on PATH
-export PATH="$HOME/.local/bin:$PATH"
+# (already prepended in zsh-exports, kept here as a safety net for shells that
+#  source .zshrc but skip zsh-exports somehow)
