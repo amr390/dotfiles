@@ -4,7 +4,7 @@
 # Determine the fzf base directory based on OS and installation method
 if [[ "$OSTYPE" == "darwin"* ]]; then
   # macOS with Homebrew
-  if command -v brew >/dev/null 2>&1; then
+  if (( $+commands[brew] )); then
     FZF_BASE=$(brew --prefix fzf)
   fi
 else

@@ -26,14 +26,19 @@ if (( $+functions[nvm] )); then
     _nvm_unwrapped "$@"
   }
 
-  # Fast equivalent of `nvm use default` for numeric aliases (e.g. `25` or `25.2.1`);
-  # anything else (lts/*, node, ...) falls back to the real thing.
+  # Fast equivalent of `nvm use default` for numeric aliases (e.g. `25` or
+  # `25.2.1`); "node"/"latest" resolves to the newest installed version;
+  # anything else (lts/*, ...) falls back to the real thing.
   () {
     setopt local_options numeric_glob_sort
     local v dirs
     [[ -r $NVM_DIR/alias/default ]] && v=${$(<$NVM_DIR/alias/default)#v}
     if [[ $v =~ ^[0-9.]+$ ]]; then
       dirs=($NVM_DIR/versions/node/v$v(N/) $NVM_DIR/versions/node/v$v.*(N/on))
+      (( $#dirs )) && path=($dirs[-1]/bin $path) && return
+    fi
+    if [[ $v == "node" || $v == "latest" ]]; then
+      dirs=($NVM_DIR/versions/node/v[0-9]*(N/on))
       (( $#dirs )) && path=($dirs[-1]/bin $path) && return
     fi
     [[ -n $v ]] && nvm use --silent default >/dev/null 2>&1

@@ -2,9 +2,9 @@
 # fzf
 # ===
 
-if command -v fd >/dev/null 2>&1; then
+if (( $+commands[fd] )); then
   export FZF_DEFAULT_COMMAND='fd --type f --hidden --follow --strip-cwd-prefix --exclude .git'
-elif command -v fdfind >/dev/null 2>&1; then
+elif (( $+commands[fdfind] )); then
   export FZF_DEFAULT_COMMAND='fdfind --type f --hidden --follow --strip-cwd-prefix --exclude .git'
 fi
 

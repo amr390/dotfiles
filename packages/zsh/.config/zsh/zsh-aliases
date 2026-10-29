@@ -3,7 +3,7 @@
 DOTFILES=$HOME/.dotfiles
 PROJECTS=$HOME/Projects
 TODAY=$(date +%Y-%m-%d)
-UUID="${$(uuidgen):0:4}"
+
 
 alias ..="cd ../"
 alias ...="cd ../.."
@@ -13,7 +13,16 @@ alias fdp="fd --type f --hidden --follow --exclude .git --exclude node_modules -
 alias fdpp="ps aux | grep $1 | aws '{print $2}' | xargs kill -9"
 alias lbjstatq="eb ssh livebook-qa-env --command \"sudo jstat -gcutil \\\$(ps aux | grep tomcat | head -1 | awk '{print \\\$2}') 5s\""
 alias lbjstat="eb ssh livebook-prod-env --command \"sudo jstat -gcutil \\\$(ps aux | grep tomcat | head -1 | awk '{print \\\$2}') 5s\""
-alias pasteimg="wl-paste -t image/png > img-$UUID.png && o img-$UUID.png"
+pasteimg() {
+  local uid
+  if command -v uuidgen >/dev/null 2>&1; then
+    uid="$(uuidgen | cut -c1-4)"
+  else
+    uid="$(date +%s | tail -c 5)"
+  fi
+  local img="img-$uid.png"
+  wl-paste -t image/png > "$img" && o "$img"
+}
 alias zsh-update-plugins="find "$ZDOTDIR/plugins" -type d -exec test -e '{}/.git' ';' -print0 | xargs -I {} -0 git -C {} pull -q"
 
 alias myip="curl http://ipecho.net/plain; echo"
@@ -22,7 +31,7 @@ alias vi="npm &> /dev/null; nvim"
 alias v="npm &> /dev/null; nvim"
 alias groovyConsole="GTK_THEME=light groovyConsole"
 
-if [[ $(uname) == "Darwin" ]]; then
+if [[ "$OSTYPE" == "darwin"* ]]; then
   alias o="open"
 else
   alias o="xdg-open"
@@ -77,7 +86,7 @@ function gm() {
 
 
 # systemd
-if command -v systemctl >/dev/null 2>&1; then
+if (( $+commands[systemctl] )); then
   alias mach_list_systemctl="systemctl list-unit-files --state=enabled"
 fi
 
@@ -267,4 +276,3 @@ use_git_manning() {
 [[ -f $ZDOTDIR/zsh-private ]] && source $ZDOTDIR/zsh-private
 [[ -f $ZDOTDIR/private-manning-aliases ]] && source $ZDOTDIR/private-manning-aliases
 [[ -f $ZDOTDIR/zsh-tmp ]] && source $ZDOTDIR/zsh-tmp
-[[ -f $ZDOTDIR/zsh-private-keys ]] && source $ZDOTDIR/zsh-private-keys
