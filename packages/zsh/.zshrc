@@ -1,6 +1,6 @@
 
-# Kiro CLI pre block. Keep at the top of this file.
-[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.pre.zsh"
+# Added by Kiro CLI
+case ":$PATH:" in *":$HOME/.local/bin:"*) ;; *) export PATH="${PATH:+$PATH:}$HOME/.local/bin" ;; esac
 [[ -f "${HOME}/.config/kiro-cli/shell/zshrc.pre.zsh" ]] && builtin source "${HOME}/.config/kiro-cli/shell/zshrc.pre.zsh"
 
 # Set ZDOTDIR to point to our config directory
@@ -11,7 +11,6 @@ source "$ZDOTDIR/zshrc"
 
 # Kiro CLI post block. Keep at the bottom of this file.
 [[ -f "${HOME}/.config/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/.config/kiro-cli/shell/zshrc.post.zsh"
-[[ -f "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh" ]] && builtin source "${HOME}/Library/Application Support/kiro-cli/shell/zshrc.post.zsh"
 
 # Generated for envman. Do not edit.
 [ -s "$HOME/.config/envman/load.sh" ] && source "$HOME/.config/envman/load.sh"
