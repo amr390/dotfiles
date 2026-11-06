@@ -4,6 +4,7 @@
 # unless you have a wide-gamut display and a color-managed compositor.
 # Dynamic theme colors
 config-file = "~/.config/omarchy/current/theme/ghostty.conf"
+theme = solarized-osaka
 
 # Font
 font-family = "JetBrainsMono Nerd Font"
