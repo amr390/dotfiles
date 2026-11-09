@@ -3,6 +3,6 @@
 # theme = Catppuccin Mocha
 window-colorspace = display-p3
 # Enable the Command (Cmd) key for Alt/Meta functions
-macos-option-as-alt = true
+macos-option-as-alt = left
 # Optional: Mac specific titlebar style
 macos-titlebar-style = transparent
