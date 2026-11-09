@@ -12,8 +12,8 @@ font-feature = liga
 bold-is-bright = false
 
 # Window
-window-padding-x = 8
-window-padding-y = 8
+window-padding-x = 4
+window-padding-y = 4
 window-padding-balance = true
 window-theme = auto
 window-inherit-working-directory = true
