@@ -1,0 +1,47 @@
+# Theme (matches nvim solarized-osaka; overridden by config.os on arch/mac)
+theme = solarized-osaka
+
+# Font
+font-family = "JetBrainsMono Nerd Font"
+font-style = Regular
+font-size = 11
+font-thicken = true
+adjust-cell-height = 10%
+font-feature = calt
+font-feature = liga
+bold-is-bright = false
+
+# Window
+window-padding-x = 4
+window-padding-y = 4
+window-padding-balance = true
+window-theme = auto
+window-inherit-working-directory = true
+background-opacity = 0.92
+background-blur-radius = 24
+unfocused-split-opacity = 0.75
+minimum-contrast = 1.1
+
+confirm-close-surface=false
+resize-overlay = never
+
+# Cursor styling
+cursor-style = "block"
+cursor-style-blink = false
+shell-integration-features = no-cursor
+
+# Mouse / selection
+mouse-hide-while-typing = true
+copy-on-select = clipboard
+
+# Keyboard bindings
+keybind = f11=toggle_fullscreen
+keybind = shift+insert=paste_from_clipboard
+keybind = control+insert=copy_to_clipboard
+keybind = super+control+shift+alt+arrow_down=resize_split:down,100
+keybind = super+control+shift+alt+arrow_up=resize_split:up,100
+keybind = super+control+shift+alt+arrow_left=resize_split:left,100
+keybind = super+control+shift+alt+arrow_right=resize_split:right,100
+
+# Slowdown mouse scrolling
+# mouse-scroll-multiplier = 0.95
