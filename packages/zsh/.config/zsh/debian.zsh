@@ -1,9 +1,20 @@
 # Debian/Ubuntu-specific configurations
 
+
 # Debian-specific aliases
-alias ls='ls --color=auto'
-alias la='ls -A'
-alias l='ls -CF'
+if command -v eza >/dev/null 2>&1; then
+  # eza: icons require a Nerd Font in the terminal
+  alias ls='eza --icons=auto --group-directories-first'
+  alias la='eza -a --icons=auto --group-directories-first'
+  alias l='eza -F --icons=auto --group-directories-first'
+  alias ll='eza -l --icons=auto --group-directories-first --sort=size'
+else
+  alias ls='ls --color=auto'
+  alias la='ls -A'
+  alias l='ls -CF'
+
+fi
+
 alias grep='grep --color=auto'
 
 # Package management
