@@ -59,11 +59,9 @@ packages=("tmux" "git" "misc" "bin" "vim" "nvim" "zsh" "bash" "ghostty")
 for package in "${packages[@]}"; do
     if [[ -d "$package" ]]; then
         echo "Installing $package..."
-        stow -v "$package"
+        stow -v -t ~ "$package"
     fi
 done
-
-stow -v -t ~ tmux
 
 # Fix config links
 [[ ! -L ~/.config/zsh ]] && ln -sf $PACKAGES_DIR/zsh/.config/zsh ~/.config/zsh

@@ -8,20 +8,20 @@ PACKAGES_DIR="$DOTFILES_DIR/packages"
 echo "Installing dotfiles for Debian/Ubuntu..."
 
 # Install stow if not present
-if ! command -v stow &> /dev/null; then
-    echo "Installing GNU Stow..."
-    sudo apt update && sudo apt install -y stow
+if ! command -v stow &>/dev/null; then
+  echo "Installing GNU Stow..."
+  sudo apt update && sudo apt install -y stow
 fi
 
 cd "$PACKAGES_DIR"
 
-packages=("tmux" "git" "misc" "bin" "vim" "nvim" "zsh" "bash")
+packages=("tmux" "git" "misc" "bin" "vim" "nvim" "zsh" "bash" "ghostty")
 
 for package in "${packages[@]}"; do
-    if [[ -d "$package" ]]; then
-        echo "Installing $package..."
-        stow -v "$package"
-    fi
+  if [[ -d "$package" ]]; then
+    echo "Installing $package..."
+    stow -v "$package"
+  fi
 done
 
 # Fix config links
