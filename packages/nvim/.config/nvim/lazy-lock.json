@@ -11,7 +11,6 @@
   "catppuccin": { "branch": "main", "commit": "edefef779ab08ce1a4a404713e3012b0d202bd35" },
   "claudecode.nvim": { "branch": "main", "commit": "8bcc7bb816750405b624b4a4e05f9ef367715d1e" },
   "codecompanion.nvim": { "branch": "main", "commit": "e262a7b7777cfdd09b271326198ff5bdf1a4d754" },
-  "codeium.nvim": { "branch": "main", "commit": "821b570b526dbb05b57aa4ded578b709a704a38a" },
   "conform.nvim": { "branch": "master", "commit": "016802de402556da54c36bd7359b441266b01cdd" },
   "copilot.lua": { "branch": "master", "commit": "59403aefb11f2522217ac3926c9f262a2cf789d8" },
   "dial.nvim": { "branch": "master", "commit": "f2634758455cfa52a8acea6f142dcd6271a1bf57" },
